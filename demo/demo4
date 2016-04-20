@@ -1,0 +1,8 @@
+2 nombre d objet.
+3 nombre de lumiere.
+0 camera {centre $-60.0 $0.0 $0.0 dir $1.0 $0.0 $0.0 up $0.0 $0.0 $1.0 right $0.0 $-1.0 $0.0 distfo $200.0 }
+1 sphere {rayon $8.0 centre $50.0 $0.0 $0.0 couleur $0.50 $0.50 $0.50 brillance $0.50 }
+2 plan {normal $-1.0 $0.0 $0.0 centre $50.0 $0.0 $0.0 couleur $0.80 $0.80 $0.80  brillance $0.50 }
+-1 lumiere {centre $30.0 $0.0 $20.0 couleur $0.40 $0.0 $0.0 }
+-1 lumiere {centre $30.0 $10.0 $-7.0 couleur $0.0 $0.40 $0.0 }
+-1 lumiere {centre $30.0 $-10.0 $-7.0 couleur $0.0 $0.0 $0.40 }
