@@ -6,13 +6,13 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:02:02 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/21 21:30:18 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/21 22:49:15 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_vec3	*ft_normal_sphere(t_ray *ray, t_obj *obj)
+t_vec3	*normal_sphere(t_ray *ray, t_obj *obj)
 {
 	t_vec3	*res;
 
@@ -25,7 +25,7 @@ t_vec3	*ft_normal_sphere(t_ray *ray, t_obj *obj)
 	return (res);
 }
 
-t_vec3	*ft_normal_cyl(t_ray *ray, t_obj *obj)
+t_vec3	*normal_cyl(t_ray *ray, t_obj *obj)
 {
 	t_vec3	*res;
 	double p;
@@ -42,7 +42,7 @@ t_vec3	*ft_normal_cyl(t_ray *ray, t_obj *obj)
 	return (res);
 }
 
-t_vec3	*ft_normal_cone(t_ray *ray, t_obj *obj)
+t_vec3	*normal_cone(t_ray *ray, t_obj *obj)
 {
 	double	p;
 	double	norm;
@@ -67,11 +67,11 @@ t_vec3	*ft_normal_cone(t_ray *ray, t_obj *obj)
 	return (res);
 }
 
-t_vec3	*ft_normal_plan(t_ray *ray, t_obj *obj)
+t_vec3	*normal_plan(t_ray *ray, t_obj *obj)
 {
 	t_vec3	*res;
 
-	(void *)ray;
+	(void)ray;
 	if ((res = (t_vec3 *)malloc(sizeof(t_vec3))) == NULL)
 		exit(-1);
 	*res = (t_vec3){obj->norm.x, obj->norm.y, obj->norm.z};
@@ -82,8 +82,8 @@ double			ft_angle_contact(t_ray *ray, t_vec3 *normal)
 {
 	double s;
 
-	s = normal->dir.x * ray->dir.x +
-		normal->dir.y * ray->dir.y + normal->dir.z * ray->dir.z;
+	s = normal->x * ray->dir.x +
+		normal->y * ray->dir.y + normal->z * ray->dir.z;
 	if (s >= 0 & s <= 1)
 		return (s);
 	return (0);

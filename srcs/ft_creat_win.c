@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/21 22:15:53 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/21 22:30:35 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ unsigned int	ft_contact(int x, int y, t_env *e)
 
 	t = FAR;
 	ray = ft_calc_ray(x, y, e);
-	i = 0;
 	tmp = 0;
 	lst = e->obj;
 	while (lst)
@@ -35,7 +34,7 @@ unsigned int	ft_contact(int x, int y, t_env *e)
 		}
 		lst = lst->next;
 	}
-	if (e->ray.t < FAR)
+	if (t < FAR)
 		return (ft_ishadow(e, ray, t, cur_obj));
 	free(ray);
 	return (0);
