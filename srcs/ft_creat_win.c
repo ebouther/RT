@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/21 15:42:02 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/21 18:06:00 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 unsigned int	ft_contact(int x, int y, t_env *e)
 {
-	int		i;
+	t_obj	*cur_obj;
 	double	tmp;
 	double	t;
 	t_list	*lst;
@@ -24,24 +24,20 @@ unsigned int	ft_contact(int x, int y, t_env *e)
 	ray = ft_calc_ray(x, y, e);
 	i = 0;
 	tmp = 0;
-/*	while (i < e->nb_obj)
-	{
-		tmp = ft_dist(i, e);
-		if (tmp < e->ray.t && tmp >= 0)
-		{
-			e->ray.obj = i;
-			e->ray.t = tmp;
-		}
-		i++;
-	}*/
 	lst = e->obj;
 	while (lst)
 	{
-		tmp = ((t_obj *)(lst->content))->get_inters(ray, );
+		tmp = ((t_obj *)(lst->content))->get_inters(ray, (t_obj *)lst->content);
+		if (tmp < t && tmp >= 0)
+		{
+			t = tmp;
+			cur_obj = (t_obj *)lst->content;			
+		}
 		lst = lst->next;
 	}
 	if (e->ray.t < FAR)
-		return (ft_ishadow(e));
+		return (ft_ishadow(e, ray, t, cur_obj));
+	free(ray);
 	return (0);
 }
 

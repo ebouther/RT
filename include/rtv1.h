@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/21 16:28:38 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/21 18:36:08 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct	s_light
 typedef struct	s_obj
 {
 	t_vec3	*(*get_normal)();
-	double	(*get_inters)();
+	double	(*get_inters)(t_ray *ray, t_obj *obj);
 	double	rayon;
 	double	angle;
 	t_vec3	pos;

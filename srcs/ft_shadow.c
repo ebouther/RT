@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/11 14:17:22 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/21 18:44:00 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,87 +25,74 @@ void			ft_free(double **coul, t_env *e)
 	}
 }
 
-int				ft_behind_obj(int j, int i, double **coul, t_env *e)
+static void		ft_in_light(t_ligt *cur_light, t_env *e, t_ray *ray, t_color *col_res)
 {
-	double			tmp;
+	int		b;
+	t_list	*lst;
+	double	tmp;
+	t_color	col_add;
+	double	angle_contact;
 
-	tmp = ft_dist(j, e);
-	if (tmp < ft_dist_light(e, i) && tmp > 0)
-		return (0);
-	else
+	col_add = (t_color){0, 0, 0};
+	b = 0;
+	ft_recalc_dir(cur_light, ray);
+	lst = e->obj;
+	while (lst)
 	{
-		coul[i][0] = coul[i][0] +
-			e->light[i].colr * (ft_angle_contact(e, e->ray.obj) +
-			ft_fpower(ft_brillance(e, e->ray.obj), 20) *
-			e->obj[e->ray.obj].brim);
-		coul[i][1] = coul[i][1] +
-			e->light[i].colg * (ft_angle_contact(e, e->ray.obj) +
-			ft_fpower(ft_brillance(e, e->ray.obj), 20) *
-			e->obj[e->ray.obj].brim);
-		coul[i][2] = coul[i][2] +
-			e->light[i].colb * (ft_angle_contact(e, e->ray.obj) +
-			ft_fpower(ft_brillance(e, e->ray.obj), 20) *
-			e->obj[e->ray.obj].brim);
-		return (1);
-	}
-}
-
-static void		ft_in_light(double colres[3], t_env *e, int i, double **coul)
-{
-	int	j;
-	int	b;
-
-	b = 1;
-	coul[i] = (double*)malloc(sizeof(double) * 3);
-	coul[i][0] = 0;
-	coul[i][1] = 0;
-	coul[i][2] = 0;
-	ft_recalc_dir(e, i);
-	j = 0;
-	while (j < e->nb_obj && b)
-	{
-		b = ft_behind_obj(j, i, coul, e);
-		j++;
+		tmp = ((t_obj *)(lst->content))->get_inters(ray, (t_obj *)(lst->content));
+		if (tmp > ft_dist_light(&ray->pos, &cur_light->pos) && tmp < 0)
+		{
+			angle_contact = ft_angle_contact(ray, (t_obj *)(lst->content));
+			col_add.r += cur_light->col.r * (angle_contact +
+				ft_fpower(ft_brillance(e, e->ray.obj), 20) *
+				e->obj[e->ray.obj].brim);
+			col_add.g += cur_light->col.g * (angle_contact +
+				ft_fpower(ft_brillance(e, e->ray.obj), 20) *
+				e->obj[e->ray.obj].brim);
+			col_add.b += cur_light->col.b * (angle_contact +
+				ft_fpower(ft_brillance(e, e->ray.obj), 20) *
+				e->obj[e->ray.obj].brim);
+			if (!b)
+				b = 1;
+		}
+		lst = lst->next;
 	}
 	if (b)
 	{
-		colres[0] = colres[0] + coul[i][0];
-		colres[1] = colres[1] + coul[i][1];
-		colres[2] = colres[2] + coul[i][2];
+		col_res->r += col_add.r;
+		col_res->g += col_add.g;
+		col_res->b += col_add.b;
 	}
 }
 
-static void		ft_bri_max(double colres[3])
+static void		ft_bri_max(t_color *colres)
 {
-	if (colres[0] >= 1)
-		colres[0] = 1;
-	if (colres[1] >= 1)
-		colres[1] = 1;
-	if (colres[2] >= 1)
-		colres[2] = 1;
+	if (colres.r > 1)
+		colres.r = 1;
+	if (colres.g > 1)
+		colres.g = 1;
+	if (colres.b > 1)
+		colres.b = 1;
 }
 
-unsigned int	ft_ishadow(t_env *e)
+unsigned int	ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 {
-	double	**coul;
-	double	colres[3];
-	int		i;
+	t_color	*col_res;
+	t_list	*lst;
+	t_ray	*ray_diff;
 
-	i = 0;
-	coul = (double**)malloc(sizeof(double*) * e->nb_light);
-	colres[0] = 0;
-	colres[1] = 0;
-	colres[2] = 0;
-	ft_recalc_ori(e);
-	while (i < e->nb_light)
+	col_res.r = 0;
+	col_res.g = 0;
+	col_res.b = 0;
+	ray_diff = t_recalc_ori(ray, t);
+	lst = e->light;
+	while (lst)
 	{
-		ft_in_light(colres, e, i, coul);
-		i++;
+		ft_in_light(lst, e, &ray_diff[0], clo_res);
+		lst = lsr->next;
 	}
 	ft_bri_max(colres);
-	ft_free(coul, e);
-	free(coul);
-	return (65536 * (unsigned int)((e->obj[e->ray.obj].colr * 255) * colres[0])
-			+ 256 * (unsigned int)((e->obj[e->ray.obj].colg * 255) * colres[1])
-			+ (unsigned int)((e->obj[e->ray.obj].colb * 255) * colres[2]));
+	return (65536 * (unsigned int)((cur_obj->mat.col.r * 255) * col_res.r)
+			+ 256 * (unsigned int)((cur_obj->mat.col.g * 255) * col_res.g)
+			+ (unsigned int)((cur_obj->mat.col.b * 255) * col_res.b));
 }

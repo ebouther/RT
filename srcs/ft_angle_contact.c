@@ -6,76 +6,82 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:02:02 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/11 14:10:22 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/21 19:03:22 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static double	ft_angle_sph(int i, t_env *e)
+t_vec3	*ft_normal_sphere(t_ray *ray, t_obj *obj)
 {
-	double n[3];
+	t_vec3	*res;
 
-	n[0] = e->ray.orix - e->obj[i].centrex;
-	n[1] = e->ray.oriy - e->obj[i].centrey;
-	n[2] = e->ray.oriz - e->obj[i].centrez;
-	ft_normalise(&n[0], &n[1], &n[2]);
-	return (n[0] * e->ray.x + n[1] * e->ray.y + n[2] * e->ray.z);
+	if ((res = (t_vec3 *)malloc(sizeof(t_vec3))) == NULL)
+		exit(-1);
+	res->x = ray->pos.x - obj->pos.x;
+	res->y = ray->pos.y - obj->pos.y;
+	res->z = ray->pos.z - obj->pos.z;
+	ft_normalise(res);
+	return (res);
 }
 
-static double	ft_angle_cyl(int i, t_env *e)
+t_vec3	*ft_normal_cyl(t_ray *ray, t_obj *obj)
 {
-	double n[3];
+	t_vec3	*res;
 	double p;
-
-	p = e->obj[i].directx * (e->ray.orix - e->obj[i].centrex) +
-		e->obj[i].directy * (e->ray.oriy - e->obj[i].centrey) +
-		e->obj[i].directz * (e->ray.oriz - e->obj[i].centrez);
-	n[0] = e->ray.orix - e->obj[i].centrex - e->obj[i].directx * p;
-	n[1] = e->ray.oriy - e->obj[i].centrey - e->obj[i].directy * p;
-	n[2] = e->ray.oriz - e->obj[i].centrez - e->obj[i].directz * p;
-	ft_normalise(&n[0], &n[1], &n[2]);
-	return (n[0] * e->ray.x + n[1] * e->ray.y + n[2] * e->ray.z);
+	
+	if ((res = (t_vec3 *)malloc(sizeof(t_vec3))) == NULL)
+		exit(-1);
+	p = obj->dir.x * (ray->pos.x - obj->pos.x) +
+		obj->dir.y * (ray->pos.y - obj->pos.y) +
+		obj->dir.z * (ray->pos.z - obj->pos.z);
+	res->x = ray->pos.x - obj->pos.x - obj->dir.x * p;
+	res->y = ray->pos.y - obj->pos.y - obj->dir.y * p;
+	res->z = ray->pos.z - obj->pos.z - obj->dir.z * p;
+	ft_normalise(res);
+	return (res);
 }
 
-static double	ft_angle_cone(int i, t_env *e)
+t_vec3	*ft_normal_cone(t_ray *ray, t_obj *obj)
 {
-	double n[3];
-	double p;
-	double norm;
+	double	p;
+	double	norm;
+	t_vec3	*res;
 
-	p = e->obj[i].directx * (e->ray.orix - e->obj[i].centrex) +
-		e->obj[i].directy * (e->ray.oriy - e->obj[i].centrey) +
-		e->obj[i].directz * (e->ray.oriz - e->obj[i].centrez);
-	n[0] = e->ray.orix - e->obj[i].centrex - e->obj[i].directx * p;
-	n[1] = e->ray.oriy - e->obj[i].centrey - e->obj[i].directy * p;
-	n[2] = e->ray.oriz - e->obj[i].centrez - e->obj[i].directz * p;
-	norm = ft_norm(n[0], n[1], n[2]);
-	n[0] = n[0] * cos(e->obj[i].angle) - norm *
-		e->obj[i].directx * sin(e->obj[i].angle) * p / fabs(p);
-	n[1] = n[1] * cos(e->obj[i].angle) - norm *
-		e->obj[i].directy * sin(e->obj[i].angle) * p / fabs(p);
-	n[2] = n[2] * cos(e->obj[i].angle) - norm *
-		e->obj[i].directz * sin(e->obj[i].angle) * p / fabs(p);
-	ft_normalise(&n[0], &n[1], &n[2]);
-	return (n[0] * e->ray.x + n[1] * e->ray.y + n[2] * e->ray.z);
+	if ((res = (t_vec3 *)malloc(sizeof(t_vec3))) == NULL)
+		exit(-1);
+	p = obj->dir.x * (ray->pos.x - obj->pos.x) +
+		obj->dir.y * (ray->pos.y - obj->pos.y) +
+		obj->dir.z * (ray->pos.z - obj->pos.z);
+	res->x = ray->pos.x - obj->pos.x - obj->dir.x * p;
+	res->y = ray->pos.y - obj->pos.y - obj->dir.y * p;
+	res->z = ray->pos.z - obj->pos.z - obj->dir.z * p;
+	norm = ft_norm(res);
+	res->x = res->x * cos(obj->angle) - norm *
+		obj->dir.x * sin(obj->angle) * p / fabs(p);
+	res->y = res->y * cos(obj->angle) - norm *
+		obj->dir.y * sin(obj->angle) * p / fabs(p);
+	res->z = res->z * cos(obj->angle) - norm *
+		obj->dir.z * sin(obj->angle) * p / fabs(p);
+	ft_normalise(res);
+	return (res);
 }
 
-double			ft_angle_contact(t_env *e, int i)
+t_vec3	*ft_normal_plan(t_ray *ray, t_obj *obj)
+{
+	(void *)ray;
+	return (obj->norm);
+}
+
+double			ft_angle_contact(t_ray *ray, t_obj *obj)
 {
 	double s;
+	t_vec3 *normal;
 
-	if (e->obj[i].type.sph)
-		s = ft_angle_sph(i, e);
-	else if (e->obj[i].type.plan)
-		s = e->obj[i].normalx * e->ray.x +
-			e->obj[i].normaly * e->ray.y + e->obj[i].normalz * e->ray.z;
-	else if (e->obj[i].type.cyl)
-		s = ft_angle_cyl(i, e);
-	else
-		s = ft_angle_cone(i, e);
+	normal = obj->get_normal(ray, obj);
+	s = normal->dir.x * ray->dir.x +
+		normal->dir.y * ray->dir.y + normal->dir.z * ray->dir.z;
 	if (s >= 0 & s <= 1)
 		return (s);
-	else
-		return (0);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:21:39 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/21 16:32:42 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/21 18:11:25 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_ray		*ft_calc_ray(int x, int y, t_env *e)
 	if ((ray = (t_ray *)malloc(sizeof(t_ray))) == NULL)
 		exit(-1);
 	ray->dir.x = e->cam.pos.x + e->cam.dir.x * e->cam.distfo + ((double)HIGHT / 2.0) * e->cam.up.x - ((double)WIDTH / 2.0) * e->cam.right.x + ((double)WIDTH / (double)SIZE_W) * x * e->cam.right.x - ((double)HIGHT / (double)SIZE_H) * y * e->cam.up.x;
-	ray->dir.y = e->cam.pos.y + e->cam.dir.y * e->cam.distfo + ((double)WIDTH / 2.0) * (e->cam.up.y - e->cam.right.y) + ((double)WIDTH / (double)SIZE_W) * y * e->cam.right.y - ((double)WIDTH / (double)SIZE_H) * y * e->cam.up.y;
-	ray->dir.z = e->cam.pos.z + e->cam.dir.z * e->cam.distfo + ((double)WIDTH / 2.0) * (e->cam.up.z - e->cam.right.z) + ((double)WIDTH / (double)SIZE_W) * y * e->cam.right.z - ((double)WIDTH / (double)SIZE_H) * y * e->cam.up.z;
+	ray->dir.y = e->cam.pos.y + e->cam.dir.y * e->cam.distfo + ((double)WIDTH / 2.0) * e->cam.up.y - ((double)WIDTH / 2.0) * e->cam.right.y + ((double)WIDTH / (double)SIZE_W) * y * e->cam.right.y - ((double)HIGHT / (double)SIZE_H) * y * e->cam.up.y;
+	ray->dir.z = e->cam.pos.z + e->cam.dir.z * e->cam.distfo + ((double)WIDTH / 2.0) * e->cam.up.z - ((double)WIDTH / 2.0) * e->cam.right.z + ((double)WIDTH / (double)SIZE_W) * y * e->cam.right.z - ((double)HIGHT / (double)SIZE_H) * y * e->cam.up.z;
 	ft_normalise(&ray->dir);
 	ray->pos.x = e->cam.pos.x;
 	ray->pos.y = e->cam.pos.y;
@@ -28,28 +28,34 @@ t_ray		*ft_calc_ray(int x, int y, t_env *e)
 	return (ray);
 }
 
-double			ft_dist_light(t_env *e, int i)
+double			ft_dist_light(t_vec3 *ray_pos, t_vec3 *light_pos)
 {
-	return (sqrt(carre(e->light[i].centrex - e->ray.orix) +
-				carre(e->light[i].centrey - e->ray.oriy) +
-				carre(e->light[i].centrez - e->ray.oriz)));
+	return (sqrt(carre(light_pos->x - ray_pos->x) +
+				carre(light_pos->y - ray_pos->y) +
+				carre(light_pos->z - ray_pos->z)));
 }
 
-void			ft_recalc_ori(t_env *e)
+t_ray	 *ft_recalc_ori(t_ray *ray, double t)
 {
-	e->ray.oeilx = -e->ray.x;
-	e->ray.oeily = -e->ray.y;
-	e->ray.oeilz = -e->ray.z;
-	ft_normalise(&e->ray.oeilx, &e->ray.oeily, &e->ray.oeilz);
-	e->ray.orix = e->ray.orix + e->ray.t * 0.9999 * e->ray.x;
-	e->ray.oriy = e->ray.oriy + e->ray.t * 0.9999 * e->ray.y;
-	e->ray.oriz = e->ray.oriz + e->ray.t * 0.9999 * e->ray.z;
+	t_ray	*res;
+	int		i;
+
+	i = 0;
+	res = (t_ray*)malloc(sizeof(t_ray) * 3);
+	while(i < 3)
+	{
+		res[i].pos.x = ray->pos.x + ray->dir.x * t * 0.9999;
+		res[i].pos.y = ray->pos.y + ray->dir.y * t * 0.9999;
+		res[i].pos.z = ray->pos.z + ray->dir.z * t * 0.9999;
+		i++;
+	}	
+	return (res);
 }
 
-void			ft_recalc_dir(t_env *e, int i)
+void			ft_recalc_dir(t_light *light, t_ray *ray)
 {
-	e->ray.x = e->light[i].centrex - e->ray.orix;
-	e->ray.y = e->light[i].centrey - e->ray.oriy;
-	e->ray.z = e->light[i].centrez - e->ray.oriz;
-	ft_normalise(&e->ray.x, &e->ray.y, &e->ray.z);
+	ray->dir.x = light->pos.x - ray->pos.x;
+	ray->dir.y = light->pos.y - ray->pos.y;
+	ray->dir.z = light->pos.z - ray->pos.z;
+	ft_normalise(&(ray->dir));
 }
