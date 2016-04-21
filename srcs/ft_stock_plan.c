@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 12:39:53 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/21 15:10:44 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/21 22:08:35 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	ft_stock_plan1(char *c, int i, t_obj *obj)
 	else if (i == 9)
 		obj->mat.col.b = ft_atof(c);
 	else if (i == 10)
-		obj->brim = ft_atof(c);
+		obj->mat.brim = ft_atof(c);
 }
 
 void		ft_stock_plan(t_env *e, char *line)

@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 12:39:14 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/21 16:40:58 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/21 22:08:55 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	ft_stock_sphere1(char *c, int i, t_obj *obj)
 	else if (i == 7)
 		obj->mat.col.b = ft_atof(c);
 	else if (i == 8)
-		obj->brim = ft_atof(c);
+		obj->mat.brim = ft_atof(c);
 }
 
 void		ft_stock_sphere(t_env *e, char *line)

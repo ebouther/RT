@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:02:02 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/21 19:03:22 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/21 21:30:18 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,19 @@ t_vec3	*ft_normal_cone(t_ray *ray, t_obj *obj)
 
 t_vec3	*ft_normal_plan(t_ray *ray, t_obj *obj)
 {
+	t_vec3	*res;
+
 	(void *)ray;
-	return (obj->norm);
+	if ((res = (t_vec3 *)malloc(sizeof(t_vec3))) == NULL)
+		exit(-1);
+	*res = (t_vec3){obj->norm.x, obj->norm.y, obj->norm.z};
+	return (res);
 }
 
-double			ft_angle_contact(t_ray *ray, t_obj *obj)
+double			ft_angle_contact(t_ray *ray, t_vec3 *normal)
 {
 	double s;
-	t_vec3 *normal;
 
-	normal = obj->get_normal(ray, obj);
 	s = normal->dir.x * ray->dir.x +
 		normal->dir.y * ray->dir.y + normal->dir.z * ray->dir.z;
 	if (s >= 0 & s <= 1)

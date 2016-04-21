@@ -6,12 +6,11 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/21 18:44:00 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/21 22:13:30 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-#include <stdio.h>
 
 void			ft_free(double **coul, t_env *e)
 {
@@ -32,6 +31,8 @@ static void		ft_in_light(t_ligt *cur_light, t_env *e, t_ray *ray, t_color *col_r
 	double	tmp;
 	t_color	col_add;
 	double	angle_contact;
+	t_vec3	*normal;
+
 
 	col_add = (t_color){0, 0, 0};
 	b = 0;
@@ -42,18 +43,20 @@ static void		ft_in_light(t_ligt *cur_light, t_env *e, t_ray *ray, t_color *col_r
 		tmp = ((t_obj *)(lst->content))->get_inters(ray, (t_obj *)(lst->content));
 		if (tmp > ft_dist_light(&ray->pos, &cur_light->pos) && tmp < 0)
 		{
-			angle_contact = ft_angle_contact(ray, (t_obj *)(lst->content));
+			normal = (t_obj *)(lst->content)->get_normal(ray, (t_obj *)(lst->content));
+			angle_contact = ft_angle_contact(ray, normal);
 			col_add.r += cur_light->col.r * (angle_contact +
-				ft_fpower(ft_brillance(e, e->ray.obj), 20) *
-				e->obj[e->ray.obj].brim);
+				ft_fpower(ft_brillance(&e->cam.pos, ray, normal), 20) *
+				((t_obj *)(lst->content))->mat.brim);
 			col_add.g += cur_light->col.g * (angle_contact +
-				ft_fpower(ft_brillance(e, e->ray.obj), 20) *
-				e->obj[e->ray.obj].brim);
+				ft_fpower(ft_brillance(&e->cam.pos, ray, normal), 20) *
+				((t_obj *)(lst->content))->mat.brim);
 			col_add.b += cur_light->col.b * (angle_contact +
-				ft_fpower(ft_brillance(e, e->ray.obj), 20) *
-				e->obj[e->ray.obj].brim);
+				ft_fpower(ft_brillance(&e->cam.pos, ray, normal), 20) *
+				((t_obj *)(lst->content))->mat.brim);
 			if (!b)
 				b = 1;
+			free((void *)normal);
 		}
 		lst = lst->next;
 	}
@@ -81,17 +84,15 @@ unsigned int	ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	t_list	*lst;
 	t_ray	*ray_diff;
 
-	col_res.r = 0;
-	col_res.g = 0;
-	col_res.b = 0;
-	ray_diff = t_recalc_ori(ray, t);
+	col_res = (t_color){0, 0, 0};
+	ray_diff = ft_recalc_ori(ray, t);
 	lst = e->light;
 	while (lst)
 	{
 		ft_in_light(lst, e, &ray_diff[0], clo_res);
-		lst = lsr->next;
+		lst = lst->next;
 	}
-	ft_bri_max(colres);
+	ft_bri_max(col_res);
 	return (65536 * (unsigned int)((cur_obj->mat.col.r * 255) * col_res.r)
 			+ 256 * (unsigned int)((cur_obj->mat.col.g * 255) * col_res.g)
 			+ (unsigned int)((cur_obj->mat.col.b * 255) * col_res.b));
