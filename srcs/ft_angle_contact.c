@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:02:02 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/21 22:49:15 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/22 01:00:26 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_vec3	*normal_plan(t_ray *ray, t_obj *obj)
 	if ((res = (t_vec3 *)malloc(sizeof(t_vec3))) == NULL)
 		exit(-1);
 	*res = (t_vec3){obj->norm.x, obj->norm.y, obj->norm.z};
+	ft_normalise(res);
 	return (res);
 }
 

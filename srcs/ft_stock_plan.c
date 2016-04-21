@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 12:39:53 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/21 22:08:35 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/22 01:06:25 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 static void	ft_stock_plan1(char *c, int i, t_obj *obj)
 {
 	if (i == 1)
-		obj->dir.x = ft_atof(c);
+		obj->norm.x = ft_atof(c);
 	else if (i == 2)
-		obj->dir.y = ft_atof(c);
+		obj->norm.y = ft_atof(c);
 	else if (i == 3)
-		obj->dir.z = ft_atof(c);
+		obj->norm.z = ft_atof(c);
 	else if (i == 4)
 		obj->pos.x = ft_atof(c);
 	else if (i == 5)

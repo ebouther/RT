@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:31:25 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/21 23:07:01 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/22 01:04:19 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ double			inters_sphere(t_ray *ray, t_obj *obj)
 	return (ft_equa_sec(a, b, c));
 }
 
+#include <stdio.h>
 double			inters_plan(t_ray *ray, t_obj *obj)
 {
 	double	vd;
