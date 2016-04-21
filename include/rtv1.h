@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/20 16:05:51 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/21 12:15:56 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,27 @@
 # include <fcntl.h>
 # include "mlx.h"
 
+typedef struct	s_vec3
+{
+	double		x;
+	double		y;
+	double		z;
+}				t_vec3;
+
+typedef struct s_color
+{
+	double		r;
+	double		g;
+	double		b;
+}				t_color;
+
+typedef struct s_mat
+{
+	t_color		col;
+	double		brim;
+	char		brip;
+}				t_mat;
+
 typedef struct	s_type
 {
 	int		sph;
@@ -29,9 +50,7 @@ typedef struct	s_type
 
 typedef struct	s_light
 {
-	double	centrex;
-	double	centrey;
-	double	centrez;
+	t_vec3	pos;
 	double	colr;
 	double	colg;
 	double	colb;
@@ -39,55 +58,29 @@ typedef struct	s_light
 
 typedef struct	s_obj
 {
-	t_type	type;
+	t_vec3	*get_normal();
+	double	get_inters();
 	double	rayon;
 	double	angle;
-	double	centrex;
-	double	centrez;
-	double	centrey;
-	double	normalx;
-	double	normaly;
-	double	normalz;
-	double	directx;
-	double	directy;
-	double	directz;
-	double	colr;
-	double	colg;
-	double	colb;
-	double	brim;
-	int		brip;
+	t_vec3	pos;
+	t_vec3	norm;
+	t_vec3	dir;
+	t_mat	mat;
 }				t_obj;
 
 typedef	struct	s_cam
 {
-	double	posx;
-	double	posy;
-	double	posz;
-	double	dirx;
-	double	diry;
-	double	dirz;
-	double	upx;
-	double	upy;
-	double	upz;
-	double	rightx;
-	double	righty;
-	double	rightz;
+	t_vec3	pos;
+	t_vec3	dir;
+	t_vec3	up;
+	t_vec3	right;
 	double	distfo;
 }				t_cam;
 
 typedef struct	s_ray
 {
-	double	x;
-	double	y;
-	double	z;
-	double	oeilx;
-	double	oeily;
-	double	oeilz;
-	double	orix;
-	double	oriy;
-	double	oriz;
-	double	t;
-	int		obj;
+	t_vec3	pos;
+	t_vec3	dir;
 }				t_ray;
 
 typedef struct	s_env
@@ -96,13 +89,9 @@ typedef struct	s_env
 	void	*win;
 	void	*img;
 	char	*data;
-	int		power;
 	t_cam	cam;
-	t_obj	*obj;
-	t_light	*light;
-	t_ray	ray;
-	int		nb_obj;
-	int		nb_light;
+	t_list	*obj;
+	t_list	*light;
 }				t_env;
 
 void			ft_put_pixelle(int x, int y, unsigned int *c, t_env *e);
