@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:02:02 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 01:00:26 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/22 01:54:29 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ double			ft_angle_contact(t_ray *ray, t_vec3 *normal)
 
 	s = normal->x * ray->dir.x +
 		normal->y * ray->dir.y + normal->z * ray->dir.z;
-	if (s >= 0 & s <= 1)
+	if (s >= 0 && s <= 1)
 		return (s);
 	return (0);
 }
