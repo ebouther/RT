@@ -6,56 +6,58 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 12:39:53 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/10 14:49:10 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/21 15:10:44 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static void	ft_stock_plan1(t_env *e, char *c, int i, int nb)
+static void	ft_stock_plan1(char *c, int i, t_obj *obj)
 {
 	if (i == 1)
-		e->obj[nb].normalx = ft_atof(c);
-	if (i == 2)
-		e->obj[nb].normaly = ft_atof(c);
-	if (i == 3)
-		e->obj[nb].normalz = ft_atof(c);
-	if (i == 4)
-		e->obj[nb].centrex = ft_atof(c);
-	if (i == 5)
-		e->obj[nb].centrey = ft_atof(c);
-	if (i == 6)
-		e->obj[nb].centrez = ft_atof(c);
-	if (i == 7)
-		e->obj[nb].colr = ft_atof(c);
-	if (i == 8)
-		e->obj[nb].colg = ft_atof(c);
-	if (i == 9)
-		e->obj[nb].colb = ft_atof(c);
-	if (i == 10)
-		e->obj[nb].brim = ft_atof(c);
+		obj->dir.x = ft_atof(c);
+	else if (i == 2)
+		obj->dir.y = ft_atof(c);
+	else if (i == 3)
+		obj->dir.z = ft_atof(c);
+	else if (i == 4)
+		obj->pos.x = ft_atof(c);
+	else if (i == 5)
+		obj->pos.y = ft_atof(c);
+	else if (i == 6)
+		obj->pos.z = ft_atof(c);
+	else if (i == 7)
+		obj->mat.col.r = ft_atof(c);
+	else if (i == 8)
+		obj->mat.col.g = ft_atof(c);
+	else if (i == 9)
+		obj->mat.col.b = ft_atof(c);
+	else if (i == 10)
+		obj->brim = ft_atof(c);
 }
 
-void		ft_stock_plan(t_env *e, char *line, int *nb)
+void		ft_stock_plan(t_env *e, char *line)
 {
 	int		i;
 	char	*c;
+	t_obj	*obj;
 
+	obj = (t_obj*)malloc(sizeof(t_obj));
 	i = 0;
 	c = line;
-	e->obj[*nb].type.plan = 1;
+	obj->get_normal = &normal_plan;
+	obj->get_inters = &inters_plan;
 	while (*c != '}')
 	{
 		if (*c == '$')
 		{
 			i++;
 			c++;
-			ft_stock_plan1(e, c, i, *nb);
+			ft_stock_plan1(c, i, obj);
 		}
 		else
 			c++;
 	}
-	ft_normalise(&e->obj[*nb].normalx, &e->obj[*nb + 1
-			- 1].normaly, &e->obj[*nb].normalz);
-	(*nb)++;
+	ft_lstadd(&e->obj, ft_lstnew(obj, sizeof(t_obj)));
+	free(obj);
 }

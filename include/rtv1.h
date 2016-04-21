@@ -6,14 +6,19 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/21 12:15:56 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/21 16:28:38 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RTV1_H
 # define RTV1_H
+
 # define SIZE_W 1000
+# define SIZE_H 1000
 # define WIDTH 100
+# define HIGHT 100
+# define FAR 1000000000
+
 # include "libft.h"
 # include <math.h>
 # include <fcntl.h>
@@ -58,8 +63,8 @@ typedef struct	s_light
 
 typedef struct	s_obj
 {
-	t_vec3	*get_normal();
-	double	get_inters();
+	t_vec3	*(*get_normal)();
+	double	(*get_inters)();
 	double	rayon;
 	double	angle;
 	t_vec3	pos;
@@ -85,6 +90,9 @@ typedef struct	s_ray
 
 typedef struct	s_env
 {
+	int		bpp;
+	int 	endian;
+	int 	ls;
 	void	*mlx;
 	void	*win;
 	void	*img;

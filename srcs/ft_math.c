@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 17:13:59 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/10 16:00:45 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/21 14:05:11 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ double	carre(double x)
 	return (x * x);
 }
 
-void	ft_normalise(double *x, double *y, double *z)
+void	ft_normalise(t_vec3 *vec)
 {
 	double lg;
 
-	lg = sqrt(carre(*x) + carre(*y) + carre(*z));
-	*x = *x / lg;
-	*y = *y / lg;
-	*z = *z / lg;
+	lg = sqrt(carre(vec->x) + carre(vec->y) + carre(vec->z));
+	vec->x = vec->x / lg;
+	vec->y = vec->y / lg;
+	vec->z = vec->z / lg;
 }
 
-double	ft_norm(double x, double y, double z)
+double	ft_norm(t_vec3 *vec)
 {
-	return (sqrt(carre(x) + carre(y) + carre(z)));
+	return (sqrt(carre(vec->x) + carre(vec->y) + carre(vec->z)));
 }
 
 double	ft_equa_sec(double a, double b, double c)

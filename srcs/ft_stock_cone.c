@@ -6,58 +6,61 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 12:35:48 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/10 14:45:29 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/21 15:07:32 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static void	ft_stock_cone1(t_env *e, char *c, int i, int nb)
+static void	ft_stock_cone1(char *c, int i, t_obj *obj)
 {
 	if (i == 1)
-		e->obj[nb].angle = ft_atof(c) / 180 * M_PI;
-	if (i == 2)
-		e->obj[nb].directx = ft_atof(c);
-	if (i == 3)
-		e->obj[nb].directy = ft_atof(c);
-	if (i == 4)
-		e->obj[nb].directz = ft_atof(c);
-	if (i == 5)
-		e->obj[nb].centrex = ft_atof(c);
-	if (i == 6)
-		e->obj[nb].centrey = ft_atof(c);
-	if (i == 7)
-		e->obj[nb].centrez = ft_atof(c);
-	if (i == 8)
-		e->obj[nb].colr = ft_atof(c);
-	if (i == 9)
-		e->obj[nb].colg = ft_atof(c);
-	if (i == 10)
-		e->obj[nb].colb = ft_atof(c);
-	if (i == 11)
-		e->obj[nb].brim = ft_atof(c);
+		obj->angle = ft_atof(c) / 180 * M_PI;
+	else if (i == 2)
+		obj->dir.x = ft_atof(c);
+	else if (i == 3)
+		obj->dir.y = ft_atof(c);
+	else if (i == 4)
+		obj->dir.z = ft_atof(c);
+	else if (i == 5)
+		obj->pos.x = ft_atof(c);
+	else if (i == 6)
+		obj->pos.y = ft_atof(c);
+	else if (i == 7)
+		obj->pos.z = ft_atof(c);
+	else if (i == 8)
+		obj->mat.col.r = ft_atof(c);
+	else if (i == 9)
+		obj->mat.col.g = ft_atof(c);
+	else if (i == 10)
+		obj->mat.col.b = ft_atof(c);
+	else if (i == 11)
+		obj->brim = ft_atof(c);
 }
 
-void		ft_stock_cone(t_env *e, char *line, int *nb)
+void		ft_stock_cone(t_env *e, char *line)
 {
 	int		i;
 	char	*c;
+	t_obj	*obj;
 
+	obj = (t_obj*)malloc(sizeof(t_obj));
 	i = 0;
 	c = line;
-	e->obj[*nb].type.cone = 1;
+	obj->get_normal = &normal_cone;
+	obj->get_inters = &inters_cone;
 	while (*c != '}')
 	{
 		if (*c == '$')
 		{
 			i++;
 			c++;
-			ft_stock_cone1(e, c, i, *nb);
+			ft_stock_cone1(c, i, obj);
 		}
 		else
 			c++;
 	}
-	ft_normalise(&e->obj[*nb].directx, &e->obj[*nb + 1
-			- 1].directy, &e->obj[*nb].directz);
-	(*nb)++;
+	ft_normalise(&obj->dir);
+	ft_lstadd(&e->obj, ft_lstnew(obj, sizeof(t_obj)));
+	free(obj);
 }
