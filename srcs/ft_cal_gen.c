@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:21:39 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 01:54:29 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/22 15:00:20 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ t_ray		*ft_calc_ray(int x, int y, t_env *e)
 
 	if ((ray = (t_ray *)malloc(sizeof(t_ray))) == NULL)
 		exit(-1);
-	ray->dir.x = e->cam.pos.x + e->cam.dir.x * e->cam.distfo + ((double)HIGHT / 2.0) * e->cam.up.x - ((double)WIDTH / 2.0) * e->cam.right.x + ((double)WIDTH / (double)SIZE_W) * x * e->cam.right.x - ((double)HIGHT / (double)SIZE_H) * y * e->cam.up.x;
-	ray->dir.y = e->cam.pos.y + e->cam.dir.y * e->cam.distfo + ((double)WIDTH / 2.0) * e->cam.up.y - ((double)WIDTH / 2.0) * e->cam.right.y + ((double)WIDTH / (double)SIZE_W) * y * e->cam.right.y - ((double)HIGHT / (double)SIZE_H) * y * e->cam.up.y;
-	ray->dir.z = e->cam.pos.z + e->cam.dir.z * e->cam.distfo + ((double)WIDTH / 2.0) * e->cam.up.z - ((double)WIDTH / 2.0) * e->cam.right.z + ((double)WIDTH / (double)SIZE_W) * y * e->cam.right.z - ((double)HIGHT / (double)SIZE_H) * y * e->cam.up.z;
+	ray->dir.x = e->cam.pos.x + e->cam.dir.x * e->cam.distfo + e->pix_zero.x + ((double)WIDTH / (double)SIZE_W) * x * e->cam.right.x - ((double)HIGHT / (double)SIZE_H) * y * e->cam.up.x;
+	ray->dir.y = e->cam.pos.y + e->cam.dir.y * e->cam.distfo + e->pix_zero.y + ((double)WIDTH / (double)SIZE_W) * y * e->cam.right.y - ((double)HIGHT / (double)SIZE_H) * y * e->cam.up.y;
+	ray->dir.z = e->cam.pos.z + e->cam.dir.z * e->cam.distfo + e->pix_zero.z + ((double)WIDTH / (double)SIZE_W) * y * e->cam.right.z - ((double)HIGHT / (double)SIZE_H) * y * e->cam.up.z;
 	ft_normalise(&ray->dir);
 	ray->pos.x = e->cam.pos.x;
 	ray->pos.y = e->cam.pos.y;

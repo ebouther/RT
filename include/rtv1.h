@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 12:22:21 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/22 15:00:37 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct	s_env
 	void	*win;
 	void	*img;
 	char	*data;
+	t_vec3	pix_zero;
 	t_cam	cam;
 	t_list	*obj;
 	t_list	*light;

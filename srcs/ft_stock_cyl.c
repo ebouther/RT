@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 12:40:35 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/21 16:40:31 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/22 15:13:38 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static void	ft_stock_cyl1(char *c, int i, t_obj *obj)
 		obj->mat.brim = ft_atof(c);
 }
 
+#include <stdio.h>
+
 void		ft_stock_cyl(t_env *e, char *line)
 {
 	int		i;
@@ -62,5 +64,6 @@ void		ft_stock_cyl(t_env *e, char *line)
 	}
 	ft_normalise(&obj->dir);
 	ft_lstadd(&e->obj, ft_lstnew(obj, sizeof(t_obj)));
+	printf("brim = %f\n", obj->mat.brim);
 	free(obj);
 }

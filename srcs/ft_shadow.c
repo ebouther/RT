@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 12:22:47 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/22 15:17:36 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ unsigned int	ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 		lst = lst->next;
 	}
 	ft_bri_max(&col_res);
-	return (65536 * (unsigned int)(ft_color_clip(cur_obj->mat.col.r * col_res.diffuse.r + col_res.specular.r) * 255)
-			+ 256 * (unsigned int)(ft_color_clip(cur_obj->mat.col.g * col_res.diffuse.g + col_res.specular.g) * 255)
-			+ (unsigned int)(ft_color_clip(cur_obj->mat.col.b * col_res.diffuse.b + col_res.specular.b) * 255));
+	return (65536 * (unsigned int)(ft_color_clip(cur_obj->mat.col.r * col_res.diffuse.r /*+ col_res.specular.r*/) * 255)
+			+ 256 * (unsigned int)(ft_color_clip(cur_obj->mat.col.g * col_res.diffuse.g /*+ col_res.specular.g*/) * 255)
+			+ (unsigned int)(ft_color_clip(cur_obj->mat.col.b * col_res.diffuse.b /*+ col_res.specular.b*/) * 255));
 }

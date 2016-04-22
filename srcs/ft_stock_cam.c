@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 12:32:03 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 12:20:51 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/22 14:52:17 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,41 @@ static void	ft_stock_cam1(t_env *e, char *c, int i)
 		e->cam.distfo = WIDTH / ( 2 * tan(ft_atof(c) * M_PI_2 / 180.0));
 }
 
+static void	ft_rot_vec(double angle, t_vec3 axe, t_vec3 *vec)
+{
+	t_vec3 norm;
+
+	norm.x = axe.y * vec->z - axe.z * vec->y;
+	norm.y = axe.x * vec->z - axe.z * vec->x;
+	norm.z = axe.x * vec->y - axe.y * vec->x;
+
+	vec->x = vec->x * cos(angle) + norm.x * sin(angle);
+	vec->y = vec->y * cos(angle) + norm.y * sin(angle);
+	vec->z = vec->z * cos(angle) + norm.z * sin(angle);
+}
+
+static void	ft_rot_cam(double angle, t_vec3 axe, t_cam *cam)
+{
+	ft_rot_vec(angle, axe, &cam->dir);
+	ft_rot_vec(angle, axe, &cam->up);
+	ft_rot_vec(angle, axe, &cam->right);
+
+}
+
 static void	ft_stock_cam2(t_cam *cam)
 {
-		cam->up.x = ;
-		cam->up.y = ;
-		cam->up.z = ;
-		cam->right.x = ;
-		cam->right.y = ;
-		cam->right.z = ;
-		cam->dir.x = ;
-		cam->dir.y = ;
-		cam->dir.z = ;
+		cam->up.x = 0;
+		cam->up.y = 1.0;
+		cam->up.z = 0;
+		cam->right.x = 1.0;
+		cam->right.y = 0;
+		cam->right.z = 0;
+		cam->dir.x = 0;
+		cam->dir.y = 0;
+		cam->dir.z = 1.0;
+		ft_rot_cam(cam->angle.x, cam->right, cam);
+		ft_rot_cam(cam->angle.y, cam->up, cam);
+		ft_rot_cam(cam->angle.z, cam->dir, cam);
 }
 
 void		ft_stock_cam(t_env *e, char *line)

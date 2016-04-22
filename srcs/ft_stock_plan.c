@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 12:39:53 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 01:06:25 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/22 15:19:16 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void		ft_stock_plan(t_env *e, char *line)
 		else
 			c++;
 	}
+	ft_normalise(&obj->norm);
 	ft_lstadd(&e->obj, ft_lstnew(obj, sizeof(t_obj)));
 	free(obj);
 }
