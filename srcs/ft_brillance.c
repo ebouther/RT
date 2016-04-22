@@ -6,13 +6,13 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:03:54 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/21 23:13:47 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/22 11:18:15 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-double			ft_brillance(t_vec3 *pos_cam, t_ray *ray, t_vec3 *normal)
+double			ft_brillance(t_vec3 *cam_dir, t_ray *ray, t_vec3 *normal)
 {
 	t_vec3 ref;
 	double p;
@@ -22,5 +22,5 @@ double			ft_brillance(t_vec3 *pos_cam, t_ray *ray, t_vec3 *normal)
 	ref.y = -ray->dir.y + 2 * normal->y * p;
 	ref.z = -ray->dir.z + 2 * normal->z * p;
 	ft_normalise(&ref);
-	return (ref.x * pos_cam->x + ref.y * pos_cam->y + ref.z * pos_cam->z);
+	return (ref.x * -cam_dir->x + ref.y * -cam_dir->y + ref.z * -cam_dir->z);
 }
