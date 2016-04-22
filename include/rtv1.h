@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 01:54:29 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/22 12:20:53 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct	s_light
 typedef	struct	s_cam
 {
 	t_vec3	pos;
+	t_vec3	angle;
 	t_vec3	dir;
 	t_vec3	up;
 	t_vec3	right;

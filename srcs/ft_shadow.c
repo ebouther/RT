@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 01:54:28 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/22 10:42:22 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ static void		ft_in_light(t_light *cur_light, t_env *e, t_ray *ray, t_color *col_
 		if (tmp > ft_dist_light(&ray->pos, &cur_light->pos) || tmp < 0)
 		{
 			angle_contact = ft_angle_contact(ray, normal);
-			col_add.r += cur_light->col.r * (angle_contact +
+			col_add.r += cur_light->col.r * angle_contact/* +
 				ft_fpower(ft_brillance(&e->cam.pos, ray, normal), 20) *
-				((t_obj *)(lst->content))->mat.brim);
-			col_add.g += cur_light->col.g * (angle_contact +
+				((t_obj *)(lst->content))->mat.brim)*/;
+			col_add.g += cur_light->col.g * angle_contact/* +
 				ft_fpower(ft_brillance(&e->cam.pos, ray, normal), 20) *
-				((t_obj *)(lst->content))->mat.brim);
-			col_add.b += cur_light->col.b * (angle_contact +
+				((t_obj *)(lst->content))->mat.brim)*/;
+			col_add.b += cur_light->col.b * angle_contact/* +
 				ft_fpower(ft_brillance(&e->cam.pos, ray, normal), 20) *
-				((t_obj *)(lst->content))->mat.brim);
+				((t_obj *)(lst->content))->mat.brim)*/;
 		}
 		else
 			break ;
