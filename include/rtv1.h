@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 01:54:29 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/22 11:36:57 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@ typedef struct s_color
 	double		g;
 	double		b;
 }				t_color;
+
+typedef struct	s_color_res
+{
+	t_color		diffuse;
+	t_color		specular;
+	t_color		refl;
+	t_color		refr;
+}				t_color_res;
 
 typedef struct s_mat
 {
