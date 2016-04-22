@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:02:02 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 01:54:29 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/22 15:23:06 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,9 @@ t_vec3	*normal_cone(t_ray *ray, t_obj *obj)
 	res->y = ray->pos.y - obj->pos.y - obj->dir.y * p;
 	res->z = ray->pos.z - obj->pos.z - obj->dir.z * p;
 	norm = ft_norm(res);
-	res->x = res->x * cos(obj->angle) - norm *
-		obj->dir.x * sin(obj->angle) * p / fabs(p);
-	res->y = res->y * cos(obj->angle) - norm *
-		obj->dir.y * sin(obj->angle) * p / fabs(p);
-	res->z = res->z * cos(obj->angle) - norm *
-		obj->dir.z * sin(obj->angle) * p / fabs(p);
+	res->x = res->x * cos(obj->angle) - norm * obj->dir.x * sin(obj->angle) * p / fabs(p);
+	res->y = res->y * cos(obj->angle) - norm * obj->dir.y * sin(obj->angle) * p / fabs(p);
+	res->z = res->z * cos(obj->angle) - norm * obj->dir.z * sin(obj->angle) * p / fabs(p);
 	ft_normalise(res);
 	return (res);
 }

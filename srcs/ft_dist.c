@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:31:25 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 01:04:19 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/22 15:33:47 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,10 @@ double			inters_cone(t_ray *ray, t_obj *obj)
 	a[3] = ray->pos.x - obj->pos.x;
 	a[4] = ray->pos.y - obj->pos.y;
 	a[5] = ray->pos.z - obj->pos.z;
-	b[0] = a[0] * obj->dir.x + a[1] * obj->dir.y
-		+ a[2] * obj->dir.z;
-	b[1] = obj->dir.x * a[3] + obj->dir.y * a[4]
-		+ obj->dir.z * a[5];
-	c[0] = carre(cos(obj->angle)) * (carre(a[0]) + carre(a[1]) +
-			carre(a[2])) - carre(b[0]);
-	c[1] = 2 * carre(cos(obj->angle)) *
-		(a[0] * a[3] + a[1] * a[4] + a[2] * a[5]) - 2 * b[0] * b[1];
-	c[2] = carre(cos(obj->angle)) *
-		(carre(a[3]) + carre(a[4]) + carre(a[5])) - carre(b[1]);
+	b[0] = a[0] * obj->dir.x + a[1] * obj->dir.y + a[2] * obj->dir.z;
+	b[1] = obj->dir.x * a[3] + obj->dir.y * a[4] + obj->dir.z * a[5];
+	c[0] = carre(cos(obj->angle)) * (carre(a[0]) + carre(a[1]) + carre(a[2])) - carre(b[0]);
+	c[1] = 2 * carre(cos(obj->angle)) * (a[0] * a[3] + a[1] * a[4] + a[2] * a[5]) - 2 * b[0] * b[1];
+	c[2] = carre(cos(obj->angle)) *	(carre(a[3]) + carre(a[4]) + carre(a[5])) - carre(b[1]);
 	return (ft_equa_sec(c[0], c[1], c[2]));
 }
