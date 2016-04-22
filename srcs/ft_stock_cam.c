@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 12:32:03 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 14:52:17 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/22 16:46:57 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,33 +21,41 @@ static void	ft_stock_cam1(t_env *e, char *c, int i)
 	if (i == 3)
 		e->cam.pos.z = ft_atof(c);
 	if (i == 4)
-		e->cam.angle.x = ft_atof(c);
+		e->cam.angle.x = (ft_atof(c) / 180 * M_PI);
 	if (i == 5)
-		e->cam.angle.y = ft_atof(c);
+		e->cam.angle.y = (ft_atof(c) / 180 * M_PI);
 	if (i == 6)
-		e->cam.angle.z = ft_atof(c);
+		e->cam.angle.z = (ft_atof(c) / 180 * M_PI);
 	if (i == 7)
 		e->cam.distfo = WIDTH / ( 2 * tan(ft_atof(c) * M_PI_2 / 180.0));
 }
+
+#include <stdio.h>
 
 static void	ft_rot_vec(double angle, t_vec3 axe, t_vec3 *vec)
 {
 	t_vec3 norm;
 
-	norm.x = axe.y * vec->z - axe.z * vec->y;
+	norm.x = -axe.y * vec->z + axe.z * vec->y;
 	norm.y = axe.x * vec->z - axe.z * vec->x;
-	norm.z = axe.x * vec->y - axe.y * vec->x;
+	norm.z = -axe.x * vec->y + axe.y * vec->x;
+	printf("axe.x = %f, axe.y =  %f,axe.z =  %f\n", axe.x, axe.y, axe.z);
+	printf("vec.x = %f, vec.y =  %f,vec.z =  %f\n", vec->x, vec->y, vec->z);
+	printf("normx = %f, norm.y =  %f,norm.z =  %f\n", norm.x, norm.y, norm.z);
+	ft_normalise(&norm);
 
 	vec->x = vec->x * cos(angle) + norm.x * sin(angle);
 	vec->y = vec->y * cos(angle) + norm.y * sin(angle);
 	vec->z = vec->z * cos(angle) + norm.z * sin(angle);
+	ft_normalise(vec);
+	printf("vec.x = %f, vec.y =  %f,vec.z =  %f\n\n", vec->x, vec->y, vec->z);
 }
 
 static void	ft_rot_cam(double angle, t_vec3 axe, t_cam *cam)
 {
-	ft_rot_vec(angle, axe, &cam->dir);
-	ft_rot_vec(angle, axe, &cam->up);
 	ft_rot_vec(angle, axe, &cam->right);
+	ft_rot_vec(angle, axe, &cam->up);
+	ft_rot_vec(angle, axe, &cam->dir);
 
 }
 

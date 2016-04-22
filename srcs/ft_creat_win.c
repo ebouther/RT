@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 15:10:49 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/22 17:36:06 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,15 @@ void			ft_creat_img(t_env *e)
 	ft_fill_img(e);
 }
 
-int				key_hook(int kc)
+int				key_hook(int kc, t_env *e)
 {
 	if (kc == 53)
 		exit(0);
+	if (kc == 126)
+		((t_obj*)(e->obj->content))->dir.z += 10.0 / 180.0 * M_PI;
+	if (kc == 125)
+		((t_obj*)(e->obj->content))->dir.z -= 10.0 / 180.0 * M_PI;
+	ft_fill_img(e);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 17:13:59 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/21 14:05:11 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/22 16:38:59 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	ft_normalise(t_vec3 *vec)
 	double lg;
 
 	lg = sqrt(carre(vec->x) + carre(vec->y) + carre(vec->z));
+	if (lg == 0)
+		return ;
 	vec->x = vec->x / lg;
 	vec->y = vec->y / lg;
 	vec->z = vec->z / lg;
