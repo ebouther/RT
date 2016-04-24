@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 15:00:37 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/24 14:35:19 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_mat
 	t_color		col;
 	double		brim;
 	char		brip;
+	double		ambiante;
 }				t_mat;
 
 typedef struct	s_type
@@ -65,6 +66,7 @@ typedef struct	s_light
 {
 	t_vec3	pos;
 	t_color	col;
+	double	k;
 }				t_light;
 
 typedef	struct	s_cam

@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 17:36:06 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/24 16:50:24 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ unsigned int	ft_contact(int x, int y, t_env *e)
 		if (tmp < t && tmp >= 0)
 		{
 			t = tmp;
-			cur_obj = (t_obj *)lst->content;			
+			cur_obj = (t_obj *)lst->content;
 		}
 		lst = lst->next;
 	}

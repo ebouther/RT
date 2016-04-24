@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 17:13:59 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 16:38:59 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/24 16:09:03 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ double	ft_equa_sec(double a, double b, double c)
 
 	delt = carre(b) - 4 * a * c;
 	if (delt < 0)
-		return (1000000000);
+		return (FAR);
 	else if (delt > 0)
 		return (fmin((-b - sqrt(delt)) / (2 * a), (-b + sqrt(delt)) / (2 * a)));
 	else

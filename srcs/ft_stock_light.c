@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 12:41:25 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/21 23:07:02 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/24 14:03:44 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void	ft_stock_light1(char *c, int i, t_light *light)
 		light->col.g = ft_atof(c);
 	else if (i == 6)
 		light->col.b = ft_atof(c);
+	else if (i == 7)
+		light->k = ft_atof(c);
 }
 
 void		ft_stock_light(t_env *e, char *line)

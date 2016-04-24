@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 12:40:35 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 15:13:38 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/24 15:22:22 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static void	ft_stock_cyl1(char *c, int i, t_obj *obj)
 		obj->mat.col.b = ft_atof(c);
 	else if (i == 11)
 		obj->mat.brim = ft_atof(c);
+	else if (i == 12)
+		obj->mat.ambiante = ft_atof(c);
 }
 
 #include <stdio.h>

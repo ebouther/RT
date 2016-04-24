@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 17:30:56 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/24 17:54:19 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ static void		ft_in_light(t_light *cur_light, t_env *e, t_ray *ray, t_color_res *
 		if (tmp > ft_dist_light(&ray->pos, &cur_light->pos) || tmp < 0)
 		{
 			angle_contact = ft_angle_contact(ray, normal);
-			col_add.diffuse.r += cur_light->col.r * angle_contact;
+			col_add.diffuse.r += cur_light->col.r * angle_contact * cur_light->k;
 			col_add.specular.r += cur_light->col.r *
 				ft_fpower(ft_brillance(&e->cam.dir, ray, normal), 20) *
 				cur_obj->mat.brim;
-			col_add.diffuse.g += cur_light->col.g * angle_contact;
+			col_add.diffuse.g += cur_light->col.g * angle_contact * cur_light->k;
 			col_add.specular.g += cur_light->col.g *
 				ft_fpower(ft_brillance(&e->cam.dir, ray, normal), 20) *
 				cur_obj->mat.brim;
-			col_add.diffuse.b += cur_light->col.b * angle_contact;
+			col_add.diffuse.b += cur_light->col.b * angle_contact * cur_light->k;
 			col_add.specular.b += cur_light->col.b *
 				ft_fpower(ft_brillance(&e->cam.dir, ray, normal), 20) *
 				cur_obj->mat.brim;
@@ -96,7 +96,7 @@ unsigned int	ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 		lst = lst->next;
 	}
 	ft_bri_max(&col_res);
-	return (65536 * (unsigned int)(ft_color_clip(cur_obj->mat.col.r * col_res.diffuse.r + col_res.specular.r) * 255)
-			+ 256 * (unsigned int)(ft_color_clip(cur_obj->mat.col.g * col_res.diffuse.g + col_res.specular.g) * 255)
-			+ (unsigned int)(ft_color_clip(cur_obj->mat.col.b * col_res.diffuse.b + col_res.specular.b) * 255));
+	return (65536 * (unsigned int)(ft_color_clip(cur_obj->mat.ambiante * cur_obj->mat.col.r + cur_obj->mat.col.r * col_res.diffuse.r + col_res.specular.r) * 255)
+			+ 256 * (unsigned int)(ft_color_clip(cur_obj->mat.ambiante * cur_obj->mat.col.g + cur_obj->mat.col.g  * col_res.diffuse.g + col_res.specular.g) * 255)
+			+ (unsigned int)(ft_color_clip(cur_obj->mat.ambiante * cur_obj->mat.col.b + cur_obj->mat.col.b * col_res.diffuse.b + col_res.specular.b) * 255));
 }

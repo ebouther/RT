@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 12:35:48 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 15:18:30 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/24 15:22:30 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static void	ft_stock_cone1(char *c, int i, t_obj *obj)
 		obj->mat.col.b = ft_atof(c);
 	else if (i == 11)
 		obj->mat.brim = ft_atof(c);
+	else if (i == 12)
+		obj->mat.ambiante = ft_atof(c);
 }
 
 void		ft_stock_cone(t_env *e, char *line)
