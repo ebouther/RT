@@ -70,7 +70,8 @@ put_title = echo "\033[38;5;$(TITLE_COLOR)m[ $(1) ]\033[0m"
 #==================#
 
 PARSER_PATH = parser/
-PARSER_FILES = parsing.c
+PARSER_FILES = parsing.c \
+			   camera_parsing.c
 
 PARSER = $(addprefix $(PARSER_PATH), $(PARSER_FILES))
 PARSER_OBJ_PATH = $(addprefix $(OBJ_PATH), $(PARSER_PATH))

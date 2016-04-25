@@ -6,11 +6,17 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 11:03:31 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/25 15:03:26 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/25 16:39:09 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+void	ft_error_exit(const char *error)
+{
+	ft_putstr(error);
+	exit(-1);
+}
 
 double			ft_atod(char *s)
 {
