@@ -6,11 +6,37 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 11:03:31 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/25 11:04:05 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/25 15:03:26 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+double			ft_atod(char *s)
+{
+	int			i;
+	int			j;
+	double		integer;
+	double		deci;
+
+	i = 0;
+	deci = 0.0;
+	while (s[i] && s[i] != '.')
+		i++;
+	if (s[i] == '\0')
+		return ((double)(ft_atoi(s)));
+	else if (s[i] == '.')
+	{
+		integer = (double)ft_atoi(ft_strsub(s, 0, i));
+		deci = (double)ft_atoi(ft_strsub(s, i + 1, ft_strlen(s) - i - 1));
+		j = i + 1;
+		while (ft_isdigit(s[j]) == 1)
+			j++;
+		deci = deci / pow(j - i - 1, 10);
+		deci = deci + integer;
+	}
+	return (deci);
+}
 
 char		*ft_strjoin_free(char *s1, char *s2)
 {

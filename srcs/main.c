@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:52:18 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/25 11:58:44 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/25 15:05:37 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ void	ft_stock_scene(t_env *e, char *av)
 	ret = 0;
 	file = ft_strnew(0);
 	if ((fd = open(av, O_RDONLY)) == -1)
+	{
+		ft_putstr("Error: Please specify a valid scene file.\n");
 		exit(-1);
+	}
 	ft_init_env(e);
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{

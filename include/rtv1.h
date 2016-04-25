@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/25 11:45:21 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/25 15:03:39 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ double			ft_norm(t_vec3 *vec);
 ** Utils.c
 */
 char			*ft_strjoin_free(char *s1, char *s2);
+double			ft_atod(char *s);
 
 /*
 ** Parsing
