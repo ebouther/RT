@@ -6,23 +6,23 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/24 14:35:19 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/25 11:45:21 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RTV1_H
 # define RTV1_H
 
+# include "libft.h"
+# include <math.h>
+# include <fcntl.h>
+# include "mlx.h"
+
 # define SIZE_W 1000
 # define SIZE_H 1000
 # define WIDTH 100
 # define HIGHT 100
 # define FAR 1000000000
-
-# include "libft.h"
-# include <math.h>
-# include <fcntl.h>
-# include "mlx.h"
 
 typedef struct	s_vec3
 {
@@ -139,9 +139,18 @@ double			inters_plan(t_ray *ray, t_obj *obj);
 */
 void			ft_normalise(t_vec3 *vec);
 double			ft_norm(t_vec3 *vec);
+
+/*
+** Utils.c
+*/
+char			*ft_strjoin_free(char *s1, char *s2);
+
 /*
 ** Parsing
 */
+int				ft_parse_scene(char *file, t_env *e);
+
+
 void			ft_stock_cam(t_env *e, char *line);
 void			ft_stock_cone(t_env *e, char *line);
 void			ft_stock_plan(t_env *e, char *line);
