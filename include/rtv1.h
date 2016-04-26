@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/25 20:05:50 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/26 14:13:56 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,9 +152,14 @@ void			ft_error_exit(const char *error);
 */
 char			*ft_get_inner(char *str, char *obj, int *end_tag);
 int				ft_set_vec3(char *obj, t_vec3 *vec3);
+int				ft_set_color(char *obj, t_color *col);
 int				ft_parse_scene(char *file, t_env *e);
 int				ft_set_camera(char *camera, t_env *e);
-int				ft_set_color(char *obj, t_color *col);
+int				ft_get_cylinders(char *objects, size_t len, t_env *e);
+int				ft_get_spheres(char *objects, size_t len, t_env *e);
+int				ft_get_cones(char *objects, size_t len, t_env *e);
+int				ft_get_planes(char *objects, size_t len, t_env *e);
+int				ft_get_lights(char *lights, size_t len, t_env *e);
 
 
 void			ft_stock_cam(t_env *e, char *line);
