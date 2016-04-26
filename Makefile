@@ -91,6 +91,7 @@ SRC_NAME = main.c \
 		   ft_dist.c \
 		   ft_math.c \
 		   utils.c \
+		   ft_screen_shot.c\
 		   $(PARSER)
 
 

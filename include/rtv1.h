@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/26 14:42:44 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/26 15:28:16 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,5 +170,7 @@ double			ft_dist_light(t_vec3 *ray_pos, t_vec3 *light_pos);
 double			ft_angle_contact(t_ray *ray, t_vec3 *normal);
 double			ft_dist(int i, t_env *e);
 double			ft_brillance(t_vec3 *pos_cam, t_ray *ray, t_vec3 *normal);
+
+void	ft_make_screen(t_env *e, char *name);
 
 #endif

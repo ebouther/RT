@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/26 14:36:44 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/26 15:27:26 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,12 @@ int				key_hook(int kc, t_env *e)
 {
 	if (kc == 53)
 		exit(0);
-	if (kc == 126)
+	else if (kc == 126)
 		((t_obj*)(e->obj->content))->dir.z += 10.0 / 180.0 * M_PI;
-	if (kc == 125)
+	else if (kc == 125)
 		((t_obj*)(e->obj->content))->dir.z -= 10.0 / 180.0 * M_PI;
+	else if (kc == 35)
+		ft_make_screen(e, "img.ppm");
 	ft_fill_img(e);
 	return (0);
 }
