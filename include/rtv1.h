@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/26 14:13:56 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/26 14:42:44 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,14 +160,6 @@ int				ft_get_spheres(char *objects, size_t len, t_env *e);
 int				ft_get_cones(char *objects, size_t len, t_env *e);
 int				ft_get_planes(char *objects, size_t len, t_env *e);
 int				ft_get_lights(char *lights, size_t len, t_env *e);
-
-
-void			ft_stock_cam(t_env *e, char *line);
-void			ft_stock_cone(t_env *e, char *line);
-void			ft_stock_plan(t_env *e, char *line);
-void			ft_stock_cyl(t_env *e, char *line);
-void			ft_stock_sphere(t_env *e, char *line);
-void			ft_stock_light(t_env *e, char *line);
 
 t_ray			*ft_calc_ray(int x, int y, t_env *e);
 unsigned int	ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj);

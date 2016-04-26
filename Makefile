@@ -85,14 +85,8 @@ SRC_NAME = main.c \
 		   ft_put_pixelle.c \
 		   ft_creat_win.c \
 		   ft_cal_gen.c \
-		   ft_stock_cam.c \
-		   ft_stock_cone.c \
-		   ft_stock_cyl.c \
-		   ft_stock_plan.c \
-		   ft_stock_sphere.c \
 		   ft_angle_contact.c \
 		   ft_brillance.c \
-		   ft_stock_light.c \
 		   ft_shadow.c \
 		   ft_dist.c \
 		   ft_math.c \
