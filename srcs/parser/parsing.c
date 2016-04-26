@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 10:36:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/25 20:40:36 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/26 12:59:30 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char		*ft_get_inner(char *str, char *obj, int *end_tag)
 		&& (ptr[1] = ft_strstr(str, obj_end_tag)) != NULL)
 	{
 		if (end_tag != NULL)
-			*end_tag = ptr[1] + len;
+			*end_tag = (int)ptr[1] - (int)str + len + 1;
 		if ((ret = malloc(ptr[1] - (ptr[0] + len) + 1)) == NULL)
 			exit(-1);
 		ft_strncpy(ret, ptr[0] + len + 1, ptr[1] - (ptr[0] + len + 1));
@@ -81,7 +81,6 @@ int			ft_set_color(char *obj, t_color *col)
 	return (0);
 }
 
-
 static int		ft_set_lights(char *lights, t_env *e)
 {
 	char	*light;
@@ -124,7 +123,7 @@ static int		ft_set_sphere(char *sphere, t_env *e)
 
 	//Temp
 	sphere_obj.mat.brim = 0.5;
-	sphere_obj.mat.ambiante = 1;
+	sphere_obj.mat.ambiante = 0.2;
 
 	sphere_obj.get_normal = &normal_sphere;
 	sphere_obj.get_inters = &inters_sphere;
@@ -155,7 +154,7 @@ static int		ft_set_cylinder(char *cylinder, t_env *e)
 	
 	//Temp
 	cylinder_obj.mat.brim = 0.5;
-	cylinder_obj.mat.ambiante = 1;
+	cylinder_obj.mat.ambiante = 0.2;
 
 	cylinder_obj.get_normal = &normal_cyl;
 	cylinder_obj.get_inters = &inters_cyl;
@@ -181,15 +180,15 @@ static int		ft_set_cone(char *cone, t_env *e)
 		ft_error_exit("Error: cone require a direction subobject.\n");
 	ft_set_vec3(position, &cone_obj.pos);
 	ft_set_vec3(direction, &cone_obj.dir);
-	cone_obj.angle = ft_atod(radius) / 180 * M_PI;
+	cone_obj.angle = ft_atod(angle) / 180 * M_PI;
 	ft_set_color(color, &cone_obj.mat.col);
 	
 	//Temp
 	cone_obj.mat.brim = 0.5;
-	cone_obj.mat.ambiante = 1;
+	cone_obj.mat.ambiante = 0.2;
 
-	cone_obj.get_normal = &normal_cyl;
-	cone_obj.get_inters = &inters_cyl;
+	cone_obj.get_normal = &normal_cone;
+	cone_obj.get_inters = &inters_cone;
 	ft_lstadd(&e->obj, ft_lstnew((void *)&cone_obj, sizeof(t_obj)));
 	return (0);
 }
@@ -198,7 +197,6 @@ static int		ft_set_plane(char *plane, t_env *e)
 {
 	char	*position;
 	char	*normal;
-	char	*angle;
 	char	*color;
 	t_obj	plane_obj;
 
@@ -216,18 +214,19 @@ static int		ft_set_plane(char *plane, t_env *e)
 	plane_obj.mat.brim = 0.5;
 	plane_obj.mat.ambiante = 1;
 
-	plane_obj.get_normal = &normal_cyl;
-	plane_obj.get_inters = &inters_cyl;
+	plane_obj.get_normal = &normal_plan;
+	plane_obj.get_inters = &inters_plan;
 	ft_lstadd(&e->obj, ft_lstnew((void *)&plane_obj, sizeof(t_obj)));
 	return (0);
 }
-
 
 static int				ft_set_objects(char *objects, t_env *e)
 {
 	char	*start_ptr;
 	char	*sphere;
 	char	*cylinder;
+	char	*cone;
+	char	*plane;
 	int		pos;
 	size_t	len;
 
@@ -238,11 +237,37 @@ static int				ft_set_objects(char *objects, t_env *e)
 	{
 		ft_set_sphere(sphere, e);
 		ft_strdel(&sphere);
-		if (len - pos < 0)
+		if ((int)len - pos < 0)
 			break ;
+		objects += pos;
 	}
-	if ((cylinder = ft_get_inner(objects, "cylinder", NULL)) != NULL)
+	objects = start_ptr;
+	while ((cylinder = ft_get_inner(objects, "cylinder", &pos)) != NULL)
+	{
 		ft_set_cylinder(cylinder, e);
+		ft_strdel(&cylinder);
+		if ((int)len - pos < 0)
+			break ;
+		objects += pos;
+	}
+	objects = start_ptr;
+	while ((cone = ft_get_inner(objects, "cone", &pos)) != NULL)
+	{
+		ft_set_cone(cone, e);
+		ft_strdel(&cone);
+		if ((int)len - pos < 0)
+			break ;
+		objects += pos;
+	}
+	objects = start_ptr;
+	while ((plane = ft_get_inner(objects, "plane", &pos)) != NULL)
+	{
+		ft_set_plane(plane, e);
+		ft_strdel(&plane);
+		if ((int)len - pos < 0)
+			break ;
+		objects += pos;
+	}
 	return (0);
 }
 

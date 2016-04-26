@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 11:03:31 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/25 16:39:09 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/26 12:38:48 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@ void	ft_error_exit(const char *error)
 {
 	ft_putstr(error);
 	exit(-1);
+}
+
+int				ft_ten_pow(int ten, int p)
+{
+	if (p <= 0)
+		return (1);
+	else
+		return (ft_ten_pow(ten, p - 1) * 10);
 }
 
 double			ft_atod(char *s)
@@ -38,7 +46,7 @@ double			ft_atod(char *s)
 		j = i + 1;
 		while (ft_isdigit(s[j]) == 1)
 			j++;
-		deci = deci / pow(j - i - 1, 10);
+		deci = deci / ft_ten_pow(1, j - i - 1);
 		deci = deci + integer;
 	}
 	return (deci);
