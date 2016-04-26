@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:47:45 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/26 13:57:35 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/26 14:56:25 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int	ft_set_sphere(char *sphere, t_env *e)
 	char	*color;
 	t_obj	sphere_obj;
 
+	sphere_obj.mat.brim = 0.5;
 	if ((position = ft_get_inner(sphere, "position", NULL)) == NULL)
 		ft_error_exit("Error: sphere require a position subobject.\n");
 	if ((radius = ft_get_inner(sphere, "radius", NULL)) == NULL)
@@ -28,11 +29,6 @@ static int	ft_set_sphere(char *sphere, t_env *e)
 	ft_set_vec3(position, &sphere_obj.pos);
 	sphere_obj.rayon = ft_atod(radius);
 	ft_set_color(color, &sphere_obj.mat.col);
-
-	//Temp
-	sphere_obj.mat.brim = 0.5;
-	sphere_obj.mat.ambiante = 0.2;
-
 	sphere_obj.get_normal = &normal_sphere;
 	sphere_obj.get_inters = &inters_sphere;
 	ft_lstadd(&e->obj, ft_lstnew((void *)&sphere_obj, sizeof(t_obj)));
@@ -55,4 +51,3 @@ int			ft_get_spheres(char *objects, size_t len, t_env *e)
 	}
 	return (0);
 }
-

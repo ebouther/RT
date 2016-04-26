@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:45:04 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/26 14:32:25 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/26 14:52:41 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static int	ft_set_cylinder(char *cylinder, t_env *e)
 	char	*color;
 	t_obj	cylinder_obj;
 
+	cylinder_obj.mat.brim = 0.5;
 	if ((position = ft_get_inner(cylinder, "position", NULL)) == NULL)
 		ft_error_exit("Error: cylinder require a position subobject.\n");
 	if ((radius = ft_get_inner(cylinder, "radius", NULL)) == NULL)
@@ -32,11 +33,6 @@ static int	ft_set_cylinder(char *cylinder, t_env *e)
 	ft_set_vec3(direction, &cylinder_obj.dir);
 	cylinder_obj.rayon = ft_atod(radius);
 	ft_set_color(color, &cylinder_obj.mat.col);
-	
-	//Temp
-	cylinder_obj.mat.brim = 0.5;
-	cylinder_obj.mat.ambiante = 0.2;
-
 	cylinder_obj.get_normal = &normal_cyl;
 	cylinder_obj.get_inters = &inters_cyl;
 	ft_lstadd(&e->obj, ft_lstnew((void *)&cylinder_obj, sizeof(t_obj)));

@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:49:15 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/26 14:25:47 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/26 14:52:23 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static int	ft_set_cone(char *cone, t_env *e)
 	char	*color;
 	t_obj	cone_obj;
 
+	cone_obj.mat.brim = 0.5;
 	if ((position = ft_get_inner(cone, "position", NULL)) == NULL)
 		ft_error_exit("Error: cone require a position subobject.\n");
 	if ((angle = ft_get_inner(cone, "angle", NULL)) == NULL)
@@ -32,11 +33,6 @@ static int	ft_set_cone(char *cone, t_env *e)
 	ft_set_vec3(direction, &cone_obj.dir);
 	cone_obj.angle = ft_atod(angle) / 180 * M_PI;
 	ft_set_color(color, &cone_obj.mat.col);
-	
-	//Temp
-	cone_obj.mat.brim = 0.5;
-	cone_obj.mat.ambiante = 0.2;
-
 	cone_obj.get_normal = &normal_cone;
 	cone_obj.get_inters = &inters_cone;
 	ft_lstadd(&e->obj, ft_lstnew((void *)&cone_obj, sizeof(t_obj)));

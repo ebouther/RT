@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 10:36:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/26 14:33:42 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/26 14:56:10 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int			ft_set_color(char *obj, t_color *col)
 	return (0);
 }
 
-static int				ft_set_objects(char *objects, t_env *e)
+static int	ft_set_objects(char *objects, t_env *e)
 {
 	size_t	len;
 
@@ -99,7 +99,7 @@ static int				ft_set_objects(char *objects, t_env *e)
 	return (0);
 }
 
-int				ft_parse_scene(char *file, t_env *e)
+int			ft_parse_scene(char *file, t_env *e)
 {
 	char	*scene;
 	char	*camera;

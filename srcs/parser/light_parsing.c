@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 14:11:08 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/26 14:20:49 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/26 14:58:17 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	ft_set_light(char *light, t_env *e)
 	return (0);
 }
 
-int		ft_get_lights(char *lights, size_t len, t_env *e)
+int			ft_get_lights(char *lights, size_t len, t_env *e)
 {
 	char	*light;
 	int		pos;
