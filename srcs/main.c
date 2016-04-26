@@ -6,13 +6,13 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:52:18 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 16:47:35 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/25 15:05:37 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void	ft_read_scene(t_env *e, char *line)
+/*void	ft_read_scene(t_env *e, char *line)
 {
 	if (ft_atoi(line) == 0)
 		ft_stock_cam(e, line);
@@ -26,7 +26,7 @@ void	ft_read_scene(t_env *e, char *line)
 		ft_stock_cone(e, line);
 	else if (ft_atoi(line) == -1)
 		ft_stock_light(e, line);
-}
+}*/
 
 void	ft_init_env(t_env *e)
 {
@@ -42,17 +42,29 @@ void	ft_stock_scene(t_env *e, char *av)
 {
 	int		fd;
 	char	*line;
+	char	*file;
 	int		ret;
+	char	*tmp;
 
 	ret = 0;
+	file = ft_strnew(0);
 	if ((fd = open(av, O_RDONLY)) == -1)
+	{
+		ft_putstr("Error: Please specify a valid scene file.\n");
 		exit(-1);
+	}
 	ft_init_env(e);
 	while ((ret = get_next_line(fd, &line)) > 0)
-		ft_read_scene(e, line);
+	{
+		file = ft_strjoin(tmp = file, line);
+		free(tmp);
+	}
+	if (ft_parse_scene(file, e) == -1)
+		exit(-1);
 	if (ret == -1)
 		exit(-1);
 	free(line);
+	free(file);
 }
 
 int		main(int ac, char **av)

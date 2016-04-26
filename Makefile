@@ -68,6 +68,19 @@ put_title = echo "\033[38;5;$(TITLE_COLOR)m[ $(1) ]\033[0m"
 #==================#
 #_- Source Files -_#
 #==================#
+
+PARSER_PATH = parser/
+PARSER_FILES = parsing.c \
+			   camera_parsing.c \
+			   plane_parsing.c \
+			   sphere_parsing.c \
+			   cone_parsing.c \
+			   cylinder_parsing.c \
+			   light_parsing.c
+
+PARSER = $(addprefix $(PARSER_PATH), $(PARSER_FILES))
+PARSER_OBJ_PATH = $(addprefix $(OBJ_PATH), $(PARSER_PATH))
+
 SRC_NAME = main.c \
 		   ft_put_pixelle.c \
 		   ft_creat_win.c \
@@ -83,6 +96,9 @@ SRC_NAME = main.c \
 		   ft_shadow.c \
 		   ft_dist.c \
 		   ft_math.c \
+		   utils.c \
+		   $(PARSER)
+
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
@@ -106,6 +122,7 @@ $(OBJ_PATH)%.o:  $(SRC_PATH)%.c
 $(OBJ_PATH):
 	@$(call put_title,Linking)
 	@mkdir -p $(OBJ_PATH)
+	@mkdir -p $(PARSER_OBJ_PATH)
 
 #	Object Compiation
 $(NAME): $(OBJ_PATH) $(OBJ)

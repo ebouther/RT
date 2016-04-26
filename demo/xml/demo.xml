@@ -1,0 +1,154 @@
+
+<scene>
+
+	<config>
+		<ambient> 0.2 </ambient>
+		<filter> sepia </filter>
+	</config>
+
+	<camera>
+		<position>
+			<x> 0.0 </x>
+			<y> 0.0 </y>
+			<z> 0.0 </z>
+		</position>
+
+		<angle>
+			<x> 0.0 </x>
+			<y> 0.0 </y>
+			<z> 0.0 </z>
+		</angle>
+
+		<fov> 70.0 </fov>
+	</camera>
+	
+	<lights>
+
+		<light>
+			<intensity> 1.0 </intensity>
+			<position>
+				<x> 40.0 </x>
+				<y>  0.0 </y>
+				<z> 20.0 </z>
+			</position>
+			<color>
+				<r> 0.9 </r>
+				<g> 0.9 </g>
+				<b> 0.9 </b>
+			</color>
+		</light>
+		
+		<light>
+			<intensity> 1.0 </intensity>
+			<position>
+				<x> 10.0 </x>
+				<y>  0.0 </y>
+				<z> 20.0 </z>
+			</position>
+			<color>
+				<r> 0.9 </r>
+				<g> 0.0 </g>
+				<b> 0.0 </b>
+			</color>
+		</light>
+
+	</lights>
+
+	<objects>
+		<cone>
+			<position>
+				<x> 0.0 </x>
+				<y> 0.0 </y>
+				<z> 100.0 </z>
+			</position>
+			
+			<angle> 15.0 </angle>
+
+			<direction>
+				<x> 0.0 </x>
+				<y> 1.0 </y>
+				<z> 0.0 </z>
+			</direction>
+			
+			<color>
+				<r> 0.56 </r>
+				<g> 0.41 </g>
+				<b> 0.56 </b>
+			</color>
+		</cone>
+		
+		<cylinder>
+			<position>
+				<x> 10.0 </x>
+				<y> 0.0 </y>
+				<z> 100.0 </z>
+			</position>
+			
+			<radius> 10 </radius>
+
+			<direction>
+				<x> 0.0 </x>
+				<y> 1.0 </y>
+				<z> 0.0 </z>
+			</direction>
+			
+			<color>
+				<r> 0.55 </r>
+				<g> 0.41 </g>
+				<b> 0.56 </b>
+			</color>
+		</cylinder>
+
+		<sphere>
+			<position>
+				<x> 0.0 </x>
+				<y> 0.0 </y>
+				<z> 100.0 </z>
+			</position>
+
+			<radius> 10.0 </radius>
+
+			<color>
+				<r> 0.56 </r>
+				<g> 0.41 </g>
+				<b> 0.56 </b>
+			</color>
+		</sphere>
+
+		<sphere>
+			<position>
+				<x> 15.0 </x>
+				<y> 0.0 </y>
+				<z> 100.0 </z>
+			</position>
+
+			<radius> 10.0 </radius>
+
+			<color>
+				<r> 0.56 </r>
+				<g> 0.41 </g>
+				<b> 0.56 </b>
+			</color>
+		</sphere>
+		<plane>
+			<position>
+				<x> 0.0 </x>
+				<y> -10.0 </y>
+				<z> 100.0 </z>
+			</position>
+
+			<normal>
+				<x> 0.0 </x>
+				<y> 1.0 </y>
+				<z> 0.0 </z>
+			</normal>
+
+			<color>
+				<r> 0.56 </r>
+				<g> 0.0 </g>
+				<b> 0.0 </b>
+			</color>
+		</plane>
+	</objects>
+
+</scene>
