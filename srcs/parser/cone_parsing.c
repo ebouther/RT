@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:49:15 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/26 14:08:40 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/26 14:25:47 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ static int	ft_set_cone(char *cone, t_env *e)
 	cone_obj.get_normal = &normal_cone;
 	cone_obj.get_inters = &inters_cone;
 	ft_lstadd(&e->obj, ft_lstnew((void *)&cone_obj, sizeof(t_obj)));
+	ft_strdel(&position);
+	ft_strdel(&direction);
+	ft_strdel(&angle);
+	ft_strdel(&color);
 	return (0);
 }
 

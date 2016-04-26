@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:45:04 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/26 14:09:04 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/26 14:32:25 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ static int	ft_set_cylinder(char *cylinder, t_env *e)
 	cylinder_obj.get_normal = &normal_cyl;
 	cylinder_obj.get_inters = &inters_cyl;
 	ft_lstadd(&e->obj, ft_lstnew((void *)&cylinder_obj, sizeof(t_obj)));
+	ft_strdel(&position);
+	ft_strdel(&direction);
+	ft_strdel(&radius);
+	ft_strdel(&color);
 	return (0);
 }
 

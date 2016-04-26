@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 16:31:14 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/26 12:10:31 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/26 14:24:15 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int			ft_set_camera(char *camera, t_env *e)
 	ft_normalise(&e->cam.dir);
 	ft_normalise(&e->cam.up);
 	ft_normalise(&e->cam.right);
+	ft_strdel(&position);
+	ft_strdel(&angle);
+	ft_strdel(&fov);
 	return (0);
 }
-

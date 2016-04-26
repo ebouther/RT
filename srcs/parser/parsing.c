@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 10:36:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/26 14:19:47 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/26 14:33:42 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ int			ft_set_vec3(char *obj, t_vec3 *vec3)
 		exit(-1);
 	}
 	*vec3 = (t_vec3){ft_atod(x), ft_atod(y), ft_atod(z)};
+	ft_strdel(&x);
+	ft_strdel(&y);
+	ft_strdel(&z);
 	return (0);
 }
 
@@ -78,6 +81,9 @@ int			ft_set_color(char *obj, t_color *col)
 		exit(-1);
 	}
 	*col = (t_color){ft_atod(r), ft_atod(g), ft_atod(b)};
+	ft_strdel(&r);
+	ft_strdel(&g);
+	ft_strdel(&b);
 	return (0);
 }
 
@@ -112,5 +118,9 @@ int				ft_parse_scene(char *file, t_env *e)
 		ft_putstr("There are no objects in your scene file.\n");
 	ft_set_camera(camera, e);
 	ft_set_objects(objects, e);
+	ft_strdel(&scene);
+	ft_strdel(&camera);
+	ft_strdel(&lights);
+	ft_strdel(&objects);
 	return (0);
 }

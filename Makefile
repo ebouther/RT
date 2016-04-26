@@ -71,7 +71,12 @@ put_title = echo "\033[38;5;$(TITLE_COLOR)m[ $(1) ]\033[0m"
 
 PARSER_PATH = parser/
 PARSER_FILES = parsing.c \
-			   camera_parsing.c
+			   camera_parsing.c \
+			   plane_parsing.c \
+			   sphere_parsing.c \
+			   cone_parsing.c \
+			   cylinder_parsing.c \
+			   light_parsing.c
 
 PARSER = $(addprefix $(PARSER_PATH), $(PARSER_FILES))
 PARSER_OBJ_PATH = $(addprefix $(OBJ_PATH), $(PARSER_PATH))
