@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/25 16:39:34 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/25 20:05:50 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ void			ft_error_exit(const char *error);
 /*
 ** Parsing
 */
-char			*ft_get_inner(char *str, char *obj);
+char			*ft_get_inner(char *str, char *obj, int *end_tag);
 int				ft_set_vec3(char *obj, t_vec3 *vec3);
 int				ft_parse_scene(char *file, t_env *e);
 int				ft_set_camera(char *camera, t_env *e);
