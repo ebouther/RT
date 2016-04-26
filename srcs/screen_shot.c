@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/24 18:01:02 by ascholle          #+#    #+#             */
-/*   Updated: 2016/04/26 12:06:58 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/26 12:47:21 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	ft_make_screen(t_env *e, char *name)
 	int				fd;
 	int				i;
 	int				j;
-	int				k;
 	unsigned char	*p;
-	char			c;
+	unsigned char	*res;
+	unsigned char	*sv;
 
 	if ((fd = open(name, O_WRONLY | O_CREAT)) == -1)
 		exit(-1);
@@ -30,32 +30,31 @@ void	ft_make_screen(t_env *e, char *name)
 	write(fd, " ", 1);
 	ft_putnbr_fd(j, fd);
 	write(fd, "\n255\n", 5);
-	(void)e;
+	res = (unsigned char *)malloc(sizeof(unsigned char) * (SIZE_W * SIZE_H * 3));
 	i = 0;
 	p = (unsigned char*)(e->data);
+	sv = res;
 	while (i < SIZE_H)
 	{
 		j = 0;
 		while (j < SIZE_W)
 		{
 			p += 2;
-			k = *p;
-			c = k;
-			write(fd, &c, 1);
+			*res = (int)*p;
 			p--;
-			k = *p;
-			c = k;
-			write(fd, &c, 1);
+			res++;
+			*res = (int)*p;
 			p--;
-			k = *p;
-			c = k;
-			write(fd, &c, 1);
+			res++;
+			*res = (int)*p;
+			res++;
 			p += 4;
 			j++;
 		}
 		i++;
-	ft_putnbr(i);
-	ft_putchar('\n');
 	}
+	res = sv;
+	write(fd, res, SIZE_H * SIZE_W * 3);
+	free(res);
 	close(fd);
 }
