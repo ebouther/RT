@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/25 16:21:57 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/27 11:48:32 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,22 +81,52 @@ static void		ft_bri_max(t_color_res *colres)
 	}
 }
 
+void	ft_color_mode(t_color *c, t_env *e)
+{
+	t_color	in;
+
+	in.r = c->r;
+	in.g = c->g;
+	in.b = c->b;
+	if (e->color_m == 1)
+	{
+		c->r = ft_color_clip(in.r * 0.393 + in.g * 0.769 + in.b * 0.189);
+		c->g = ft_color_clip(in.r * 0.349 + in.g * 0.683 + in.b * 0.168);
+		c->b = ft_color_clip(in.r * 0.272 + in.g * 0.534 + in.b * 0.131);
+	}
+	else if (e->color_m == 2)
+	{
+		c->r = ft_color_clip((in.r + in.g + in.b) / 3.0);
+		c->g = c->r;
+		c->b = c->r;
+	}
+}
+
 unsigned int	ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 {
 	t_color_res	col_res;
 	t_list	*lst;
 	t_ray	*ray_diff;
+	t_color	final_col;
 
 	col_res = (t_color_res){{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 	ray_diff = ft_recalc_ori(ray, t);
 	lst = e->light;
 	while (lst)
 	{
-		ft_in_light((t_light *)(lst->content), e, &ray_diff[0], &col_res, cur_obj);
+		ft_in_light((t_light *)(lst->content), e, &ray_diff[0], &col_res,
+					cur_obj);
 		lst = lst->next;
 	}
 	ft_bri_max(&col_res);
-	return (65536 * (unsigned int)(ft_color_clip(cur_obj->mat.ambiante * cur_obj->mat.col.r + cur_obj->mat.col.r * col_res.diffuse.r + col_res.specular.r) * 255)
-			+ 256 * (unsigned int)(ft_color_clip(cur_obj->mat.ambiante * cur_obj->mat.col.g + cur_obj->mat.col.g  * col_res.diffuse.g + col_res.specular.g) * 255)
-			+ (unsigned int)(ft_color_clip(cur_obj->mat.ambiante * cur_obj->mat.col.b + cur_obj->mat.col.b * col_res.diffuse.b + col_res.specular.b) * 255));
+	final_col.r = ft_color_clip(e->amb * cur_obj->mat.col.r
+				+ cur_obj->mat.col.r * col_res.diffuse.r + col_res.specular.r);
+	final_col.g = ft_color_clip(e->amb * cur_obj->mat.col.g
+				+ cur_obj->mat.col.g * col_res.diffuse.g + col_res.specular.g);
+	final_col.b = ft_color_clip(e->amb * cur_obj->mat.col.b
+				+ cur_obj->mat.col.b * col_res.diffuse.b + col_res.specular.b);
+	ft_color_mode(&final_col, e);
+	return (65536 * (unsigned int)(final_col.r * 255)
+			+ 256 * (unsigned int)(final_col.g * 255)
+			+ (unsigned int)(final_col.b * 255));
 }

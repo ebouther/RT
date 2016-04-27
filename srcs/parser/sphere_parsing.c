@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:47:45 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/26 14:56:25 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/26 18:07:32 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_set_sphere(char *sphere, t_env *e)
 	char	*color;
 	t_obj	sphere_obj;
 
-	sphere_obj.mat.brim = 0.5;
+	sphere_obj.mat.brim = 0.2;
 	if ((position = ft_get_inner(sphere, "position", NULL)) == NULL)
 		ft_error_exit("Error: sphere require a position subobject.\n");
 	if ((radius = ft_get_inner(sphere, "radius", NULL)) == NULL)

@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:49:15 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/26 14:52:23 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/26 18:05:19 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	ft_set_cone(char *cone, t_env *e)
 	char	*color;
 	t_obj	cone_obj;
 
-	cone_obj.mat.brim = 0.5;
+	cone_obj.mat.brim = 0.1;
 	if ((position = ft_get_inner(cone, "position", NULL)) == NULL)
 		ft_error_exit("Error: cone require a position subobject.\n");
 	if ((angle = ft_get_inner(cone, "angle", NULL)) == NULL)

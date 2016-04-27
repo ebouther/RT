@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:46:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/26 14:53:04 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/26 18:05:37 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_set_plane(char *plane, t_env *e)
 	char	*color;
 	t_obj	plane_obj;
 
-	plane_obj.mat.brim = 0.5;
+	plane_obj.mat.brim = 0.1;
 	if ((position = ft_get_inner(plane, "position", NULL)) == NULL)
 		ft_error_exit("Error: plane require a <position> subobject.\n");
 	if ((normal = ft_get_inner(plane, "normal", NULL)) == NULL)

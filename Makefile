@@ -76,7 +76,8 @@ PARSER_FILES = parsing.c \
 			   sphere_parsing.c \
 			   cone_parsing.c \
 			   cylinder_parsing.c \
-			   light_parsing.c
+			   light_parsing.c \
+			   config_parsing.c \
 
 PARSER = $(addprefix $(PARSER_PATH), $(PARSER_FILES))
 PARSER_OBJ_PATH = $(addprefix $(OBJ_PATH), $(PARSER_PATH))

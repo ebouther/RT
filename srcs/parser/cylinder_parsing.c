@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:45:04 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/26 14:52:41 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/26 18:05:30 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	ft_set_cylinder(char *cylinder, t_env *e)
 	char	*color;
 	t_obj	cylinder_obj;
 
-	cylinder_obj.mat.brim = 0.5;
+	cylinder_obj.mat.brim = 0.1;
 	if ((position = ft_get_inner(cylinder, "position", NULL)) == NULL)
 		ft_error_exit("Error: cylinder require a position subobject.\n");
 	if ((radius = ft_get_inner(cylinder, "radius", NULL)) == NULL)
