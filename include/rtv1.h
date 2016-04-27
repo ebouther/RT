@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/27 11:32:22 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/27 16:41:48 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define WIDTH 100
 # define HIGHT 100
 # define FAR 1000000000
+# define NB_ITER 10;
 
 typedef struct	s_vec3
 {
@@ -52,6 +53,10 @@ typedef struct s_mat
 	double		brim;
 	char		brip;
 	double		ambiante;
+	double		i_opt;
+	double		opac;
+	double		refr;
+	double		refl;
 }				t_mat;
 
 typedef struct	s_type
@@ -83,6 +88,8 @@ typedef struct	s_ray
 {
 	t_vec3	pos;
 	t_vec3	dir;
+	double	i_opt;
+	int		iter;
 }				t_ray;
 
 typedef struct	s_obj
@@ -114,11 +121,21 @@ typedef struct	s_env
 	double	amb;
 }				t_env;
 
-void			ft_put_pixelle(int x, int y, unsigned int *c, t_env *e);
+typedef struct	s_work
+{
+	t_obj		*obj;
+	t_light		*light;
+	t_vec3		*normal;
+	t_ray		*ray;
+}				t_work;
+
+void			ft_put_pixelle(int x, int y, unsigned int c, t_env *e);
 void			ft_creat_img(t_env *e);
 double			carre(double x);
 double			ft_equa_sec(double a, double b, double c);
 void			ft_creat_win(t_env *e);
+t_ray			*ft_refr(t_ray *ray, t_work *work);
+t_ray			*ft_refl(t_ray *ray, t_work *work);
 
 /*
 ** Normals
@@ -165,7 +182,7 @@ int				ft_get_lights(char *lights, size_t len, t_env *e);
 int			ft_set_config(char *config, t_env *e);
 
 t_ray			*ft_calc_ray(int x, int y, t_env *e);
-unsigned int	ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj);
+t_color			*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj);
 t_ray    		*ft_recalc_ori(t_ray *ray, double t);
 void			ft_recalc_dir(t_light *light, t_ray *ray);
 double			ft_dist(int i, t_env *e);

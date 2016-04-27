@@ -6,13 +6,13 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/27 11:48:32 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/27 17:28:29 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static void		ft_in_light(t_light *cur_light, t_env *e, t_ray *ray, t_color_res *col_res, t_obj *cur_obj)
+static void		ft_in_light(t_work *work, t_env *e, t_color_res *col_res)
 {
 	t_list	*lst;
 	double	tmp;
@@ -21,27 +21,26 @@ static void		ft_in_light(t_light *cur_light, t_env *e, t_ray *ray, t_color_res *
 	t_vec3	*normal;
 
 	col_add = (t_color_res){{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
-	ft_recalc_dir(cur_light, ray);
+	ft_recalc_dir(work->light, work->ray);
 	lst = e->obj;
-	normal = cur_obj->get_normal(ray, cur_obj);
 	while (lst)
 	{
-		tmp = ((t_obj *)(lst->content))->get_inters(ray, (t_obj *)(lst->content));
-		if (tmp > ft_dist_light(&ray->pos, &cur_light->pos) || tmp < 0)
+		tmp = ((t_obj *)(lst->content))->get_inters(work->ray, (t_obj *)(lst->content));
+		if (tmp > ft_dist_light(&work->ray->pos, &work->light->pos) || tmp < 0)
 		{
-			angle_contact = ft_angle_contact(ray, normal);
-			col_add.diffuse.r += cur_light->col.r * angle_contact * cur_light->k;
-			col_add.specular.r += cur_light->col.r *
-				ft_fpower(ft_brillance(&e->cam.dir, ray, normal), 20) *
-				cur_obj->mat.brim;
-			col_add.diffuse.g += cur_light->col.g * angle_contact * cur_light->k;
-			col_add.specular.g += cur_light->col.g *
-				ft_fpower(ft_brillance(&e->cam.dir, ray, normal), 20) *
-				cur_obj->mat.brim;
-			col_add.diffuse.b += cur_light->col.b * angle_contact * cur_light->k;
-			col_add.specular.b += cur_light->col.b *
-				ft_fpower(ft_brillance(&e->cam.dir, ray, normal), 20) *
-				cur_obj->mat.brim;
+			angle_contact = ft_angle_contact(work->ray, work->normal);
+			col_add.diffuse.r += work->light->col.r * angle_contact * work->light->k;
+			col_add.specular.r += work->light->col.r *
+				ft_fpower(ft_brillance(&e->cam.dir, work->ray, work->normal), 20) *
+				work->obj->mat.brim;
+			col_add.diffuse.g += work->light->col.g * angle_contact * work->light->k;
+			col_add.specular.g += work->light->col.g *
+				ft_fpower(ft_brillance(&e->cam.dir, work->ray, work->normal), 20) *
+				work->obj->mat.brim;
+			col_add.diffuse.b += work->light->col.b * angle_contact * work->light->k;
+			col_add.specular.b += work->light->col.b *
+				ft_fpower(ft_brillance(&e->cam.dir, work->ray, work->normal), 20) *
+				work->obj->mat.brim;
 		}
 		else
 			break ;
@@ -56,7 +55,6 @@ static void		ft_in_light(t_light *cur_light, t_env *e, t_ray *ray, t_color_res *
 		col_res->diffuse.b += col_add.diffuse.b;
 		col_res->specular.b += col_add.specular.b;
 	}
-	free((void *)normal);
 }
 
 double	ft_color_clip(double color)
@@ -102,31 +100,53 @@ void	ft_color_mode(t_color *c, t_env *e)
 	}
 }
 
-unsigned int	ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
+t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 {
 	t_color_res	col_res;
 	t_list	*lst;
-	t_ray	*ray_diff;
-	t_color	final_col;
+	t_color	*final_col;
+	t_work	work;
+	double	refl;
+	t_ray	*ray_refr;
+	t_ray	*ray_refl;
 
+	work.obj = cur_obj;
 	col_res = (t_color_res){{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
-	ray_diff = ft_recalc_ori(ray, t);
+	if ((final_col = (t_color*)malloc(sizeof(t_color))) == NULL)
+		exit(-1);
+	ft_bzero(final_col, sizeof(t_color));
+	if (ray->iter >= NB_ITER)
+		return ((*final_col = (t_color){0, 0, 0}));
+	work.ray = ft_recalc_ori(ray, t);
+	work.normal = cur_obj->get_normal(work.ray, work.obj);
 	lst = e->light;
+	if (cur_obj->mat.refr > 0)
+	{
+		ray_refr = ft_refr(ray, &work, &refl);
+		col_res.refr = ft_cont(ray_refr, e);
+	}
+	if (cur_obj->mat.refl + refl > 0)
+	{
+		ray_refl = ft_refl(ray, &work);
+		col_res.refl = ft_cont(ray_refl, e);
+	}
 	while (lst)
 	{
-		ft_in_light((t_light *)(lst->content), e, &ray_diff[0], &col_res,
-					cur_obj);
+		work.light = ((t_light *)(lst->content));
+		ft_in_light(&work, e, &col_res);
 		lst = lst->next;
 	}
 	ft_bri_max(&col_res);
 	final_col.r = ft_color_clip(e->amb * cur_obj->mat.col.r
-				+ cur_obj->mat.col.r * col_res.diffuse.r + col_res.specular.r);
-	final_col.g = ft_color_clip(e->amb * cur_obj->mat.col.g
-				+ cur_obj->mat.col.g * col_res.diffuse.g + col_res.specular.g);
+				+ cur_obj->mat.col.r * col_res.diffuse.r + col_res.specular.r + cur_obj->mat.refr * col_res.refr.r + (cur_obj->mat.refl + refl) * col_res.refl.r);
+	final_col.g = ft_color_clip(e->amb * cur_obj->mat.col.g 
+				+ cur_obj->mat.col.g * col_res.diffuse.g + col_res.specular.g + cur_obj->mat.refr * col_res.refr.g + (cur_obj->mat.refl + refl) * col_res.refl.g);
 	final_col.b = ft_color_clip(e->amb * cur_obj->mat.col.b
-				+ cur_obj->mat.col.b * col_res.diffuse.b + col_res.specular.b);
+				+ cur_obj->mat.col.b * col_res.diffuse.b + col_res.specular.b + cur_obj->mat.refr * col_res.refr.b + (cur_obj->mat.refl + refl) * col_res.refl.b);
 	ft_color_mode(&final_col, e);
-	return (65536 * (unsigned int)(final_col.r * 255)
-			+ 256 * (unsigned int)(final_col.g * 255)
-			+ (unsigned int)(final_col.b * 255));
+	free(work->normal);
+	free(work->ray);
+	free(ray_refr);
+	free(ray_refl);
+	return (final_col);
 }

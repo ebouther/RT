@@ -6,22 +6,23 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/26 15:27:26 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/27 17:17:27 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-unsigned int	ft_contact(int x, int y, t_env *e)
+t_color		*ft_contact(t_ray *ray, t_env *e)
 {
 	t_obj	*cur_obj;
 	double	tmp;
 	double	t;
 	t_list	*lst;
-	t_ray	*ray;
+
+	if (ray == NULL)
+		return (NULL);
 
 	t = FAR;
-	ray = ft_calc_ray(x, y, e);
 	tmp = 0;
 	lst = e->obj;
 	while (lst)
@@ -36,15 +37,28 @@ unsigned int	ft_contact(int x, int y, t_env *e)
 	}
 	if (t < FAR)
 		return (ft_ishadow(e, ray, t, cur_obj));
-	free(ray);
-	return (0);
+	return (NULL);
+}
+
+unsigned int	ft_rgbtoi(t_color *color)
+{
+	unsigned int res;
+
+	if (color == NULL)
+		return (0);
+	res = (256 * 256 * (unsigned int)(color.r * 255) +
+			256 * (unsigned int)(color.g * 255) +
+			(unsigned int)(color.b * 255));
+	free(color);
+	return (res);
 }
 
 void			ft_fill_img(t_env *e)
 {
 	int				x;
 	int				y;
-	unsigned int	couleur;
+	t_color			*couleur;
+	t_ray			*ray;
 
 	x = 0;
 	while (x < SIZE_W)
@@ -52,8 +66,10 @@ void			ft_fill_img(t_env *e)
 		y = 0;
 		while (y < SIZE_H)
 		{
-			couleur = ft_contact(x, y, e);
-			ft_put_pixelle(x, y, &couleur, e);
+			ray = ft_calc_ray(x, y, e);
+			couleur = ft_contact(ray, e);
+			ft_put_pixelle(x, y, ft_rgbtoi(couleur), e);
+			free(ray);
 			y++;
 		}
 		x++;
