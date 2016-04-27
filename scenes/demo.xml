@@ -32,8 +32,8 @@
 				<z> 20.0 </z>
 			</position>
 			<color>
-				<r> 0.9 </r>
-				<g> 0.9 </g>
+				<r> 0.0 </r>
+				<g> 0.3 </g>
 				<b> 0.9 </b>
 			</color>
 		</light>
