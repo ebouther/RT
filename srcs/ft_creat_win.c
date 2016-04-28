@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/28 10:57:07 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/28 11:21:20 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,20 @@ unsigned int	ft_contact(int x, int y, t_env *e)
 	lst = e->obj;
 	while (lst)
 	{
+		printf("\n\nPOS X: %f\n", ((t_obj *)(lst->content))->pos.x);
+		printf("POS Y: %f\n", ((t_obj *)(lst->content))->pos.y);
+		printf("POS Z: %f\n\n", ((t_obj *)(lst->content))->pos.z);
+		printf("DIR X: %f\n", ((t_obj *)(lst->content))->dir.x);
+		printf("DIR Y: %f\n", ((t_obj *)(lst->content))->dir.y);
+		printf("DIR Z: %f\n\n", ((t_obj *)(lst->content))->dir.z);
+		
+		printf("COL R: %f\n", ((t_obj *)(lst->content))->mat.col.r);
+		printf("COL G: %f\n", ((t_obj *)(lst->content))->mat.col.g);
+		printf("COL B: %f\n\n", ((t_obj *)(lst->content))->mat.col.b);
+
+		printf("Rayon: %f\n\n", ((t_obj *)(lst->content))->rayon);
+		printf("Rayon2: %f\n\n", ((t_obj *)(lst->content))->rayon2);
+
 		tmp = ((t_obj *)(lst->content))->get_inters(ray, (t_obj *)lst->content);
 		if (tmp < t && tmp >= 0)
 		{

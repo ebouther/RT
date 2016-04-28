@@ -55,7 +55,7 @@
 	</lights>
 
 	<objects>
-		<cylinder>
+		<tore>
 
 			<position>
 				<x> 10.0 </x>
@@ -63,7 +63,9 @@
 				<z> 100.0 </z>
 			</position>
 			
-			<radius> 10 </radius>
+			<radius> 100 </radius>
+			
+			<radius2> 10 </radius2>
 
 			<direction>
 				<x> 0.0 </x>
@@ -76,7 +78,7 @@
 				<g> 0.41 </g>
 				<b> 0.56 </b>
 			</color>
-		</cylinder>	
+		</tore>	
 	</objects>
 
 </scene>
