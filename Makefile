@@ -76,7 +76,9 @@ PARSER_FILES = parsing.c \
 			   sphere_parsing.c \
 			   cone_parsing.c \
 			   cylinder_parsing.c \
-			   light_parsing.c
+			   light_parsing.c \
+			   config_parsing.c \
+			   mat_parsing.c \
 
 PARSER = $(addprefix $(PARSER_PATH), $(PARSER_FILES))
 PARSER_OBJ_PATH = $(addprefix $(OBJ_PATH), $(PARSER_PATH))
@@ -90,7 +92,10 @@ SRC_NAME = main.c \
 		   ft_shadow.c \
 		   ft_dist.c \
 		   ft_math.c \
+		   ft_math2.c \
 		   utils.c \
+		   ft_screen_shot.c \
+		   ft_ref.c \
 		   $(PARSER)
 
 

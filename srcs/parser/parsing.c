@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 10:36:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/26 14:56:10 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/04/28 15:35:52 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int			ft_parse_scene(char *file, t_env *e)
 	char	*camera;
 	char	*lights;
 	char	*objects;
+	char	*config;
 
 	if ((scene = ft_get_inner(file, "scene", NULL)) == NULL)
 		ft_error_exit("Add a <scene> object to your scene.\n");
@@ -116,11 +117,15 @@ int			ft_parse_scene(char *file, t_env *e)
 		ft_putstr("There are no lights in your scene file.\n");
 	if ((objects = ft_get_inner(scene, "objects", NULL)) == NULL)
 		ft_putstr("There are no objects in your scene file.\n");
+	if ((config = ft_get_inner(scene, "config", NULL)) == NULL)
+		ft_putstr("There are no config in your scene file.\n");
+	ft_set_config(config, e);
 	ft_set_camera(camera, e);
 	ft_set_objects(objects, e);
 	ft_strdel(&scene);
 	ft_strdel(&camera);
 	ft_strdel(&lights);
 	ft_strdel(&objects);
+	ft_strdel(&config);
 	return (0);
 }

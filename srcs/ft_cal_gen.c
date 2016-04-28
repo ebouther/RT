@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:21:39 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 17:11:02 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/28 11:03:09 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_ray		*ft_calc_ray(int x, int y, t_env *e)
 	ray->pos.x = e->cam.pos.x;
 	ray->pos.y = e->cam.pos.y;
 	ray->pos.z = e->cam.pos.z;
+	ray->iter = 0;
+	ray->i_opt = 1;
 	return (ray);
 }
 
@@ -38,17 +40,11 @@ double			ft_dist_light(t_vec3 *ray_pos, t_vec3 *light_pos)
 t_ray	 *ft_recalc_ori(t_ray *ray, double t)
 {
 	t_ray	*res;
-	int		i;
 
-	i = 0;
-	res = (t_ray*)malloc(sizeof(t_ray) * 3);
-	while(i < 3)
-	{
-		res[i].pos.x = ray->pos.x + ray->dir.x * t * 0.9999;
-		res[i].pos.y = ray->pos.y + ray->dir.y * t * 0.9999;
-		res[i].pos.z = ray->pos.z + ray->dir.z * t * 0.9999;
-		i++;
-	}	
+	res = (t_ray*)malloc(sizeof(t_ray));
+	res->pos.x = ray->pos.x + ray->dir.x * t * 0.9999;
+	res->pos.y = ray->pos.y + ray->dir.y * t * 0.9999;
+	res->pos.z = ray->pos.z + ray->dir.z * t * 0.9999;
 	return (res);
 }
 
