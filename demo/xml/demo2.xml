@@ -3,7 +3,7 @@
 
 	<config>
 		<ambient> 0.6 </ambient>
-		<filter> B&W  </filter>
+		<filter></filter>
 	</config>
 
 	<camera>
@@ -40,161 +40,41 @@
 	</lights>
 
 	<objects>
+
 		<cone>
+
 			<position>
+
 				<x> -70.0 </x>
 				<y> 50.0 </y>
 				<z> 150.0 </z>
+			
 			</position>
 			
 			<angle> 15.0 </angle>
 
 			<direction>
+			
 				<x> 0.0 </x>
 				<y> 1.0 </y>
 				<z> 0.0 </z>
-			</direction>
 			
-			<color>
-				<r> 0.439 </r>
-				<g> 0.149 </g>
-				<b> 0.149 </b>
-			</color>
+			</direction>
+
+			<mat>
+
+				<color>
+
+					<r> 0.439 </r>
+					<g> 0.149 </g>
+					<b> 0.149 </b>
+				
+				</color>
+
+			</mat>
+		
 		</cone>
 		
-		<cylinder>
-			<position>
-				<x> 20.0 </x>
-				<y> 0.0 </y>
-				<z> 200.0 </z>
-			</position>
-			
-			<radius> 10 </radius>
-
-			<direction>
-				<x> 0.0 </x>
-				<y> 1.0 </y>
-				<z> 0.0 </z>
-			</direction>
-			
-			<color>
-				<r> 0.0 </r>
-				<g> 0.341 </g>
-				<b> 0.13 </b>
-			</color>
-		</cylinder>
-
-		<sphere>
-			<position>
-				<x> -30.0 </x>
-				<y> 0.0 </y>
-				<z> 120.0 </z>
-			</position>
-
-			<radius> 10.0 </radius>
-
-			<color>
-				<r> 0.94 </r>
-				<g> 0.054 </g>
-				<b> 0.0 </b>
-			</color>
-		</sphere>
-
-		<sphere>
-			<position>
-				<x> 45.0 </x>
-				<y> 20.0 </y>
-				<z> 160.0 </z>
-			</position>
-
-			<radius> 10.0 </radius>
-
-			<color>
-				<r> 0.94 </r>
-				<g> 0.054 </g>
-				<b> 0.0 </b>
-			</color>
-		</sphere>
-		<plane>
-			<position>
-				<x> 0.0 </x>
-				<y> -10.0 </y>
-				<z> 0.0 </z>
-			</position>
-
-			<normal>
-				<x> 0.0 </x>
-				<y> 1.0 </y>
-				<z> 0.0 </z>
-			</normal>
-
-			<color>
-				<r> 0.498 </r>
-				<g> 0.0274 </g>
-				<b> 0.0 </b>
-			</color>
-		</plane>
-
-		<plane>
-			<position>
-				<x> -80.0 </x>
-				<y> -10.0 </y>
-				<z> 0.0 </z>
-			</position>
-
-			<normal>
-				<x> 1.0 </x>
-				<y> 0.0 </y>
-				<z> 0.0 </z>
-			</normal>
-
-			<color>
-				<r> 0.498 </r>
-				<g> 0.0274 </g>
-				<b> 0.0 </b>
-			</color>
-		</plane>
-
-		<plane>
-			<position>
-				<x> 80.0 </x>
-				<y> -10.0 </y>
-				<z> 0.0 </z>
-			</position>
-
-			<normal>
-				<x> -1.0 </x>
-				<y> 0.0 </y>
-				<z> 0.0 </z>
-			</normal>
-
-			<color>
-				<r> 0.498 </r>
-				<g> 0.0274 </g>
-				<b> 0.0 </b>
-			</color>
-		</plane>
-
-		<plane>
-			<position>
-				<x> 0.0 </x>
-				<y> -10.0 </y>
-				<z> 400.0 </z>
-			</position>
-
-			<normal>
-				<x> 0.0 </x>
-				<y> 0.0 </y>
-				<z> -1.0 </z>
-			</normal>
-
-			<color>
-				<r> 0.498 </r>
-				<g> 0.0274 </g>
-				<b> 0.0 </b>
-			</color>
-		</plane>
-
 	</objects>
 
 </scene>

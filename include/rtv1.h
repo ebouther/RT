@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/28 11:42:00 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/28 14:34:30 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef struct s_mat
 	t_color		col;
 	double		brim;
 	char		brip;
-	double		ambiante;
 	double		i_opt;
 	double		opac;
 	double		refr;
@@ -181,7 +180,8 @@ int				ft_get_spheres(char *objects, size_t len, t_env *e);
 int				ft_get_cones(char *objects, size_t len, t_env *e);
 int				ft_get_planes(char *objects, size_t len, t_env *e);
 int				ft_get_lights(char *lights, size_t len, t_env *e);
-int			ft_set_config(char *config, t_env *e);
+int				ft_set_config(char *config, t_env *e);
+void			ft_set_mat(char *mat, t_obj *obj);
 
 t_ray			*ft_calc_ray(int x, int y, t_env *e);
 t_color			*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj);
