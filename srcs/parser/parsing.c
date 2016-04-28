@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 10:36:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/28 15:35:52 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/28 16:20:15 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,13 @@ char		*ft_get_inner(char *str, char *obj, int *end_tag)
 			*end_tag = (int)ptr[1] - (int)str + len + 1;
 		if ((ret = malloc(ptr[1] - (ptr[0] + len) + 1)) == NULL)
 			exit(-1);
-		ft_strncpy(ret, ptr[0] + len + 1, ptr[1] - (ptr[0] + len + 1));
-		ret[ptr[1] - (ptr[0] + len + 1)] = '\0';
+		if (ptr[1] - (ptr[0] + len + 1) >= 0)
+		{
+			ft_strncpy(ret, ptr[0] + len + 1, ptr[1] - (ptr[0] + len + 1));
+			ret[ptr[1] - (ptr[0] + len + 1)] = '\0';
+		}
+		else
+			ret = ft_strnew(0);
 		ft_strdel(&obj_start_tag);
 		ft_strdel(&obj_end_tag);
 		return (ret);
@@ -118,7 +123,7 @@ int			ft_parse_scene(char *file, t_env *e)
 	if ((objects = ft_get_inner(scene, "objects", NULL)) == NULL)
 		ft_putstr("There are no objects in your scene file.\n");
 	if ((config = ft_get_inner(scene, "config", NULL)) == NULL)
-		ft_putstr("There are no config in your scene file.\n");
+		ft_error_exit("There are no config in your scene file.\n");
 	ft_set_config(config, e);
 	ft_set_camera(camera, e);
 	ft_set_objects(objects, e);
