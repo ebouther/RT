@@ -3,15 +3,14 @@
 
 	<config>
 		<ambient> 0.2 </ambient>
-		<filter>  </filter>
+		<filter> sepia </filter>
 	</config>
 
 	<camera>
 		<position>
 			<x> 0.0 </x>
 			<y> 0.0 </y>
-			<z> -20.0 </z>
-
+			<z> 0.0 </z>
 		</position>
 
 		<angle>
@@ -24,6 +23,7 @@
 	</camera>
 	
 	<lights>
+
 		<light>
 			<intensity> 1.0 </intensity>
 			<position>
@@ -32,50 +32,51 @@
 				<z> 20.0 </z>
 			</position>
 			<color>
-				<r> 0.8 </r>
-				<g> 0.8 </g>
-				<b> 0.8 </b>
+				<r> 0.9 </r>
+				<g> 0.9 </g>
+				<b> 0.9 </b>
 			</color>
 		</light>
+		
+		<light>
+			<intensity> 1.0 </intensity>
+			<position>
+				<x> 10.0 </x>
+				<y>  0.0 </y>
+				<z> 20.0 </z>
+			</position>
+			<color>
+				<r> 0.9 </r>
+				<g> 0.0 </g>
+				<b> 0.0 </b>
+			</color>
+		</light>
+
 	</lights>
 
 	<objects>
-		<plane>
+		<cylinder>
+
 			<position>
-				<x> 0.0 </x>
+				<x> 10.0 </x>
 				<y> 0.0 </y>
 				<z> 100.0 </z>
 			</position>
-			<normal>
-				<x> 0.0 </x>
-				<y> 0.0 </y>
-				<z> -1.0 </z>
-			</normal>
-			<color>
-				<r> 0.14 </r>
-				<g> 0.45 </g>
-				<b> 0.69 </b>
-			</color>
-		</plane>	
-		<tore>
-			<position>
-				<x> 5.0 </x>
-				<y> -10.0 </y>
-				<z> 90.0 </z>
-			</position>
+			
+			<radius> 10 </radius>
+
 			<direction>
 				<x> 0.0 </x>
-				<y> 5.0 </y>
-				<z> -4.0 </z>
+				<y> 1.0 </y>
+				<z> 0.0 </z>
 			</direction>
-			<radius> 20.0 </radius>
-			<radius2> 10.0 </radius2>
+			
 			<color>
-				<r> 0.0 </r>
-				<g> 0.0 </g>
-				<b> 0.8 </b>
+				<r> 0.55 </r>
+				<g> 0.41 </g>
+				<b> 0.56 </b>
 			</color>
-		</tore>	
+		</cylinder>	
 	</objects>
 
 </scene>

@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/28 09:56:54 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/28 14:05:25 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct	s_ray
 typedef struct	s_obj
 {
 	t_vec3	*(*get_normal)();
-	double	(*get_inters)(t_ray *ray, struct s_obj *obj);
+	double	(*get_inters)(t_ray *ray, struct s_obj *obj, int k);
 	double	rayon;
 	double	rayon2;
 	double	angle;
@@ -103,6 +103,8 @@ typedef struct	s_env
 	int		bpp;
 	int 	endian;
 	int 	ls;
+	int		xx;
+	int		yy;
 	void	*mlx;
 	void	*win;
 	void	*img;
@@ -132,11 +134,11 @@ t_vec3			*normal_plan(t_ray *ray, t_obj *obj);
 /*
 ** Intersects
 */
-double			inters_sphere(t_ray *ray, t_obj *obj);
-double			inters_cyl(t_ray *ray, t_obj *obj);
-double			inters_tore(t_ray *ray, t_obj *obj);
-double			inters_cone(t_ray *ray, t_obj *obj);
-double			inters_plan(t_ray *ray, t_obj *obj);
+double			inters_sphere(t_ray *ray, t_obj *obj, int k);
+double			inters_cyl(t_ray *ray, t_obj *obj, int k);
+double			inters_tore(t_ray *ray, t_obj *obj, int k);
+double			inters_cone(t_ray *ray, t_obj *obj, int k);
+double			inters_plan(t_ray *ray, t_obj *obj, int k);
 
 /*
 ** Math

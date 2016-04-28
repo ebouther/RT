@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 09:30:55 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/28 10:48:14 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/28 15:13:12 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static int	ft_set_tore(char *tore, t_env *e)
 		ft_error_exit("Error: tore require a direction subobject.\n");
 	ft_set_vec3(position, &tore_obj.pos);
 	ft_set_vec3(direction, &tore_obj.dir);
+	ft_normalise(&tore_obj.dir);
 	tore_obj.rayon = ft_atod(radius);
 	tore_obj.rayon2 = ft_atod(radius2);
 	ft_set_color(color, &tore_obj.mat.col);

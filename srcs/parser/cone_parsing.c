@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:49:15 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/26 18:05:19 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/28 15:14:19 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static int	ft_set_cone(char *cone, t_env *e)
 		ft_error_exit("Error: cone require a direction subobject.\n");
 	ft_set_vec3(position, &cone_obj.pos);
 	ft_set_vec3(direction, &cone_obj.dir);
+	ft_normalise(&cone_obj.dir);
 	cone_obj.angle = ft_atod(angle) / 180 * M_PI;
 	ft_set_color(color, &cone_obj.mat.col);
 	cone_obj.get_normal = &normal_cone;

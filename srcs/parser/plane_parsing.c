@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:46:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/26 18:05:37 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/28 15:14:45 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	ft_set_plane(char *plane, t_env *e)
 		ft_error_exit("Error: plane require a <color> subobject.\n");
 	ft_set_vec3(position, &plane_obj.pos);
 	ft_set_vec3(normal, &plane_obj.norm);
+	ft_normalise(&plane_obj.norm);
 	ft_set_color(color, &plane_obj.mat.col);
 	plane_obj.get_normal = &normal_plan;
 	plane_obj.get_inters = &inters_plan;

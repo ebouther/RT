@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/27 11:48:32 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/28 13:59:42 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void		ft_in_light(t_light *cur_light, t_env *e, t_ray *ray, t_color_res *
 	normal = cur_obj->get_normal(ray, cur_obj);
 	while (lst)
 	{
-		tmp = ((t_obj *)(lst->content))->get_inters(ray, (t_obj *)(lst->content));
+		tmp = ((t_obj *)(lst->content))->get_inters(ray, (t_obj *)(lst->content), 0);
 		if (tmp > ft_dist_light(&ray->pos, &cur_light->pos) || tmp < 0)
 		{
 			angle_contact = ft_angle_contact(ray, normal);
