@@ -14,6 +14,7 @@ class SelectObject : public QDialog
 public:
     explicit SelectObject(QWidget *parent = 0);
     ~SelectObject();
+    QWidget *parent;
 
 public slots:
     void open_object_window();

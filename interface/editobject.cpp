@@ -1,17 +1,28 @@
 #include "editobject.h"
 #include "ui_editobject.h"
-#include <QColorDialog>
+#include "editscene.h"
 
-EditObject::EditObject(QWidget *parent) :
+EditObject::EditObject(QWidget *parent, QString object_name) :
     QDialog(parent),
     ui(new Ui::EditObject)
 {
     ui->setupUi(this);
-    QColorDialog col;
-    col.show();
+    this->parent = parent;
+    ui->object_name->setText(object_name);
+    col = new QColorDialog();
+    col->show();
+    QObject::connect(ui->add_object, SIGNAL(clicked()), this, SLOT(add_object()));
 }
 
 EditObject::~EditObject()
 {
     delete ui;
+}
+
+void EditObject::add_object()
+{
+    qDebug() << "Object added";
+    EditScene::add_object();
+    col->close();
+    this->close();
 }

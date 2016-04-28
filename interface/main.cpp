@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-
+#include <QDialog>
 
 int main(int  argc, char **argv)
 {

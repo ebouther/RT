@@ -1,6 +1,7 @@
 #include "selectobject.h"
 #include "editscene.h"
 #include "ui_editscene.h"
+#include <QDebug>
 
 EditScene::EditScene(QWidget *parent) :
     QDialog(parent),
@@ -18,11 +19,11 @@ EditScene::~EditScene()
 
 void EditScene::open_object_window()
 {
-    SelectObject *win = new SelectObject();
+    SelectObject *win = new SelectObject(this);
     win->show();
 }
 
-void EditScene::fill_obj_list()
+void EditScene::add_object()
 {
-
+            qDebug() << "Object added";
 }

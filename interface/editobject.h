@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <QColorDialog>
-
+#include <QDebug>
 namespace Ui {
 class EditObject;
 }
@@ -13,11 +13,16 @@ class EditObject : public QDialog
     Q_OBJECT
 
 public:
-    explicit EditObject(QWidget *parent = 0);
+    explicit EditObject(QWidget *parent = 0, QString object_name = NULL);
     ~EditObject();
+    QWidget *parent;
+
+public slots:
+     void add_object();
 
 private:
     Ui::EditObject *ui;
+    QColorDialog  *col;
 };
 
 #endif

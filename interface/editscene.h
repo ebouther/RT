@@ -14,6 +14,7 @@ class EditScene : public QDialog
 public:
     explicit EditScene(QWidget *parent = 0);
     ~EditScene();
+    static void add_object();
 
 public slots:
     void open_object_window();
