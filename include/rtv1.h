@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/27 11:32:22 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/28 09:56:54 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct	s_obj
 	t_vec3	*(*get_normal)();
 	double	(*get_inters)(t_ray *ray, struct s_obj *obj);
 	double	rayon;
+	double	rayon2;
 	double	angle;
 	t_vec3	pos;
 	t_vec3	norm;
@@ -116,7 +117,6 @@ typedef struct	s_env
 
 void			ft_put_pixelle(int x, int y, unsigned int *c, t_env *e);
 void			ft_creat_img(t_env *e);
-double			carre(double x);
 double			ft_equa_sec(double a, double b, double c);
 void			ft_creat_win(t_env *e);
 
@@ -125,6 +125,7 @@ void			ft_creat_win(t_env *e);
 */
 t_vec3			*normal_sphere(t_ray *ray, t_obj *obj);
 t_vec3			*normal_cyl(t_ray *ray, t_obj *obj);
+t_vec3			*normal_tore(t_ray *ray, t_obj *obj);
 t_vec3			*normal_cone(t_ray *ray, t_obj *obj);
 t_vec3			*normal_plan(t_ray *ray, t_obj *obj);
 
@@ -133,6 +134,7 @@ t_vec3			*normal_plan(t_ray *ray, t_obj *obj);
 */
 double			inters_sphere(t_ray *ray, t_obj *obj);
 double			inters_cyl(t_ray *ray, t_obj *obj);
+double			inters_tore(t_ray *ray, t_obj *obj);
 double			inters_cone(t_ray *ray, t_obj *obj);
 double			inters_plan(t_ray *ray, t_obj *obj);
 
@@ -141,6 +143,9 @@ double			inters_plan(t_ray *ray, t_obj *obj);
 */
 void			ft_normalise(t_vec3 *vec);
 double			ft_norm(t_vec3 *vec);
+double			carre(double x);
+double			scal2(t_vec3 a);
+double			scal(t_vec3 a, t_vec3 b);
 
 /*
 ** Utils.c
@@ -158,6 +163,7 @@ int				ft_set_color(char *obj, t_color *col);
 int				ft_parse_scene(char *file, t_env *e);
 int				ft_set_camera(char *camera, t_env *e);
 int				ft_get_cylinders(char *objects, size_t len, t_env *e);
+int				ft_get_tores(char *objects, size_t len, t_env *e);
 int				ft_get_spheres(char *objects, size_t len, t_env *e);
 int				ft_get_cones(char *objects, size_t len, t_env *e);
 int				ft_get_planes(char *objects, size_t len, t_env *e);

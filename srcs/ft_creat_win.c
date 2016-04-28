@@ -6,11 +6,12 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/26 15:27:26 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/28 10:57:07 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <stdio.h>
 
 unsigned int	ft_contact(int x, int y, t_env *e)
 {

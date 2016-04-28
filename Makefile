@@ -76,6 +76,7 @@ PARSER_FILES = parsing.c \
 			   sphere_parsing.c \
 			   cone_parsing.c \
 			   cylinder_parsing.c \
+			   tore_parsing.c \
 			   light_parsing.c \
 			   config_parsing.c \
 
@@ -87,10 +88,13 @@ SRC_NAME = main.c \
 		   ft_creat_win.c \
 		   ft_cal_gen.c \
 		   ft_angle_contact.c \
+		   ft_angle_contact2.c \
 		   ft_brillance.c \
 		   ft_shadow.c \
 		   ft_dist.c \
+		   ft_dist2.c \
 		   ft_math.c \
+		   ft_math2.c \
 		   utils.c \
 		   ft_screen_shot.c\
 		   $(PARSER)
