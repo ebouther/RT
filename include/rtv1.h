@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/27 16:41:48 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/28 11:42:00 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define WIDTH 100
 # define HIGHT 100
 # define FAR 1000000000
-# define NB_ITER 10;
+# define NB_ITER 10
 
 typedef struct	s_vec3
 {
@@ -43,8 +43,8 @@ typedef struct	s_color_res
 {
 	t_color		diffuse;
 	t_color		specular;
-	t_color		refl;
-	t_color		refr;
+	t_color		*refl;
+	t_color		*refr;
 }				t_color_res;
 
 typedef struct s_mat
@@ -131,10 +131,9 @@ typedef struct	s_work
 
 void			ft_put_pixelle(int x, int y, unsigned int c, t_env *e);
 void			ft_creat_img(t_env *e);
-double			carre(double x);
 double			ft_equa_sec(double a, double b, double c);
 void			ft_creat_win(t_env *e);
-t_ray			*ft_refr(t_ray *ray, t_work *work);
+t_ray			*ft_refr(t_ray *ray, t_work *work, double *refl);
 t_ray			*ft_refl(t_ray *ray, t_work *work);
 
 /*
@@ -158,6 +157,9 @@ double			inters_plan(t_ray *ray, t_obj *obj);
 */
 void			ft_normalise(t_vec3 *vec);
 double			ft_norm(t_vec3 *vec);
+double			carre(double x);
+double			scal(t_vec3 a, t_vec3 b);
+double			scal2(t_vec3 a);
 
 /*
 ** Utils.c
@@ -190,6 +192,7 @@ double			ft_dist_light(t_vec3 *ray_pos, t_vec3 *light_pos);
 double			ft_angle_contact(t_ray *ray, t_vec3 *normal);
 double			ft_dist(int i, t_env *e);
 double			ft_brillance(t_vec3 *pos_cam, t_ray *ray, t_vec3 *normal);
+t_color			*ft_contact(t_ray *ray, t_env *e);
 
 void	ft_make_screen(t_env *e, char *name);
 

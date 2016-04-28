@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:21:39 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/27 17:30:22 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/28 11:03:09 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ t_ray	 *ft_recalc_ori(t_ray *ray, double t)
 	t_ray	*res;
 
 	res = (t_ray*)malloc(sizeof(t_ray));
-	res[i].pos.x = ray->pos.x + ray->dir.x * t * 0.9999;
-	res[i].pos.y = ray->pos.y + ray->dir.y * t * 0.9999;
-	res[i].pos.z = ray->pos.z + ray->dir.z * t * 0.9999;
+	res->pos.x = ray->pos.x + ray->dir.x * t * 0.9999;
+	res->pos.y = ray->pos.y + ray->dir.y * t * 0.9999;
+	res->pos.z = ray->pos.z + ray->dir.z * t * 0.9999;
 	return (res);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/27 17:17:27 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/28 11:02:25 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ unsigned int	ft_rgbtoi(t_color *color)
 
 	if (color == NULL)
 		return (0);
-	res = (256 * 256 * (unsigned int)(color.r * 255) +
-			256 * (unsigned int)(color.g * 255) +
-			(unsigned int)(color.b * 255));
+	res = (256 * 256 * (unsigned int)(color->r * 255) +
+			256 * (unsigned int)(color->g * 255) +
+			(unsigned int)(color->b * 255));
 	free(color);
 	return (res);
 }

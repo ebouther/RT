@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/27 17:28:29 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/28 11:59:41 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@ static void		ft_in_light(t_work *work, t_env *e, t_color_res *col_res)
 	double	tmp;
 	t_color_res	col_add;
 	double	angle_contact;
-	t_vec3	*normal;
 
-	col_add = (t_color_res){{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
+	col_add = (t_color_res){{0, 0, 0}, {0, 0, 0}, NULL, NULL};
 	ft_recalc_dir(work->light, work->ray);
 	lst = e->obj;
 	while (lst)
@@ -103,32 +102,34 @@ void	ft_color_mode(t_color *c, t_env *e)
 t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 {
 	t_color_res	col_res;
-	t_list	*lst;
-	t_color	*final_col;
-	t_work	work;
-	double	refl;
-	t_ray	*ray_refr;
-	t_ray	*ray_refl;
+	t_list		*lst;
+	t_color		*final_col;
+	t_work		work;
+	double		refl;
+	t_ray		*ray_refr;
+	t_ray		*ray_refl;
 
 	work.obj = cur_obj;
-	col_res = (t_color_res){{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
+	col_res = (t_color_res){{0, 0, 0}, {0, 0, 0}, NULL, NULL};
 	if ((final_col = (t_color*)malloc(sizeof(t_color))) == NULL)
 		exit(-1);
 	ft_bzero(final_col, sizeof(t_color));
 	if (ray->iter >= NB_ITER)
-		return ((*final_col = (t_color){0, 0, 0}));
+		return ((t_color *)ft_memset(final_col, 0, sizeof(t_color)));
 	work.ray = ft_recalc_ori(ray, t);
 	work.normal = cur_obj->get_normal(work.ray, work.obj);
 	lst = e->light;
 	if (cur_obj->mat.refr > 0)
 	{
 		ray_refr = ft_refr(ray, &work, &refl);
-		col_res.refr = ft_cont(ray_refr, e);
+		col_res.refr = ft_contact(ray_refr, e);
 	}
+	else
+		refl = 0;
 	if (cur_obj->mat.refl + refl > 0)
 	{
 		ray_refl = ft_refl(ray, &work);
-		col_res.refl = ft_cont(ray_refl, e);
+		col_res.refl = ft_contact(ray_refl, e);
 	}
 	while (lst)
 	{
@@ -137,15 +138,17 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 		lst = lst->next;
 	}
 	ft_bri_max(&col_res);
-	final_col.r = ft_color_clip(e->amb * cur_obj->mat.col.r
-				+ cur_obj->mat.col.r * col_res.diffuse.r + col_res.specular.r + cur_obj->mat.refr * col_res.refr.r + (cur_obj->mat.refl + refl) * col_res.refl.r);
-	final_col.g = ft_color_clip(e->amb * cur_obj->mat.col.g 
-				+ cur_obj->mat.col.g * col_res.diffuse.g + col_res.specular.g + cur_obj->mat.refr * col_res.refr.g + (cur_obj->mat.refl + refl) * col_res.refl.g);
-	final_col.b = ft_color_clip(e->amb * cur_obj->mat.col.b
-				+ cur_obj->mat.col.b * col_res.diffuse.b + col_res.specular.b + cur_obj->mat.refr * col_res.refr.b + (cur_obj->mat.refl + refl) * col_res.refl.b);
-	ft_color_mode(&final_col, e);
-	free(work->normal);
-	free(work->ray);
+	final_col->r = ft_color_clip(e->amb * cur_obj->mat.col.r
+				+ cur_obj->mat.col.r * col_res.diffuse.r + col_res.specular.r + cur_obj->mat.refr * (col_res.refr ? col_res.refr->r : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->r : 0));
+	final_col->g = ft_color_clip(e->amb * cur_obj->mat.col.g 
+				+ cur_obj->mat.col.g * col_res.diffuse.g + col_res.specular.g + cur_obj->mat.refr * (col_res.refr ? col_res.refr->g : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->g : 0));
+	final_col->b = ft_color_clip(e->amb * cur_obj->mat.col.b
+				+ cur_obj->mat.col.b * col_res.diffuse.b + col_res.specular.b + cur_obj->mat.refr * (col_res.refr ? col_res.refr->b : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->b : 0));
+	ft_color_mode(final_col, e);
+	free(work.normal);
+	free(work.ray);
+	free(col_res.refr);
+	free(col_res.refl);
 	free(ray_refr);
 	free(ray_refl);
 	return (final_col);
