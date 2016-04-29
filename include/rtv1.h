@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/28 14:34:30 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/29 11:55:47 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ double			ft_norm(t_vec3 *vec);
 double			carre(double x);
 double			scal(t_vec3 a, t_vec3 b);
 double			scal2(t_vec3 a);
+t_vec3			*pro(double a, t_vec3 *d);
 
 /*
 ** Utils.c

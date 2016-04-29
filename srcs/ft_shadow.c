@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/28 11:59:41 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/28 17:36:33 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,9 +147,7 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	ft_color_mode(final_col, e);
 	free(work.normal);
 	free(work.ray);
-	free(col_res.refr);
-	free(col_res.refl);
-	free(ray_refr);
-	free(ray_refl);
+	//free(ray_refr);
+	//free(ray_refl);
 	return (final_col);
 }

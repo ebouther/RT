@@ -6,12 +6,12 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/28 11:02:25 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/28 17:23:15 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
+#include <stdio.h>
 t_color		*ft_contact(t_ray *ray, t_env *e)
 {
 	t_obj	*cur_obj;

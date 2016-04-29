@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:02:02 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 15:23:06 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/04/29 11:55:14 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_vec3	*normal_sphere(t_ray *ray, t_obj *obj)
 	res->y = ray->pos.y - obj->pos.y;
 	res->z = ray->pos.z - obj->pos.z;
 	ft_normalise(res);
-	return (res);
+	return (scal(*res, ray->dir) > 0 ? res : pro(-1, res));
 }
 
 t_vec3	*normal_cyl(t_ray *ray, t_obj *obj)
@@ -39,7 +39,7 @@ t_vec3	*normal_cyl(t_ray *ray, t_obj *obj)
 	res->y = ray->pos.y - obj->pos.y - obj->dir.y * p;
 	res->z = ray->pos.z - obj->pos.z - obj->dir.z * p;
 	ft_normalise(res);
-	return (res);
+	return (scal(*res, ray->dir) > 0 ? res : pro(-1, res));
 }
 
 t_vec3	*normal_cone(t_ray *ray, t_obj *obj)
@@ -61,7 +61,7 @@ t_vec3	*normal_cone(t_ray *ray, t_obj *obj)
 	res->y = res->y * cos(obj->angle) - norm * obj->dir.y * sin(obj->angle) * p / fabs(p);
 	res->z = res->z * cos(obj->angle) - norm * obj->dir.z * sin(obj->angle) * p / fabs(p);
 	ft_normalise(res);
-	return (res);
+	return (scal(*res, ray->dir) > 0 ? res : pro(-1, res));
 }
 
 t_vec3	*normal_plan(t_ray *ray, t_obj *obj)
@@ -73,7 +73,7 @@ t_vec3	*normal_plan(t_ray *ray, t_obj *obj)
 		exit(-1);
 	*res = (t_vec3){obj->norm.x, obj->norm.y, obj->norm.z};
 	ft_normalise(res);
-	return (res);
+	return (scal(*res, ray->dir) > 0 ? res : pro(-1, res));
 }
 
 double			ft_angle_contact(t_ray *ray, t_vec3 *normal)

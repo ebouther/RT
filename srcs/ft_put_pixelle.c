@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:57:07 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/27 14:59:46 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/28 17:51:50 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	ft_put_pixelle(int x, int y, unsigned int couleur, t_env *e)
 
 	ptrc = &couleur;
 	c = (unsigned char*)e->data + x * 4 + y * 4 * SIZE_W;
-	*c += *((unsigned char*)ptrc);
-	*(c + 1) += *((unsigned char*)ptrc + 1);
-	*(c + 2) += *((unsigned char*)ptrc + 2);
-	*(c + 3) += *((unsigned char*)ptrc + 3);
+	*c = *((unsigned char*)ptrc);
+	*(c + 1) = *((unsigned char*)ptrc + 1);
+	*(c + 2) = *((unsigned char*)ptrc + 2);
+	*(c + 3) = *((unsigned char*)ptrc + 3);
 }
