@@ -21,8 +21,7 @@ EditObject::~EditObject()
 
 void EditObject::add_object()
 {
-    qDebug() << "Object added";
-    EditScene::add_object();
+    EditScene::add_object(this->ui);
     col->close();
     this->close();
 }

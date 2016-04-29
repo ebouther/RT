@@ -1,7 +1,14 @@
 #ifndef EDITSCENE_H
 #define EDITSCENE_H
 
+#include "editobject.h"
+#include "ui_editobject.h"
+#include "selectobject.h"
+#include "sceneobject.h"
+
 #include <QDialog>
+#include <QDebug>
+#include <QList>
 
 namespace Ui {
 class EditScene;
@@ -14,7 +21,8 @@ class EditScene : public QDialog
 public:
     explicit EditScene(QWidget *parent = 0);
     ~EditScene();
-    static void add_object();
+    static void add_object(Ui::EditObject *obj);
+    static QList<SceneObject*> objs;
 
 public slots:
     void open_object_window();

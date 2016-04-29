@@ -7,13 +7,15 @@ SOURCES += \
     mainwindow.cpp \
     editscene.cpp \
     selectobject.cpp \
-    editobject.cpp
+    editobject.cpp \
+    sceneobject.cpp
 
 HEADERS += \
     mainwindow.h \
     editscene.h \
     selectobject.h \
-    editobject.h
+    editobject.h \
+    sceneobject.h
 
 FORMS += \
     mainwindow.ui \
