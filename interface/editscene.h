@@ -25,9 +25,11 @@ public:
 
 public slots:
     void open_object_window();
+    void save_to_file();
 
 private:
     Ui::EditScene *ui;
+    QString xml_object(SceneObject *obj);
     void fill_obj_list();
 };
 
