@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:31:25 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/24 16:17:46 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/02 14:56:29 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ double			inters_plan(t_ray *ray, t_obj *obj)
 	t = (obj->norm.x * (obj->pos.x - ray->pos.x) +
 			obj->norm.y * (obj->pos.y - ray->pos.y) +
 			obj->norm.z * (obj->pos.z - ray->pos.z)) / vd;
-	if (t >= 0)
+	if (t > 0)
 		return (t);
 	else
 		return (FAR);

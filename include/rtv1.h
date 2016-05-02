@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/30 17:32:59 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/02 17:16:08 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@
 # include <fcntl.h>
 # include "mlx.h"
 
-# define SIZE_W 200
-# define SIZE_H 200
+# define SIZE_W 1000
+# define SIZE_H 800
 # define WIDTH 100
-# define HIGHT 100
+# define HIGHT 80
 # define FAR 1000000000
 # define NB_ITER 10
+int kk;
 
 typedef struct	s_vec3
 {
@@ -108,6 +109,8 @@ typedef struct	s_env
 	int		bpp;
 	int 	endian;
 	int 	ls;
+	int 	xx;
+	int 	yy;
 	void	*mlx;
 	void	*win;
 	void	*img;
@@ -187,7 +190,7 @@ void			ft_set_mat(char *mat, t_obj *obj);
 t_ray			*ft_calc_ray(int x, int y, t_env *e);
 t_color			*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj);
 t_ray    		*ft_recalc_ori(t_ray *ray, double t);
-void			ft_recalc_dir(t_light *light, t_ray *ray);
+void			ft_recalc_dir(t_light *light, t_ray *ray, t_vec3 *norm);
 double			ft_dist(int i, t_env *e);
 double			ft_dist_light(t_vec3 *ray_pos, t_vec3 *light_pos);
 double			ft_angle_contact(t_ray *ray, t_vec3 *normal);

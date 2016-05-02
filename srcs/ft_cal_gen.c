@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:21:39 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/29 12:09:11 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/02 17:04:14 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,22 @@ t_ray	 *ft_recalc_ori(t_ray *ray, double t)
 	t_ray	*res;
 
 	res = (t_ray*)malloc(sizeof(t_ray));
-	res->pos.x = ray->pos.x + ray->dir.x * t * 0.9999;
-	res->pos.y = ray->pos.y + ray->dir.y * t * 0.9999;
-	res->pos.z = ray->pos.z + ray->dir.z * t * 0.9999;
+	res->pos.x = ray->pos.x + ray->dir.x * t;
+	res->pos.y = ray->pos.y + ray->dir.y * t;
+	res->pos.z = ray->pos.z + ray->dir.z * t;
+	res->dir.x = ray->dir.x;
+	res->dir.y = ray->dir.y;
+	res->dir.z = ray->dir.z;
 	return (res);
 }
 
-void			ft_recalc_dir(t_light *light, t_ray *ray)
+void			ft_recalc_dir(t_light *light, t_ray *ray, t_vec3 *norm)
 {
 	ray->dir.x = light->pos.x - ray->pos.x;
 	ray->dir.y = light->pos.y - ray->pos.y;
 	ray->dir.z = light->pos.z - ray->pos.z;
+	ray->pos.x = ray->pos.x + 0.01 * norm->x;
+	ray->pos.y = ray->pos.y + 0.01 * norm->y;
+	ray->pos.z = ray->pos.z + 0.01 * norm->z;
 	ft_normalise(&(ray->dir));
 }
