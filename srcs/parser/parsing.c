@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 10:36:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/28 15:12:19 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/02 16:18:44 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,13 @@ char		*ft_get_inner(char *str, char *obj, int *end_tag)
 	{
 		if (end_tag != NULL)
 			*end_tag = (int)ptr[1] - (int)str + len + 1;
-		if ((ret = malloc(ptr[1] - (ptr[0] + len) + 1)) == NULL)
+		if ((ret = malloc(ptr[1] - (ptr[0] + len))) == NULL)
 			exit(-1);
-		ft_strncpy(ret, ptr[0] + len + 1, ptr[1] - (ptr[0] + len + 1));
-		ret[ptr[1] - (ptr[0] + len + 1)] = '\0';
+		if (ptr[1] - (ptr[0] + len + 1) >= 0)
+		{
+			ft_strncpy(ret, ptr[0] + len, ptr[1] - (ptr[0] + len));
+			ret[ptr[1] - (ptr[0] + len)] = '\0';
+		}
 		ft_strdel(&obj_start_tag);
 		ft_strdel(&obj_end_tag);
 		return (ret);
