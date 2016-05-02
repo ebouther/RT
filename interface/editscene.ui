@@ -42,9 +42,9 @@
   <widget class="QPushButton" name="add_object">
    <property name="geometry">
     <rect>
-     <x>70</x>
+     <x>30</x>
      <y>30</y>
-     <width>141</width>
+     <width>101</width>
      <height>61</height>
     </rect>
    </property>
@@ -60,6 +60,19 @@
      <width>256</width>
      <height>541</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="add_light">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>30</y>
+     <width>101</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Add Light</string>
    </property>
   </widget>
  </widget>

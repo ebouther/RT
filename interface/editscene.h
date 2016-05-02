@@ -5,6 +5,7 @@
 #include "ui_editobject.h"
 #include "selectobject.h"
 #include "sceneobject.h"
+#include "scenelight.h"
 
 #include <QDialog>
 #include <QList>
@@ -21,10 +22,13 @@ public:
     explicit EditScene(QWidget *parent = 0);
     ~EditScene();
     void add_object(Ui::EditObject *obj);
+    void add_light(Ui::EditLight *light);
     static QList<SceneObject*> objs;
+    static QList<SceneLight*> lights;
 
 public slots:
     void open_object_window();
+    void open_light_window();
     void save_to_file();
 
 private:

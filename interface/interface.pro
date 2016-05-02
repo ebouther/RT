@@ -8,17 +8,22 @@ SOURCES += \
     editscene.cpp \
     selectobject.cpp \
     editobject.cpp \
-    sceneobject.cpp
+    sceneobject.cpp \
+    scenelight.cpp \
+    editlight.cpp
 
 HEADERS += \
     mainwindow.h \
     editscene.h \
     selectobject.h \
     editobject.h \
-    sceneobject.h
+    sceneobject.h \
+    scenelight.h \
+    editlight.h
 
 FORMS += \
     mainwindow.ui \
     editscene.ui \
     selectobject.ui \
-    editobject.ui
+    editobject.ui \
+    editlight.ui

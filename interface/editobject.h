@@ -15,13 +15,13 @@ class EditObject : public QDialog
 public:
     explicit EditObject(QWidget *parent = 0, QString object_name = NULL);
     ~EditObject();
-    QWidget *parent;
     Ui::EditObject *ui;
 
 public slots:
      void add_object();
 
 private:
+    QWidget *parent;
     QColorDialog  *col;
 };
 

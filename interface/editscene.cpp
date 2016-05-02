@@ -1,19 +1,22 @@
 #include "editscene.h"
 #include "ui_editscene.h"
 #include "sceneobject.h"
+#include "scenelight.h"
+#include "editlight.h"
 
 #include <QFile>
 #include <QDebug>
 
 QList<SceneObject*> EditScene::objs;
+QList<SceneLight*> EditScene::lights;
 
 EditScene::EditScene(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::EditScene)
 {
-
     ui->setupUi(this);
     QObject::connect(ui->add_object, SIGNAL(clicked()), this, SLOT(open_object_window()));
+    QObject::connect(ui->add_light, SIGNAL(clicked()), this, SLOT(open_light_window()));
     QObject::connect(ui->save_scene, SIGNAL(clicked()), this, SLOT(save_to_file()));
     //this->fill_obj_list();
 }
@@ -29,11 +32,24 @@ void EditScene::open_object_window()
     win->show();
 }
 
+void EditScene::open_light_window()
+{
+    EditLight *win = new EditLight(this);
+    win->show();
+}
+
 void EditScene::add_object(Ui::EditObject *obj)
 {
     SceneObject *scene_obj = new SceneObject(obj);
     objs.append(scene_obj);
     this->ui->object_list->addItem(obj->object_name->text());
+}
+
+void EditScene::add_light(Ui::EditLight *light)
+{
+    SceneLight *scene_light = new SceneLight(light);
+    lights.append(scene_light);
+    this->ui->object_list->addItem("Light");
 }
 
 void EditScene::save_to_file()
