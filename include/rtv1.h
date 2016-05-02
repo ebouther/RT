@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/29 11:55:47 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/30 17:32:59 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <fcntl.h>
 # include "mlx.h"
 
-# define SIZE_W 1000
-# define SIZE_H 1000
+# define SIZE_W 200
+# define SIZE_H 200
 # define WIDTH 100
 # define HIGHT 100
 # define FAR 1000000000

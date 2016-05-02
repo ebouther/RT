@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 15:43:31 by ascholle          #+#    #+#             */
-/*   Updated: 2016/04/28 11:45:37 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/04/30 17:58:41 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,17 @@ t_ray		*ft_refr(t_ray *ray, t_work *work, double *refl)
 
 	p = scal(ray->dir, *work->normal);
 	al1 = sin(acos(-scal(*work->normal, ray->dir)));
-	if (ray->i_opt * work->obj->mat.i_opt )
+	n = ray->i_opt / work->obj->mat.i_opt;
+	calc = 1 + carre(n) * (carre(p) - 1);
+	/*if ()
 	{
 		*refl = work->obj->mat.refr;
 		return (NULL);
-	}
+	}*/
+	*refl = 0;
 	if ((res = (t_ray*)malloc(sizeof(t_ray))) == NULL)
 		exit(-1);
-	n = ray->i_opt / work->obj->mat.i_opt;
-	calc = n * p - sqrt(1 + carre(n) * (carre(p) - 1));
+	calc = n * p - sqrt(calc);
 	res->dir.x = n * ray->dir.x + calc * work->normal->x;
 	res->dir.y = n * ray->dir.y + calc * work->normal->y;
 	res->dir.x = n * ray->dir.z + calc * work->normal->z;
