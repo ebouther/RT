@@ -261,6 +261,12 @@
      <height>24</height>
     </rect>
    </property>
+   <property name="minimum">
+    <double>-9999.000000000000000</double>
+   </property>
+   <property name="maximum">
+    <double>9999.000000000000000</double>
+   </property>
   </widget>
   <widget class="QDoubleSpinBox" name="pos_y">
    <property name="geometry">
@@ -270,6 +276,12 @@
      <width>67</width>
      <height>24</height>
     </rect>
+   </property>
+   <property name="minimum">
+    <double>-9999.000000000000000</double>
+   </property>
+   <property name="maximum">
+    <double>9999.000000000000000</double>
    </property>
   </widget>
   <widget class="QDoubleSpinBox" name="pos_x">
@@ -281,6 +293,12 @@
      <height>24</height>
     </rect>
    </property>
+   <property name="minimum">
+    <double>-9999.000000000000000</double>
+   </property>
+   <property name="maximum">
+    <double>9999.000000000000000</double>
+   </property>
   </widget>
   <widget class="QDoubleSpinBox" name="rot_z">
    <property name="geometry">
@@ -290,6 +308,12 @@
      <width>67</width>
      <height>24</height>
     </rect>
+   </property>
+   <property name="minimum">
+    <double>-9999.000000000000000</double>
+   </property>
+   <property name="maximum">
+    <double>99999.000000000000000</double>
    </property>
   </widget>
   <widget class="QDoubleSpinBox" name="rot_x">
@@ -301,6 +325,12 @@
      <height>24</height>
     </rect>
    </property>
+   <property name="minimum">
+    <double>-9999.000000000000000</double>
+   </property>
+   <property name="maximum">
+    <double>99999.000000000000000</double>
+   </property>
   </widget>
   <widget class="QDoubleSpinBox" name="rot_y">
    <property name="geometry">
@@ -310,6 +340,12 @@
      <width>67</width>
      <height>24</height>
     </rect>
+   </property>
+   <property name="minimum">
+    <double>-9999.000000000000000</double>
+   </property>
+   <property name="maximum">
+    <double>99999.000000000000000</double>
    </property>
   </widget>
   <widget class="QDoubleSpinBox" name="radius">
@@ -428,6 +464,12 @@
      <height>24</height>
     </rect>
    </property>
+   <property name="minimum">
+    <double>-9999.000000000000000</double>
+   </property>
+   <property name="maximum">
+    <double>9999.000000000000000</double>
+   </property>
   </widget>
   <widget class="QLabel" name="normal">
    <property name="geometry">
@@ -456,6 +498,12 @@
      <height>24</height>
     </rect>
    </property>
+   <property name="minimum">
+    <double>-9999.000000000000000</double>
+   </property>
+   <property name="maximum">
+    <double>9999.000000000000000</double>
+   </property>
   </widget>
   <widget class="QDoubleSpinBox" name="norm_y">
    <property name="geometry">
@@ -465,6 +513,12 @@
      <width>67</width>
      <height>24</height>
     </rect>
+   </property>
+   <property name="minimum">
+    <double>-9999.000000000000000</double>
+   </property>
+   <property name="maximum">
+    <double>9999.000000000000000</double>
    </property>
   </widget>
   <widget class="QDoubleSpinBox" name="dir_z">
@@ -476,6 +530,12 @@
      <height>24</height>
     </rect>
    </property>
+   <property name="minimum">
+    <double>-9999.000000000000000</double>
+   </property>
+   <property name="maximum">
+    <double>9999.000000000000000</double>
+   </property>
   </widget>
   <widget class="QDoubleSpinBox" name="dir_x">
    <property name="geometry">
@@ -485,6 +545,12 @@
      <width>67</width>
      <height>24</height>
     </rect>
+   </property>
+   <property name="minimum">
+    <double>-9999.000000000000000</double>
+   </property>
+   <property name="maximum">
+    <double>9999.000000000000000</double>
    </property>
   </widget>
   <widget class="QLabel" name="normal_2">
@@ -513,6 +579,12 @@
      <width>67</width>
      <height>24</height>
     </rect>
+   </property>
+   <property name="minimum">
+    <double>-9999.000000000000000</double>
+   </property>
+   <property name="maximum">
+    <double>9999.000000000000000</double>
    </property>
   </widget>
  </widget>

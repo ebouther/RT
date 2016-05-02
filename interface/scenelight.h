@@ -7,7 +7,7 @@ class SceneLight
 {
 public:
     SceneLight(Ui::EditLight *ui);
-private:
+
     double pos_x;
     double pos_y;
     double pos_z;

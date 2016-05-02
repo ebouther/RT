@@ -1,12 +1,14 @@
 #include "sceneobject.h"
 
+#include <QDebug>
+
 SceneObject::SceneObject(Ui::EditObject *ui)
 {
     this->object_name = ui->object_name->text();
 
     this->pos_x = ui->pos_x->value();
-    this->pos_x = ui->pos_x->value();
-    this->pos_x = ui->pos_x->value();
+    this->pos_y = ui->pos_y->value();
+    this->pos_z = ui->pos_z->value();
 
     this->rot_x = ui->rot_x->value();
     this->rot_y = ui->rot_y->value();

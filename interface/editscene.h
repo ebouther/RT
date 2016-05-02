@@ -33,6 +33,7 @@ public slots:
 
 private:
     Ui::EditScene *ui;
+    QString xml_light(SceneLight *light);
     QString xml_object(SceneObject *obj);
     void fill_obj_list();
 };

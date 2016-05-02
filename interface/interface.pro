@@ -18,7 +18,6 @@ HEADERS += \
     selectobject.h \
     editobject.h \
     sceneobject.h \
-    scenelight.h \
     editlight.h
 
 FORMS += \
