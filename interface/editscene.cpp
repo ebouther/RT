@@ -2,6 +2,8 @@
 #include "ui_editscene.h"
 #include "sceneobject.h"
 
+#include <QDebug>
+
 QList<SceneObject*> EditScene::objs;
 
 EditScene::EditScene(QWidget *parent) :
@@ -28,5 +30,6 @@ void EditScene::open_object_window()
 void EditScene::add_object(Ui::EditObject *obj)
 {
     SceneObject *scene_obj = new SceneObject(obj);
-    EditScene::ui->
+    objs.append(scene_obj);
+    this->ui->object_list->addItem(obj->object_name);
 }

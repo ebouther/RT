@@ -7,7 +7,6 @@
 #include "sceneobject.h"
 
 #include <QDialog>
-#include <QDebug>
 #include <QList>
 
 namespace Ui {
@@ -21,7 +20,7 @@ class EditScene : public QDialog
 public:
     explicit EditScene(QWidget *parent = 0);
     ~EditScene();
-    static void add_object(Ui::EditObject *obj);
+    void add_object(Ui::EditObject *obj);
     static QList<SceneObject*> objs;
 
 public slots:

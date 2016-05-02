@@ -9,6 +9,8 @@ class SceneObject
 public:
     SceneObject(Ui::EditObject *ui);
 
+    QString object_name;
+
     double pos_x;
     double pos_y;
     double pos_z;

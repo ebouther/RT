@@ -21,7 +21,7 @@ EditObject::~EditObject()
 
 void EditObject::add_object()
 {
-    EditScene::add_object(this->ui);
+    ((EditScene *)parent)->add_object(this->ui);
     col->close();
     this->close();
 }

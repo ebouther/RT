@@ -2,6 +2,8 @@
 
 SceneObject::SceneObject(Ui::EditObject *ui)
 {
+    this->object_name = ui->object_name->text();
+
     this->pos_x = ui->pos_x->value();
     this->pos_x = ui->pos_x->value();
     this->pos_x = ui->pos_x->value();
