@@ -8,9 +8,17 @@ SceneObject::SceneObject(Ui::EditObject *ui)
     this->pos_x = ui->pos_x->value();
     this->pos_x = ui->pos_x->value();
 
-    this->rot_x = ui->pos_x->value();
-    this->rot_y = ui->pos_y->value();
-    this->rot_z = ui->pos_z->value();
+    this->rot_x = ui->rot_x->value();
+    this->rot_y = ui->rot_y->value();
+    this->rot_z = ui->rot_z->value();
+
+    this->dir_x = ui->dir_x->value();
+    this->dir_y = ui->dir_y->value();
+    this->dir_z = ui->dir_z->value();
+
+    this->norm_x = ui->norm_x->value();
+    this->norm_y = ui->norm_y->value();
+    this->norm_z = ui->norm_z->value();
 
     this->col_r = ui->col_r->value() / 255;
     this->col_g = ui->col_g->value() / 255;

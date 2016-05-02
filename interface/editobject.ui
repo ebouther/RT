@@ -75,8 +75,8 @@
   <widget class="QLabel" name="radius_label">
    <property name="geometry">
     <rect>
-     <x>110</x>
-     <y>260</y>
+     <x>370</x>
+     <y>100</y>
      <width>81</width>
      <height>31</height>
     </rect>
@@ -93,8 +93,8 @@
   <widget class="QLabel" name="radius_label_2">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>340</y>
+     <x>360</x>
+     <y>180</y>
      <width>91</width>
      <height>31</height>
     </rect>
@@ -245,8 +245,8 @@
   <widget class="QDoubleSpinBox" name="radius_2">
    <property name="geometry">
     <rect>
-     <x>110</x>
-     <y>380</y>
+     <x>370</x>
+     <y>220</y>
      <width>67</width>
      <height>24</height>
     </rect>
@@ -315,8 +315,8 @@
   <widget class="QDoubleSpinBox" name="radius">
    <property name="geometry">
     <rect>
-     <x>110</x>
-     <y>300</y>
+     <x>370</x>
+     <y>140</y>
      <width>67</width>
      <height>24</height>
     </rect>
@@ -325,8 +325,8 @@
   <widget class="QDoubleSpinBox" name="angle">
    <property name="geometry">
     <rect>
-     <x>110</x>
-     <y>460</y>
+     <x>370</x>
+     <y>300</y>
      <width>67</width>
      <height>24</height>
     </rect>
@@ -335,8 +335,8 @@
   <widget class="QLabel" name="angle_label">
    <property name="geometry">
     <rect>
-     <x>110</x>
-     <y>420</y>
+     <x>370</x>
+     <y>260</y>
      <width>81</width>
      <height>31</height>
     </rect>
@@ -417,6 +417,102 @@
    </property>
    <property name="text">
     <string>Add Object</string>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="norm_z">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>300</y>
+     <width>67</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="normal">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>260</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>22</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Normal</string>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="norm_x">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>300</y>
+     <width>67</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="norm_y">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>300</y>
+     <width>67</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="dir_z">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>390</y>
+     <width>67</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="dir_x">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>390</y>
+     <width>67</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="normal_2">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>350</y>
+     <width>91</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>22</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Direction</string>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="dir_y">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>390</y>
+     <width>67</width>
+     <height>24</height>
+    </rect>
    </property>
   </widget>
  </widget>

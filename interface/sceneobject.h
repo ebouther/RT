@@ -19,6 +19,14 @@ public:
     double rot_y;
     double rot_z;
 
+    double norm_x;
+    double norm_y;
+    double norm_z;
+
+    double dir_x;
+    double dir_y;
+    double dir_z;
+
     double col_r;
     double col_g;
     double col_b;
