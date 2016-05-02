@@ -1,5 +1,0 @@
-0 camera {centre $0.0 $0.0 $0.0 angle $0.0 $0.0 $0.0 fov $70.0 }
-1 sphere {rayon $10.0 centre $0.0 $0.0 $100.0 couleur $0.56 $0.41 $0.56 brim $0.5 }
-2 plan {normal $0.0 $0.0 $-1.0 centre $0.0 $0.0 $150.0 couleur $0.15 $0.17 $0.86 brillance $0.50 }
-4 cone {angle $15.0 dir $0.0 $1.0 $0.0 centre $0.0 $0.0 $100.0 couleur $0.45 $0.89 $0.10 brim $0.50 }
--1 lumiere {centre $40.0 $0.0 $20.0 couleur $0.90 $0.90 $0.90 }
