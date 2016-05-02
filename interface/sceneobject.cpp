@@ -1,7 +1,5 @@
 #include "sceneobject.h"
 
-#include <QDebug>
-
 SceneObject::SceneObject(Ui::EditObject *ui)
 {
     this->object_name = ui->object_name->text();

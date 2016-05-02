@@ -5,7 +5,8 @@
 #include "editlight.h"
 
 #include <QFile>
-#include <QDebug>
+#include <QFileDialog>
+#include <QDir>
 
 QList<SceneObject*> EditScene::objs;
 QList<SceneLight*> EditScene::lights;
@@ -18,7 +19,6 @@ EditScene::EditScene(QWidget *parent) :
     QObject::connect(ui->add_object, SIGNAL(clicked()), this, SLOT(open_object_window()));
     QObject::connect(ui->add_light, SIGNAL(clicked()), this, SLOT(open_light_window()));
     QObject::connect(ui->save_scene, SIGNAL(clicked()), this, SLOT(save_to_file()));
-    //this->fill_obj_list();
 }
 
 EditScene::~EditScene()
@@ -54,8 +54,8 @@ void EditScene::add_light(Ui::EditLight *light)
 
 void EditScene::save_to_file()
 {
-    QFile::remove("/nfs/2015/e/ebouther/Programming/RT/scene.xml");
-    QString filename="/nfs/2015/e/ebouther/Programming/RT/scene.xml";
+    QString filename = QFileDialog::getSaveFileName(this,
+        tr("Select scene file"), QDir::homePath(), tr("Scene file (*.xml)"));
     QFile file(filename);
     if (file.open(QIODevice::ReadWrite))
     {
@@ -125,7 +125,6 @@ QString EditScene::xml_light(SceneLight *light)
 QString EditScene::xml_object(SceneObject *obj)
 {
     QString object;
-    qDebug() << "X: " << obj->pos_x << "Y: " << obj->pos_y;
 
     QTextStream(&object) <<
         "<" << obj->object_name.toLower() << ">"
