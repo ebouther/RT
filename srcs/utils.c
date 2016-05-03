@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 11:03:31 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/26 12:38:48 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/03 10:46:15 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int				ft_ten_pow(int ten, int p)
 		return (ft_ten_pow(ten, p - 1) * 10);
 }
 
-double			ft_atod(char *s)
+/*double			ft_atod(char *s)
 {
 	int			i;
 	int			j;
@@ -50,6 +50,34 @@ double			ft_atod(char *s)
 		deci = deci + integer;
 	}
 	return (deci);
+}*/
+
+double		ft_atod(char *s)
+{
+	double	res;
+	char	sgn;
+	char	pt;
+
+	sgn = 1;
+	pt = 1;
+	res = 0;
+	while (*s == ' ' || *s == '\t' || *s == '\n' || *s == '\v')
+		s++;
+	sgn = *s;
+	if (*s == '-' || *s == '+')
+		s++;
+	else if (*s == '+')
+		s++;
+	while ((*s >= '0' && *s <= '9') || (pt == 1 && *s == '.'))
+	{
+		if (*s == '.' || pt > 10)
+			pt *= 10;
+		if (*s != '.')
+			res = (pt == 1) ? res * 10 + *s - '0'
+							: res + (*s - '0') / (double) pt;
+		s++;
+	}
+	return (sgn == '-' ? -res : res);
 }
 
 char		*ft_strjoin_free(char *s1, char *s2)

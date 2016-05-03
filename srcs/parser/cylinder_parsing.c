@@ -6,12 +6,12 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:45:04 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/28 14:28:18 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/02 19:40:19 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
+#include <stdio.h>
 static int	ft_set_cylinder(char *cylinder, t_env *e)
 {
 	char	*position;

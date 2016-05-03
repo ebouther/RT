@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/02 17:17:17 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/03 10:07:53 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	work.ray = ft_recalc_ori(ray, t);
 	if (kk)
 		printf("new ori{%d] = %f, %f, %f \n",ray->iter, work.ray->pos.x, work.ray->pos.y, work.ray->pos.z);
-	work.normal = cur_obj->get_normal(work.ray, work.obj);
+	work.normal = cur_obj->get_normal(work.ray, cur_obj);
 	if (kk)
 		printf("normal[%d] = %f ,%f ,%f\n", ray->iter, work.normal->x, work.normal->y,work.normal->z);
 	lst = e->light;
