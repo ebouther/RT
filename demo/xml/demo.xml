@@ -149,10 +149,10 @@
 			</mat>
 		</plane>
 
-		<cylinder>
+		<cone>
 			<position>
-				<x> 50.0 </x>
-				<y> 50.0 </y>
+				<x> 0.0 </x>
+				<y> 0.0 </y>
 				<z> 60.0 </z>
 			</position>
 			<direction>
@@ -161,7 +161,7 @@
 				<z> 0.0 </z>
 			</direction>
 
-			<radius> 5.0 </radius>
+			<angle> 5.0 </angle>
 
 			<mat>
 				<refraction> 0 </refraction>
@@ -172,7 +172,7 @@
 					<b> 0.78 </b>
 				</color>
 			</mat>
-		</cylinder>
+		</cone>
 
 	</objects>
 
