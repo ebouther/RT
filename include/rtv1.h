@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/02 17:16:08 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/03 15:31:22 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct	s_obj
 	t_vec3	*(*get_normal)();
 	double	(*get_inters)(t_ray *ray, struct s_obj *obj);
 	double	rayon;
+	double	rayon2;
 	double	angle;
 	t_vec3	pos;
 	t_vec3	norm;
@@ -144,6 +145,7 @@ t_ray			*ft_refl(t_ray *ray, t_work *work);
 t_vec3			*normal_sphere(t_ray *ray, t_obj *obj);
 t_vec3			*normal_cyl(t_ray *ray, t_obj *obj);
 t_vec3			*normal_cone(t_ray *ray, t_obj *obj);
+t_vec3			*normal_tore(t_ray *ray, t_obj *obj);
 t_vec3			*normal_plan(t_ray *ray, t_obj *obj);
 
 /*
@@ -152,6 +154,7 @@ t_vec3			*normal_plan(t_ray *ray, t_obj *obj);
 double			inters_sphere(t_ray *ray, t_obj *obj);
 double			inters_cyl(t_ray *ray, t_obj *obj);
 double			inters_cone(t_ray *ray, t_obj *obj);
+double			inters_tore(t_ray *ray, t_obj *obj);
 double			inters_plan(t_ray *ray, t_obj *obj);
 
 /*
@@ -183,6 +186,7 @@ int				ft_get_cylinders(char *objects, size_t len, t_env *e);
 int				ft_get_spheres(char *objects, size_t len, t_env *e);
 int				ft_get_cones(char *objects, size_t len, t_env *e);
 int				ft_get_planes(char *objects, size_t len, t_env *e);
+int				ft_get_tores(char *objects, size_t len, t_env *e);
 int				ft_get_lights(char *lights, size_t len, t_env *e);
 int				ft_set_config(char *config, t_env *e);
 void			ft_set_mat(char *mat, t_obj *obj);

@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 10:36:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/04/28 16:20:15 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/03 14:31:11 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ static int	ft_set_objects(char *objects, t_env *e)
 	len = ft_strlen(objects);
 	ft_get_spheres(objects, len, e);
 	ft_get_cylinders(objects, len, e);
+	ft_get_tores(objects, len, e);
 	ft_get_cones(objects, len, e);
 	ft_get_planes(objects, len, e);
 	return (0);

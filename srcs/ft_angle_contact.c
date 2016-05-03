@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:02:02 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/03 13:38:29 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/03 14:27:01 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,7 @@ t_vec3	*normal_cyl(t_ray *ray, t_obj *obj)
 	res->y = ray->pos.y - obj->pos.y - obj->dir.y * p;
 	res->z = ray->pos.z - obj->pos.z - obj->dir.z * p;
 	ft_normalise(res);
-	if (kk)
-		printf("___________%f %f %f\n ____ p = %f\n", obj->dir.x, obj->dir.y, obj->dir.z, p);
-	obj->mat.brim = 0;//Truc degeux
 	return (scal(*res, ray->dir) < 0 ? res : pro(-1, res));
-//	return (res);
 }
 
 t_vec3	*normal_cone(t_ray *ray, t_obj *obj)

@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/03 12:05:01 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/03 15:02:11 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void		ft_in_light(t_work *work, t_env *e, t_color_res *col_res)
 	while (lst)
 	{
 		tmp = ((t_obj *)(lst->content))->get_inters(work->ray, (t_obj *)(lst->content));
-		if (((t_obj *)(lst->content))->mat.refr > 0 && tmp > 0)
+		if (((t_obj *)(lst->content))->mat.refr > 0 && tmp > 0 && tmp < ft_dist_light(&work->ray->pos, &work->light->pos) )
 		{
 			filtre.r *= ((t_obj *)(lst->content))->mat.col.r * ((t_obj *)(lst->content))->mat.refr;
 			filtre.g *= ((t_obj *)(lst->content))->mat.col.g * ((t_obj *)(lst->content))->mat.refr;
@@ -40,20 +40,19 @@ static void		ft_in_light(t_work *work, t_env *e, t_color_res *col_res)
 	}
 	if (!lst)
 	{
-			angle_contact = ft_angle_contact(work->ray, work->normal);
-			col_add.diffuse.r += filtre.r * angle_contact * work->light->k;
-			col_add.specular.r += filtre.r *
-				ft_fpower(ft_brillance(&e->cam.dir, work->ray, work->normal), 20) *
-				work->obj->mat.brim;
-			col_add.diffuse.g += filtre.g * angle_contact * work->light->k;
-			col_add.specular.g += filtre.g *
-				ft_fpower(ft_brillance(&e->cam.dir, work->ray, work->normal), 20) *
-				work->obj->mat.brim;
-			col_add.diffuse.b += filtre.b * angle_contact * work->light->k;
-			col_add.specular.b += filtre.b *
-				ft_fpower(ft_brillance(&e->cam.dir, work->ray, work->normal), 20) *
-				work->obj->mat.brim;
-
+		angle_contact = ft_angle_contact(work->ray, work->normal);
+		col_add.diffuse.r += filtre.r * angle_contact * work->light->k;
+		col_add.specular.r += filtre.r *
+			ft_fpower(ft_brillance(&e->cam.dir, work->ray, work->normal), 20) *
+			work->obj->mat.brim;
+		col_add.diffuse.g += filtre.g * angle_contact * work->light->k;
+		col_add.specular.g += filtre.g *
+			ft_fpower(ft_brillance(&e->cam.dir, work->ray, work->normal), 20) *
+			work->obj->mat.brim;
+		col_add.diffuse.b += filtre.b * angle_contact * work->light->k;
+		col_add.specular.b += filtre.b *
+			ft_fpower(ft_brillance(&e->cam.dir, work->ray, work->normal), 20) *
+			work->obj->mat.brim;
 		col_res->diffuse.r += col_add.diffuse.r;
 		col_res->specular.r += col_add.specular.r;
 		col_res->diffuse.g += col_add.diffuse.g;
@@ -159,14 +158,14 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 		lst = lst->next;
 	}
 	if (kk)
-	printf("col_diffu[%d] = %f, %f %f\n",ray->iter, col_res.diffuse.r,col_res.diffuse.g,col_res.diffuse.b);
+		printf("col_diffu[%d] = %f, %f %f\n",ray->iter, col_res.diffuse.r,col_res.diffuse.g,col_res.diffuse.b);
 	ft_bri_max(&col_res);
 	final_col->r = ft_color_clip(e->amb * cur_obj->mat.col.r
-				+ cur_obj->mat.col.r * col_res.diffuse.r * cur_obj->mat.opac + col_res.specular.r + cur_obj->mat.refr * (col_res.refr ? col_res.refr->r : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->r : 0));
+			+ cur_obj->mat.col.r * col_res.diffuse.r * cur_obj->mat.opac + col_res.specular.r + cur_obj->mat.refr * (col_res.refr ? col_res.refr->r : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->r : 0));
 	final_col->g = ft_color_clip(e->amb * cur_obj->mat.col.g 
-				+ cur_obj->mat.col.g * col_res.diffuse.g * cur_obj->mat.opac + col_res.specular.g + cur_obj->mat.refr * (col_res.refr ? col_res.refr->g : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->g : 0));
+			+ cur_obj->mat.col.g * col_res.diffuse.g * cur_obj->mat.opac + col_res.specular.g + cur_obj->mat.refr * (col_res.refr ? col_res.refr->g : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->g : 0));
 	final_col->b = ft_color_clip(e->amb * cur_obj->mat.col.b
-				+ cur_obj->mat.col.b * col_res.diffuse.b * cur_obj->mat.opac + col_res.specular.b + cur_obj->mat.refr * (col_res.refr ? col_res.refr->b : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->b : 0));
+			+ cur_obj->mat.col.b * col_res.diffuse.b * cur_obj->mat.opac + col_res.specular.b + cur_obj->mat.refr * (col_res.refr ? col_res.refr->b : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->b : 0));
 	ft_color_mode(final_col, e);
 	free(work.normal);
 	free(work.ray);

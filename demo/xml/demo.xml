@@ -2,7 +2,7 @@
 <scene>
 
 	<config>
-		<ambient> 0.0 </ambient>
+		<ambient> 0.1 </ambient>
 		<filter>  </filter>
 	</config>
 
@@ -10,7 +10,7 @@
 		<position>
 			<x> 0.0 </x>
 			<y> 0.0 </y>
-			<z> -30.0 </z>
+			<z> -400.0 </z>
 		</position>
 
 		<angle>
@@ -19,7 +19,7 @@
 			<z> 0.0 </z>
 		</angle>
 
-		<fov> 70.0 </fov>
+		<fov> 10.0 </fov>
 	</camera>
 	
 	<lights>
@@ -103,28 +103,7 @@
 				</color>
 			</mat>
 		</plane>
-		<plane>
-			<position>
-				<x> 50.0 </x>
-				<y> 0.0 </y>
-				<z> 0.0 </z>
-			</position>
 
-			<normal>
-				<x> -1.0 </x>
-				<y> 0.0 </y>
-				<z> 0.0 </z>
-			</normal>
-			<mat>
-				<refraction> 0 </refraction>
-				<reflection> 0.8 </reflection>
-				<color>
-					<r> 0 </r>
-					<g> 0 </g>
-					<b> 0 </b>
-				</color>
-			</mat>
-		</plane>
 
 		<plane>
 			<position>
@@ -149,19 +128,14 @@
 			</mat>
 		</plane>
 
-		<cone>
+		<sphere>
 			<position>
 				<x> 0.0 </x>
 				<y> 0.0 </y>
 				<z> 60.0 </z>
 			</position>
-			<direction>
-				<x> 1.0 </x>
-				<y> 1.0 </y>
-				<z> 0.0 </z>
-			</direction>
 
-			<angle> 5.0 </angle>
+			<radius> 20.0 </radius>
 
 			<mat>
 				<refraction> 0 </refraction>
@@ -172,7 +146,28 @@
 					<b> 0.78 </b>
 				</color>
 			</mat>
-		</cone>
+		</sphere>
+		<plane>
+			<position>
+				<x> 50.0 </x>
+				<y> 0.0 </y>
+				<z> 0.0 </z>
+			</position>
+			<normal>
+				<x> -1.0 </x>
+				<y> 0.0 </y>
+				<z> 0.0 </z>
+			</normal>
+			<mat>
+				<refraction> 0 </refraction>
+				<reflection> 0.8 </reflection>
+				<color>
+					<r> 0 </r>
+					<g> 0 </g>
+					<b> 0 </b>
+				</color>
+			</mat>
+		</plane>
 
 	</objects>
 
