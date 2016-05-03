@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/03 15:31:22 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/03 16:29:09 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ typedef struct	s_env
 	int		bpp;
 	int 	endian;
 	int 	ls;
+	int		aa;
 	int 	xx;
 	int 	yy;
 	void	*mlx;
@@ -203,5 +204,7 @@ double			ft_brillance(t_vec3 *pos_cam, t_ray *ray, t_vec3 *normal);
 t_color			*ft_contact(t_ray *ray, t_env *e);
 
 void	ft_make_screen(t_env *e, char *name);
+
+void	ft_antialiasing(t_env *e);
 
 #endif

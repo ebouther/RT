@@ -98,6 +98,7 @@ SRC_NAME = main.c \
 		   ft_math2.c \
 		   utils.c \
 		   ft_screen_shot.c \
+		   ft_antialiasing.c \
 		   ft_ref.c \
 		   $(PARSER)
 
