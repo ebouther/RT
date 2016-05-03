@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/03 10:07:53 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/03 12:05:01 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,35 +19,41 @@ static void		ft_in_light(t_work *work, t_env *e, t_color_res *col_res)
 	double	tmp;
 	t_color_res	col_add;
 	double	angle_contact;
+	t_color	filtre;
 
 	col_add = (t_color_res){{0, 0, 0}, {0, 0, 0}, NULL, NULL};
 	ft_recalc_dir(work->light, work->ray, work->normal);
 	lst = e->obj;
+	filtre = (t_color){work->light->col.r, work->light->col.g, work->light->col.b};
 	while (lst)
 	{
 		tmp = ((t_obj *)(lst->content))->get_inters(work->ray, (t_obj *)(lst->content));
-		if (tmp > ft_dist_light(&work->ray->pos, &work->light->pos) || tmp < 0 || (((t_obj *)(lst->content))->mat.refr > 0 && tmp > 0))
+		if (((t_obj *)(lst->content))->mat.refr > 0 && tmp > 0)
 		{
-			angle_contact = ft_angle_contact(work->ray, work->normal);
-			col_add.diffuse.r += work->light->col.r * angle_contact * work->light->k;
-			col_add.specular.r += work->light->col.r *
-				ft_fpower(ft_brillance(&e->cam.dir, work->ray, work->normal), 20) *
-				work->obj->mat.brim;
-			col_add.diffuse.g += work->light->col.g * angle_contact * work->light->k;
-			col_add.specular.g += work->light->col.g *
-				ft_fpower(ft_brillance(&e->cam.dir, work->ray, work->normal), 20) *
-				work->obj->mat.brim;
-			col_add.diffuse.b += work->light->col.b * angle_contact * work->light->k;
-			col_add.specular.b += work->light->col.b *
-				ft_fpower(ft_brillance(&e->cam.dir, work->ray, work->normal), 20) *
-				work->obj->mat.brim;
+			filtre.r *= ((t_obj *)(lst->content))->mat.col.r * ((t_obj *)(lst->content))->mat.refr;
+			filtre.g *= ((t_obj *)(lst->content))->mat.col.g * ((t_obj *)(lst->content))->mat.refr;
+			filtre.b *= ((t_obj *)(lst->content))->mat.col.b * ((t_obj *)(lst->content))->mat.refr;
 		}
-		else
-			break ;
+		else if (!(tmp > ft_dist_light(&work->ray->pos, &work->light->pos) || tmp < 0))
+			break;
 		lst = lst->next;
 	}
 	if (!lst)
 	{
+			angle_contact = ft_angle_contact(work->ray, work->normal);
+			col_add.diffuse.r += filtre.r * angle_contact * work->light->k;
+			col_add.specular.r += filtre.r *
+				ft_fpower(ft_brillance(&e->cam.dir, work->ray, work->normal), 20) *
+				work->obj->mat.brim;
+			col_add.diffuse.g += filtre.g * angle_contact * work->light->k;
+			col_add.specular.g += filtre.g *
+				ft_fpower(ft_brillance(&e->cam.dir, work->ray, work->normal), 20) *
+				work->obj->mat.brim;
+			col_add.diffuse.b += filtre.b * angle_contact * work->light->k;
+			col_add.specular.b += filtre.b *
+				ft_fpower(ft_brillance(&e->cam.dir, work->ray, work->normal), 20) *
+				work->obj->mat.brim;
+
 		col_res->diffuse.r += col_add.diffuse.r;
 		col_res->specular.r += col_add.specular.r;
 		col_res->diffuse.g += col_add.diffuse.g;

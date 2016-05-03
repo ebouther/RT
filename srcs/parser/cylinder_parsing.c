@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:45:04 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/02 19:40:19 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/03 13:40:28 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static int	ft_set_cylinder(char *cylinder, t_env *e)
 		ft_error_exit("Error: cylinder require a direction subobject.\n");
 	ft_set_vec3(position, &cylinder_obj.pos);
 	ft_set_vec3(direction, &cylinder_obj.dir);
+	ft_normalise(&cylinder_obj.dir);
 	cylinder_obj.rayon = ft_atod(radius);
 	ft_set_mat(mat, &cylinder_obj);
 	cylinder_obj.get_normal = &normal_cyl;
