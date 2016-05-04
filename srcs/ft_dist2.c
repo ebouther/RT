@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 09:38:57 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/28 15:09:39 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/04 16:57:50 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,13 @@ static double	ft_rec(double r1, double r2, t_ray *ray, t_obj *obj)
 		return (ft_rec(r1, (r1 + r2) / 2.0, ray, obj));
 }
 
-double	inters_tore(t_ray *ray, t_obj *obj, int k)
+double	inters_tore(t_ray *ray, t_obj *obj)
 {
 	double *t;
 	double r1;
 	double r2;
 	t = inters_sphere2(ray, obj);
-	if (k)
+	if (kk)
 	{
 		printf("t0 = %f, t1 = %f\n", t[0], t[1]);
 		printf("dir.x = %f, dir.y = %f,dir.z = %f\n",obj->dir.x,obj->dir.y,obj->dir.z);

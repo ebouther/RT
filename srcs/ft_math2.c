@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_math2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/28 09:52:59 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/28 09:54:42 by jbelless         ###   ########.fr       */
+/*   Created: 2016/04/28 11:38:02 by ascholle          #+#    #+#             */
+/*   Updated: 2016/05/04 16:58:29 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,18 @@
 
 double	scal(t_vec3 a, t_vec3 b)
 {
-return (a.x * b.x + a.y * b.y + a.z * b.z);
+	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
 double	scal2(t_vec3 a)
 {
-return (a.x * a.x + a.y * a.y + a.z * a.z);
+	return (a.x * a.x + a.y * a.y + a.z * a.z);
+}
+
+t_vec3	*pro(double a, t_vec3 *d)
+{
+	d->x = (d->x != 0 ? d->x * a : 0);
+	d->y = (d->y != 0 ? d->y * a : 0);
+	d->z = (d->z != 0 ? d->z * a : 0);
+	return (d);
 }

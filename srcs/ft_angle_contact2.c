@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 09:45:01 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/28 10:39:00 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/04 16:55:22 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ t_vec3	*normal_tore(t_ray *ray, t_obj *obj)
 	res->y = ray->pos.y - obj->pos.y - ch.y * obj->rayon;
 	res->z = ray->pos.z - obj->pos.z - ch.z * obj->rayon;
 	ft_normalise(res);
-	return (res);
+	return (scal(*res, ray->dir) < 0 ? res : pro(-1, res));
 }

@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 09:30:55 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/28 15:13:12 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/04 17:01:20 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	ft_set_tore(char *tore, t_env *e)
 	char	*direction;
 	char	*radius;
 	char	*radius2;
-	char	*color;
+	char	*mat;
 	t_obj	tore_obj;
 
 	tore_obj.mat.brim = 0.1;
@@ -28,7 +28,7 @@ static int	ft_set_tore(char *tore, t_env *e)
 		ft_error_exit("Error: tore require 2 radius subobject.\n");
 	if ((radius2 = ft_get_inner(tore, "radius2", NULL)) == NULL)
 		ft_error_exit("Error: tore require 2 radius subobject.\n");
-	if ((color = ft_get_inner(tore, "color", NULL)) == NULL)
+	if ((mat = ft_get_inner(tore, "mat", NULL)) == NULL)
 		ft_error_exit("Error: tore require a color subobject.\n");
 	if ((direction = ft_get_inner(tore, "direction", NULL)) == NULL)
 		ft_error_exit("Error: tore require a direction subobject.\n");
@@ -37,7 +37,7 @@ static int	ft_set_tore(char *tore, t_env *e)
 	ft_normalise(&tore_obj.dir);
 	tore_obj.rayon = ft_atod(radius);
 	tore_obj.rayon2 = ft_atod(radius2);
-	ft_set_color(color, &tore_obj.mat.col);
+	ft_set_mat(mat, &tore_obj);
 	tore_obj.get_normal = &normal_tore;
 	tore_obj.get_inters = &inters_tore;
 	ft_lstadd(&e->obj, ft_lstnew((void *)&tore_obj, sizeof(t_obj)));
@@ -45,7 +45,7 @@ static int	ft_set_tore(char *tore, t_env *e)
 	ft_strdel(&direction);
 	ft_strdel(&radius);
 	ft_strdel(&radius2);
-	ft_strdel(&color);
+	ft_strdel(&mat);
 	return (0);
 }
 

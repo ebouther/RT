@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 10:36:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/02 16:18:44 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/04 17:00:22 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ static int	ft_set_objects(char *objects, t_env *e)
 	ft_get_tores(objects, len, e);
 	ft_get_spheres(objects, len, e);
 	ft_get_cylinders(objects, len, e);
+	ft_get_tores(objects, len, e);
 	ft_get_cones(objects, len, e);
 	ft_get_planes(objects, len, e);
 	return (0);
@@ -122,7 +123,7 @@ int			ft_parse_scene(char *file, t_env *e)
 	if ((objects = ft_get_inner(scene, "objects", NULL)) == NULL)
 		ft_putstr("There are no objects in your scene file.\n");
 	if ((config = ft_get_inner(scene, "config", NULL)) == NULL)
-		ft_putstr("There are no config in your scene file.\n");
+		ft_error_exit("There are no config in your scene file.\n");
 	ft_set_config(config, e);
 	ft_set_camera(camera, e);
 	ft_set_objects(objects, e);

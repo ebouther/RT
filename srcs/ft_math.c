@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 17:13:59 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/28 09:54:21 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/04 16:58:02 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ double	ft_equa_sec(double a, double b, double c)
 	   	r2 = (-b + sqrt(delt)) / (2 * a);
 		if (r1 * r2 < 0)
 		{
-			if (r1 < 0)
+			if (r1 <= 0)
 				return (r2);
 			else
 				return (r1);

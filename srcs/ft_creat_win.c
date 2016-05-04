@@ -6,32 +6,31 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/28 15:10:18 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/04 17:03:16 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 #include <stdio.h>
 
-unsigned int	ft_contact(int x, int y, t_env *e)
+t_color		*ft_contact(t_ray *ray, t_env *e)
 {
 	t_obj	*cur_obj;
+	t_obj	*obj2;
 	double	tmp;
 	double	t;
 	t_list	*lst;
-	t_ray	*ray;
-	int		k;
+
+	if (ray == NULL)
+		return (NULL);
 
 	t = FAR;
-	ray = ft_calc_ray(x, y, e);
 	tmp = 0;
 	lst = e->obj;
-	k = 0;
-	if (e->xx == x && e->yy ==y)
-		k = 1;
 	while (lst)
 	{
-		tmp = ((t_obj *)(lst->content))->get_inters(ray, (t_obj *)lst->content, k);
+		tmp = ((t_obj *)(lst->content))->get_inters(ray, (t_obj *)lst->content);
+		obj2 = ((t_obj *)(lst->content));
 		if (tmp < t && tmp >= 0)
 		{
 			t = tmp;
@@ -41,15 +40,28 @@ unsigned int	ft_contact(int x, int y, t_env *e)
 	}
 	if (t < FAR)
 		return (ft_ishadow(e, ray, t, cur_obj));
-	free(ray);
-	return (0);
+	return (NULL);
+}
+
+unsigned int	ft_rgbtoi(t_color *color)
+{
+	unsigned int res;
+
+	if (color == NULL)
+		return (0);
+	res = (256 * 256 * (unsigned int)(color->r * 255) +
+			256 * (unsigned int)(color->g * 255) +
+			(unsigned int)(color->b * 255));
+	free(color);
+	return (res);
 }
 
 void			ft_fill_img(t_env *e)
 {
 	int				x;
 	int				y;
-	unsigned int	couleur;
+	t_color			*couleur;
+	t_ray			*ray;
 
 	x = 0;
 	while (x < SIZE_W)
@@ -57,8 +69,13 @@ void			ft_fill_img(t_env *e)
 		y = 0;
 		while (y < SIZE_H)
 		{
-			couleur = ft_contact(x, y, e);
-			ft_put_pixelle(x, y, &couleur, e);
+			kk = 0;
+			if (e->xx == x && e->yy == y)
+				kk = 1;
+			ray = ft_calc_ray(x, y, e);
+			couleur = ft_contact(ray, e);
+			ft_put_pixelle(x, y, ft_rgbtoi(couleur), e);
+			free(ray);
 			y++;
 		}
 		x++;
@@ -79,20 +96,10 @@ int				key_hook(int kc, t_env *e)
 	printf("%d\n",kc);
 	if (kc == 53)
 		exit(0);
-	else if (kc == 126)
-	{
-		((t_obj*)(e->obj->content))->dir.z =((t_obj*)(e->obj->content))->dir.z * cos (10.0 / 180.0 * M_PI);
-		((t_obj*)(e->obj->content))->dir.y =((t_obj*)(e->obj->content))->dir.y * sin (10.0 / 180.0 * M_PI);
-	}
-	else if (kc == 125)
-	{
-		((t_obj*)(e->obj->content))->dir.z =((t_obj*)(e->obj->content))->dir.z * cos (-10.0 / 180.0 * M_PI);
-		((t_obj*)(e->obj->content))->dir.y =((t_obj*)(e->obj->content))->dir.y * sin (-10.0 / 180.0 * M_PI);
-	}
 	else if (kc == 35)
 		ft_make_screen(e, "img.ppm");
-	ft_normalise(&((t_obj*)(e->obj->content))->dir);
-	ft_fill_img(e);
+	else if (kc == 0)
+		ft_antialiasing(e);
 	return (0);
 }
 
@@ -100,12 +107,12 @@ int				mouse_hook(int b, int x, int y, t_env *e)
 {
 	if (b)
 	{
-		printf("x = %d, y = %d\n", x, y);
 		e->xx = x;
 		e->yy = y;
 	}
+	printf("x = %d,x = %d\n",x,y);
 	ft_fill_img(e);
-	return (0);
+	return (1);
 }
 
 void			ft_creat_win(t_env *e)

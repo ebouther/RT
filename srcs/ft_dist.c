@@ -6,14 +6,13 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:31:25 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/28 14:06:17 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/02 14:56:29 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-#include <stdio.h>
 
-double			inters_sphere(t_ray *ray, t_obj *obj, int k)
+double			inters_sphere(t_ray *ray, t_obj *obj)
 {
 	double a;
 	double b;
@@ -26,13 +25,11 @@ double			inters_sphere(t_ray *ray, t_obj *obj, int k)
 	c = (carre(ray->pos.x - obj->pos.x) +
 			carre(ray->pos.y - obj->pos.y) +
 			carre(ray->pos.z - obj->pos.z)) - carre(obj->rayon);
-	if (k)
-		printf("a = %f, b= %f, c = %f\n",a,b,c);
 	return (ft_equa_sec(a, b, c));
-	k=0;
 }
 
-double			inters_plan(t_ray *ray, t_obj *obj, int k)
+#include <stdio.h>
+double			inters_plan(t_ray *ray, t_obj *obj)
 {
 	double	vd;
 	double	t;
@@ -45,14 +42,13 @@ double			inters_plan(t_ray *ray, t_obj *obj, int k)
 	t = (obj->norm.x * (obj->pos.x - ray->pos.x) +
 			obj->norm.y * (obj->pos.y - ray->pos.y) +
 			obj->norm.z * (obj->pos.z - ray->pos.z)) / vd;
-	if (t >= 0)
+	if (t > 0)
 		return (t);
 	else
 		return (FAR);
-	k=0;
 }
 
-double			inters_cyl(t_ray *ray, t_obj *obj, int k)
+double			inters_cyl(t_ray *ray, t_obj *obj)
 {
 	double	a[6];
 	double	b[3];
@@ -75,10 +71,9 @@ double			inters_cyl(t_ray *ray, t_obj *obj, int k)
 	d[1] = 2 * (b[0] * c[0] + b[1] * c[1] + b[2] * c[2]);
 	d[2] = carre(b[0]) + carre(b[1]) + carre(b[2]) - carre(obj->rayon);
 	return (ft_equa_sec(d[0], d[1], d[2]));
-	k=0;
 }
 
-double			inters_cone(t_ray *ray, t_obj *obj, int k)
+double			inters_cone(t_ray *ray, t_obj *obj)
 {
 	double	a[6];
 	double	b[2];
@@ -96,5 +91,4 @@ double			inters_cone(t_ray *ray, t_obj *obj, int k)
 	c[1] = 2 * carre(cos(obj->angle)) * (a[0] * a[3] + a[1] * a[4] + a[2] * a[5]) - 2 * b[0] * b[1];
 	c[2] = carre(cos(obj->angle)) *	(carre(a[3]) + carre(a[4]) + carre(a[5])) - carre(b[1]);
 	return (ft_equa_sec(c[0], c[1], c[2]));
-	k=0;
 }

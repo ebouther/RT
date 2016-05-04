@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:21:39 by jbelless          #+#    #+#             */
-/*   Updated: 2016/04/22 17:11:02 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/02 20:09:11 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_ray		*ft_calc_ray(int x, int y, t_env *e)
 	ray->pos.x = e->cam.pos.x;
 	ray->pos.y = e->cam.pos.y;
 	ray->pos.z = e->cam.pos.z;
+	ray->iter = 0;
+	ray->i_opt = 1;
 	return (ray);
 }
 
@@ -38,24 +40,24 @@ double			ft_dist_light(t_vec3 *ray_pos, t_vec3 *light_pos)
 t_ray	 *ft_recalc_ori(t_ray *ray, double t)
 {
 	t_ray	*res;
-	int		i;
 
-	i = 0;
-	res = (t_ray*)malloc(sizeof(t_ray) * 3);
-	while(i < 3)
-	{
-		res[i].pos.x = ray->pos.x + ray->dir.x * t * 0.9999;
-		res[i].pos.y = ray->pos.y + ray->dir.y * t * 0.9999;
-		res[i].pos.z = ray->pos.z + ray->dir.z * t * 0.9999;
-		i++;
-	}	
+	res = (t_ray*)malloc(sizeof(t_ray));
+	res->pos.x = ray->pos.x + ray->dir.x * t;
+	res->pos.y = ray->pos.y + ray->dir.y * t;
+	res->pos.z = ray->pos.z + ray->dir.z * t;
+	res->dir.x = ray->dir.x;
+	res->dir.y = ray->dir.y;
+	res->dir.z = ray->dir.z;
 	return (res);
 }
 
-void			ft_recalc_dir(t_light *light, t_ray *ray)
+void			ft_recalc_dir(t_light *light, t_ray *ray, t_vec3 *norm)
 {
 	ray->dir.x = light->pos.x - ray->pos.x;
 	ray->dir.y = light->pos.y - ray->pos.y;
 	ray->dir.z = light->pos.z - ray->pos.z;
+	ray->pos.x = ray->pos.x + 0.01 * norm->x;
+	ray->pos.y = ray->pos.y + 0.01 * norm->y;
+	ray->pos.z = ray->pos.z + 0.01 * norm->z;
 	ft_normalise(&(ray->dir));
 }
