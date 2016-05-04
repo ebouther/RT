@@ -6,18 +6,32 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 16:29:21 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/03 17:37:12 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/04 11:10:17 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <stdio.h>
 
-static void	ft_moyenne(int x, int y, t_env *e)
+static void	ft_moyenne(int x, int y, char *buf, t_env *e)
 {
-	int col;
+	char	i;
 
-	col = 0xFFFFFF;
-	ft_put_pixelle(x, y, col, e);
+	i = 0;
+	while (i < 4)
+	{
+		e->data[(x * 4 + SIZE_W * 4 * y) + i] = 
+		((unsigned char)buf[(x * 4 + SIZE_W * 4 * y) + i] +
+		(unsigned char)buf[((x + 1) * 4 + SIZE_W * 4 * y) + i] + 
+		(unsigned char)buf[((x - 1) * 4 + SIZE_W * 4 * y) + i] +
+		(unsigned char)buf[(x * 4 + SIZE_W * 4 * (y + 1)) + i] +
+		(unsigned char)buf[(x * 4 + SIZE_W * 4 * (y - 1)) + i] +
+		(unsigned char)buf[((x + 1) * 4 + SIZE_W * 4 * (y + 1)) + i] +
+		(unsigned char)buf[((x - 1) * 4 + SIZE_W * 4 * (y - 1)) + i] +
+		(unsigned char)buf[((x - 1) * 4 + SIZE_W * 4 * (y + 1)) + i] +
+		(unsigned char)buf[((x + 1) * 4 + SIZE_W * 4 * (y - 1)) + i]) / 9;
+		i++;
+	}
 }
 
 static int	ft_contrast2(unsigned char c[5])
@@ -72,7 +86,7 @@ void	ft_antialiasing(t_env *e)
 		while (y < SIZE_H - 1)
 		{
 			if (ft_contrast(x, y, buf))
-				ft_moyenne(x, y, e);
+				ft_moyenne(x, y, buf, e);
 			y++;
 		}
 		x++;
