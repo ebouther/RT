@@ -6,14 +6,14 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 09:38:57 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/04 16:57:50 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/04 17:44:18 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 #include <stdio.h>
 
-static double	*ft_equa_sec2(double a, double b, double c)
+double		*ft_equa_sec2(double a, double b, double c)
 {
 	double delt;
 	double r1;

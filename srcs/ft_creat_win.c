@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/04 17:03:16 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/04 17:59:39 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 t_color		*ft_contact(t_ray *ray, t_env *e)
 {
 	t_obj	*cur_obj;
-	t_obj	*obj2;
-	double	tmp;
+	t_obj	*obj_touch;
+	double	*tmp;
 	double	t;
 	t_list	*lst;
 
@@ -29,12 +29,12 @@ t_color		*ft_contact(t_ray *ray, t_env *e)
 	lst = e->obj;
 	while (lst)
 	{
+		tmp = ft_get_inters((t_nod*)(lst->content), ray, &obj_touch);
 		tmp = ((t_obj *)(lst->content))->get_inters(ray, (t_obj *)lst->content);
-		obj2 = ((t_obj *)(lst->content));
-		if (tmp < t && tmp >= 0)
+		if (tmp[0] < t && tmp[0] >= 0)
 		{
-			t = tmp;
-			cur_obj = (t_obj *)lst->content;
+			t = tmp[0];
+			cur_obj = obj_touch;
 		}
 		lst = lst->next;
 	}
