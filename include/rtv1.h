@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/04 18:00:27 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/05 14:49:23 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ typedef struct	s_nod
 	t_obj				*(*op)(t_obj *, t_obj *, t_ray *);
 	struct s_nod		*r;
 	struct s_nod		*l;
-	t_obj		*obj;
+	t_obj				*obj;
 }				t_nod;
 
 
