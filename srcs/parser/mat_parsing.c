@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 13:57:32 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/03 14:31:43 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/06 16:56:22 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ void		ft_set_mat(char *mat, t_obj *obj)
 	obj->mat.refl = ((value = ft_get_inner(mat, "reflection", NULL)) == NULL)
 		? 0 : ft_atod(value);
 	free(value);
+
+	obj->mat.tex.tex = ((value = ft_get_inner(mat, "texture", NULL)) == NULL)
+		? NULL : value;
+	free(value);
+	
+	obj->mat.tex.height = ((value = ft_get_inner(mat, "tex_height", NULL)) == NULL)
+		? 0 : ft_atoi(value);
+	free(value);
+	
+	obj->mat.tex.width = ((value = ft_get_inner(mat, "tex_width", NULL)) == NULL)
+		? 0 : ft_atoi(value);
+	free(value);
+
 	obj->mat.opac = ((value = ft_get_inner(mat, "opac", NULL)) == NULL)
 		? 1 - obj->mat.refl - obj->mat.refr : ft_atod(value);
 	free(value);

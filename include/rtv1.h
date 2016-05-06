@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/04 17:03:27 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/06 16:52:08 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,16 @@ typedef struct	s_color_res
 	t_color		*refr;
 }				t_color_res;
 
+typedef struct s_tex
+{
+	char		*tex;
+	int			height;
+	int			width;
+}				t_tex;
+
 typedef struct s_mat
 {
+	t_tex		tex;
 	t_color		col;
 	double		brim;
 	char		brip;
