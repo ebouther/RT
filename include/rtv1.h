@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/05 14:49:23 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/09 14:29:16 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,14 +106,21 @@ typedef struct	s_obj
 	t_mat	mat;
 }				t_obj;
 
+typedef struct	s_obj_col
+{
+	t_obj		*obj;
+	double		*t;
+	char		neg;
+}				t_obj_col;
+
 typedef struct	s_nod
 {
-	t_obj				*(*op)(t_obj *, t_obj *, t_ray *);
+	t_obj_col			*(*op)(struct s_nod *, struct s_nod *, t_ray *);
 	struct s_nod		*r;
 	struct s_nod		*l;
+	t_obj_col			*obj_col;
 	t_obj				*obj;
 }				t_nod;
-
 
 typedef struct	s_env
 {
@@ -149,7 +156,7 @@ double			ft_equa_sec(double a, double b, double c);
 void			ft_creat_win(t_env *e);
 t_ray			*ft_refr(t_ray *ray, t_work *work, double *refl);
 t_ray			*ft_refl(t_ray *ray, t_work *work);
-double			*ft_get_inters((t_nod *)(lst->content), t_ray *ray, t_obj *obj);
+t_obj_col		*ft_get_inters(t_nod *nod, t_ray *ray);
 
 /*
 ** Normals

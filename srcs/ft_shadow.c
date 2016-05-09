@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/04 17:47:03 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/09 16:52:42 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void		ft_in_light(t_work *work, t_env *e, t_color_res *col_res)
 {
 	t_list	*lst;
 	double	*tmp;
+	t_obj_col *obj;
 	t_color_res	col_add;
 	double	angle_contact;
 	t_color	filtre;
@@ -27,12 +28,15 @@ static void		ft_in_light(t_work *work, t_env *e, t_color_res *col_res)
 	filtre = (t_color){work->light->col.r, work->light->col.g, work->light->col.b};
 	while (lst)
 	{
-		tmp = ((t_obj *)(lst->content))->get_inters(work->ray, (t_obj *)(lst->content));
-		if (((t_obj *)(lst->content))->mat.refr > 0 && tmp[0] > 0 && tmp[0] < ft_dist_light(&work->ray->pos, &work->light->pos) )
+		//tmp = ((t_obj *)(lst->content))->get_inters(work->ray, (t_obj *)(lst->content));
+		obj = ft_get_inters(lst->content, work->ray);
+		tmp = obj->t;
+		tmp[0] = 0.001;
+		if (((t_nod *)(lst->content))->obj->mat.refr > 0 && tmp[0] > 0 && tmp[0] < ft_dist_light(&work->ray->pos, &work->light->pos) )
 		{
-			filtre.r *= ((t_obj *)(lst->content))->mat.col.r * ((t_obj *)(lst->content))->mat.refr;
-			filtre.g *= ((t_obj *)(lst->content))->mat.col.g * ((t_obj *)(lst->content))->mat.refr;
-			filtre.b *= ((t_obj *)(lst->content))->mat.col.b * ((t_obj *)(lst->content))->mat.refr;
+			filtre.r *= ((t_nod *)(lst->content))->obj->mat.col.r * ((t_nod *)(lst->content))->obj->mat.refr;
+			filtre.g *= ((t_nod *)(lst->content))->obj->mat.col.g * ((t_nod *)(lst->content))->obj->mat.refr;
+			filtre.b *= ((t_nod *)(lst->content))->obj->mat.col.b * ((t_nod *)(lst->content))->obj->mat.refr;
 		}
 		else if (!(tmp[0] > ft_dist_light(&work->ray->pos, &work->light->pos) || tmp[0] < 0))
 			break;

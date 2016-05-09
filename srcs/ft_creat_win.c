@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/04 18:03:59 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/09 17:04:25 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,34 @@
 
 t_color		*ft_contact(t_ray *ray, t_env *e)
 {
-	t_obj	*cur_obj;
-	t_obj	*obj_touch;
-	double	*tmp;
-	double	t;
-	t_list	*lst;
+	t_obj		*cur_obj;
+	t_obj_col	*tmp;
+	double		t;
+	t_list		*lst;
 
 	if (ray == NULL)
 		return (NULL);
 
 	t = FAR;
-	tmp = 0;
 	lst = e->obj;
 	while (lst)
 	{
-		tmp = ft_get_inters((t_nod*)(lst->content), ray, &obj_touch);
-		if (tmp[0] < t && tmp[0] >= 0)
+		tmp = ft_get_inters(lst->content, ray);
+		if (tmp->t[0] < t)
 		{
-			t = tmp[0];
-			cur_obj = obj_touch;
+			t = tmp->t[0];
+			cur_obj = tmp->obj;
 		}
 		lst = lst->next;
 	}
+	t_color	*sdf;
+	sdf = malloc(sizeof(t_color));
+	sdf->r = cur_obj->mat.col.r;
+	sdf->g = cur_obj->mat.col.g;
+	sdf->b = cur_obj->mat.col.b;
 	if (t < FAR)
-		return (ft_ishadow(e, ray, t, cur_obj));
+		return (sdf);
+	//	return (ft_ishadow(e, ray, t, cur_obj));
 	return (NULL);
 }
 

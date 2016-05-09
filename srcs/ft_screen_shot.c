@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/24 18:01:02 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/05 14:48:45 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/08 15:45:09 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_make_screen(t_env *e, char *name)
 	if ((fd = open(name, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR)) == -1)
 		exit(-1);
 	write(fd, "P6\n", 3);
-	ft_putnbr_fd((int)SIZE_w, fd);
+	ft_putnbr_fd((int)SIZE_W, fd);
 	write(fd, " ", 1);
 	ft_putnbr_fd((int)SIZE_H, fd);
 	write(fd, "\n255\n", 5);
