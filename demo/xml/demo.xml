@@ -21,7 +21,7 @@
 
 		<fov> 10.0 </fov>
 	</camera>
-	
+
 	<lights>
 
 		<light>
@@ -29,7 +29,7 @@
 			<position>
 				<x> -20.0 </x>
 				<y> 45.0 </y>
-				<z> 20.0 </z>
+				<z> -150.0 </z>
 			</position>
 			<color>
 				<r> 1.0 </r>
@@ -127,6 +127,33 @@
 				</color>
 			</mat>
 		</plane>
+		<cylinder>
+			<position>
+				<x> 0.0 </x>
+				<y> 0.0 </y>
+				<z> -50.0 </z>
+			</position>
+
+			<radius> 20 </radius>
+
+			<direction>
+				<x> 0.0 </x>
+				<y> 1.0 </y>
+				<z> 0.0 </z>
+			</direction>
+			<mat>
+				<texture>texture/42.xpm</texture>
+				<tex_height>12</tex_height>
+				<tex_width>13</tex_width>
+				<refraction> 0 </refraction>
+				<reflection> 0 </reflection>
+				<color>
+					<r> 0.0 </r>
+					<g> 0.341 </g>
+					<b> 0.13 </b>
+				</color>
+			</mat>
+		</cylinder>
 
 		<sphere>
 			<position>

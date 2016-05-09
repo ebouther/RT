@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/04 17:03:16 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/09 19:48:51 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,14 @@ void			ft_fill_img(t_env *e)
 	int				y;
 	t_color			*couleur;
 	t_ray			*ray;
+
+	//------To be rm----------//
+	int h = 134;
+	int w = 220;
+	e->img1 = mlx_xpm_file_to_image(e->mlx, "/nfs/2015/p/pboutin/Downloads/Free-Converter.com-42_3-66722951.xpm", &w, &h);
+	e->buf = mlx_get_data_addr(e->img1, &e->bpp1, &e->ls1, &e->endian1);
+	printf("ok\n");
+	printf("ok1");
 
 	x = 0;
 	while (x < SIZE_W)

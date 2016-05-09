@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/06 16:52:08 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/09 19:48:53 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,12 @@ typedef struct	s_env
 {
 	int		bpp;
 	int 	endian;
+	int 	endian1;
+	int		bpp1;
+	int		ls1;
 	int 	ls;
+	void	*img1;
+	char	*buf;
 	int		aa;
 	int 	xx;
 	int 	yy;
