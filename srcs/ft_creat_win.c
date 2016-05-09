@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/09 19:48:51 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/09 20:14:58 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,55 @@ unsigned int	ft_rgbtoi(t_color *color)
 	return (res);
 }
 
+void        ft_stock_size_tex(t_obj *cur_obj)
+{
+	int     fd;
+	char    *buf;
+	int     res;
+	int     i;
+	int     j;
+	char    width[4];
+	char    height[4];
+
+	i = 0;
+	j = 0;
+	buf = NULL;
+	fd = open(cur_obj->mat.tex.tex, O_RDONLY);
+	ft_putstr(cur_obj->mat.tex.tex);
+	if(fd == -1)
+		ft_putstr("open texture failed\n");
+	while(i++ != 4)
+		res = get_next_line(fd, &buf);
+	i = 1;
+	while(ft_isdigit(buf[i]))
+		width[j++] = buf[i++];
+	i++;
+	j = 0;
+	while(ft_isdigit(buf[i]))
+		height[j++] = buf[i++];
+	i++;
+	cur_obj->mat.tex.width = atoi(width);
+	cur_obj->mat.tex.height = atoi(height);
+	close(fd);
+}
+
+void    init_tex(t_env  *e)
+{
+	t_list  *lst;
+	lst = e->obj;
+	while (lst)
+	{
+		if (((t_obj *)(lst->content))->mat.tex.tex)
+		{
+			ft_stock_size_tex((t_obj *)lst->content);
+			((t_obj *)(lst->content))->mat.tex.img = mlx_xpm_file_to_image(e->mlx, ((t_obj *)(lst->content))->mat.tex.tex, &((t_obj *)(lst->content))->mat.tex.width, &((t_obj *)(lst->content))->mat.tex.height);
+			((t_obj *)(lst->content))->mat.tex.buf = mlx_get_data_addr(((t_obj *)(lst->content))->mat.tex.img, &((t_obj *)(lst->content))->mat.tex.bpp, &((t_obj *)(lst->content))->mat.tex.ls, &((t_obj *)(lst->content))->mat.tex.endian);
+		}
+		ft_putstr("ok");
+		lst = lst->next;
+	}
+}
+
 void			ft_fill_img(t_env *e)
 {
 	int				x;
@@ -63,14 +112,7 @@ void			ft_fill_img(t_env *e)
 	t_color			*couleur;
 	t_ray			*ray;
 
-	//------To be rm----------//
-	int h = 134;
-	int w = 220;
-	e->img1 = mlx_xpm_file_to_image(e->mlx, "/nfs/2015/p/pboutin/Downloads/Free-Converter.com-42_3-66722951.xpm", &w, &h);
-	e->buf = mlx_get_data_addr(e->img1, &e->bpp1, &e->ls1, &e->endian1);
-	printf("ok\n");
-	printf("ok1");
-
+	init_tex(e);
 	x = 0;
 	while (x < SIZE_W)
 	{

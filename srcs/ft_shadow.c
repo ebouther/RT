@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/09 19:48:48 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/09 20:19:39 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,11 @@ void	ft_color_mode(t_color *c, t_env *e)
 	}
 }
 
-t_color     ft_get_tex_color(int x, int y, t_env *e)
+t_color     ft_get_tex_color(int x, int y, t_obj *cur_obj)
 {
 	unsigned char   *c;
 	t_color         ret;
-	c = (unsigned char*)e->buf + (x) * (e->bpp1 / 8) + ((134 - y) * e->ls1);
+	c = (unsigned char*)cur_obj->mat.tex.buf + (x) * (cur_obj->mat.tex.bpp / 8) + ((134 - y) * cur_obj->mat.tex.ls);
 	//	printf("\n\nX : '%d' |  Y: '%d'\n", x, y);
 	ret.b = *c / 256.0;
 	ret.g = *(c + 1) / 256.0;
@@ -134,13 +134,13 @@ t_color    *ft_texture(t_color *final_col, t_ray *ray, double t, t_obj *cur_obj,
 	zB = 20;
 	tetaA = acos(-1);
 	tetaB = acos(1);
-	(void)cur_obj;
+	(void)e;
 	if (teta < tetaA && teta > tetaB && z < zB && z > zA)
 	{
 		if ((col = malloc(sizeof(t_color))) == NULL)
 			exit(-1);
 		//		printf("VALUE : '%f'\n", t) ;
-		*col = ft_get_tex_color((int)((acos((ray->dir.x * t + ray->pos.x - 0) / 20.0) - tetaA) / (tetaB - tetaA) * 220.0), (int)(((z - zA) / (zB - zA)) * 134.0), e);
+		*col = ft_get_tex_color((int)((acos((ray->dir.x * t + ray->pos.x - 0) / 20.0) - tetaA) / (tetaB - tetaA) * 220.0), (int)(((z - zA) / (zB - zA)) * 134.0), cur_obj);
 		return (col);
 	}
 	return(final_col);

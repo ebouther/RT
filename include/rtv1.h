@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/09 19:48:53 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/09 20:03:10 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ typedef struct s_tex
 	char		*tex;
 	int			height;
 	int			width;
+	int     	bpp;
+	int			ls;
+	int			endian;
+    void		*img;
+	char		*buf;
 }				t_tex;
 
 typedef struct s_mat
