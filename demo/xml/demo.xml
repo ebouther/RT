@@ -143,8 +143,8 @@
 			</direction>
 			<mat>
 				<texture>texture/42.xpm</texture>
-				<tex_height>12</tex_height>
-				<tex_width>13</tex_width>
+				<tex_height>-50</tex_height>
+				<tex_width>10</tex_width>
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
 				<color>

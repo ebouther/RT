@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/09 20:19:39 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/09 20:43:42 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,11 +110,9 @@ t_color     ft_get_tex_color(int x, int y, t_obj *cur_obj)
 	unsigned char   *c;
 	t_color         ret;
 	c = (unsigned char*)cur_obj->mat.tex.buf + (x) * (cur_obj->mat.tex.bpp / 8) + ((134 - y) * cur_obj->mat.tex.ls);
-	//	printf("\n\nX : '%d' |  Y: '%d'\n", x, y);
 	ret.b = *c / 256.0;
 	ret.g = *(c + 1) / 256.0;
 	ret.r = *(c + 2) / 256.0;
-	printf("Fin_color : R: '%f'\n G: '%f'\n B: '%f'\n", ret.r, ret.g, ret.b);
 	return(ret);
 }
 
@@ -128,10 +126,10 @@ t_color    *ft_texture(t_color *final_col, t_ray *ray, double t, t_obj *cur_obj,
 	float       z;
 	t_color     *col;
 
-	teta = acos((ray->dir.x * t + ray->pos.x - 0.0) / 20.0);
+	teta = acos((ray->dir.x * t + ray->pos.x - cur_obj->pos.x) / cur_obj->rayon);
 	z = ray->dir.y * t + ray->pos.y;
-	zA = -50;
-	zB = 20;
+	zA = cur_obj->mat.tex.height;
+	zB = cur_obj->mat.tex.width;
 	tetaA = acos(-1);
 	tetaB = acos(1);
 	(void)e;
@@ -140,7 +138,7 @@ t_color    *ft_texture(t_color *final_col, t_ray *ray, double t, t_obj *cur_obj,
 		if ((col = malloc(sizeof(t_color))) == NULL)
 			exit(-1);
 		//		printf("VALUE : '%f'\n", t) ;
-		*col = ft_get_tex_color((int)((acos((ray->dir.x * t + ray->pos.x - 0) / 20.0) - tetaA) / (tetaB - tetaA) * 220.0), (int)(((z - zA) / (zB - zA)) * 134.0), cur_obj);
+		*col = ft_get_tex_color((int)((acos((ray->dir.x * t + ray->pos.x - cur_obj->pos.x) / cur_obj->rayon) - tetaA) / (tetaB - tetaA) * cur_obj->mat.tex.width1), (int)(((z - zA) / (zB - zA)) * cur_obj->mat.tex.height1), cur_obj);
 		return (col);
 	}
 	return(final_col);

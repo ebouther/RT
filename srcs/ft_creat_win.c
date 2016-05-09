@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/09 20:14:58 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/09 20:39:09 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ void        ft_stock_size_tex(t_obj *cur_obj)
 	while(ft_isdigit(buf[i]))
 		height[j++] = buf[i++];
 	i++;
-	cur_obj->mat.tex.width = atoi(width);
-	cur_obj->mat.tex.height = atoi(height);
+	cur_obj->mat.tex.width1 = atoi(width);
+	cur_obj->mat.tex.height1 = atoi(height);
 	close(fd);
 }
 
@@ -97,10 +97,9 @@ void    init_tex(t_env  *e)
 		if (((t_obj *)(lst->content))->mat.tex.tex)
 		{
 			ft_stock_size_tex((t_obj *)lst->content);
-			((t_obj *)(lst->content))->mat.tex.img = mlx_xpm_file_to_image(e->mlx, ((t_obj *)(lst->content))->mat.tex.tex, &((t_obj *)(lst->content))->mat.tex.width, &((t_obj *)(lst->content))->mat.tex.height);
+			((t_obj *)(lst->content))->mat.tex.img = mlx_xpm_file_to_image(e->mlx, ((t_obj *)(lst->content))->mat.tex.tex, &((t_obj *)(lst->content))->mat.tex.width1, &((t_obj *)(lst->content))->mat.tex.height1);
 			((t_obj *)(lst->content))->mat.tex.buf = mlx_get_data_addr(((t_obj *)(lst->content))->mat.tex.img, &((t_obj *)(lst->content))->mat.tex.bpp, &((t_obj *)(lst->content))->mat.tex.ls, &((t_obj *)(lst->content))->mat.tex.endian);
 		}
-		ft_putstr("ok");
 		lst = lst->next;
 	}
 }
