@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/09 17:04:25 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/10 10:57:41 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,8 @@ t_color		*ft_contact(t_ray *ray, t_env *e)
 		}
 		lst = lst->next;
 	}
-	t_color	*sdf;
-	sdf = malloc(sizeof(t_color));
-	sdf->r = cur_obj->mat.col.r;
-	sdf->g = cur_obj->mat.col.g;
-	sdf->b = cur_obj->mat.col.b;
 	if (t < FAR)
-		return (sdf);
-	//	return (ft_ishadow(e, ray, t, cur_obj));
+		return (ft_ishadow(e, ray, t, cur_obj));
 	return (NULL);
 }
 
