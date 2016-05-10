@@ -1,0 +1,59 @@
+
+<scene>
+
+	<config>
+		<ambient> 0.2 </ambient>
+		<filter>  </filter>
+	</config>
+
+	<camera>
+		<position>
+			<x> 0.0 </x>
+			<y> 0.0 </y>
+			<z> -150.0 </z>
+		</position>
+
+		<angle>
+			<x> 0.0 </x>
+			<y> 0.0 </y>
+			<z> 0.0 </z>
+		</angle>
+
+		<fov> 10.0 </fov>
+	</camera>
+
+	<lights>
+		<light>
+			<intensity> 0.8 </intensity>
+			<position>
+				<x> -20.0 </x>
+				<y> -10.0 </y>
+				<z> -30.0 </z>
+			</position>
+			<color>
+				<r> 1.0 </r>
+				<g> 1.0 </g>
+				<b> 1.0 </b>
+			</color>
+		</light>
+	</lights>
+
+	<objects>
+		<pobj>
+			<position>
+				<x> 5 </x>
+				<y> 5 </y>
+				<z> 0 </z>
+			</position>
+			<path> obj4.obj </path>
+			<radius> 7 </radius>
+			<mat>
+				<color>
+					<r> 0.0 </r>
+					<g> 0.0 </g>
+					<b> 1.0 </b>
+				</color>
+			</mat>
+		</pobj>
+	</objects>
+</scene>

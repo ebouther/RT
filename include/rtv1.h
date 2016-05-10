@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/09 14:29:16 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/10 14:15:29 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,18 @@
 # define HIGHT 80
 # define FAR 1000000000
 # define NB_ITER 10
-
 int kk;
+
+typedef struct	s_equ
+{
+	double		x1;
+	double		x2;
+	double		y1;
+	double		y2;
+	double		z1;
+	double		z2;
+	double		c;
+}				t_equ;
 
 typedef struct	s_vec3
 {
@@ -93,6 +103,14 @@ typedef struct	s_ray
 	int		iter;
 }				t_ray;
 
+typedef	struct	s_face
+{
+	int		v1;
+	int		v2;
+	int		v3;
+	int		vn;
+}				t_face;
+
 typedef struct	s_obj
 {
 	t_vec3	*(*get_normal)();
@@ -100,11 +118,23 @@ typedef struct	s_obj
 	double	rayon;
 	double	rayon2;
 	double	angle;
+	t_vec3	rot;
 	t_vec3	pos;
 	t_vec3	norm;
 	t_vec3	dir;
+	t_vec3	*v;
+	t_vec3	*vn;
+	char 	*path;
+	t_list	*face;
 	t_mat	mat;
+	t_equ	equ;
 }				t_obj;
+
+typedef	struct	s_pix
+{
+	t_obj		*obj;
+	t_color		*col;
+}				t_pix;	
 
 typedef struct	s_obj_col
 {
@@ -140,6 +170,7 @@ typedef struct	s_env
 	t_list	*light;
 	int		color_m;
 	double	amb;
+	t_pix	*pix;
 }				t_env;
 
 typedef struct	s_work
@@ -167,6 +198,8 @@ t_vec3			*normal_tore(t_ray *ray, t_obj *obj);
 t_vec3			*normal_cone(t_ray *ray, t_obj *obj);
 t_vec3			*normal_tore(t_ray *ray, t_obj *obj);
 t_vec3			*normal_plan(t_ray *ray, t_obj *obj);
+t_vec3			*normal_quadra(t_ray *ray, t_obj *obj);
+t_vec3			*normal_pobj(t_ray *ray, t_obj *obj);
 
 /*
 ** Intersects
@@ -174,7 +207,9 @@ t_vec3			*normal_plan(t_ray *ray, t_obj *obj);
 double			*inters_sphere(t_ray *ray, t_obj *obj);
 double			*inters_cyl(t_ray *ray, t_obj *obj);
 double			*inters_cone(t_ray *ray, t_obj *obj);
-double			inters_tore(t_ray *ray, t_obj *obj);
+double			*inters_tore(t_ray *ray, t_obj *obj);
+double			*inters_quadra(t_ray *ray, t_obj *obj);
+double			*inters_pobj(t_ray *ray, t_obj *obj);
 double			*inters_plan(t_ray *ray, t_obj *obj);
 
 /*
@@ -186,6 +221,7 @@ double			carre(double x);
 double			scal(t_vec3 a, t_vec3 b);
 double			scal2(t_vec3 a);
 t_vec3			*pro(double a, t_vec3 *d);
+void			ft_rot_vec(double angle, t_vec3 axe, t_vec3 *vec );
 double			*ft_equa_sec2(double a, double b, double c);
 
 /*
@@ -209,9 +245,12 @@ int				ft_get_spheres(char *objects, size_t len, t_env *e);
 int				ft_get_cones(char *objects, size_t len, t_env *e);
 int				ft_get_planes(char *objects, size_t len, t_env *e);
 int				ft_get_tores(char *objects, size_t len, t_env *e);
+int				ft_get_quadras(char *objects, size_t len, t_env *e);
+int				ft_get_pobjs(char *objects, size_t len, t_env *e);
 int				ft_get_lights(char *lights, size_t len, t_env *e);
 int				ft_set_config(char *config, t_env *e);
 void			ft_set_mat(char *mat, t_obj *obj);
+void			ft_set_equ(char *equ, t_obj *obj);
 
 t_ray			*ft_calc_ray(int x, int y, t_env *e);
 t_color			*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj);
@@ -222,10 +261,12 @@ double			ft_dist_light(t_vec3 *ray_pos, t_vec3 *light_pos);
 double			ft_angle_contact(t_ray *ray, t_vec3 *normal);
 double			ft_dist(int i, t_env *e);
 double			ft_brillance(t_vec3 *pos_cam, t_ray *ray, t_vec3 *normal);
-t_color			*ft_contact(t_ray *ray, t_env *e);
+t_color			*ft_contact(t_ray *ray, t_env *e, t_obj **cur_obj);
 
 void	ft_make_screen(t_env *e, char *name);
 
 void	ft_antialiasing(t_env *e);
+
+void	ft_celshading(t_env *e);
 
 #endif

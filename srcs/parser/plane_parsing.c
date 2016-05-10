@@ -6,12 +6,12 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:46:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/10 11:13:41 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/10 14:10:13 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-#include <stdio.h>
+
 static int	ft_set_plane(char *plane, t_env *e)
 {
 	char	*position;

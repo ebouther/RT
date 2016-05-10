@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 11:03:31 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/03 10:46:15 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/10 13:58:53 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ double		ft_atod(char *s)
 {
 	double	res;
 	char	sgn;
-	char	pt;
+	int		pt;
 
 	sgn = 1;
-	pt = 1;
+	pt = 0;
 	res = 0;
 	while (*s == ' ' || *s == '\t' || *s == '\n' || *s == '\v')
 		s++;
@@ -68,13 +68,15 @@ double		ft_atod(char *s)
 		s++;
 	else if (*s == '+')
 		s++;
-	while ((*s >= '0' && *s <= '9') || (pt == 1 && *s == '.'))
+	while ((*s >= '0' && *s <= '9') || (pt == 0 && *s == '.'))
 	{
-		if (*s == '.' || pt > 10)
+		if (*s == '.' && pt == 0)
+			pt = 1;
+		else if (pt)
 			pt *= 10;
 		if (*s != '.')
-			res = (pt == 1) ? res * 10 + *s - '0'
-							: res + (*s - '0') / (double) pt;
+			res = (pt == 0) ? res * 10 + *s - '0'
+							: res + (*s - '0') / (double)pt;
 		s++;
 	}
 	return (sgn == '-' ? -res : res);

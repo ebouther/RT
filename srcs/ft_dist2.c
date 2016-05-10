@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 09:38:57 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/04 17:44:18 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/10 15:21:52 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,19 +84,19 @@ static double	ft_rec(double r1, double r2, t_ray *ray, t_obj *obj)
 		return (ft_rec(r1, (r1 + r2) / 2.0, ray, obj));
 }
 
-double	inters_tore(t_ray *ray, t_obj *obj)
+double	*inters_tore(t_ray *ray, t_obj *obj)
 {
 	double *t;
 	double r1;
 	double r2;
+	double *res;
+
+	res = (double*)malloc(sizeof(double) * 2);
 	t = inters_sphere2(ray, obj);
-	if (kk)
-	{
-		printf("t0 = %f, t1 = %f\n", t[0], t[1]);
-		printf("dir.x = %f, dir.y = %f,dir.z = %f\n",obj->dir.x,obj->dir.y,obj->dir.z);
-	}
+	res[1] = FAR;
+	res[0] = FAR;
 	if (t[0] == FAR || (t[0] < 0 && t[1] < 0))
-		return (FAR);
+		res[0] = FAR;
 	if (t[0] < 0)
 		r1 = 0;
 	else	
@@ -105,10 +105,10 @@ double	inters_tore(t_ray *ray, t_obj *obj)
 	{
 		r2 = ft_tor(r1, ray, obj);
 		if (r2 == 0)
-			return (r1);
+			res[0] = r1;
 		else if (r2 < 0)
-			return (ft_rec(r1 - 0.1, r1, ray, obj));
+			res[0] = ft_rec(r1 - 0.1, r1, ray, obj);
 		r1 += 0.1;
 	}
-	return (FAR);
+	return (res);
 }

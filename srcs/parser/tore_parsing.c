@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 09:30:55 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/04 17:47:45 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/10 15:26:28 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ static int	ft_set_tore(char *tore, t_env *e)
 	char	*radius;
 	char	*radius2;
 	char	*mat;
-	t_obj	tore_obj;
+	t_nod	nod;
 
-	tore_obj.mat.brim = 0.1;
+	nod.obj = (t_obj *)malloc(sizeof(t_obj));
+	nod.obj->mat.brim = 0.1;
 	if ((position = ft_get_inner(tore, "position", NULL)) == NULL)
 		ft_error_exit("Error: tore require a position subobject.\n");
 	if ((radius = ft_get_inner(tore, "radius", NULL)) == NULL)
@@ -32,15 +33,19 @@ static int	ft_set_tore(char *tore, t_env *e)
 		ft_error_exit("Error: tore require a color subobject.\n");
 	if ((direction = ft_get_inner(tore, "direction", NULL)) == NULL)
 		ft_error_exit("Error: tore require a direction subobject.\n");
-	ft_set_vec3(position, &tore_obj.pos);
-	ft_set_vec3(direction, &tore_obj.dir);
-	ft_normalise(&tore_obj.dir);
-	tore_obj.rayon = ft_atod(radius);
-	tore_obj.rayon2 = ft_atod(radius2);
-	ft_set_mat(mat, &tore_obj);
-	tore_obj.get_normal = &normal_tore;
-	tore_obj.get_inters = NULL;//&inters_tore;
-	ft_lstadd(&e->obj, ft_lstnew((void *)&tore_obj, sizeof(t_obj)));
+	ft_set_vec3(position, &nod.obj->pos);
+	ft_set_vec3(direction, &nod.obj->dir);
+	ft_normalise(&nod.obj->dir);
+	nod.obj->rayon = ft_atod(radius);
+	nod.obj->rayon2 = ft_atod(radius2);
+	ft_set_mat(mat, nod.obj);
+	nod.obj->get_normal = &normal_tore;
+	nod.obj->get_inters = &inters_tore;
+	nod.r = NULL;
+	nod.l = NULL;
+	nod.op = NULL;
+	nod.obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
+	ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
 	ft_strdel(&position);
 	ft_strdel(&direction);
 	ft_strdel(&radius);

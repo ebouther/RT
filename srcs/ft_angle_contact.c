@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:02:02 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/04 16:55:07 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/10 13:33:39 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ double			ft_angle_contact(t_ray *ray, t_vec3 *normal)
 
 	s = normal->x * ray->dir.x +
 		normal->y * ray->dir.y + normal->z * ray->dir.z;
-	if (kk)
-		printf("scal angle = %f\n",s);
 	if (s >= 0 && s <= 1)
 		return (s);
 	return (0);

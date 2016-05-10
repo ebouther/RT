@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/10 11:02:20 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/10 13:56:52 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,14 +116,6 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	t_ray		*ray_refr;
 	t_ray		*ray_refl;
 
-	if (kk)
-	{
-		printf("\nray iter = %d\n",ray->iter);
-		printf("ray_pos = %f, %f, %f\n",ray->pos.x, ray->pos.y, ray->pos.z);
-		printf("ray_dir = %f, %f, %f\n",ray->dir.x, ray->dir.y, ray->dir.z);
-		printf("cur obj : opac %f, refl %f\n",cur_obj->mat.opac, cur_obj->mat.refl);
-
-	}
 	work.obj = cur_obj;
 	col_res = (t_color_res){{0, 0, 0}, {0, 0, 0}, NULL, NULL};
 	if ((final_col = (t_color*)malloc(sizeof(t_color))) == NULL)
@@ -132,25 +124,19 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	if (ray->iter >= NB_ITER)
 		return ((t_color *)ft_memset(final_col, 0, sizeof(t_color)));
 	work.ray = ft_recalc_ori(ray, t);
-	if (kk)
-		printf("new ori{%d] = %f, %f, %f \n",ray->iter, work.ray->pos.x, work.ray->pos.y, work.ray->pos.z);
 	work.normal = cur_obj->get_normal(work.ray, cur_obj);
-	if (kk)
-		printf("normal[%d] = %f ,%f ,%f\n", ray->iter, work.normal->x, work.normal->y,work.normal->z);
 	lst = e->light;
 	if (cur_obj->mat.refr > 0)
 	{
 		ray_refr = ft_refr(ray, &work, &refl);
-		col_res.refr = ft_contact(ray_refr, e);
-		if (kk)
-			printf("col_refr[%d] = %f, %f, %f\n",ray->iter, col_res.refr->r, col_res.refr->g, col_res.refr->b);
+		col_res.refr = ft_contact(ray_refr, e, NULL);
 	}
 	else
 		refl = 0;
 	if (cur_obj->mat.refl + refl > 0)
 	{
 		ray_refl = ft_refl(ray, &work);
-		col_res.refl = ft_contact(ray_refl, e);
+		col_res.refl = ft_contact(ray_refl, e, NULL);
 	}
 	while (lst)
 	{
@@ -158,8 +144,6 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 		ft_in_light(&work, e, &col_res);
 		lst = lst->next;
 	}
-	if (kk)
-		printf("col_diffu[%d] = %f, %f %f\n",ray->iter, col_res.diffuse.r,col_res.diffuse.g,col_res.diffuse.b);
 	ft_bri_max(&col_res);
 	final_col->r = ft_color_clip(e->amb * cur_obj->mat.col.r
 			+ cur_obj->mat.col.r * col_res.diffuse.r * cur_obj->mat.opac + col_res.specular.r + cur_obj->mat.refr * (col_res.refr ? col_res.refr->r : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->r : 0));
@@ -172,9 +156,5 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	free(work.ray);
 	//free(ray_refr);
 	//free(ray_refl);
-	if (kk)
-	{	
-		printf("final[%d] r = %f, g = %f, b= %f\n",ray->iter, final_col->r, final_col->g, final_col->b);
-	}
 	return (final_col);
 }

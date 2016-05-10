@@ -6,25 +6,11 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 16:31:14 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/03 16:03:56 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/10 14:01:00 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
-static void	ft_rot_vec(double angle, t_vec3 axe, t_vec3 *vec)
-{
-	t_vec3 norm;
-
-	norm.x = -axe.y * vec->z + axe.z * vec->y;
-	norm.y = axe.x * vec->z - axe.z * vec->x;
-	norm.z = -axe.x * vec->y + axe.y * vec->x;
-	ft_normalise(&norm);
-	vec->x = vec->x * cos(angle / 180 * M_PI_2) + norm.x * sin(angle / 180.0 * M_PI_2);
-	vec->y = vec->y * cos(angle / 180 * M_PI_2) + norm.y * sin(angle / 180.0 * M_PI_2);
-	vec->z = vec->z * cos(angle / 180 * M_PI_2) + norm.z * sin(angle / 180.0 * M_PI_2);
-	ft_normalise(vec);
-}
 
 static void	ft_rot_cam(double angle, t_vec3 axe, t_cam *cam)
 {
