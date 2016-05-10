@@ -6,13 +6,14 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:45:04 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/10 15:07:48 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/15 10:55:42 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 #include <stdio.h>
-static int	ft_set_cylinder(char *cylinder, t_env *e)
+
+int		ft_set_cylinder(char *cylinder, t_env *e, t_nod *prnt)
 {
 	char	*position;
 	char	*direction;
@@ -41,7 +42,11 @@ static int	ft_set_cylinder(char *cylinder, t_env *e)
 	nod.l = NULL;
 	nod.op = NULL;
 	nod.obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
-	ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
+	nod.obj_col->neg = 1;
+	if (e)
+		ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
+	else
+		ft_memcpy(prnt, &nod, sizeof(t_nod));
 	ft_strdel(&position);
 	ft_strdel(&direction);
 	ft_strdel(&radius);
@@ -57,7 +62,7 @@ int			ft_get_cylinders(char *objects, size_t len, t_env *e)
 	pos = 0;
 	while ((cylinder = ft_get_inner(objects, "cylinder", &pos)) != NULL)
 	{
-		ft_set_cylinder(cylinder, e);
+		ft_set_cylinder(cylinder, e, NULL);
 		ft_strdel(&cylinder);
 		if ((int)len - pos < 0)
 			break ;

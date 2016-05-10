@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:49:15 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/10 14:02:45 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/15 10:55:47 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static int	ft_set_cone(char *cone, t_env *e)
 	nod.l = NULL;
 	nod.op = NULL;
 	nod.obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
+	nod.obj_col->neg = 1;
 	ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
 	ft_strdel(&position);
 	ft_strdel(&direction);

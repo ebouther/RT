@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 10:36:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/10 14:07:24 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/12 16:15:21 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char		*ft_get_inner(char *str, char *obj, int *end_tag)
 	{
 		if (end_tag != NULL)
 			*end_tag = (int)ptr[1] - (int)str + len + 1;
-		if ((ret = malloc(ptr[1] - (ptr[0] + len))) == NULL)
+		if ((ret = (char *)malloc(ptr[1] - (ptr[0] + len) + 1)) == NULL)
 			exit(-1);
 		if (ptr[1] - (ptr[0] + len + 1) >= 0)
 		{
@@ -140,7 +140,10 @@ int			ft_parse_scene(char *file, t_env *e)
 	char	*lights;
 	char	*objects;
 	char	*config;
+	char	*unio;
 
+	if ((unio = ft_get_inner(file, "union", NULL)))
+		ft_set_union(unio, e);
 	if ((scene = ft_get_inner(file, "scene", NULL)) == NULL)
 		ft_error_exit("Add a <scene> object to your scene.\n");
 	if ((camera = ft_get_inner(scene, "camera", NULL)) == NULL)

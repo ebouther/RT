@@ -6,13 +6,13 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:47:45 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/10 14:10:55 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/15 10:57:40 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static int	ft_set_sphere(char *sphere, t_env *e)
+int		ft_set_sphere(char *sphere, t_env *e, t_nod *prnt)
 {
 	char	*position;
 	char	*radius;
@@ -36,7 +36,11 @@ static int	ft_set_sphere(char *sphere, t_env *e)
 	nod.l = NULL;
 	nod.op = NULL;
 	nod.obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
-	ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
+	nod.obj_col->neg = 1;
+	if (e)
+		ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
+	else
+		ft_memcpy(prnt, &nod, sizeof(t_nod));
 	ft_strdel(&position);
 	ft_strdel(&radius);
 	ft_strdel(&mat);
@@ -51,7 +55,7 @@ int			ft_get_spheres(char *objects, size_t len, t_env *e)
 	pos = 0;
 	while ((sphere = ft_get_inner(objects, "sphere", &pos)) != NULL)
 	{
-		ft_set_sphere(sphere, e);
+		ft_set_sphere(sphere, e, NULL);
 		ft_strdel(&sphere);
 		if ((int)len - pos < 0)
 			break ;

@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 13:58:35 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/09 16:59:08 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/15 11:42:11 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_obj_col		*ft_union_obj(t_nod *nod1, t_nod *nod2, t_ray *ray)
 		res = nod1->obj_col;
 	else
 		res = nod2->obj_col;
+
 	return (res);
 }
 
@@ -63,11 +64,23 @@ t_obj_col		*ft_inters_obj(t_nod *nod1, t_nod *nod2, t_ray *ray)
 	}
 	else
 		nod2->obj_col = nod2->op(nod2->l, nod2->r, ray);
-	if (nod1->obj_col->t[0] == FAR || nod2->obj_col->t[0] == FAR)
+	if (nod1->obj_col->t[0] <= nod2->obj_col->t[0])
+	{
 		res = nod2->obj_col;
+		if (nod1->obj_col->t[1] < nod2->obj_col->t[0])
+			res->t[0] = FAR;
+	}
+	else if (nod2->obj_col->t[0] < nod1->obj_col->t[0])
+	{
+		res = nod1->obj_col;
+		if (nod2->obj_col->t[1] < nod1->obj_col->t[0])
+			res->t[0] = FAR;
+	}
 	else
-		res = (nod1->obj_col->t[0] > nod2->obj_col->t[0]) ? nod1->obj_col
-			: nod2->obj_col;
+	{
+		res = nod1->obj_col;
+		res->t[0] = FAR;
+	}
 	return (res);
 }
 
@@ -91,12 +104,20 @@ t_obj_col		*ft_sub_obj(t_nod *nod1, t_nod *nod2, t_ray *ray)
 	}
 	else
 		nod2->obj_col = nod2->op(nod2->l, nod2->r, ray);
-	if (nod1->obj_col->t[0] < nod2->obj_col->t[0])
+	if (nod1->obj_col->t[0] < nod2->obj_col->t[0] || nod2->obj_col->t[1] <= nod1->obj_col->t[0])
 		res = nod1->obj_col;
 	else
 	{
-		nod2->obj_col->neg = -1;
-		res = nod2->obj_col;
+		if (nod2->obj_col->t[1] < nod1->obj_col->t[1])
+		{
+			res = nod2->obj_col;
+			res->t[0] = res->t[1];
+		}
+		else
+		{
+			res = nod1->obj_col;
+			res->t[0] = FAR;
+		}
 	}
 	return (res);
 }
@@ -112,6 +133,6 @@ t_obj_col		*ft_get_inters(t_nod *nod, t_ray *ray)
 		res->t = nod->obj->get_inters(ray, nod->obj);
 	}
 	else
-		res = nod->op(nod->l, nod->r, ray);
+		res = nod->op(nod->r, nod->l, ray);
 	return (res);
 }

@@ -83,6 +83,7 @@ PARSER_FILES = parsing.c \
 			   config_parsing.c \
 			   mat_parsing.c \
 			   equ_parsing.c \
+			   obj_composed.c \
 
 PARSER = $(addprefix $(PARSER_PATH), $(PARSER_FILES))
 PARSER_OBJ_PATH = $(addprefix $(OBJ_PATH), $(PARSER_PATH))

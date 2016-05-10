@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/10 14:15:29 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/13 15:01:58 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,11 @@ double			*inters_quadra(t_ray *ray, t_obj *obj);
 double			*inters_pobj(t_ray *ray, t_obj *obj);
 double			*inters_plan(t_ray *ray, t_obj *obj);
 
+
+t_obj_col		*ft_union_obj(t_nod *nod1, t_nod *nod2, t_ray *ray);
+t_obj_col		*ft_inters_obj(t_nod *nod1, t_nod *nod2, t_ray *ray);
+t_obj_col		*ft_sub_obj(t_nod *nod1, t_nod *nod2, t_ray *ray);
+
 /*
 ** Math
 */
@@ -251,6 +256,9 @@ int				ft_get_lights(char *lights, size_t len, t_env *e);
 int				ft_set_config(char *config, t_env *e);
 void			ft_set_mat(char *mat, t_obj *obj);
 void			ft_set_equ(char *equ, t_obj *obj);
+int				ft_set_union(char *unio, t_env *e);
+int				ft_set_cylinder(char *cylinder, t_env *e, t_nod *prnt);
+int				ft_set_sphere(char *sphere, t_env *e, t_nod *prnt);
 
 t_ray			*ft_calc_ray(int x, int y, t_env *e);
 t_color			*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj);
