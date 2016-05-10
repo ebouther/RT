@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 10:28:22 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/10 15:27:36 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/10 15:32:45 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,18 +134,6 @@ static void	ft_read_pobj(char *path, t_obj *pobj)
 	printf("il y a %d sommet, %d vecteurs normaux et %d faces\n",size[0], size[1],i);
 }
 
-static void	ft_mod_path(char *path)
-{
-	char *c;
-
-	c = path;
-	while (*c != ' ')
-	{
-		c++;
-	}
-	*c = 0;
-}
-
 static int	ft_set_pobj(char *pobj, t_env *e)
 {
 	char	*position;
@@ -167,7 +155,6 @@ static int	ft_set_pobj(char *pobj, t_env *e)
 	ft_set_vec3(position, &nod.obj->pos);
 	nod.obj->rayon = ft_atod(radius);
 	ft_set_mat(mat, nod.obj);
-	ft_mod_path(path);
 	ft_read_pobj(path, nod.obj);
 	nod.obj->get_normal = &normal_pobj;
 	nod.obj->get_inters = &inters_pobj;

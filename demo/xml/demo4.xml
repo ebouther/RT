@@ -45,7 +45,7 @@
 				<y> 5 </y>
 				<z> 0 </z>
 			</position>
-			<path> obj4.obj </path>
+			<path>obj4.obj</path>
 			<radius> 7 </radius>
 			<mat>
 				<color>
