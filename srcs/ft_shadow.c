@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/09 20:43:42 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/10 12:23:09 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ t_color     ft_get_tex_color(int x, int y, t_obj *cur_obj)
 	return(ret);
 }
 
-t_color    *ft_texture(t_color *final_col, t_ray *ray, double t, t_obj *cur_obj, t_env *e)
+int    ft_texture(t_ray *ray, double t, t_obj *cur_obj, t_env *e)
 {
 	float       teta;
 	float       tetaA;
@@ -139,9 +139,12 @@ t_color    *ft_texture(t_color *final_col, t_ray *ray, double t, t_obj *cur_obj,
 			exit(-1);
 		//		printf("VALUE : '%f'\n", t) ;
 		*col = ft_get_tex_color((int)((acos((ray->dir.x * t + ray->pos.x - cur_obj->pos.x) / cur_obj->rayon) - tetaA) / (tetaB - tetaA) * cur_obj->mat.tex.width1), (int)(((z - zA) / (zB - zA)) * cur_obj->mat.tex.height1), cur_obj);
-		return (col);
+		cur_obj->mat.texcol.r = col->r;
+		cur_obj->mat.texcol.g = col->g;
+		cur_obj->mat.texcol.b = col->b;
+		return (1);
 	}
-	return(final_col);
+	return(0);
 }
 
 t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
@@ -153,7 +156,7 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	double		refl;
 	t_ray		*ray_refr;
 	t_ray		*ray_refl;
-
+	t_color		*col;
 	if (kk)
 	{
 		printf("\nray iter = %d\n",ray->iter);
@@ -167,52 +170,56 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	if ((final_col = (t_color*)malloc(sizeof(t_color))) == NULL)
 		exit(-1);
 	ft_bzero(final_col, sizeof(t_color));
-	if (cur_obj->get_normal == normal_cyl)
-	{
-		t_color *tex_col = ft_texture(final_col, ray, t, cur_obj, e);
-		cur_obj->mat.col.r = tex_col->r;
-		cur_obj->mat.col.g = tex_col->g;
-		cur_obj->mat.col.b = tex_col->b;
-	}
-		if (ray->iter >= NB_ITER)
-			return ((t_color *)ft_memset(final_col, 0, sizeof(t_color)));
-		work.ray = ft_recalc_ori(ray, t);
-		if (kk)
-			printf("new ori{%d] = %f, %f, %f \n",ray->iter, work.ray->pos.x, work.ray->pos.y, work.ray->pos.z);
-		work.normal = cur_obj->get_normal(work.ray, cur_obj);
-		if (kk)
-			printf("normal[%d] = %f ,%f ,%f\n", ray->iter, work.normal->x, work.normal->y,work.normal->z);
-		lst = e->light;
-		if (cur_obj->mat.refr > 0)
-		{
-			ray_refr = ft_refr(ray, &work, &refl);
-			col_res.refr = ft_contact(ray_refr, e);
-			if (kk)
-				printf("col_refr[%d] = %f, %f, %f\n",ray->iter, col_res.refr->r, col_res.refr->g, col_res.refr->b);
-		}
-		else
-			refl = 0;
-		if (cur_obj->mat.refl + refl > 0)
-		{
-			ray_refl = ft_refl(ray, &work);
-			col_res.refl = ft_contact(ray_refl, e);
-		}
-		while (lst)
-		{
-			work.light = ((t_light *)(lst->content));
-			ft_in_light(&work, e, &col_res);
-			lst = lst->next;
-		}
-		if (kk)
-			printf("col_diffu[%d] = %f, %f %f\n",ray->iter, col_res.diffuse.r,col_res.diffuse.g,col_res.diffuse.b);
-		ft_bri_max(&col_res);
+	//col = &cur_obj->mat.col;
+	cur_obj->mat.texcol = cur_obj->mat.col;
+	if (cur_obj->get_inters == inters_cyl)
+		 if (ft_texture(ray, t, cur_obj, e) == 1)
+		 	col = &cur_obj->mat.texcol;
 
-		final_col->r = ft_color_clip(e->amb * cur_obj->mat.col.r
-				+ cur_obj->mat.col.r * col_res.diffuse.r * cur_obj->mat.opac + col_res.specular.r + cur_obj->mat.refr * (col_res.refr ? col_res.refr->r : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->r : 0));
-		final_col->g = ft_color_clip(e->amb * cur_obj->mat.col.g 
-				+ cur_obj->mat.col.g * col_res.diffuse.g * cur_obj->mat.opac + col_res.specular.g + cur_obj->mat.refr * (col_res.refr ? col_res.refr->g : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->g : 0));
-		final_col->b = ft_color_clip(e->amb * cur_obj->mat.col.b
-				+ cur_obj->mat.col.b * col_res.diffuse.b * cur_obj->mat.opac + col_res.specular.b + cur_obj->mat.refr * (col_res.refr ? col_res.refr->b : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->b : 0));
+	if (ray->iter >= NB_ITER)
+		return ((t_color *)ft_memset(final_col, 0, sizeof(t_color)));
+	work.ray = ft_recalc_ori(ray, t);
+	if (kk)
+		printf("new ori{%d] = %f, %f, %f \n",ray->iter, work.ray->pos.x, work.ray->pos.y, work.ray->pos.z);
+	work.normal = cur_obj->get_normal(work.ray, cur_obj);
+	if (kk)
+		printf("normal[%d] = %f ,%f ,%f\n", ray->iter, work.normal->x, work.normal->y,work.normal->z);
+	lst = e->light;
+	if (cur_obj->mat.refr > 0)
+	{
+		ray_refr = ft_refr(ray, &work, &refl);
+		col_res.refr = ft_contact(ray_refr, e);
+		if (kk)
+			printf("col_refr[%d] = %f, %f, %f\n",ray->iter, col_res.refr->r, col_res.refr->g, col_res.refr->b);
+	}
+	else
+		refl = 0;
+	if (cur_obj->mat.refl + refl > 0)
+	{
+		ray_refl = ft_refl(ray, &work);
+		col_res.refl = ft_contact(ray_refl, e);
+	}
+	while (lst)
+	{
+		work.light = ((t_light *)(lst->content));
+		ft_in_light(&work, e, &col_res);
+		lst = lst->next;
+	}
+	if (kk)
+		printf("col_diffu[%d] = %f, %f %f\n",ray->iter, col_res.diffuse.r,col_res.diffuse.g,col_res.diffuse.b);
+	ft_bri_max(&col_res);
+	/*if((cur_obj->mat.texcol.r != cur_obj->mat.col.r || cur_obj->mat.texcol.g != cur_obj->mat.col.g || cur_obj->mat.texcol.b != cur_obj->mat.col.b) && flag == 1)
+	{
+		cur_obj->mat.col.r = cur_obj->mat.texcol.r;
+		cur_obj->mat.col.b = cur_obj->mat.texcol.b;
+		cur_obj->mat.col.g = cur_obj->mat.texcol.g;
+	}*/
+	final_col->r = ft_color_clip(e->amb * cur_obj->mat.texcol.r
+			+ cur_obj->mat.texcol.r * col_res.diffuse.r * cur_obj->mat.opac + col_res.specular.r + cur_obj->mat.refr * (col_res.refr ? col_res.refr->r : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->r : 0));
+	final_col->g = ft_color_clip(e->amb * cur_obj->mat.texcol.g
+			+ cur_obj->mat.texcol.g * col_res.diffuse.g * cur_obj->mat.opac + col_res.specular.g + cur_obj->mat.refr * (col_res.refr ? col_res.refr->g : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->g : 0));
+	final_col->b = ft_color_clip(e->amb * cur_obj->mat.texcol.b
+			+ cur_obj->mat.texcol.b * col_res.diffuse.b * cur_obj->mat.opac + col_res.specular.b + cur_obj->mat.refr * (col_res.refr ? col_res.refr->b : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->b : 0));
 	ft_color_mode(final_col, e);
 	free(work.normal);
 	free(work.ray);
