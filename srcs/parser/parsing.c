@@ -6,11 +6,38 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 10:36:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/04 17:00:22 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/10 13:49:09 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+char		*ft_get_matching_end(char *str, char *obj_start_tag, char *obj_end_tag)
+{
+	int			count;
+	int			i;
+	size_t		end_len;
+	size_t		start_len;
+
+	start_len = ft_strlen(obj_start_tag);
+	end_len = ft_strlen(obj_end_tag);
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (ft_strncmp(str + i, obj_start_tag, start_len) == 0)
+			count++;
+		if (ft_strncmp(str + i, obj_end_tag, end_len) == 0)
+		{
+			if (count != 0)
+				count--;
+			else
+				return (str + i);
+		}
+		i++;
+	}
+	return (NULL);
+}
 
 char		*ft_get_inner(char *str, char *obj, int *end_tag)
 {
@@ -21,12 +48,12 @@ char		*ft_get_inner(char *str, char *obj, int *end_tag)
 	char	*ret;
 
 	obj_start_tag = ft_strjoin_free(ft_strdup("<"),
-		ft_strjoin_free(ft_strdup(obj), ft_strdup(">")));
+			ft_strjoin_free(ft_strdup(obj), ft_strdup(">")));
 	obj_end_tag = ft_strjoin_free(ft_strdup("</"),
-		ft_strjoin_free(ft_strdup(obj), ft_strdup(">")));
+			ft_strjoin_free(ft_strdup(obj), ft_strdup(">")));
 	len = ft_strlen(obj_start_tag);
 	if ((ptr[0] = ft_strstr(str, obj_start_tag)) != NULL
-		&& (ptr[1] = ft_strstr(str, obj_end_tag)) != NULL)
+			&& (ptr[1] = ft_get_matching_end(ptr[0] + 1, obj_start_tag, obj_end_tag)) != NULL)
 	{
 		if (end_tag != NULL)
 			*end_tag = (int)ptr[1] - (int)str + len + 1;
@@ -53,8 +80,8 @@ int			ft_set_vec3(char *obj, t_vec3 *vec3)
 	char	*z;
 
 	if ((x = ft_get_inner(obj, "x", NULL)) == NULL
-		|| (y = ft_get_inner(obj, "y", NULL)) == NULL
-		|| (z = ft_get_inner(obj, "z", NULL)) == NULL)
+			|| (y = ft_get_inner(obj, "y", NULL)) == NULL
+			|| (z = ft_get_inner(obj, "z", NULL)) == NULL)
 	{
 		ft_putstr("Error: ");
 		ft_putstr(obj);
@@ -75,8 +102,8 @@ int			ft_set_color(char *obj, t_color *col)
 	char	*b;
 
 	if ((r = ft_get_inner(obj, "r", NULL)) == NULL
-		|| (g = ft_get_inner(obj, "g", NULL)) == NULL
-		|| (b = ft_get_inner(obj, "b", NULL)) == NULL)
+			|| (g = ft_get_inner(obj, "g", NULL)) == NULL
+			|| (b = ft_get_inner(obj, "b", NULL)) == NULL)
 	{
 		ft_putstr("Error: ");
 		ft_putstr(obj);
