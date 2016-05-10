@@ -19,6 +19,7 @@ public:
 
 public slots:
      void add_object();
+     void import_tex();
 
 private:
     QWidget *parent;

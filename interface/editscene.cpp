@@ -146,7 +146,10 @@ QString EditScene::xml_object(SceneObject *obj)
             "<y>"<< obj->dir_y <<"</y>"
             "<z>"<< obj->dir_z <<"</z>"
         "</direction>"
-        "<mat>"
+        "<mat>";
+            if (obj->tex_path != "")
+                QTextStream(&object) << "<texture>" << obj->tex_path << "</texture>";
+            QTextStream(&object) <<
             "<color>"
                 "<r>"<< obj->col_r <<"</r>"
                 "<g>"<< obj->col_g <<"</g>"

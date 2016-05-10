@@ -40,6 +40,8 @@ public:
 
     double brim;
     double brip;
+
+    QString tex_path;
 };
 
 #endif // SCENEOBJECT_H

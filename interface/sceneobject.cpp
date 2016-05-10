@@ -34,4 +34,6 @@ SceneObject::SceneObject(Ui::EditObject *ui)
 
     this->brim = ui->brim->value();
     this->brip = ui->brip->value();
+
+    this->tex_path = ui->tex_path->text();
 }
