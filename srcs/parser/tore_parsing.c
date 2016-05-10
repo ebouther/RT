@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 09:30:55 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/04 17:01:20 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/04 17:47:45 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	ft_set_tore(char *tore, t_env *e)
 	tore_obj.rayon2 = ft_atod(radius2);
 	ft_set_mat(mat, &tore_obj);
 	tore_obj.get_normal = &normal_tore;
-	tore_obj.get_inters = &inters_tore;
+	tore_obj.get_inters = NULL;//&inters_tore;
 	ft_lstadd(&e->obj, ft_lstnew((void *)&tore_obj, sizeof(t_obj)));
 	ft_strdel(&position);
 	ft_strdel(&direction);

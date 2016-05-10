@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/04 17:03:16 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/10 11:42:44 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,23 @@
 
 t_color		*ft_contact(t_ray *ray, t_env *e)
 {
-	t_obj	*cur_obj;
-	t_obj	*obj2;
-	double	tmp;
-	double	t;
-	t_list	*lst;
+	t_obj		*cur_obj;
+	t_obj_col	*tmp;
+	double		t;
+	t_list		*lst;
 
 	if (ray == NULL)
 		return (NULL);
 
 	t = FAR;
-	tmp = 0;
 	lst = e->obj;
 	while (lst)
 	{
-		tmp = ((t_obj *)(lst->content))->get_inters(ray, (t_obj *)lst->content);
-		obj2 = ((t_obj *)(lst->content));
-		if (tmp < t && tmp >= 0)
+		tmp = ft_get_inters(lst->content, ray);
+		if (tmp->t[0] < t)
 		{
-			t = tmp;
-			cur_obj = (t_obj *)lst->content;
+			t = tmp->t[0];
+			cur_obj = tmp->obj;
 		}
 		lst = lst->next;
 	}

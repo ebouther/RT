@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/04 17:03:27 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/09 14:29:16 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct	s_ray
 typedef struct	s_obj
 {
 	t_vec3	*(*get_normal)();
-	double	(*get_inters)(t_ray *ray, struct s_obj *obj);
+	double	*(*get_inters)(t_ray *ray, struct s_obj *obj);
 	double	rayon;
 	double	rayon2;
 	double	angle;
@@ -105,6 +105,22 @@ typedef struct	s_obj
 	t_vec3	dir;
 	t_mat	mat;
 }				t_obj;
+
+typedef struct	s_obj_col
+{
+	t_obj		*obj;
+	double		*t;
+	char		neg;
+}				t_obj_col;
+
+typedef struct	s_nod
+{
+	t_obj_col			*(*op)(struct s_nod *, struct s_nod *, t_ray *);
+	struct s_nod		*r;
+	struct s_nod		*l;
+	t_obj_col			*obj_col;
+	t_obj				*obj;
+}				t_nod;
 
 typedef struct	s_env
 {
@@ -140,6 +156,7 @@ double			ft_equa_sec(double a, double b, double c);
 void			ft_creat_win(t_env *e);
 t_ray			*ft_refr(t_ray *ray, t_work *work, double *refl);
 t_ray			*ft_refl(t_ray *ray, t_work *work);
+t_obj_col		*ft_get_inters(t_nod *nod, t_ray *ray);
 
 /*
 ** Normals
@@ -154,11 +171,11 @@ t_vec3			*normal_plan(t_ray *ray, t_obj *obj);
 /*
 ** Intersects
 */
-double			inters_sphere(t_ray *ray, t_obj *obj);
-double			inters_cyl(t_ray *ray, t_obj *obj);
-double			inters_cone(t_ray *ray, t_obj *obj);
+double			*inters_sphere(t_ray *ray, t_obj *obj);
+double			*inters_cyl(t_ray *ray, t_obj *obj);
+double			*inters_cone(t_ray *ray, t_obj *obj);
 double			inters_tore(t_ray *ray, t_obj *obj);
-double			inters_plan(t_ray *ray, t_obj *obj);
+double			*inters_plan(t_ray *ray, t_obj *obj);
 
 /*
 ** Math
@@ -169,6 +186,7 @@ double			carre(double x);
 double			scal(t_vec3 a, t_vec3 b);
 double			scal2(t_vec3 a);
 t_vec3			*pro(double a, t_vec3 *d);
+double			*ft_equa_sec2(double a, double b, double c);
 
 /*
 ** Utils.c

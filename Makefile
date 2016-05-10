@@ -100,7 +100,8 @@ SRC_NAME = main.c \
 		   ft_screen_shot.c \
 		   ft_antialiasing.c \
 		   ft_ref.c \
-		   $(PARSER)
+		   ft_op_composed_obj.c \
+			$(PARSER)
 
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
