@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/11 17:07:14 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/12 14:51:20 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # define HIGHT 80
 # define FAR 1000000000
 # define NB_ITER 10
+
+# define TRUE 1
+# define FALSE 0
 
 int kk;
 
@@ -68,6 +71,7 @@ typedef struct s_tex
 typedef struct s_mat
 {
 	t_color		col;
+	char		grid;
 	t_tex		tex;
 	double		brim;
 	char		brip;

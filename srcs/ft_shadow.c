@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/11 19:11:18 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/12 15:18:49 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,19 @@ unsigned int ft_texture_plan(t_ray *ray, double t, t_obj *cur_obj)
 	return(1);
 }
 
+static void	ft_checkerboard(t_ray *ray, t_obj *cur_obj, double t, t_color col)
+{
+	t_vec3	pos;
+
+	pos = (t_vec3){ray->dir.x * t + ray->pos.x, ray->dir.y * t + ray->pos.y, ray->dir.z * t + ray->pos.z};
+	if ((int)pos.y <= 0)
+		pos.y--;
+	if ((int)pos.x <= 0)
+		pos.x--;
+	if (((int)pos.x + (int)pos.y) % 2 == 0)
+		cur_obj->mat.texcol = col;
+}
+
 t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 {
 	t_color_res	col_res;
@@ -230,7 +243,8 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	double		refl;
 	t_ray		*ray_refr;
 	t_ray		*ray_refl;
-	t_color		*col;
+//	t_color		*col;
+
 	if (kk)
 	{
 		printf("\nray iter = %d\n",ray->iter);
@@ -244,8 +258,10 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	if ((final_col = (t_color*)malloc(sizeof(t_color))) == NULL)
 		exit(-1);
 	ft_bzero(final_col, sizeof(t_color));
-	//col = &cur_obj->mat.col;
 	cur_obj->mat.texcol = cur_obj->mat.col;
+	if (cur_obj->mat.grid == TRUE)
+		ft_checkerboard(ray, cur_obj, t, (t_color){1, 1, 0});
+	/*
 	if (cur_obj->get_inters == inters_cyl)
 		if (ft_texture(ray, t, cur_obj, e) == 1)
 			col = &cur_obj->mat.texcol;
@@ -260,6 +276,7 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 			col = &cur_obj->mat.texcol;
 	if (ray->iter >= NB_ITER)
 		return ((t_color *)ft_memset(final_col, 0, sizeof(t_color)));
+*/
 	work.ray = ft_recalc_ori(ray, t);
 	if (kk)
 		printf("new ori{%d] = %f, %f, %f \n",ray->iter, work.ray->pos.x, work.ray->pos.y, work.ray->pos.z);
@@ -306,8 +323,6 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	free(work.normal);
 	free(work.ray);
 	if (kk)
-	{	
 		printf("final[%d] r = %f, g = %f, b= %f\n",ray->iter, final_col->r, final_col->g, final_col->b);
-	}
 	return (final_col);
 }
