@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 10:36:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/10 14:07:24 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/11 17:10:49 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,18 @@ char		*ft_get_inner(char *str, char *obj, int *end_tag)
 	if ((ptr[0] = ft_strstr(str, obj_start_tag)) != NULL
 			&& (ptr[1] = ft_get_matching_end(ptr[0] + 1, obj_start_tag, obj_end_tag)) != NULL)
 	{
-		if (end_tag != NULL)
-			*end_tag = (int)ptr[1] - (int)str + len + 1;
-		if ((ret = malloc(ptr[1] - (ptr[0] + len))) == NULL)
-			exit(-1);
 		if (ptr[1] - (ptr[0] + len + 1) >= 0)
 		{
+			if (end_tag != NULL)
+				*end_tag = (int)ptr[1] - (int)str + len + 1;
+			if ((ret = malloc(ptr[1] - (ptr[0] + len) + 1)) == NULL)
+				exit(-1);
 			ft_strncpy(ret, ptr[0] + len, ptr[1] - (ptr[0] + len));
 			ret[ptr[1] - (ptr[0] + len)] = '\0';
+			ft_strdel(&obj_start_tag);
+			ft_strdel(&obj_end_tag);
+			return (ret);
 		}
-		ft_strdel(&obj_start_tag);
-		ft_strdel(&obj_end_tag);
-		return (ret);
 	}
 	ft_strdel(&obj_start_tag);
 	ft_strdel(&obj_end_tag);
@@ -146,7 +146,10 @@ int			ft_parse_scene(char *file, t_env *e)
 	if ((camera = ft_get_inner(scene, "camera", NULL)) == NULL)
 		ft_error_exit("Error: add a camera to your scene.\n");
 	if ((lights = ft_get_inner(scene, "lights", NULL)) != NULL)
+	{
 		ft_get_lights(lights, ft_strlen(lights), e);
+		ft_strdel(&lights);
+	}
 	else
 		ft_putstr("There are no lights in your scene file.\n");
 	if ((objects = ft_get_inner(scene, "objects", NULL)) == NULL)
@@ -158,7 +161,6 @@ int			ft_parse_scene(char *file, t_env *e)
 	ft_set_objects(objects, e);
 	ft_strdel(&scene);
 	ft_strdel(&camera);
-	ft_strdel(&lights);
 	ft_strdel(&objects);
 	ft_strdel(&config);
 	return (0);
