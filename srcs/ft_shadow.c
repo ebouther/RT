@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/11 16:06:03 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/11 19:11:18 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,31 +198,20 @@ unsigned int  ft_texture_cone( t_ray *ray, double t, t_obj *cur_obj)
 unsigned int ft_texture_plan(t_ray *ray, double t, t_obj *cur_obj)
 {
 	float	z;
-	float	zA;
 	float	zB;
 	float	y;
-	float	yA;
 	float	yB;
-	(void)ray;
-	(void)t;
-	(void)cur_obj;
 	t_color       *col;
 
-
 	z = ray->dir.z * t + ray->pos.z;
-	zA = 0;
-	zB = -134;
-	yA = 20;
-	yB = -20;
+	zB = cur_obj->mat.tex.off_x - cur_obj->mat.tex.width;
+	yB = cur_obj->mat.tex.off_y - cur_obj->mat.tex.height;
 	y = ray->dir.y * t + ray->pos.y;
-	cur_obj->mat.texcol.r = 1;
-	cur_obj->mat.texcol.g = 1;
-	cur_obj->mat.texcol.b = 1;
-	if(z < 0 && z > -134 && y < 20 && y > -20)
+	if(z < cur_obj->mat.tex.off_x && z > zB && y < cur_obj->mat.tex.off_y && y > yB)
 	{
 		if ((col = malloc(sizeof(t_color))) == NULL)
 			exit(-1);
-		*col = ft_get_tex_color((int)(((y - yB) / (yA - yB)) * cur_obj->mat.tex.width1), (int)(((z - zB) / (zA - zB)) * cur_obj->mat.tex.height1), cur_obj);
+		*col = ft_get_tex_color((int)(((z - zB) / (cur_obj->mat.tex.off_x - zB)) * cur_obj->mat.tex.width1), (int)(((y - yB) / (cur_obj->mat.tex.off_y - yB)) * cur_obj->mat.tex.height1), cur_obj);
 
 		cur_obj->mat.texcol.r = col->r;
 		cur_obj->mat.texcol.g = col->g;

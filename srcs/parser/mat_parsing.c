@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 13:57:32 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/09 11:36:33 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/11 17:06:47 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,14 @@ void		ft_set_mat(char *mat, t_obj *obj)
 	
 	obj->mat.tex.width = ((value = ft_get_inner(mat, "tex_width", NULL)) == NULL)
 		? 0 : ft_atoi(value);
+	free(value);
+
+	obj->mat.tex.off_x	= ((value = ft_get_inner(mat, "offset_x", NULL)) == NULL)
+		? 0 : ft_atod(value);
+	free(value);
+
+	obj->mat.tex.off_y	= ((value = ft_get_inner(mat, "offset_y", NULL)) == NULL)
+		? 0 : ft_atod(value);
 	free(value);
 
 	obj->mat.opac = ((value = ft_get_inner(mat, "opac", NULL)) == NULL)

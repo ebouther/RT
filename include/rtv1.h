@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/10 12:11:29 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/11 17:07:14 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef struct s_tex
 	char		*tex;
 	int			height;
 	int			width;
+	double		off_x;
+	double		off_y;
 	int			height1;
 	int			width1;
 	int     	bpp;
