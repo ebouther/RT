@@ -52,6 +52,9 @@
 				<z> 0.0 </z>
 			</normal>
 			<mat>
+				<texture>texture/42.xpm</texture>
+				<tex_height>-50</tex_height>
+				<tex_width>50</tex_width>
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
 				<color>
@@ -144,7 +147,7 @@
 			<mat>
 				<texture>texture/42.xpm</texture>
 				<tex_height>-50</tex_height>
-				<tex_width>10</tex_width>
+				<tex_width>50</tex_width>
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
 				<color>
@@ -157,20 +160,69 @@
 
 		<sphere>
 			<position>
-				<x> 0.0 </x>
+				<x> -25.0 </x>
 				<y> 0.0 </y>
-				<z> 60.0 </z>
+				<z> -80.0 </z>
 			</position>
 
 			<radius> 20.0 </radius>
 
 			<mat>
+				<texture>texture/BALLON.xpm</texture>
+				<tex_height>-50</tex_height>
+				<tex_width>50</tex_width>
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
 				<color>
 					<r> 0.26 </r>
 					<g> 0.36 </g>
 					<b> 0.78 </b>
+				</color>
+			</mat>
+		</sphere>
+		<cone>
+			<position>
+				<x> 20.0 </x>
+				<y> 6.0 </y>
+				<z> -70.0 </z>
+			</position>
+
+			<angle> 25.0 </angle>
+
+			<direction>
+				<x> 0.0 </x>
+				<y> 1.0 </y>
+				<z> 0.0 </z>
+			</direction>
+			<mat>
+				<texture>texture/42.xpm</texture>
+				<tex_height>-20</tex_height>
+				<tex_width>50</tex_width>
+				<refraction> 0 </refraction>
+				<reflection> 0 </reflection>
+				<color>
+					<r> 0.439 </r>
+					<g> 0.0 </g>
+					<b> 0.0 </b>
+				</color>
+			</mat>
+		</cone>
+		<sphere>
+			<position>
+				<x> 1000.0 </x>
+				<y> 0.0 </y>
+				<z> 120.0 </z>
+			</position>
+
+			<radius> 10.0 </radius>
+			<mat>
+				<refraction> 0.7 </refraction>
+				<reflection> 0 </reflection>
+				<indice opt> 1.5 </indice opt>
+				<color>
+					<r> 1 </r>
+					<g> 1 </g>
+					<b> 1 </b>
 				</color>
 			</mat>
 		</sphere>

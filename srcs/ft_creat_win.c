@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/09 20:48:13 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/10 14:35:01 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void        ft_stock_size_tex(t_obj *cur_obj)
 	int     res;
 	int     i;
 	int     j;
-	char    width[4];
-	char    height[4];
+	char    width[5];
+	char    height[5];
 
 	i = 0;
 	j = 0;
@@ -84,6 +84,7 @@ void        ft_stock_size_tex(t_obj *cur_obj)
 		height[j++] = buf[i++];
 	i++;
 	cur_obj->mat.tex.width1 = atoi(width);
+	ft_putnbr(cur_obj->mat.tex.width1);
 	cur_obj->mat.tex.height1 = atoi(height);
 	close(fd);
 }
