@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/09 17:31:31 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/10 09:55:08 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/11 10:34:37 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void	ft_celshading(t_env *e)
 			}
 			else
 			{
-				e->data[(x * 4 + SIZE_W * 4 * y)] = e->data[(x * 4 + SIZE_W * 4 * y)] / 30 * 30;
-				e->data[(x * 4 + SIZE_W * 4 * y) + 1] = e->data[(x * 4 + SIZE_W * 4 * y) + 1] / 30 * 30;
-				e->data[(x * 4 + SIZE_W * 4 * y) + 2] = e->data[(x * 4 + SIZE_W * 4 * y) + 2] / 30 * 30;
-				e->data[(x * 4 + SIZE_W * 4 * y) + 3] = e->data[(x * 4 + SIZE_W * 4 * y) + 3] / 30 * 30;
+				e->data[(x * 4 + SIZE_W * 4 * y)] = e->data[(x * 4 + SIZE_W * 4 * y)] / 30 * 30 + 30;
+				e->data[(x * 4 + SIZE_W * 4 * y) + 1] = e->data[(x * 4 + SIZE_W * 4 * y) + 1] / 30 * 30 + 30;
+				e->data[(x * 4 + SIZE_W * 4 * y) + 2] = e->data[(x * 4 + SIZE_W * 4 * y) + 2] / 30 * 30 + 30;
+				e->data[(x * 4 + SIZE_W * 4 * y) + 3] = e->data[(x * 4 + SIZE_W * 4 * y) + 3] / 30 * 30 + 30;
 
 			}
 			y++;

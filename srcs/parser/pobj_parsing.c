@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 10:28:22 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/10 15:32:45 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/11 10:36:48 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ static void	ft_read_pobj(char *path, t_obj *pobj)
 	}
 	if (ret == -1)
 		ft_error_exit("Error: no read possible for the .obj file\n");
+	
 	printf("il y a %d sommet, %d vecteurs normaux et %d faces\n",size[0], size[1],i);
 }
 

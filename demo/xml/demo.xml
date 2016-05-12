@@ -160,7 +160,7 @@
 			</normal>
 			<mat>
 				<refraction> 0 </refraction>
-				<reflection> 0.8 </reflection>
+				<reflection> 1 </reflection>
 				<color>
 					<r> 0 </r>
 					<g> 0 </g>
