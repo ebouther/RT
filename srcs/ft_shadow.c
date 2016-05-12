@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/12 15:18:49 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/12 20:54:26 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,37 @@ t_color     ft_get_tex_color(int x, int y, t_obj *cur_obj)
 	ret.r = *(c + 2) / 256.0;
 	return(ret);
 }
+ void        ft_rot_axeX(double angle, t_vec3 *vec)
+{
+	double  y;
+
+	y = vec->y;
+	vec->y = vec->y * cos(angle) - vec->z * sin(angle);
+	vec->z = y * sin(angle) + vec->z * cos(angle);
+}
+
+void        ft_rot_axeZ(double angle, t_vec3 *vec)
+{
+	double  x;
+		
+	x = vec->x;
+	vec->x = vec->x * cos(angle) - vec->y * sin(angle);
+	vec->y = x * sin(angle) + vec->y * cos(angle);
+}
+
+void        ft_rot2(double rx, double rz, t_vec3 *vec)
+{
+    double  x;
+    double  y;
+    double  ry;
+
+	ry = 0;
+    x = vec->x;
+    y = vec->y;
+    vec->x = x * cos(ry) * cos(rz) - cos(ry) * sin(rz) * y + sin(ry) * vec->z;
+    vec->y = x * (sin(rx) * sin(ry) * cos(ry) + cos(rx) * sin(rz)) + y * (-sin(rx) * sin(ry) * sin(rz) + cos(rx) * cos(rz)) + vec->z * (-sin(rx) * cos(ry)    );
+    vec->z = x * (-cos(rx) * sin(ry) * cos(rz) + sin(rx) * sin(rz)) + y * (cos(rx) * sin(ry) * sin(rz) + sin(rx) * cos(rz)) + vec->z * (cos(rx) * cos(ry))    ;
+}
 
 int    ft_texture(t_ray *ray, double t, t_obj *cur_obj, t_env *e)
 {
@@ -125,11 +156,33 @@ int    ft_texture(t_ray *ray, double t, t_obj *cur_obj, t_env *e)
 	float       zB;
 	float       z;
 	t_color     *col;
+	t_vec3      pos;
 	//	ft_putendl("ok");
-	z = ray->dir.y * t + ray->pos.y;
-	teta = acos((ray->dir.x * t + ray->pos.x - cur_obj->pos.x) / cur_obj->rayon);
-	zA = cur_obj->mat.tex.height;
-	zB = cur_obj->mat.tex.width;
+	
+	ft_normalise(&ray->dir);
+	pos.x = ray->dir.x * t + ray->pos.x - cur_obj->pos.x;
+	pos.y = ray->dir.y * t + ray->pos.y - cur_obj->pos.y;
+	pos.z = ray->dir.z * t + ray->pos.z - cur_obj->pos.z;
+	ft_rot2(asin(cur_obj->dir.z), asin(cur_obj->dir.x), &pos);
+	//ft_rot_axeX(asin(cur_obj->dir.z), &pos);
+//	ft_rot_axeZ(asin(cur_obj->dir.x), &pos);
+	z = pos.y;
+	teta = acos((pos.x) / cur_obj->rayon);
+	pos.x = ray->dir.x * t + ray->pos.x - cur_obj->pos.x;
+	pos.y = cur_obj->mat.tex.height;
+    pos.z = ray->dir.z * t + ray->pos.z - cur_obj->pos.z;
+	ft_normalise(&cur_obj->dir);
+	ft_rot2(asin(cur_obj->dir.z), asin(cur_obj->dir.x), &pos);
+//	ft_rot_axeX(asin(cur_obj->dir.z), &pos);
+//	ft_rot_axeZ(asin(cur_obj->dir.x), &pos);
+	zA = pos.y;
+	pos.x = ray->dir.x * t + ray->pos.x - cur_obj->pos.x;
+	pos.y = cur_obj->mat.tex.width;
+	pos.z = ray->dir.z * t + ray->pos.z - cur_obj->pos.z;
+	ft_rot2(asin(cur_obj->dir.z), asin(cur_obj->dir.x), &pos);
+//	ft_rot_axeX(asin(cur_obj->dir.z), &pos);
+//	ft_rot_axeZ(asin(cur_obj->dir.x), &pos);
+	zB = pos.y;
 	tetaA = acos(-1);
 	tetaB = acos(1);
 	(void)e;
@@ -138,7 +191,7 @@ int    ft_texture(t_ray *ray, double t, t_obj *cur_obj, t_env *e)
 		if ((col = malloc(sizeof(t_color))) == NULL)
 			exit(-1);
 		//		printf("VALUE : '%f'\n", t);
-		*col = ft_get_tex_color((int)((acos((ray->dir.x * t + ray->pos.x - cur_obj->pos.x) / cur_obj->rayon) - tetaA) / (tetaB - tetaA) * cur_obj->mat.tex.width1), (int)(((z - zA) / (zB - zA)) * cur_obj->mat.tex.height1), cur_obj);
+		*col = ft_get_tex_color((int)((teta - tetaA) / (tetaB - tetaA) * cur_obj->mat.tex.width1), (int)(((z - zA) / (zB - zA)) * cur_obj->mat.tex.height1), cur_obj);
 		cur_obj->mat.texcol.r = col->r;
 		cur_obj->mat.texcol.g = col->g;
 		cur_obj->mat.texcol.b = col->b;
@@ -203,10 +256,25 @@ unsigned int ft_texture_plan(t_ray *ray, double t, t_obj *cur_obj)
 	float	yB;
 	t_color       *col;
 
-	z = ray->dir.z * t + ray->pos.z;
+	z = 0;
+	y = 0;	
+	if(cur_obj->norm.x == 1 || cur_obj->norm.x == -1)
+	{	
+		z = ray->dir.z * t + ray->pos.z;
+		y = ray->dir.y * t + ray->pos.y;
+	}
+	else if(cur_obj->norm.z == 1 || cur_obj->norm.z == -1)
+	{
+		z = ray->dir.x * t + ray->pos.x;
+		y = ray->dir.y * t + ray->pos.y;
+	}
+	else if(cur_obj->norm.y == 1 || cur_obj->norm.y == -1)
+	{
+		z = ray->dir.x * t + ray->pos.x;
+		y = ray->dir.z * t + ray->pos.z;
+	}
 	zB = cur_obj->mat.tex.off_x - cur_obj->mat.tex.width;
 	yB = cur_obj->mat.tex.off_y - cur_obj->mat.tex.height;
-	y = ray->dir.y * t + ray->pos.y;
 	if(z < cur_obj->mat.tex.off_x && z > zB && y < cur_obj->mat.tex.off_y && y > yB)
 	{
 		if ((col = malloc(sizeof(t_color))) == NULL)
@@ -218,6 +286,13 @@ unsigned int ft_texture_plan(t_ray *ray, double t, t_obj *cur_obj)
 		cur_obj->mat.texcol.b = col->b;
 
 	}
+	if(z == 0 || y == 300)
+	{
+		cur_obj->mat.texcol.r = 0;
+		cur_obj->mat.texcol.g = 1;
+		cur_obj->mat.texcol.b = 0;
+	}
+	
 	return(1);
 }
 
@@ -243,7 +318,7 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	double		refl;
 	t_ray		*ray_refr;
 	t_ray		*ray_refl;
-//	t_color		*col;
+	t_color		*col;
 
 	if (kk)
 	{
@@ -261,7 +336,7 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	cur_obj->mat.texcol = cur_obj->mat.col;
 	if (cur_obj->mat.grid == TRUE)
 		ft_checkerboard(ray, cur_obj, t, (t_color){1, 1, 0});
-	/*
+	
 	if (cur_obj->get_inters == inters_cyl)
 		if (ft_texture(ray, t, cur_obj, e) == 1)
 			col = &cur_obj->mat.texcol;
@@ -274,9 +349,15 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	if (cur_obj->get_inters == inters_plan && cur_obj->norm.x == 1)
 		if (ft_texture_plan(ray, t, cur_obj) == 1)
 			col = &cur_obj->mat.texcol;
+	if (cur_obj->get_inters == inters_plan && cur_obj->norm.z == -1)
+		if (ft_texture_plan(ray, t, cur_obj) == 1)
+			col = &cur_obj->mat.texcol;
+	if (cur_obj->get_inters == inters_plan && (cur_obj->norm.y == -1 || cur_obj->norm.y == 1))
+		if (ft_texture_plan(ray, t, cur_obj) == 1)
+			col = &cur_obj->mat.texcol;
 	if (ray->iter >= NB_ITER)
 		return ((t_color *)ft_memset(final_col, 0, sizeof(t_color)));
-*/
+
 	work.ray = ft_recalc_ori(ray, t);
 	if (kk)
 		printf("new ori{%d] = %f, %f, %f \n",ray->iter, work.ray->pos.x, work.ray->pos.y, work.ray->pos.z);

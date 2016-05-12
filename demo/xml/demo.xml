@@ -41,7 +41,7 @@
 	<objects>
 		<plane>
 			<position>
-				<x> -50.0 </x>
+				<x> -70.0 </x>
 				<y> 0.0 </y>
 				<z> 0.0 </z>
 			</position>
@@ -52,11 +52,13 @@
 				<z> 0.0 </z>
 			</normal>
 			<mat>
-				<texture>texture/42.xpm</texture>
-				<tex_height>70</tex_height>
-				<tex_width>140</tex_width>
-				<offset_x>-70</offset_x>
-				<offset_y>40</offset_y>
+				<texture>
+					<path>texture/42.xpm</path>	
+					<height>70</height>
+					<width>140</width>
+					<offset_x>-70</offset_x>
+					<offset_y>40</offset_y>
+				</texture>
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
 				<color>
@@ -78,6 +80,13 @@
 				<z> 0.0 </z>
 			</normal>
 			<mat>
+				<texture>
+					<path>texture/42.xpm</path>	
+					<height>100</height>
+					<width>140</width>
+					<offset_x>-20</offset_x>
+					<offset_y>40</offset_y>
+				</texture>
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
 				<color>
@@ -99,6 +108,13 @@
 				<z> 0.0 </z>
 			</normal>
 			<mat>
+				<texture>
+					<path>texture/42.xpm</path>	
+					<height>20</height>
+					<width>140</width>
+					<offset_x>-20</offset_x>
+					<offset_y>40</offset_y>
+				</texture>
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
 				<color>
@@ -123,6 +139,13 @@
 				<z> -1.0 </z>
 			</normal>
 			<mat>
+				<texture>
+					<path>texture/42.xpm</path>	
+					<height>20</height>
+					<width>140</width>
+					<offset_x>-20</offset_x>
+					<offset_y>40</offset_y>
+				</texture>
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
 				<color>
@@ -134,7 +157,7 @@
 		</plane>
 		<cylinder>
 			<position>
-				<x> 0.0 </x>
+				<x> 6.0 </x>
 				<y> 0.0 </y>
 				<z> -50.0 </z>
 			</position>
@@ -142,14 +165,18 @@
 			<radius> 20 </radius>
 
 			<direction>
-				<x> 0.0 </x>
+				<x> 1.0 </x>
 				<y> 1.0 </y>
 				<z> 0.0 </z>
 			</direction>
 			<mat>
-				<texture>texture/42.xpm</texture>
-				<tex_height>-50</tex_height>
-				<tex_width>50</tex_width>
+				<texture>
+					<path>texture/42.xpm</path>	
+					<height>-50</height>
+					<width>50</width>
+					<offset_x>0</offset_x>
+					<offset_y>0</offset_y>
+				</texture>
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
 				<color>
@@ -160,7 +187,7 @@
 			</mat>
 		</cylinder>
 
-		<sphere>
+		<shere>
 			<position>
 				<x> -25.0 </x>
 				<y> 0.0 </y>
@@ -170,9 +197,13 @@
 			<radius> 20.0 </radius>
 
 			<mat>
-				<texture>texture/BALLON.xpm</texture>
-				<tex_height>-50</tex_height>
-				<tex_width>50</tex_width>
+				<texture>
+					<path>texture/BALLON.xpm</path>	
+					<height>-50</height>
+					<width>50</width>
+					<offset_x>0</offset_x>
+					<offset_y>0</offset_y>
+				</texture>
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
 				<color>
@@ -182,7 +213,7 @@
 				</color>
 			</mat>
 		</sphere>
-		<cone>
+		<cne>
 			<position>
 				<x> 20.0 </x>
 				<y> 6.0 </y>
@@ -197,9 +228,13 @@
 				<z> 0.0 </z>
 			</direction>
 			<mat>
-				<texture>texture/42.xpm</texture>
-				<tex_height>-20</tex_height>
-				<tex_width>50</tex_width>
+				<texture>
+					<path>texture/42.xpm</path>	
+					<height>-20</height>
+					<width>50</width>
+					<offset_x>0</offset_x>
+					<offset_y>0</offset_y>
+				</texture>
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
 				<color>
