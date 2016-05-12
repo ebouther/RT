@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/12 15:12:49 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/12 17:24:09 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,26 +62,24 @@ void        ft_stock_size_tex(t_obj *cur_obj)
 	char    *buf;
 	int     res;
 	int     i;
-	int     j;
-	char    width[5];
-	char    height[5];
+	char    *width;
+	char    *height;
+	char	**split;
 
 	i = 0;
-	j = 0;
 	buf = NULL;
+	printf("%s", cur_obj->mat.tex.tex);
 	if ((fd = open(cur_obj->mat.tex.tex, O_RDONLY)) == -1)
-		ft_error_exit("texture load failed\n");
-	//ft_putstr(cur_obj->mat.tex.tex);
-	while(i++ != 4)
+		ft_error_exit("error: bad texture file path.\n");
+	while (i++ != 4)
 		res = get_next_line(fd, &buf);
-	i = 1;
-	while(ft_isdigit(buf[i]))
-		width[j++] = buf[i++];
-	i++;
-	j = 0;
-	while(ft_isdigit(buf[i]))
-		height[j++] = buf[i++];
-	i++;
+	split = ft_strsplit(buf, ' ');
+	width = ft_strdup(split[0]);
+	height = ft_strdup(split[1]);
+	i = 0;
+	while (split[i])
+		ft_strdel(split + i++);
+	free(split);
 	cur_obj->mat.tex.width1 = atoi(width);
 	ft_putnbr(cur_obj->mat.tex.width1);
 	cur_obj->mat.tex.height1 = atoi(height);
