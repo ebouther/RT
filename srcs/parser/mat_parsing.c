@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 13:57:32 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/12 15:18:07 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/12 16:32:35 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		ft_set_tex(char *tex, t_obj *obj)
 	char	*value;
 
 	obj->mat.tex.tex = ((value = ft_get_inner(tex, "path", NULL)) == NULL)
-		? NULL : value;
+		? NULL : ft_strdup(value);
 	free(value);
 
 	obj->mat.tex.height = ((value = ft_get_inner(tex, "height", NULL)) == NULL)
