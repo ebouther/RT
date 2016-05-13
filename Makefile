@@ -88,6 +88,7 @@ SRC_NAME = main.c \
 		   ft_put_pixelle.c \
 		   ft_creat_win.c \
 		   ft_cal_gen.c \
+		   ft_texture.c \
 		   ft_angle_contact.c \
 		   ft_angle_contact2.c \
 		   ft_brillance.c \

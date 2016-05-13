@@ -213,7 +213,7 @@
 				</color>
 			</mat>
 		</sphere>
-		<cne>
+		<cone>
 			<position>
 				<x> 20.0 </x>
 				<y> 6.0 </y>
@@ -223,15 +223,15 @@
 			<angle> 25.0 </angle>
 
 			<direction>
-				<x> 0.0 </x>
+				<x> 1.0 </x>
 				<y> 1.0 </y>
 				<z> 0.0 </z>
 			</direction>
 			<mat>
 				<texture>
-					<path>texture/42.xpm</path>	
-					<height>-20</height>
-					<width>50</width>
+					<path>texture/blackwall.xpm</path>	
+					<height>-70</height>
+					<width>0</width>
 					<offset_x>0</offset_x>
 					<offset_y>0</offset_y>
 				</texture>

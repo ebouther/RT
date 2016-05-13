@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/13 15:18:21 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/13 17:15:51 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,11 @@ double			ft_equa_sec(double a, double b, double c);
 void			ft_creat_win(t_env *e);
 t_ray			*ft_refr(t_ray *ray, t_work *work, double *refl);
 t_ray			*ft_refl(t_ray *ray, t_work *work);
+
+/*
+** texture
+*/
+int				ft_wich_texture(t_ray *ray, double t, t_obj *cur_obj, t_env *e);
 
 /*
 ** Normals

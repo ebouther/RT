@@ -6,7 +6,11 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2016/05/13 15:21:55 by ebouther         ###   ########.fr       */
+=======
+/*   Updated: 2016/05/13 14:56:56 by pboutin          ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +32,7 @@ static void		ft_in_light(t_work *work, t_env *e, t_color_res *col_res)
 	while (lst)
 	{
 		tmp = ((t_obj *)(lst->content))->get_inters(work->ray, (t_obj *)(lst->content));
-		if (((t_obj *)(lst->content))->mat.refr > 0 && tmp > 0 && tmp < ft_dist_light(&work->ray->pos, &work->light->pos) )
+		if (((t_obj *)(lst->content))->mat.refr > 0 && tmp > 0 && tmp < ft_dist_light(&work->ray->pos, &work->light->pos))
 		{
 			filtre.r *= ((t_obj *)(lst->content))->mat.col.r * ((t_obj *)(lst->content))->mat.refr;
 			filtre.g *= ((t_obj *)(lst->content))->mat.col.g * ((t_obj *)(lst->content))->mat.refr;
@@ -105,6 +109,7 @@ void	ft_color_mode(t_color *c, t_env *e)
 	}
 }
 
+<<<<<<< Updated upstream
 t_color     ft_get_tex_color(int x, int y, t_obj *cur_obj)
 {
 	unsigned char   *c;
@@ -295,6 +300,8 @@ unsigned int ft_texture_plan(t_ray *ray, double t, t_obj *cur_obj)
 	return(1);
 }
 
+=======
+>>>>>>> Stashed changes
 static void	ft_checkerboard(t_ray *ray, t_obj *cur_obj, double t, t_color col)
 {
 	t_vec3	pos;
@@ -335,20 +342,7 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	if (cur_obj->mat.grid == TRUE)
 		ft_checkerboard(ray, cur_obj, t, (t_color){1, 1, 0});
 	if(cur_obj->mat.tex.tex != NULL)
-	{
-	if (cur_obj->get_inters == inters_cyl)
-		ft_texture(ray, t, cur_obj, e);
-	if (cur_obj->get_inters == inters_cone)
-		ft_texture_cone(ray, t, cur_obj);
-	if (cur_obj->get_inters == inters_sphere)
-		ft_texture_sphere(ray, t, cur_obj);
-	if (cur_obj->get_inters == inters_plan && cur_obj->norm.x == 1)
-		ft_texture_plan(ray, t, cur_obj);
-	if (cur_obj->get_inters == inters_plan && cur_obj->norm.z == -1)
-		ft_texture_plan(ray, t, cur_obj);
-	if (cur_obj->get_inters == inters_plan && (cur_obj->norm.y == -1 || cur_obj->norm.y == 1))
-		ft_texture_plan(ray, t, cur_obj);
-	}
+		ft_wich_texture(ray, t, cur_obj, e);
 	if (ray->iter >= NB_ITER)
 		return ((t_color *)ft_memset(final_col, 0, sizeof(t_color)));
 
@@ -382,12 +376,6 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	if (kk)
 		printf("col_diffu[%d] = %f, %f %f\n",ray->iter, col_res.diffuse.r,col_res.diffuse.g,col_res.diffuse.b);
 	ft_bri_max(&col_res);
-	/*if((cur_obj->mat.texcol.r != cur_obj->mat.col.r || cur_obj->mat.texcol.g != cur_obj->mat.col.g || cur_obj->mat.texcol.b != cur_obj->mat.col.b) && flag == 1)
-	  {
-	  cur_obj->mat.col.r = cur_obj->mat.texcol.r;
-	  cur_obj->mat.col.b = cur_obj->mat.texcol.b;
-	  cur_obj->mat.col.g = cur_obj->mat.texcol.g;
-	  }*/
 	final_col->r = ft_color_clip(e->amb * cur_obj->mat.texcol.r
 			+ cur_obj->mat.texcol.r * col_res.diffuse.r * cur_obj->mat.opac + col_res.specular.r + cur_obj->mat.refr * (col_res.refr ? col_res.refr->r : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->r : 0));
 	final_col->g = ft_color_clip(e->amb * cur_obj->mat.texcol.g
