@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/13 11:37:44 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/13 11:41:28 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,7 +340,6 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	cur_obj->mat.texcol = cur_obj->mat.col;
 	if (cur_obj->mat.grid == TRUE)
 		ft_checkerboard(ray, cur_obj, t, (t_color){1, 1, 0});
-	
 	if (cur_obj->get_inters == inters_cyl)
 		if (ft_texture(ray, t, cur_obj, e) == 1)
 			col = &cur_obj->mat.texcol;
