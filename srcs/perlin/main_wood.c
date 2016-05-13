@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/13 14:41:24 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/13 15:11:18 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/13 16:02:41 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	ft_hook_key(int keycode, t_mlx *m)
 	static double	turb_power = 0.1;
 	static double	turb_size = 32.0;
 
-	ft_putnbr(keycode);
-	ft_putchar('\n');
 	if (keycode == 15)
 	{
 		srand(time(NULL));
@@ -34,12 +32,12 @@ int	ft_hook_key(int keycode, t_mlx *m)
 	else if (keycode == 125)
 		gen_wood(xYPeriod -= 1, turb_power, turb_size, m);
 	else if (keycode == 69)
-		gen_wood(xYPeriod, turb_power += 0.1, turb_size, m);
+		gen_wood(xYPeriod, turb_power += 0.025, turb_size, m);
 	else if (keycode == 78)
-		gen_wood(xYPeriod, turb_power -= 0.1, turb_size, m);
-	else if (keycode == 116)
+		gen_wood(xYPeriod, turb_power -= 0.025, turb_size, m);
+	else if (keycode == 124)
 		gen_wood(xYPeriod, turb_power, turb_size += 1, m);
-	else if (keycode == 121)
+	else if (keycode == 123)
 		gen_wood(xYPeriod, turb_power, turb_size -= 1, m);
 	else if (keycode == 53)
 		exit(0);
@@ -59,7 +57,7 @@ t_color	get_pixel_color(char *data, int x, int y)
 	int pos;
 
 	pos = 4 * y * WIDTH + 4 * x;
-	return ((t_color){ data[pos], data[pos + 1], data[pos + 2] });
+	return ((t_color){ data[pos], data[pos + 1], data[pos + 2]});
 }
 
 int main(int argc, char **argv)
@@ -75,8 +73,7 @@ int main(int argc, char **argv)
 	m.mlx_ptr = mlx_init();
 	m.mlx_win = mlx_new_window (m.mlx_ptr, WIDTH, HEIGHT, "Perlin Noise");
 	generate_noise(&m.noise);
-	char *data1 = gen_noise(64, &m);
-	//char *data1 = gen_wood(12.0, 0.1, 32.0, &m);
+	gen_wood(12.0, 0.1, 32.0, &m);
 	mlx_key_up_hook(m.mlx_win, ft_hook_key, &m);
 	mlx_loop(m.mlx_ptr);
 	return (0);

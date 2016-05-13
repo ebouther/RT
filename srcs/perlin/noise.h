@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 12:21:48 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/13 15:07:26 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/13 15:45:46 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct	s_wood
 	double		sine_val;
 	int			x;
 	int			y;
+	char		output[50];
 }				t_wood;
 
 typedef struct	s_mlx

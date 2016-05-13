@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 12:22:26 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/13 15:08:22 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/13 15:58:03 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char		*gen_noise(double size, t_mlx *m)
 	t_color	c;
 	int		x;
 	int		y;
+	char	output[50];
 
 	i.mlx_img = mlx_new_image(m->mlx_ptr, WIDTH, HEIGHT);
 	i.data = mlx_get_data_addr(i.mlx_img, &i.bpp, &i.size_line, &i.endian);
@@ -83,6 +84,8 @@ char		*gen_noise(double size, t_mlx *m)
 		y++;
 	}
 	mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, i.mlx_img, 0, 0);
+	snprintf(output, 50, "(UP / DOWN) Turb size: %f", size);
+	mlx_string_put(m->mlx_ptr, m->mlx_win, 10, 30, 0xffffff, output);
 	return (i.data);
 }
 
@@ -114,11 +117,11 @@ char		*gen_wood(double xy_period, double turb_power, double turb_size,
 		w.y++;
 	}
 	mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, i.mlx_img, 0, 0);
-	mlx_string_put(m->mlx_ptr, m->mlx_win, WIDTH - 90, 30, 0xffff00,
-			ft_itoa((int)xy_period));
-	mlx_string_put(m->mlx_ptr, m->mlx_win, WIDTH - 90, 60, 0xffff00,
-			ft_itoa((int)turb_power));
-	mlx_string_put(m->mlx_ptr, m->mlx_win, WIDTH - 90, 90, 0xffff00,
-			ft_itoa((int)turb_size));
+	snprintf(w.output, 50, "(UP / DOWN) Number of rings: %f", xy_period);
+	mlx_string_put(m->mlx_ptr, m->mlx_win, 90, 30, 0xffffff, w.output);
+	snprintf(w.output, 50, "(PAV: + / -) Turb power: %f", turb_power);
+	mlx_string_put(m->mlx_ptr, m->mlx_win, 90, 60, 0xffffff, w.output);
+	snprintf(w.output, 50, "(LEFT / RIGHT) Turb size: %f", turb_size);
+	mlx_string_put(m->mlx_ptr, m->mlx_win, 90, 90, 0xffffff, w.output);
 	return (i.data);
 }
