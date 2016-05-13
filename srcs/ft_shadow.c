@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/13 11:41:28 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/13 11:58:50 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,12 +290,12 @@ unsigned int ft_texture_plan(t_ray *ray, double t, t_obj *cur_obj)
 		cur_obj->mat.texcol.b = col->b;
 
 	}
-	if(z == 0 || y == 300)
+	/*if(z == 0 || y == 300)
 	{
 		cur_obj->mat.texcol.r = 0;
 		cur_obj->mat.texcol.g = 1;
 		cur_obj->mat.texcol.b = 0;
-	}
+	}*/
 	
 	return(1);
 }
@@ -340,24 +340,27 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	cur_obj->mat.texcol = cur_obj->mat.col;
 	if (cur_obj->mat.grid == TRUE)
 		ft_checkerboard(ray, cur_obj, t, (t_color){1, 1, 0});
-	if (cur_obj->get_inters == inters_cyl)
-		if (ft_texture(ray, t, cur_obj, e) == 1)
-			col = &cur_obj->mat.texcol;
-	if (cur_obj->get_inters == inters_cone)
-		if (ft_texture_cone(ray, t, cur_obj) == 1)
-			col = &cur_obj->mat.texcol;
-	if (cur_obj->get_inters == inters_sphere)
-		if (ft_texture_sphere(ray, t, cur_obj) == 1)
-			col = &cur_obj->mat.texcol;
-	if (cur_obj->get_inters == inters_plan && cur_obj->norm.x == 1)
-		if (ft_texture_plan(ray, t, cur_obj) == 1)
-			col = &cur_obj->mat.texcol;
-	if (cur_obj->get_inters == inters_plan && cur_obj->norm.z == -1)
-		if (ft_texture_plan(ray, t, cur_obj) == 1)
-			col = &cur_obj->mat.texcol;
-	if (cur_obj->get_inters == inters_plan && (cur_obj->norm.y == -1 || cur_obj->norm.y == 1))
-		if (ft_texture_plan(ray, t, cur_obj) == 1)
-			col = &cur_obj->mat.texcol;
+	if (cur_obj->mat.tex.tex != NULL)
+	{
+		if (cur_obj->get_inters == inters_cyl)
+			if (ft_texture(ray, t, cur_obj, e) == 1)
+				col = &cur_obj->mat.texcol;
+		if (cur_obj->get_inters == inters_cone)
+			if (ft_texture_cone(ray, t, cur_obj) == 1)
+				col = &cur_obj->mat.texcol;
+		if (cur_obj->get_inters == inters_sphere)
+			if (ft_texture_sphere(ray, t, cur_obj) == 1)
+				col = &cur_obj->mat.texcol;
+		if (cur_obj->get_inters == inters_plan && cur_obj->norm.x == 1)
+			if (ft_texture_plan(ray, t, cur_obj) == 1)
+				col = &cur_obj->mat.texcol;
+		if (cur_obj->get_inters == inters_plan && cur_obj->norm.z == -1)
+			if (ft_texture_plan(ray, t, cur_obj) == 1)
+				col = &cur_obj->mat.texcol;
+		if (cur_obj->get_inters == inters_plan && (cur_obj->norm.y == -1 || cur_obj->norm.y == 1))
+			if (ft_texture_plan(ray, t, cur_obj) == 1)
+				col = &cur_obj->mat.texcol;
+	}
 	if (ray->iter >= NB_ITER)
 		return ((t_color *)ft_memset(final_col, 0, sizeof(t_color)));
 
