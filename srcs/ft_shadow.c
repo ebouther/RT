@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/12 20:54:26 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/13 11:37:44 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,8 @@ void        ft_rot2(double rx, double rz, t_vec3 *vec)
     x = vec->x;
     y = vec->y;
     vec->x = x * cos(ry) * cos(rz) - cos(ry) * sin(rz) * y + sin(ry) * vec->z;
-    vec->y = x * (sin(rx) * sin(ry) * cos(ry) + cos(rx) * sin(rz)) + y * (-sin(rx) * sin(ry) * sin(rz) + cos(rx) * cos(rz)) + vec->z * (-sin(rx) * cos(ry)    );
-    vec->z = x * (-cos(rx) * sin(ry) * cos(rz) + sin(rx) * sin(rz)) + y * (cos(rx) * sin(ry) * sin(rz) + sin(rx) * cos(rz)) + vec->z * (cos(rx) * cos(ry))    ;
+    vec->y = x * (sin(rx) * sin(ry) * cos(ry) + cos(rx) * sin(rz)) + y * (-sin(rx) * sin(ry) * sin(rz) + cos(rx) * cos(rz)) + vec->z * (-sin(rx) * cos(ry));
+    vec->z = x * (-cos(rx) * sin(ry) * cos(rz) + sin(rx) * sin(rz)) + y * (cos(rx) * sin(ry) * sin(rz) + sin(rx) * cos(rz)) + vec->z * (cos(rx) * cos(ry));
 }
 
 int    ft_texture(t_ray *ray, double t, t_obj *cur_obj, t_env *e)
@@ -163,25 +163,25 @@ int    ft_texture(t_ray *ray, double t, t_obj *cur_obj, t_env *e)
 	pos.x = ray->dir.x * t + ray->pos.x - cur_obj->pos.x;
 	pos.y = ray->dir.y * t + ray->pos.y - cur_obj->pos.y;
 	pos.z = ray->dir.z * t + ray->pos.z - cur_obj->pos.z;
-	ft_rot2(asin(cur_obj->dir.z), asin(cur_obj->dir.x), &pos);
-	//ft_rot_axeX(asin(cur_obj->dir.z), &pos);
-//	ft_rot_axeZ(asin(cur_obj->dir.x), &pos);
+//	ft_rot2(asin(cur_obj->dir.z), asin(cur_obj->dir.x), &pos);
+	ft_rot_axeZ(asin(cur_obj->dir.x), &pos);
+	ft_rot_axeX(asin(cur_obj->dir.z), &pos);
 	z = pos.y;
 	teta = acos((pos.x) / cur_obj->rayon);
 	pos.x = ray->dir.x * t + ray->pos.x - cur_obj->pos.x;
 	pos.y = cur_obj->mat.tex.height;
     pos.z = ray->dir.z * t + ray->pos.z - cur_obj->pos.z;
 	ft_normalise(&cur_obj->dir);
-	ft_rot2(asin(cur_obj->dir.z), asin(cur_obj->dir.x), &pos);
-//	ft_rot_axeX(asin(cur_obj->dir.z), &pos);
-//	ft_rot_axeZ(asin(cur_obj->dir.x), &pos);
+//	ft_rot2(asin(cur_obj->dir.z), asin(cur_obj->dir.x), &pos);
+	ft_rot_axeZ(asin(cur_obj->dir.x), &pos);
+	ft_rot_axeX(asin(cur_obj->dir.z), &pos);
 	zA = pos.y;
 	pos.x = ray->dir.x * t + ray->pos.x - cur_obj->pos.x;
 	pos.y = cur_obj->mat.tex.width;
 	pos.z = ray->dir.z * t + ray->pos.z - cur_obj->pos.z;
-	ft_rot2(asin(cur_obj->dir.z), asin(cur_obj->dir.x), &pos);
-//	ft_rot_axeX(asin(cur_obj->dir.z), &pos);
-//	ft_rot_axeZ(asin(cur_obj->dir.x), &pos);
+//	ft_rot2(asin(cur_obj->dir.z), asin(cur_obj->dir.x), &pos);
+	ft_rot_axeZ(asin(cur_obj->dir.x), &pos);
+	ft_rot_axeX(asin(cur_obj->dir.z), &pos);
 	zB = pos.y;
 	tetaA = acos(-1);
 	tetaB = acos(1);
@@ -280,6 +280,10 @@ unsigned int ft_texture_plan(t_ray *ray, double t, t_obj *cur_obj)
 		if ((col = malloc(sizeof(t_color))) == NULL)
 			exit(-1);
 		*col = ft_get_tex_color((int)(((z - zB) / (cur_obj->mat.tex.off_x - zB)) * cur_obj->mat.tex.width1), (int)(((y - yB) / (cur_obj->mat.tex.off_y - yB)) * cur_obj->mat.tex.height1), cur_obj);
+		/*if(cur_obj->norm.z == 1 || cur_obj->norm.z == -1)
+		{
+			printf("x: %d, y: %d , %d\n",(int)(((z - zB) / (cur_obj->mat.tex.off_x - zB)) * cur_obj->mat.tex.width1), (int)(((y - yB) / (cur_obj->mat.tex.off_y - yB)) * cur_obj->mat.tex.height1), ((int)(((z - zB) / (cur_obj->mat.tex.off_x - zB)) * cur_obj->mat.tex.width1)) * (cur_obj->mat.tex.bpp / 8) + ((cur_obj->mat.tex.height1 - (int)(((y - yB) / (cur_obj->mat.tex.off_y - yB)) * cur_obj->mat.tex.height1)) * cur_obj->mat.tex.ls));
+		}*/
 
 		cur_obj->mat.texcol.r = col->r;
 		cur_obj->mat.texcol.g = col->g;
