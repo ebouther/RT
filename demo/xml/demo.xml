@@ -2,7 +2,7 @@
 <scene>
 
 	<config>
-		<ambient> 0.1 </ambient>
+		<ambient> 0.2 </ambient>
 		<filter>  </filter>
 	</config>
 
@@ -53,11 +53,11 @@
 			</normal>
 			<mat>
 				<texture>
-					<path>texture/42.xpm</path>	
-					<height>70</height>
-					<width>140</width>
-					<offset_x>-70</offset_x>
-					<offset_y>40</offset_y>
+					<path>texture/wallHD.xpm</path>	
+					<height>200</height>
+					<width>300</width>
+					<offset_x>100</offset_x>
+					<offset_y>50</offset_y>
 				</texture>
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
@@ -80,13 +80,13 @@
 				<z> 0.0 </z>
 			</normal>
 			<mat>
-				<texture>
+				<txture>
 					<path>texture/42.xpm</path>	
-					<height>100</height>
-					<width>140</width>
+					<height>200</height>
+					<width>240</width>
 					<offset_x>-20</offset_x>
 					<offset_y>40</offset_y>
-				</texture>
+				</txture>
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
 				<color>
@@ -109,11 +109,11 @@
 			</normal>
 			<mat>
 				<texture>
-					<path>texture/42.xpm</path>	
-					<height>20</height>
-					<width>140</width>
-					<offset_x>-20</offset_x>
-					<offset_y>40</offset_y>
+					<path>texture/landscape.xpm</path>	
+					<height>200</height>
+					<width>300</width>
+					<offset_x>100</offset_x>
+					<offset_y>50</offset_y>
 				</texture>
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
@@ -140,11 +140,11 @@
 			</normal>
 			<mat>
 				<texture>
-					<path>texture/42.xpm</path>	
-					<height>20</height>
-					<width>140</width>
-					<offset_x>-20</offset_x>
-					<offset_y>40</offset_y>
+					<path>texture/landscape.xpm</path>	
+					<height>100</height>
+					<width>200</width>
+					<offset_x>50</offset_x>
+					<offset_y>50</offset_y>
 				</texture>
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
@@ -162,16 +162,16 @@
 				<z> -50.0 </z>
 			</position>
 
-			<radius> 20 </radius>
+			<radius> 6 </radius>
 
 			<direction>
-				<x> 1.0 </x>
+				<x> 0.0 </x>
 				<y> 1.0 </y>
 				<z> 0.0 </z>
 			</direction>
 			<mat>
 				<texture>
-					<path>texture/42.xpm</path>	
+					<path>texture/cigarette.xpm</path>	
 					<height>-50</height>
 					<width>50</width>
 					<offset_x>0</offset_x>
