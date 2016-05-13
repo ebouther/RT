@@ -6,11 +6,12 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 09:45:01 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/10 15:55:33 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/12 11:50:45 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <stdio.h>
 
 t_vec3	*normal_tore(t_ray *ray, t_obj *obj)
 {
@@ -33,6 +34,8 @@ t_vec3	*normal_tore(t_ray *ray, t_obj *obj)
 	res->y = ray->pos.y - obj->pos.y - ch.y * obj->rayon;
 	res->z = ray->pos.z - obj->pos.z - ch.z * obj->rayon;
 	ft_normalise(res);
+	if (kk)
+		printf("tore normal : (%f, %f, %f)\n",res->x,res->y, res->z);
 	return (scal(*res, ray->dir) < 0 ? res : pro(-1, res));
 }
 

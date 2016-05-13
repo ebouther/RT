@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 10:28:22 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/11 10:36:48 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/12 13:49:08 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ static int	ft_set_pobj(char *pobj, t_env *e)
 	nod.l = NULL;
 	nod.op = NULL;
 	nod.obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
-	ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_obj)));
+	ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
 	ft_strdel(&position);
 	ft_strdel(&radius);
 	ft_strdel(&path);

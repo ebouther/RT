@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/09 17:31:31 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/11 10:34:37 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/13 15:15:13 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_voisin(int x, int y, t_env *e)
 		y1 = -1;
 		while (y1 < 2)
 		{
-			if (e->pix[x + x1 + SIZE_W * (y + y1)].obj != tmp)
+			if (e->pix[x + SIZE_W * y].col == NULL || e->pix[x + x1 + SIZE_W * (y + y1)].obj != tmp)
 				return (1);
 			y1++;
 		}
@@ -35,10 +35,37 @@ int	ft_voisin(int x, int y, t_env *e)
 	return (0);
 }
 
+double	ft_cartoon(double col)
+{
+	if (col > 0.8)
+		return (1.0);
+	else if (col > 0.7)
+		return (0.9);
+	else if (col > 0.6)
+		return (0.8);
+	else if (col > 0.5)
+		return (0.7);
+	else if (col > 0.4)
+		return (0.6);
+	else if (col > 0.3)
+		return (0.5);
+	else if (col > 0.2)
+		return (0.4);
+	else if (col > 0.1)
+		return (0.3);
+	else if (col > 0.5)
+		return (0.2);
+	else 
+		return (0.1);
+}
+
+
 void	ft_celshading(t_env *e)
 {
 	int		x;
 	int		y;
+	int		i;
+	double	f;
 
 	x = 1;
 	while (x < SIZE_W - 1)
@@ -51,15 +78,16 @@ void	ft_celshading(t_env *e)
 				e->data[(x * 4 + SIZE_W * 4 * y)] = 0;
 				e->data[(x * 4 + SIZE_W * 4 * y) + 1] = 0;
 				e->data[(x * 4 + SIZE_W * 4 * y) + 2] = 0;
-				e->data[(x * 4 + SIZE_W * 4 * y) + 3] = 0;
 			}
-			else
+			else 
 			{
-				e->data[(x * 4 + SIZE_W * 4 * y)] = e->data[(x * 4 + SIZE_W * 4 * y)] / 30 * 30 + 30;
-				e->data[(x * 4 + SIZE_W * 4 * y) + 1] = e->data[(x * 4 + SIZE_W * 4 * y) + 1] / 30 * 30 + 30;
-				e->data[(x * 4 + SIZE_W * 4 * y) + 2] = e->data[(x * 4 + SIZE_W * 4 * y) + 2] / 30 * 30 + 30;
-				e->data[(x * 4 + SIZE_W * 4 * y) + 3] = e->data[(x * 4 + SIZE_W * 4 * y) + 3] / 30 * 30 + 30;
-
+				f = ft_cartoon(fmax(e->pix[x + SIZE_W * y].col->r, fmax(e->pix[x + SIZE_W * y].col->g, e->pix[x + SIZE_W * y].col->b)));
+				i = 0;
+				while (i < 4)
+				{
+					e->data[(x * 4 + SIZE_W * 4 * y) + i] = (unsigned char)(e->data[(x * 4 + SIZE_W * 4 * y) + i] * f);
+					i++;
+				}
 			}
 			y++;
 		}

@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 12:41:50 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/10 15:23:55 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/12 15:26:30 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static double	ft_equ(double t, t_ray *ray, t_obj *obj)
 static double	ft_rec(double t1, double t2, t_ray *ray, t_obj *obj, int s)
 {
 	if (fabs(t1 - t2) < 0.001)
-		return (t1);
+		return (fmin(t1, t2));
 	if (ft_equ((t1 + t2) / 2.0, ray, obj) > 0 && s)
 		return (ft_rec((t1 + t2) / 2.0, t2, ray, obj, s));
 	else
@@ -77,11 +77,6 @@ double	*inters_quadra(t_ray *ray, t_obj *obj)
 	res = (double*)malloc(sizeof(double) * 2);
 	res[1] = FAR;
 	res[0] = FAR;
-	if (kk)
-	{
-		printf("t0 = %f, t1 = %f\n",t[0],t[1]);
-		printf("pos = %f, %f, %f\n",tmp.pos.x, tmp.pos.y, tmp.pos.z);
-	}
 	if (t[0] == FAR || (t[0] < 0 && t[1] < 0))
 		res[0] = FAR;
 	if (t[0] < 0)
@@ -92,10 +87,16 @@ double	*inters_quadra(t_ray *ray, t_obj *obj)
 	{
 		r2 = ft_equ(t1 + 0.1, &tmp, obj);
 		r1 = ft_equ(t1, &tmp, obj);
-		if (r1 == 0)
+		if (r1 == 0.0)
+		{
 			res[0] = t1;
-		else if (r2 * r1 < 0)
-			res[0] = (ft_rec(t1, t1 + 0.1, &tmp, obj, r1 > 0));
+			break ;
+		}
+		else if ((r2 * r1) < 0.0)
+		{
+			res[0] = ft_rec(t1, t1 + 0.1, &tmp, obj, r1 > 0);
+			break ;
+		}
 		t1 += 0.1;
 	}
 	return (res);

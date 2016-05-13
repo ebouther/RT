@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 12:30:47 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/10 15:27:01 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/12 13:49:31 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "rtv1.h"
@@ -44,7 +44,7 @@ static int	ft_set_quadra(char *quadra, t_env *e)
 	nod.l = NULL;
 	nod.op = NULL;
 	nod.obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
-	ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_obj)));
+	ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
 	ft_strdel(&position);
 	ft_strdel(&radius);
 	ft_strdel(&equ);

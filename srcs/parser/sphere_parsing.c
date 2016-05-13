@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:47:45 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/10 14:10:55 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/13 16:53:46 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ static int	ft_set_sphere(char *sphere, t_env *e)
 	ft_set_mat(mat, nod.obj);
 	nod.obj->get_normal = &normal_sphere;
 	nod.obj->get_inters = &inters_sphere;
+	nod.obj->motion.x = 30;
+	nod.obj->motion.y = -30;
+	nod.obj->motion.z = 0;
 	nod.r = NULL;
 	nod.l = NULL;
 	nod.op = NULL;

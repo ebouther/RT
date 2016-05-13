@@ -6,14 +6,14 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/10 15:40:59 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/13 15:22:53 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 #include <stdio.h>
 
-t_color		*ft_contact(t_ray *ray, t_env *e, t_obj **obj_pix)
+t_color		*ft_contact(t_ray *ray, t_env *e, t_pix *pix)
 {
 	t_obj		*cur_obj;
 	t_obj_col	*tmp;
@@ -30,8 +30,11 @@ t_color		*ft_contact(t_ray *ray, t_env *e, t_obj **obj_pix)
 		if (tmp->t[0] < t)
 		{
 			t = tmp->t[0];
-			if (obj_pix)
-				*obj_pix = ((t_obj *)lst->content);
+			if (pix)
+			{
+				pix->obj = ((t_nod *)(lst->content))->obj;
+				pix->t = t;
+			}
 			cur_obj = tmp->obj;
 		}
 		lst = lst->next;
@@ -50,7 +53,6 @@ unsigned int	ft_rgbtoi(t_color *color)
 	res = (256 * 256 * (unsigned int)(color->r * 255) +
 			256 * (unsigned int)(color->g * 255) +
 			(unsigned int)(color->b * 255));
-	free(color);
 	return (res);
 }
 
@@ -65,9 +67,6 @@ void			ft_print_img(t_env *e)
 		y = 0;
 		while (y < SIZE_H)
 		{
-			kk = 0;
-			if (e->xx == x && e->yy == y)
-				kk = 1;
 			ft_put_pixelle(x, y, ft_rgbtoi(e->pix[x + y * SIZE_W].col), e);
 			y++;
 		}
@@ -85,7 +84,7 @@ void			ft_fill_img(t_env *e)
 
 	x = 0;
 	if ((e->pix = (t_pix*)malloc(sizeof(t_pix) * SIZE_W * SIZE_H)) == NULL)
-		ft_error_exit("Error: malloc failed in ft_fill im.\n");
+		ft_error_exit("Error: malloc failed in ft_fill_img.\n");
 	while (x < SIZE_W)
 	{
 		y = 0;
@@ -95,7 +94,7 @@ void			ft_fill_img(t_env *e)
 			if (e->xx == x && e->yy == y)
 				kk = 1;
 			ray = ft_calc_ray(x, y, e);
-			e->pix[x + y * SIZE_W].col = ft_contact(ray, e, &e->pix[x + y * SIZE_W].obj);
+			e->pix[x + y * SIZE_W].col = ft_contact(ray, e, &e->pix[x + y * SIZE_W]);
 			free(ray);
 			y++;
 		}
@@ -113,6 +112,7 @@ void			ft_creat_img(t_env *e)
 
 int				key_hook(int kc, t_env *e)
 {
+	printf("%d\n",kc);
 	if (kc == 53)
 		exit(0);
 	else if (kc == 35)
@@ -121,6 +121,9 @@ int				key_hook(int kc, t_env *e)
 		ft_antialiasing(e);
 	else if (kc == 8)
 		ft_celshading(e);
+	else if (kc == 46)
+		ft_motion_blur(e);
+
 	return (0);
 }
 
@@ -131,7 +134,7 @@ int				mouse_hook(int b, int x, int y, t_env *e)
 		e->xx = x;
 		e->yy = y;
 	}
-	printf("x = %d,x = %d\n",x,y);
+	printf("\nx = %d,y = %d\n",x,y);
 	ft_fill_img(e);
 	return (1);
 }

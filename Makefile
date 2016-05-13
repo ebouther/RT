@@ -108,6 +108,7 @@ SRC_NAME = main.c \
 		   ft_celshading.c \
 		   ft_ref.c \
 		   ft_op_composed_obj.c \
+		   ft_motion_blur.c \
 			$(PARSER)
 
 

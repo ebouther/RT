@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 13:58:35 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/09 16:59:08 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/12 14:37:26 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 
 #include "rtv1.h"
+#include <stdio.h>
 
 t_obj_col		*ft_union_obj(t_nod *nod1, t_nod *nod2, t_ray *ray)
 {

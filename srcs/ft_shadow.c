@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/10 13:56:52 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/13 14:29:42 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 static void		ft_in_light(t_work *work, t_env *e, t_color_res *col_res)
 {
-	t_list	*lst;
-	t_obj_col *obj;
+	t_list		*lst;
+	t_obj_col	*obj;
 	t_color_res	col_add;
-	double	angle_contact;
-	t_color	filtre;
+	double		angle_contact;
+	t_color		filtre;
 
 	col_add = (t_color_res){{0, 0, 0}, {0, 0, 0}, NULL, NULL};
 	ft_recalc_dir(work->light, work->ray, work->normal);
@@ -36,7 +36,9 @@ static void		ft_in_light(t_work *work, t_env *e, t_color_res *col_res)
 			filtre.b *= ((t_nod *)(lst->content))->obj->mat.col.b * ((t_nod *)(lst->content))->obj->mat.refr;
 		}
 		else if (!(obj->t[0] > ft_dist_light(&work->ray->pos, &work->light->pos) || obj->t[0] < 0))
+		{
 			break;
+		}
 		lst = lst->next;
 	}
 	if (!lst)
