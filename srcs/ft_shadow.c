@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/13 11:58:50 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/13 15:21:55 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,9 @@ t_color     ft_get_tex_color(int x, int y, t_obj *cur_obj)
 {
 	unsigned char   *c;
 	t_color         ret;
-	c = (unsigned char*)cur_obj->mat.tex.buf + (x) * (cur_obj->mat.tex.bpp / 8) + ((cur_obj->mat.tex.height1 - y) * cur_obj->mat.tex.ls);
+	c = (unsigned char*)cur_obj->mat.tex.buf + (x) * (cur_obj->mat.tex.bpp / 8) + ((/*cur_obj->mat.tex.height1 -*/ y) * cur_obj->mat.tex.ls);
+/*	if(x > 920 || y > 614 || x < 0 || y < 0)
+		printf("************************x: %d, y: %d\n*********************", x , y);*/
 	ret.b = *c / 256.0;
 	ret.g = *(c + 1) / 256.0;
 	ret.r = *(c + 2) / 256.0;
@@ -191,7 +193,7 @@ int    ft_texture(t_ray *ray, double t, t_obj *cur_obj, t_env *e)
 		if ((col = malloc(sizeof(t_color))) == NULL)
 			exit(-1);
 		//		printf("VALUE : '%f'\n", t);
-		*col = ft_get_tex_color((int)((teta - tetaA) / (tetaB - tetaA) * cur_obj->mat.tex.width1), (int)(((z - zA) / (zB - zA)) * cur_obj->mat.tex.height1), cur_obj);
+		*col = ft_get_tex_color((int)((teta - tetaA) / (tetaB - tetaA) * cur_obj->mat.tex.width1), (int)(cur_obj->mat.tex.height1 - (((z - zA) / (zB - zA)) * cur_obj->mat.tex.height1)), cur_obj);
 		cur_obj->mat.texcol.r = col->r;
 		cur_obj->mat.texcol.g = col->g;
 		cur_obj->mat.texcol.b = col->b;
@@ -279,7 +281,7 @@ unsigned int ft_texture_plan(t_ray *ray, double t, t_obj *cur_obj)
 	{
 		if ((col = malloc(sizeof(t_color))) == NULL)
 			exit(-1);
-		*col = ft_get_tex_color((int)(((z - zB) / (cur_obj->mat.tex.off_x - zB)) * cur_obj->mat.tex.width1), (int)(((y - yB) / (cur_obj->mat.tex.off_y - yB)) * cur_obj->mat.tex.height1), cur_obj);
+		*col = ft_get_tex_color((int)(((z - zB) / (cur_obj->mat.tex.off_x - zB)) * cur_obj->mat.tex.width1), (int)(cur_obj->mat.tex.height1 - (((y - yB) / (cur_obj->mat.tex.off_y - yB)) * cur_obj->mat.tex.height1)), cur_obj);
 		/*if(cur_obj->norm.z == 1 || cur_obj->norm.z == -1)
 		{
 			printf("x: %d, y: %d , %d\n",(int)(((z - zB) / (cur_obj->mat.tex.off_x - zB)) * cur_obj->mat.tex.width1), (int)(((y - yB) / (cur_obj->mat.tex.off_y - yB)) * cur_obj->mat.tex.height1), ((int)(((z - zB) / (cur_obj->mat.tex.off_x - zB)) * cur_obj->mat.tex.width1)) * (cur_obj->mat.tex.bpp / 8) + ((cur_obj->mat.tex.height1 - (int)(((y - yB) / (cur_obj->mat.tex.off_y - yB)) * cur_obj->mat.tex.height1)) * cur_obj->mat.tex.ls));
@@ -290,13 +292,6 @@ unsigned int ft_texture_plan(t_ray *ray, double t, t_obj *cur_obj)
 		cur_obj->mat.texcol.b = col->b;
 
 	}
-	/*if(z == 0 || y == 300)
-	{
-		cur_obj->mat.texcol.r = 0;
-		cur_obj->mat.texcol.g = 1;
-		cur_obj->mat.texcol.b = 0;
-	}*/
-	
 	return(1);
 }
 
@@ -322,7 +317,6 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	double		refl;
 	t_ray		*ray_refr;
 	t_ray		*ray_refl;
-	t_color		*col;
 
 	if (kk)
 	{
@@ -340,26 +334,20 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	cur_obj->mat.texcol = cur_obj->mat.col;
 	if (cur_obj->mat.grid == TRUE)
 		ft_checkerboard(ray, cur_obj, t, (t_color){1, 1, 0});
-	if (cur_obj->mat.tex.tex != NULL)
+	if(cur_obj->mat.tex.tex != NULL)
 	{
-		if (cur_obj->get_inters == inters_cyl)
-			if (ft_texture(ray, t, cur_obj, e) == 1)
-				col = &cur_obj->mat.texcol;
-		if (cur_obj->get_inters == inters_cone)
-			if (ft_texture_cone(ray, t, cur_obj) == 1)
-				col = &cur_obj->mat.texcol;
-		if (cur_obj->get_inters == inters_sphere)
-			if (ft_texture_sphere(ray, t, cur_obj) == 1)
-				col = &cur_obj->mat.texcol;
-		if (cur_obj->get_inters == inters_plan && cur_obj->norm.x == 1)
-			if (ft_texture_plan(ray, t, cur_obj) == 1)
-				col = &cur_obj->mat.texcol;
-		if (cur_obj->get_inters == inters_plan && cur_obj->norm.z == -1)
-			if (ft_texture_plan(ray, t, cur_obj) == 1)
-				col = &cur_obj->mat.texcol;
-		if (cur_obj->get_inters == inters_plan && (cur_obj->norm.y == -1 || cur_obj->norm.y == 1))
-			if (ft_texture_plan(ray, t, cur_obj) == 1)
-				col = &cur_obj->mat.texcol;
+	if (cur_obj->get_inters == inters_cyl)
+		ft_texture(ray, t, cur_obj, e);
+	if (cur_obj->get_inters == inters_cone)
+		ft_texture_cone(ray, t, cur_obj);
+	if (cur_obj->get_inters == inters_sphere)
+		ft_texture_sphere(ray, t, cur_obj);
+	if (cur_obj->get_inters == inters_plan && cur_obj->norm.x == 1)
+		ft_texture_plan(ray, t, cur_obj);
+	if (cur_obj->get_inters == inters_plan && cur_obj->norm.z == -1)
+		ft_texture_plan(ray, t, cur_obj);
+	if (cur_obj->get_inters == inters_plan && (cur_obj->norm.y == -1 || cur_obj->norm.y == 1))
+		ft_texture_plan(ray, t, cur_obj);
 	}
 	if (ray->iter >= NB_ITER)
 		return ((t_color *)ft_memset(final_col, 0, sizeof(t_color)));
