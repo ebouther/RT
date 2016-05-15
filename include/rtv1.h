@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/13 15:01:58 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/15 15:30:56 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,6 +257,8 @@ int				ft_set_config(char *config, t_env *e);
 void			ft_set_mat(char *mat, t_obj *obj);
 void			ft_set_equ(char *equ, t_obj *obj);
 int				ft_set_union(char *unio, t_env *e);
+int				ft_set_inters(char *inters, t_env *e);
+int				ft_set_sub(char *sub, t_env *e);
 int				ft_set_cylinder(char *cylinder, t_env *e, t_nod *prnt);
 int				ft_set_sphere(char *sphere, t_env *e, t_nod *prnt);
 
