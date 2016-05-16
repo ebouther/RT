@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/12 17:24:09 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/16 16:44:27 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,13 @@ void        ft_stock_size_tex(t_obj *cur_obj)
 void    init_tex(t_env  *e)
 {
 	t_list  *lst;
+
 	lst = e->obj;
 	while (lst)
 	{
-		if (((t_obj *)(lst->content))->mat.tex.tex)
+		if (((t_obj *)(lst->content))->mat.tex.tex != NULL)
 		{
-			if (((t_obj *)lst->content)->mat.tex.tex != NULL)
-				ft_stock_size_tex((t_obj *)lst->content);
+			ft_stock_size_tex((t_obj *)lst->content);
 			((t_obj *)(lst->content))->mat.tex.img = mlx_xpm_file_to_image(e->mlx, ((t_obj *)(lst->content))->mat.tex.tex, &((t_obj *)(lst->content))->mat.tex.width1, &((t_obj *)(lst->content))->mat.tex.height1);
 			((t_obj *)(lst->content))->mat.tex.buf = mlx_get_data_addr(((t_obj *)(lst->content))->mat.tex.img, &((t_obj *)(lst->content))->mat.tex.bpp, &((t_obj *)(lst->content))->mat.tex.ls, &((t_obj *)(lst->content))->mat.tex.endian);
 		}

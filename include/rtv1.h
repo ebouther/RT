@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/13 17:15:51 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/16 17:02:22 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@
 # include "libft.h"
 # include <math.h>
 # include <fcntl.h>
+# include <time.h>
 # include "mlx.h"
 
-# define SIZE_W 1200
-# define SIZE_H 1080
+# define SIZE_W 100
+# define SIZE_H 100
 # define WIDTH 100
 # define HIGHT 80
+# define NOISE_WIDTH 1000
+# define NOISE_HEIGHT 1000
 # define FAR 1000000000
 # define NB_ITER 10
 
@@ -51,6 +54,28 @@ typedef struct	s_color_res
 	t_color		*refl;
 	t_color		*refr;
 }				t_color_res;
+
+typedef struct	s_smooth
+{
+	double		fract_x;
+	double		fract_y;
+	double		value;
+	int			x1;
+	int			y1;
+	int			x2;
+	int			y2;
+}				t_smooth;
+
+typedef struct	s_wood
+{
+	t_color		c;
+	double		x_val;
+	double		y_val;
+	double		dist_val;
+	double		sine_val;
+	int			x;
+	int			y;
+}				t_wood;
 
 typedef struct s_tex
 {
@@ -226,6 +251,19 @@ int				ft_get_tores(char *objects, size_t len, t_env *e);
 int				ft_get_lights(char *lights, size_t len, t_env *e);
 int				ft_set_config(char *config, t_env *e);
 void			ft_set_mat(char *mat, t_obj *obj);
+
+/*
+** Noise
+*/
+void			generate_noise(double ***noise);
+double			smooth_noise(double x, double y, double ***noise);
+double			turbulence(double x, double y, double size, double ***noise);
+char			*gen_noise(double size);
+char			*gen_wood(double xy_period, double turb_power, double turb_size);
+
+t_color			get_pixel_color(char *data, int x, int y);
+void			put_pixel(char **data, int x, int y, int color);
+
 
 t_ray			*ft_calc_ray(int x, int y, t_env *e);
 t_color			*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj);

@@ -80,6 +80,7 @@ PARSER_FILES = parsing.c \
 			   light_parsing.c \
 			   config_parsing.c \
 			   mat_parsing.c \
+			   noise_parser.c \
 
 PARSER = $(addprefix $(PARSER_PATH), $(PARSER_FILES))
 PARSER_OBJ_PATH = $(addprefix $(OBJ_PATH), $(PARSER_PATH))

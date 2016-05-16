@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/13 17:25:20 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/16 17:27:37 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,6 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 		printf("ray_pos = %f, %f, %f\n",ray->pos.x, ray->pos.y, ray->pos.z);
 		printf("ray_dir = %f, %f, %f\n",ray->dir.x, ray->dir.y, ray->dir.z);
 		printf("cur obj : opac %f, refl %f\n",cur_obj->mat.opac, cur_obj->mat.refl);
-
 	}
 	work.obj = cur_obj;
 	col_res = (t_color_res){{0, 0, 0}, {0, 0, 0}, NULL, NULL};
@@ -144,7 +143,7 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	cur_obj->mat.texcol = cur_obj->mat.col;
 	if (cur_obj->mat.grid == TRUE)
 		ft_checkerboard(ray, cur_obj, t, (t_color){1, 1, 0});
-	if(cur_obj->mat.tex.tex != NULL)
+	if (cur_obj->mat.tex.buf != NULL)
 		ft_wich_texture(ray, t, cur_obj, e);
 	if (ray->iter >= NB_ITER)
 		return ((t_color *)ft_memset(final_col, 0, sizeof(t_color)));
