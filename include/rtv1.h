@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/15 15:30:56 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/16 18:11:31 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,10 @@ typedef struct	s_obj
 	t_equ	equ;
 }				t_obj;
 
+typedef struct	s_obj_cp
+{
+}				t_obj_cp;
+
 typedef	struct	s_pix
 {
 	t_obj		*obj;
@@ -150,6 +154,7 @@ typedef struct	s_nod
 	struct s_nod		*l;
 	t_obj_col			*obj_col;
 	t_obj				*obj;
+	int					id;
 }				t_nod;
 
 typedef struct	s_env
@@ -171,6 +176,7 @@ typedef struct	s_env
 	int		color_m;
 	double	amb;
 	t_pix	*pix;
+	t_list	*c_obj;
 }				t_env;
 
 typedef struct	s_work
@@ -256,11 +262,15 @@ int				ft_get_lights(char *lights, size_t len, t_env *e);
 int				ft_set_config(char *config, t_env *e);
 void			ft_set_mat(char *mat, t_obj *obj);
 void			ft_set_equ(char *equ, t_obj *obj);
-int				ft_set_union(char *unio, t_env *e);
-int				ft_set_inters(char *inters, t_env *e);
-int				ft_set_sub(char *sub, t_env *e);
+int				ft_get_union(char *unio, t_env *e);
+int				ft_get_inter(char *inters, t_env *e);
+int				ft_get_sub(char *sub, t_env *e);
 int				ft_set_cylinder(char *cylinder, t_env *e, t_nod *prnt);
 int				ft_set_sphere(char *sphere, t_env *e, t_nod *prnt);
+int				ft_set_cone(char *cone, t_env *e, t_nod *prnt);
+int				ft_set_plane(char *plane, t_env *e, t_nod *prnt);
+int				ft_get_cobj(char *objects, char *op, t_env *e, int (*f)());
+int				ft_get_objtolist(char *objects, size_t len, t_env *e);
 
 t_ray			*ft_calc_ray(int x, int y, t_env *e);
 t_color			*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj);

@@ -6,13 +6,13 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:46:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/15 10:57:28 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/16 14:16:04 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static int	ft_set_plane(char *plane, t_env *e)
+int			ft_set_plane(char *plane, t_env *e, t_nod *prnt)
 {
 	char	*position;
 	char	*normal;
@@ -38,7 +38,10 @@ static int	ft_set_plane(char *plane, t_env *e)
 	nod.op = NULL;
 	nod.obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
 	nod.obj_col->neg = 1;
-	ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
+	if (e)
+		ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
+	else
+		ft_memcpy(prnt, &nod, sizeof(t_nod));
 	ft_strdel(&position);
 	ft_strdel(&normal);
 	ft_strdel(&mat);
@@ -53,7 +56,7 @@ int			ft_get_planes(char *objects, size_t len, t_env *e)
 	pos = 0;
 	while ((plane = ft_get_inner(objects, "plane", &pos)) != NULL)
 	{
-		ft_set_plane(plane, e);
+		ft_set_plane(plane, e, NULL);
 		ft_strdel(&plane);
 		if ((int)len - pos < 0)
 			break ;

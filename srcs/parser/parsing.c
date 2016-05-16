@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 10:36:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/15 15:35:19 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/16 17:24:49 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ static int	ft_set_objects(char *objects, t_env *e)
 	ft_get_pobjs(objects, len, e);
 	ft_get_cones(objects, len, e);
 	ft_get_planes(objects, len, e);
+	ft_get_objtolist(objects, len, e);
 	return (0);
 }
 
@@ -140,16 +141,14 @@ int			ft_parse_scene(char *file, t_env *e)
 	char	*lights;
 	char	*objects;
 	char	*config;
-	char	*unio;
-	char	*inters;
-	char	*sub;
+	char	*c_obj;
 
-	if ((unio = ft_get_inner(file, "union", NULL)))
-		ft_set_union(unio, e);
-	if ((inters = ft_get_inner(file, "inters", NULL)))
-		ft_set_inters(inters, e);
-	if ((sub = ft_get_inner(file, "sub", NULL)))
-		ft_set_sub(sub, e);
+	if ((c_obj = ft_get_inner(file, "obj_composed", NULL)))
+	{
+		ft_get_cobj(c_obj, "union", e, &ft_get_union);
+		ft_get_cobj(c_obj, "sub", e, &ft_get_sub);
+		ft_get_cobj(c_obj, "inters", e, &ft_get_inter);
+	}
 	if ((scene = ft_get_inner(file, "scene", NULL)) == NULL)
 		ft_error_exit("Add a <scene> object to your scene.\n");
 	if ((camera = ft_get_inner(scene, "camera", NULL)) == NULL)

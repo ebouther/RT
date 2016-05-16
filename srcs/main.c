@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:52:18 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/12 16:26:22 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/16 16:55:41 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_init_env(t_env *e)
 {
 	e->obj = NULL;
+	e->c_obj = NULL;
 	e->light = NULL;
 	e->mlx = NULL;
 	e->win = NULL;

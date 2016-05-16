@@ -6,13 +6,13 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:49:15 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/15 10:55:47 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/16 14:12:26 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static int	ft_set_cone(char *cone, t_env *e)
+int			ft_set_cone(char *cone, t_env *e, t_nod *prnt)
 {
 	char	*position;
 	char	*direction;
@@ -42,7 +42,10 @@ static int	ft_set_cone(char *cone, t_env *e)
 	nod.op = NULL;
 	nod.obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
 	nod.obj_col->neg = 1;
-	ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
+	if (e)
+		ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
+	else
+		ft_memcpy(prnt, &nod, sizeof(t_nod));
 	ft_strdel(&position);
 	ft_strdel(&direction);
 	ft_strdel(&angle);
@@ -58,7 +61,7 @@ int			ft_get_cones(char *objects, size_t len, t_env *e)
 	pos = 0;
 	while ((cone = ft_get_inner(objects, "cone", &pos)) != NULL)
 	{
-		ft_set_cone(cone, e);
+		ft_set_cone(cone, e, NULL);
 		ft_strdel(&cone);
 		if ((int)len - pos < 0)
 			break ;
