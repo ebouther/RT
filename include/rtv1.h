@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/16 17:02:22 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/18 19:47:45 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 # include <time.h>
 # include "mlx.h"
 
-# define SIZE_W 100
-# define SIZE_H 100
+# define THREAD_NUM 8
+# define SIZE_W 1000
+# define SIZE_H 1000
 # define WIDTH 100
 # define HIGHT 80
 # define NOISE_WIDTH 1000
@@ -176,6 +177,7 @@ typedef struct	s_env
 	t_list	*light;
 	int		color_m;
 	double	amb;
+	int		start;
 }				t_env;
 
 typedef struct	s_work

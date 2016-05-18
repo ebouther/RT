@@ -6,13 +6,14 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/16 16:44:27 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/18 19:34:55 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-#include <stdio.h>
+#include <pthread.h>
 
+#include <stdio.h>
 t_color		*ft_contact(t_ray *ray, t_env *e)
 {
 	t_obj	*cur_obj;
@@ -103,40 +104,65 @@ void    init_tex(t_env  *e)
 	}
 }
 
-void			ft_fill_img(t_env *e)
+static void			*ft_fill_img(void *e)
 {
 	int				x;
 	int				y;
+	int				start;
+	int				end;
 	t_color			*couleur;
 	t_ray			*ray;
 
-	init_tex(e);
-	x = 0;
-	while (x < SIZE_W)
+	start = floor((SIZE_W / THREAD_NUM * ((t_env *)e)->start));
+	end = ceil((SIZE_W / THREAD_NUM) * (((t_env *)e)->start + 1));
+	x = start;
+	while (x < end)
 	{
 		y = 0;
 		while (y < SIZE_H)
 		{
 			kk = 0;
-			if (e->xx == x && e->yy == y)
+			if (((t_env *)e)->xx == x && ((t_env *)e)->yy == y)
 				kk = 1;
-			ray = ft_calc_ray(x, y, e);
-			couleur = ft_contact(ray, e);
-			ft_put_pixelle(x, y, ft_rgbtoi(couleur), e);
+			ray = ft_calc_ray(x, y, ((t_env *)e));
+			couleur = ft_contact(ray, ((t_env *)e));
+			ft_put_pixelle(x, y, ft_rgbtoi(couleur), ((t_env *)e));
 			free(ray);
 			y++;
 		}
 		x++;
 	}
-	mlx_clear_window(e->mlx, e->win);
-	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
+	//mlx_clear_window(((t_env *)e)->mlx, ((t_env *)e)->win);
+//	mlx_put_image_to_window(((t_env *)e)->mlx, ((t_env *)e)->win, ((t_env *)e)->img, 0, 0);
+	printf("\n\n\n\n\n\n\nTHREAD : '%d' is done\n\n\n\n\n", ((t_env *)e)->start);
+	pthread_exit(NULL);
 }
 
 void			ft_creat_img(t_env *e)
 {
+	t_env		d[THREAD_NUM];
+	int			pos;
+	pthread_t	thr[THREAD_NUM];
+
 	e->img = mlx_new_image(e->mlx, SIZE_W, SIZE_H);
 	e->data = mlx_get_data_addr(e->img, &e->bpp, &e->ls, &e->endian);
-	ft_fill_img(e);
+	//init_tex(e);
+	pos = 0;
+	while (pos < THREAD_NUM)
+	{
+		ft_memcpy(&d[pos], e, sizeof(t_env));
+		d[pos].start = pos;
+		if (pthread_create(&thr[pos], NULL, ft_fill_img, &d[pos]))
+			ft_error_exit("THREAD ERROR.\n");
+		pos++;
+	}
+	pos = 0;
+	while (pos < THREAD_NUM)
+		pthread_join(thr[pos++], NULL);
+/*	pos = 0;
+	while (pos < SIZE_W * SIZE_H)
+		printf("%x ", ((unsigned int *)e->data)[pos++]);*/
+	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 }
 
 int				key_hook(int kc, t_env *e)
