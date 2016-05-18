@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/16 18:11:31 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/18 16:22:09 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,9 +262,9 @@ int				ft_get_lights(char *lights, size_t len, t_env *e);
 int				ft_set_config(char *config, t_env *e);
 void			ft_set_mat(char *mat, t_obj *obj);
 void			ft_set_equ(char *equ, t_obj *obj);
-int				ft_get_union(char *unio, t_env *e);
-int				ft_get_inter(char *inters, t_env *e);
-int				ft_get_sub(char *sub, t_env *e);
+int				ft_get_union(char *unio, t_env *e, t_nod *prnt);
+int				ft_get_inter(char *inters, t_env *e, t_nod *prnt);
+int				ft_get_sub(char *sub, t_env *e, t_nod *prnt);
 int				ft_set_cylinder(char *cylinder, t_env *e, t_nod *prnt);
 int				ft_set_sphere(char *sphere, t_env *e, t_nod *prnt);
 int				ft_set_cone(char *cone, t_env *e, t_nod *prnt);
