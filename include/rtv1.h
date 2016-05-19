@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/18 19:47:45 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/19 14:57:03 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ typedef struct s_mat
 	double		opac;
 	double		refr;
 	double		refl;
-	t_color		texcol;
 }				t_mat;
 
 typedef struct	s_type
@@ -198,7 +197,7 @@ t_ray			*ft_refl(t_ray *ray, t_work *work);
 /*
 ** texture
 */
-int				ft_wich_texture(t_ray *ray, double t, t_obj *cur_obj, t_env *e);
+int				ft_select_texture(t_ray *ray, double t, t_obj *cur_obj, t_color *col);
 
 /*
 ** Normals

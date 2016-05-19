@@ -6,7 +6,7 @@
 /*   By: pboutin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/13 14:34:14 by pboutin           #+#    #+#             */
-/*   Updated: 2016/05/16 17:26:12 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/19 14:57:18 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void        ft_rot2(double rx, double rz, t_vec3 *vec)
 	vec->z = x * (-cos(rx) * sin(ry) * cos(rz) + sin(rx) * sin(rz)) + y * (cos(rx) * sin(ry) * sin(rz) + sin(rx) * cos(rz)) + vec->z * (cos(rx) * cos(ry));
 }
 
-int    ft_texture(t_ray *ray, double t, t_obj *cur_obj, t_env *e)
+int    ft_texture(t_ray *ray, double t, t_obj *cur_obj, t_color *col)
 {
 	float       teta;
 	float       tetaA;
@@ -64,10 +64,7 @@ int    ft_texture(t_ray *ray, double t, t_obj *cur_obj, t_env *e)
 	float       zA;
 	float       zB;
 	float       z;
-	t_color     *col;
 	t_vec3      pos;
-	//  ft_putendl("ok");
-
 
 	ft_normalise(&ray->dir);
 	pos.x = ray->dir.x * t + ray->pos.x - cur_obj->pos.x;
@@ -95,45 +92,34 @@ int    ft_texture(t_ray *ray, double t, t_obj *cur_obj, t_env *e)
 	zB = pos.y;
 	tetaA = acos(-1);
 	tetaB = acos(1);
-	(void)e;
 	if (teta < tetaA && teta > tetaB && z < zB && z > zA)
 	{
-		if ((col = malloc(sizeof(t_color))) == NULL)
-			exit(-1);
-*col = ft_get_tex_color((int)((teta - tetaA) / (tetaB - tetaA) * cur_obj->mat.tex.width1), (int)(cur_obj->mat.tex.height1 - (((z - zA) / (zB - zA)) * cur_obj->mat.tex.height1)), cur_obj);
-        cur_obj->mat.texcol.r = col->r;
-        cur_obj->mat.texcol.g = col->g;
-        cur_obj->mat.texcol.b = col->b;
+		*col = ft_get_tex_color((int)((teta - tetaA) / (tetaB - tetaA) * cur_obj->mat.tex.width1), (int)(cur_obj->mat.tex.height1 - (((z - zA) / (zB - zA)) * cur_obj->mat.tex.height1)), cur_obj);
         return (1);
     }
     return(0);
 }
 
-unsigned int  ft_texture_sphere(t_ray *ray, double t, t_obj *cur_obj)
+unsigned int  ft_texture_sphere(t_ray *ray, double t, t_obj *cur_obj, t_color *col)
 {
-    float   s;
-    t_color     *col;
+    float	s;
 
     s = (acos((ray->dir.y * t + ray->pos.y - cur_obj->pos.y) / cur_obj->rayon) / M_PI);
-    if ((col = malloc(sizeof(t_color))) == NULL)
-        exit(-1);
-    *col = ft_get_tex_color((int)(s * cur_obj->mat.tex.height1), (int)((acos((ray->dir.x * t + ray->pos.x - cur_obj->pos.x) / (cur_obj->rayon * sin(M_PI * s))) / (2 * M_PI)) * cur_obj->mat.tex.width1), cur_obj);
-    cur_obj->mat.texcol.r = col->r;
-    cur_obj->mat.texcol.g = col->g;
-    cur_obj->mat.texcol.b = col->b;
+    *col = ft_get_tex_color((int)(s * cur_obj->mat.tex.height1),
+		(int)((acos((ray->dir.x * t + ray->pos.x - cur_obj->pos.x)
+		/ (cur_obj->rayon * sin(M_PI * s))) / (2 * M_PI)) * cur_obj->mat.tex.width1), cur_obj);
     return (1);
 }
 
-unsigned int  ft_texture_cone( t_ray *ray, double t, t_obj *cur_obj)
+unsigned int  ft_texture_cone( t_ray *ray, double t, t_obj *cur_obj, t_color *col)
 {
-    float     teta;
-    float     tetaA;
-    float     tetaB;
-    float     zA;
-    float     zB;
-    float     z;
-    float     rayon;
-    t_color       *col;
+    float	teta;
+    float	tetaA;
+    float	tetaB;
+    float	zA;
+    float	zB;
+    float	z;
+    float	rayon;
 	t_vec3	pos;
 
 	ft_normalise(&ray->dir);
@@ -165,25 +151,18 @@ unsigned int  ft_texture_cone( t_ray *ray, double t, t_obj *cur_obj)
     tetaB = acos(1);
     if (teta < tetaA && teta > tetaB && z < zB && z > zA)
     {
-        if ((col = malloc(sizeof(t_color))) == NULL)
-            exit(-1);
-        //      printf("VALUE : '%f'\n", t);
         *col = ft_get_tex_color((int)((teta - tetaA) / (tetaB - tetaA) * cur_obj->mat.tex.width1), (int)(cur_obj->mat.tex.height1 - (((z - zA) / (zB - zA)) * cur_obj->mat.tex.height1)), cur_obj);
-        cur_obj->mat.texcol.r = col->r;
-        cur_obj->mat.texcol.g = col->g;
-        cur_obj->mat.texcol.b = col->b;
         return (1);
     }
     return(0);
 }
 
-unsigned int ft_texture_plan(t_ray *ray, double t, t_obj *cur_obj)
+unsigned int ft_texture_plan(t_ray *ray, double t, t_obj *cur_obj, t_color *col)
 {
-    float   z;
-    float   zB;
-    float   y;
-    float   		yB;
-    t_color			*col;
+    float	z;
+    float	zB;
+    float	y;
+    float	yB;
 
     z = 0;
     y = 0;
@@ -206,30 +185,26 @@ unsigned int ft_texture_plan(t_ray *ray, double t, t_obj *cur_obj)
     yB = cur_obj->mat.tex.off_y - cur_obj->mat.tex.height;
     if (z < cur_obj->mat.tex.off_x && z > zB && y < cur_obj->mat.tex.off_y && y > yB)
     {
-        if ((col = malloc(sizeof(t_color))) == NULL)
-            exit(-1);
         *col = ft_get_tex_color((int)(((z - zB) / (cur_obj->mat.tex.off_x - zB)) * cur_obj->mat.tex.width1),
 			(int)(cur_obj->mat.tex.height1 - (((y - yB) / (cur_obj->mat.tex.off_y - yB)) * cur_obj->mat.tex.height1)), cur_obj);
-        cur_obj->mat.texcol.r = col->r;
-        cur_obj->mat.texcol.g = col->g;
-        cur_obj->mat.texcol.b = col->b;
+		return (1);
     }
-    return (1);
+    return (0);
 }
 
-int		ft_wich_texture(t_ray *ray, double t, t_obj *cur_obj,t_env *e)
+int		ft_select_texture(t_ray *ray, double t, t_obj *cur_obj, t_color *col)
 {
 	if (cur_obj->get_inters == inters_cyl)
-        ft_texture(ray, t, cur_obj, e);
+        ft_texture(ray, t, cur_obj, col);
 	else if (cur_obj->get_inters == inters_cone)
-        ft_texture_cone(ray, t, cur_obj);
+        ft_texture_cone(ray, t, cur_obj, col);
 	else if (cur_obj->get_inters == inters_sphere)
-        ft_texture_sphere(ray, t, cur_obj);
+        ft_texture_sphere(ray, t, cur_obj, col);
 	//else if (cur_obj->get_inters == inters_plan && cur_obj->norm.x == 1)
     //    ft_texture_plan(ray, t, cur_obj);
 	//else if (cur_obj->get_inters == inters_plan && cur_obj->norm.z == -1)
     //    ft_texture_plan(ray, t, cur_obj);
 	else if (cur_obj->get_inters == inters_plan) //&& (cur_obj->norm.y == -1 || cur_obj->norm.y == 1))
-        ft_texture_plan(ray, t, cur_obj);
+        ft_texture_plan(ray, t, cur_obj, col);
 	return(1);
 }

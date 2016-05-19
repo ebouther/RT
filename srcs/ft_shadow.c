@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/16 17:27:37 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/19 15:03:44 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	ft_color_mode(t_color *c, t_env *e)
 	}
 }
 
-static void	ft_checkerboard(t_ray *ray, t_obj *cur_obj, double t, t_color col)
+static int	ft_checkerboard(t_ray *ray, double t)
 {
 	t_vec3	pos;
 
@@ -115,7 +115,8 @@ static void	ft_checkerboard(t_ray *ray, t_obj *cur_obj, double t, t_color col)
 	if ((int)pos.x <= 0)
 		pos.x--;
 	if (((int)pos.x + (int)pos.y) % 2 == 0)
-		cur_obj->mat.texcol = col;
+		return (1);
+	return (0);
 }
 
 t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
@@ -127,6 +128,7 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	double		refl;
 	t_ray		*ray_refr;
 	t_ray		*ray_refl;
+	t_color		col;
 
 	if (kk)
 	{
@@ -140,11 +142,11 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	if ((final_col = (t_color*)malloc(sizeof(t_color))) == NULL)
 		exit(-1);
 	ft_bzero(final_col, sizeof(t_color));
-	cur_obj->mat.texcol = cur_obj->mat.col;
-	if (cur_obj->mat.grid == TRUE)
-		ft_checkerboard(ray, cur_obj, t, (t_color){1, 1, 0});
+	col = cur_obj->mat.col;
+	if (cur_obj->mat.grid == TRUE && ft_checkerboard(ray, t))
+		col = (t_color){1, 1, 0};
 	if (cur_obj->mat.tex.buf != NULL)
-		ft_wich_texture(ray, t, cur_obj, e);
+		ft_select_texture(ray, t, cur_obj, &col);
 	if (ray->iter >= NB_ITER)
 		return ((t_color *)ft_memset(final_col, 0, sizeof(t_color)));
 	work.ray = ft_recalc_ori(ray, t);
@@ -177,12 +179,12 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	if (kk)
 		printf("col_diffu[%d] = %f, %f %f\n",ray->iter, col_res.diffuse.r,col_res.diffuse.g,col_res.diffuse.b);
 	ft_bri_max(&col_res);
-	final_col->r = ft_color_clip(e->amb * cur_obj->mat.texcol.r
-			+ cur_obj->mat.texcol.r * col_res.diffuse.r * cur_obj->mat.opac + col_res.specular.r + cur_obj->mat.refr * (col_res.refr ? col_res.refr->r : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->r : 0));
-	final_col->g = ft_color_clip(e->amb * cur_obj->mat.texcol.g
-			+ cur_obj->mat.texcol.g * col_res.diffuse.g * cur_obj->mat.opac + col_res.specular.g + cur_obj->mat.refr * (col_res.refr ? col_res.refr->g : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->g : 0));
-	final_col->b = ft_color_clip(e->amb * cur_obj->mat.texcol.b
-			+ cur_obj->mat.texcol.b * col_res.diffuse.b * cur_obj->mat.opac + col_res.specular.b + cur_obj->mat.refr * (col_res.refr ? col_res.refr->b : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->b : 0));
+	final_col->r = ft_color_clip(e->amb * col.r
+			+ col.r * col_res.diffuse.r * cur_obj->mat.opac + col_res.specular.r + cur_obj->mat.refr * (col_res.refr ? col_res.refr->r : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->r : 0));
+	final_col->g = ft_color_clip(e->amb * col.g
+			+ col.g * col_res.diffuse.g * cur_obj->mat.opac + col_res.specular.g + cur_obj->mat.refr * (col_res.refr ? col_res.refr->g : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->g : 0));
+	final_col->b = ft_color_clip(e->amb * col.b
+			+ col.b * col_res.diffuse.b * cur_obj->mat.opac + col_res.specular.b + cur_obj->mat.refr * (col_res.refr ? col_res.refr->b : 0) + (cur_obj->mat.refl + refl) * (col_res.refl ? col_res.refl->b : 0));
 	ft_color_mode(final_col, e);
 	free(work.normal);
 	free(work.ray);

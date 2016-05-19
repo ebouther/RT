@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/18 19:34:55 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/19 14:25:18 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,21 +132,19 @@ static void			*ft_fill_img(void *e)
 		}
 		x++;
 	}
-	//mlx_clear_window(((t_env *)e)->mlx, ((t_env *)e)->win);
-//	mlx_put_image_to_window(((t_env *)e)->mlx, ((t_env *)e)->win, ((t_env *)e)->img, 0, 0);
-	printf("\n\n\n\n\n\n\nTHREAD : '%d' is done\n\n\n\n\n", ((t_env *)e)->start);
+	printf("\n\n\nTHREAD: '%d' is done\n", ((t_env *)e)->start);
 	pthread_exit(NULL);
 }
 
 void			ft_creat_img(t_env *e)
 {
 	t_env		d[THREAD_NUM];
-	int			pos;
 	pthread_t	thr[THREAD_NUM];
+	int			pos;
 
 	e->img = mlx_new_image(e->mlx, SIZE_W, SIZE_H);
 	e->data = mlx_get_data_addr(e->img, &e->bpp, &e->ls, &e->endian);
-	//init_tex(e);
+	init_tex(e);
 	pos = 0;
 	while (pos < THREAD_NUM)
 	{
@@ -159,9 +157,6 @@ void			ft_creat_img(t_env *e)
 	pos = 0;
 	while (pos < THREAD_NUM)
 		pthread_join(thr[pos++], NULL);
-/*	pos = 0;
-	while (pos < SIZE_W * SIZE_H)
-		printf("%x ", ((unsigned int *)e->data)[pos++]);*/
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 }
 

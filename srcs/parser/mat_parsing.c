@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 13:57:32 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/16 17:29:35 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/19 12:44:51 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,18 @@ void		ft_set_tex(char *tex, t_obj *obj)
 	obj->mat.tex.tex = ((value = ft_get_inner(tex, "path", NULL)) == NULL)
 		? NULL : ft_strdup(value);
 	free(value);
-
 	(value = ft_get_inner(tex, "perlin", NULL)) == NULL ?
 	obj->mat.tex.buf = NULL	: ft_set_noise(value, obj);
 	free(value);
-	
 	obj->mat.tex.height = ((value = ft_get_inner(tex, "height", NULL)) == NULL)
-		? 20 : ft_atoi(value); //change default values
+		? -70 : ft_atoi(value);
 	free(value);
-	
 	obj->mat.tex.width = ((value = ft_get_inner(tex, "width", NULL)) == NULL)
-		? 20 : ft_atoi(value); //change default values
+		? 0 : ft_atoi(value);
 	free(value);
-
 	obj->mat.tex.off_x	= ((value = ft_get_inner(tex, "offset_x", NULL)) == NULL)
 		? 0 : ft_atod(value);
 	free(value);
-
 	obj->mat.tex.off_y	= ((value = ft_get_inner(tex, "offset_y", NULL)) == NULL)
 		? 0 : ft_atod(value);
 	free(value);
