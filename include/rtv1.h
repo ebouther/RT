@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/19 14:57:03 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/20 18:05:10 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct s_mat
 	double		opac;
 	double		refr;
 	double		refl;
+	char		waves;
 }				t_mat;
 
 typedef struct	s_type

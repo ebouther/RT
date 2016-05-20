@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:02:02 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/20 16:59:28 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/20 18:04:40 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ t_vec3	*normal_plan(t_ray *ray, t_obj *obj)
 	if ((res = (t_vec3 *)malloc(sizeof(t_vec3))) == NULL)
 		exit(-1);
 	*res = (t_vec3){obj->norm.x, obj->norm.y, obj->norm.z};
-//	if (obj->mat.waves == TRUE)
+	if (obj->mat.waves == TRUE)
 		*res = ft_rotate(*res, (t_vec3){0, 0, 0}, (t_vec3){sin(ray->pos.y), sin(ray->pos.x), sin(ray->pos.z)});
 	ft_normalise(res);
 	return (scal(*res, ray->dir) < 0 ? res : pro(-1, res));

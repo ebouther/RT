@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 13:57:32 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/19 12:44:51 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/20 18:09:14 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,9 @@ void		ft_set_mat(char *mat, t_obj *obj)
 
 	obj->mat.opac = ((value = ft_get_inner(mat, "opac", NULL)) == NULL)
 		? 1 - obj->mat.refl - obj->mat.refr : ft_atod(value);
+	free(value);
+	
+	obj->mat.waves = ((value = ft_get_inner(mat, "waves", NULL)) == NULL)
+		? FALSE : TRUE;
 	free(value);
 }
