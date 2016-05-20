@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/19 14:25:18 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/20 17:52:54 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,12 @@ void        ft_stock_size_tex(t_obj *cur_obj)
 
 	i = 0;
 	buf = NULL;
-	printf("%s", cur_obj->mat.tex.tex);
+	printf("[*-\\_/-*] %s [*-\\_/-*]\n", cur_obj->mat.tex.tex);
 	if ((fd = open(cur_obj->mat.tex.tex, O_RDONLY)) == -1)
 		ft_error_exit("error: bad texture file path.\n");
 	while (i++ != 4)
 		res = get_next_line(fd, &buf);
+//	printf("RES: '%s'\n", buf);
 	split = ft_strsplit(buf, ' ');
 	width = ft_strdup(split[0]);
 	height = ft_strdup(split[1]);
@@ -81,9 +82,12 @@ void        ft_stock_size_tex(t_obj *cur_obj)
 	while (split[i])
 		ft_strdel(split + i++);
 	free(split);
-	cur_obj->mat.tex.width1 = atoi(width);
-	ft_putnbr(cur_obj->mat.tex.width1);
+	cur_obj->mat.tex.width1 = atoi(width + 1);
 	cur_obj->mat.tex.height1 = atoi(height);
+	//printf("WIDTH: '%d'\n", cur_obj->mat.tex.width1);
+	//printf("HEIGHT: '%d'\n", cur_obj->mat.tex.height1);
+	ft_strdel(&width);
+	ft_strdel(&height);
 	close(fd);
 }
 

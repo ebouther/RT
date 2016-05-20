@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/19 15:03:44 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/20 17:51:13 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,13 +130,6 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	t_ray		*ray_refl;
 	t_color		col;
 
-	if (kk)
-	{
-		printf("\nray iter = %d\n",ray->iter);
-		printf("ray_pos = %f, %f, %f\n",ray->pos.x, ray->pos.y, ray->pos.z);
-		printf("ray_dir = %f, %f, %f\n",ray->dir.x, ray->dir.y, ray->dir.z);
-		printf("cur obj : opac %f, refl %f\n",cur_obj->mat.opac, cur_obj->mat.refl);
-	}
 	work.obj = cur_obj;
 	col_res = (t_color_res){{0, 0, 0}, {0, 0, 0}, NULL, NULL};
 	if ((final_col = (t_color*)malloc(sizeof(t_color))) == NULL)
