@@ -1,100 +1,127 @@
-#include <mlx.h>
-#include <stdlib.h>
-#include <time.h>
-#include <math.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   noise.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/05/06 12:22:26 by ebouther          #+#    #+#             */
+/*   Updated: 2016/05/13 15:58:03 by ebouther         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#define width 1000
-#define height 1000
+#include "noise.h"
 
-double	noise[height][width];
-
-void generateNoise()
+void		generate_noise(double ***noise)
 {
-	for (int y = 0; y < height; y++)
-		for (int x = 0; x < width; x++)
-			noise[y][x] = (rand() % 32768) / 32768.0;
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+			(*noise)[y][x++] = (rand() % 32768) / 32768.0;
+		y++;
+	}
 }
 
-double smoothNoise(double x, double y)
+double		smooth_noise(double x, double y, double ***noise)
 {
-	double fractX = x - (int)x;
-	double fractY = y - (int)y;
+	t_smooth s;
 
-	int x1 = ((int)x + width) % width;
-	int y1 = ((int)y + height) % height;
-
-	int x2 = (x1 + width - 1) % width;
-	int y2 = (y1 + height - 1) % height;
-
-	double value = 0.0;
-
-	value += fractX * fractY * noise[y1][x1];
-	value += (1 - fractX) * fractY * noise[y1][x2];
-	value += fractX * (1 - fractY) * noise[y2][x1];
-	value += (1 - fractX) * (1 - fractY) * noise[y2][x2];
-
-	return value;
+	s.value = 0.0;
+	s.fract_x = x - (int)x;
+	s.fract_y = y - (int)y;
+	s.x1 = ((int)x + WIDTH) % WIDTH;
+	s.y1 = ((int)y + HEIGHT) % HEIGHT;
+	s.x2 = (s.x1 + WIDTH - 1) % WIDTH;
+	s.y2 = (s.y1 + HEIGHT - 1) % HEIGHT;
+	s.value += s.fract_x * s.fract_y * (*noise)[s.y1][s.x1];
+	s.value += (1 - s.fract_x) * s.fract_y * (*noise)[s.y1][s.x2];
+	s.value += s.fract_x * (1 - s.fract_y) * (*noise)[s.y2][s.x1];
+	s.value += (1 - s.fract_x) * (1 - s.fract_y) * (*noise)[s.y2][s.x2];
+	return (s.value);
 }
 
-double turbulence(double x, double y, double size)
+double		turbulence(double x, double y, double size, double ***noise)
 {
-	double value = 0.0, initialSize = size;
+	double	value;
+	double	initial_size;
 
+	value = 0.0;
+	initial_size = size;
 	while (size >= 1)
 	{
-		value += smoothNoise(x / size, y / size) * size;
+		value += smooth_noise(x / size, y / size, noise) * size;
 		size /= 2.0;
 	}
-
-	return (128.0 * value / initialSize);
-
-}
-void	put_pixel(char **data, int x, int y, int color)
-{
-	int pos = 4 * y * width + 4 * x;
-	(*data)[pos] = color >> 16;
-	(*data)[pos + 1] = color >> 8;
-	(*data)[pos + 2] = color;
+	return (128.0 * value / initial_size);
 }
 
-int main(int argc, char **argv)
+char		*gen_noise(double size, t_mlx *m)
 {
-	void	*mlx_ptr = mlx_init();
-	void	*mlx_win = mlx_new_window ( mlx_ptr, width, height, "TEST" );
-	void	*mlx_img = mlx_new_image (mlx_ptr, width, height);
+	t_img	i;
+	t_color	c;
+	int		x;
+	int		y;
+	char	output[50];
 
-	srand(time(NULL));
-
-	int bpp;
-	int size_line;
-	int endian;
-
-	char	*data = mlx_get_data_addr(mlx_img, &bpp, &size_line, &endian);
-
-	char	r;
-	char	g;
-	char	b;
-
-	double xyPeriod = 12.0; //number of rings
-	double turbPower = 0.1; //makes twists
-	double turbSize = 32.0; //initial size of the turbulence
-
-	generateNoise();
-	for (int y = 0; y < height; y++)
+	i.mlx_img = mlx_new_image(m->mlx_ptr, WIDTH, HEIGHT);
+	i.data = mlx_get_data_addr(i.mlx_img, &i.bpp, &i.size_line, &i.endian);
+	y = 0;
+	while (y < HEIGHT)
 	{
-		for (int x = 0; x < width; x++)
+		x = 0;
+		while (x < WIDTH)
 		{
-			double xValue = (x - width / 2) / (double)(width);
-			double yValue = (y - height / 2) / (double)(height);
-			double distValue = sqrt(xValue * xValue + yValue * yValue) + turbPower * turbulence(x, y, turbSize) / 256.0;
-			double sineValue = 128.0 * fabs(sin(2 * xyPeriod * distValue * 3.14159));
-			r = (char)(80 + sineValue);
-			g = (char)(30 + sineValue);
-			b = 30;
-			put_pixel(&data, x, y, (b << 16) + (g << 8) + r);
+			c.r = (char)turbulence(x, y, size, &m->noise);
+			c = (t_color){c.r, c.r, c.r};
+			put_pixel(&i.data, x, y, (c.b << 16) + (c.g << 8) + c.r);
+			x++;
 		}
+		y++;
 	}
-	mlx_put_image_to_window(mlx_ptr, mlx_win, mlx_img, 0, 0);
-	mlx_loop(mlx_ptr);
-	return 0;
+	mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, i.mlx_img, 0, 0);
+	snprintf(output, 50, "(UP / DOWN) Turb size: %f", size);
+	mlx_string_put(m->mlx_ptr, m->mlx_win, 10, 30, 0xffffff, output);
+	return (i.data);
+}
+
+char		*gen_wood(double xy_period, double turb_power, double turb_size,
+				t_mlx *m)
+{
+	t_wood	w;
+	t_img	i;
+
+	i.mlx_img = mlx_new_image(m->mlx_ptr, WIDTH, HEIGHT);
+	i.data = mlx_get_data_addr(i.mlx_img, &i.bpp, &i.size_line, &i.endian);
+	w.y = 0;
+	while (w.y < HEIGHT)
+	{
+		w.x = 0;
+		while (w.x < WIDTH)
+		{
+			w.x_val = (w.x - WIDTH / 2) / (double)(WIDTH);
+			w.y_val = (w.y - HEIGHT / 2) / (double)(HEIGHT);
+			w.dist_val = sqrt(w.x_val * w.x_val + w.y_val * w.y_val)
+				+ turb_power * turbulence(w.x, w.y, turb_size, &m->noise) / 256.0;
+			w.sine_val = 128.0 * fabs(sin(2 * xy_period * w.dist_val * M_PI));
+			w.c.r = (char)(80 + w.sine_val);
+			w.c.g = (char)(30 + w.sine_val);
+			w.c.b = 30;
+			put_pixel(&i.data, w.x, w.y, (w.c.b << 16) + (w.c.g << 8) + w.c.r);
+			w.x++;
+		}
+		w.y++;
+	}
+	mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, i.mlx_img, 0, 0);
+	snprintf(w.output, 50, "(UP / DOWN) Number of rings: %f", xy_period);
+	mlx_string_put(m->mlx_ptr, m->mlx_win, 90, 30, 0xffffff, w.output);
+	snprintf(w.output, 50, "(PAV: + / -) Turb power: %f", turb_power);
+	mlx_string_put(m->mlx_ptr, m->mlx_win, 90, 60, 0xffffff, w.output);
+	snprintf(w.output, 50, "(LEFT / RIGHT) Turb size: %f", turb_size);
+	mlx_string_put(m->mlx_ptr, m->mlx_win, 90, 90, 0xffffff, w.output);
+	return (i.data);
 }

@@ -83,6 +83,7 @@ PARSER_FILES = parsing.c \
 			   config_parsing.c \
 			   mat_parsing.c \
 			   equ_parsing.c \
+			   noise_parser.c 
 
 PARSER = $(addprefix $(PARSER_PATH), $(PARSER_FILES))
 PARSER_OBJ_PATH = $(addprefix $(OBJ_PATH), $(PARSER_PATH))
@@ -91,6 +92,7 @@ SRC_NAME = main.c \
 		   ft_put_pixelle.c \
 		   ft_creat_win.c \
 		   ft_cal_gen.c \
+		   ft_texture.c \
 		   ft_angle_contact.c \
 		   ft_angle_contact2.c \
 		   ft_brillance.c \

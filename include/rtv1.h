@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/10 15:41:38 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/23 10:55:17 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,22 @@
 # include "libft.h"
 # include <math.h>
 # include <fcntl.h>
+# include <time.h>
+# include <pthread.h>
 # include "mlx.h"
 
+# define THREAD_NUM 8
 # define SIZE_W 1000
-# define SIZE_H 800
+# define SIZE_H 1000
 # define WIDTH 100
 # define HIGHT 80
+# define NOISE_WIDTH 1000
+# define NOISE_HEIGHT 1000
 # define FAR 1000000000
 # define NB_ITER 10
+# define TRUE 1
+# define FALSE 0
+
 int kk;
 
 typedef struct	s_equ
@@ -59,15 +67,56 @@ typedef struct	s_color_res
 	t_color		*refr;
 }				t_color_res;
 
+typedef struct	s_smooth
+{
+	double		fract_x;
+	double		fract_y;
+	double		value;
+	int			x1;
+	int			y1;
+	int			x2;
+	int			y2;
+}				t_smooth;
+
+typedef struct	s_wood
+{
+	t_color		c;
+	double		x_val;
+	double		y_val;
+	double		dist_val;
+	double		sine_val;
+	int			x;
+	int			y;
+}				t_wood;
+
+typedef struct s_tex
+{
+	char		*tex;
+	int			height;
+	int			width;
+	double		off_x;
+	double		off_y;
+	int			height1;
+	int			width1;
+	int     	bpp;
+	int			ls;
+	int			endian;
+    void		*img;
+	char		*buf;
+}				t_tex;
+
 typedef struct s_mat
 {
 	t_color		col;
+	char		grid;
+	t_tex		tex;
 	double		brim;
 	char		brip;
 	double		i_opt;
 	double		opac;
 	double		refr;
 	double		refl;
+	char		waves;
 }				t_mat;
 
 typedef struct	s_type
@@ -156,7 +205,12 @@ typedef struct	s_env
 {
 	int		bpp;
 	int 	endian;
+	int 	endian1;
+	int		bpp1;
+	int		ls1;
 	int 	ls;
+	void	*img1;
+	char	*buf;
 	int		aa;
 	int 	xx;
 	int 	yy;
@@ -171,6 +225,7 @@ typedef struct	s_env
 	int		color_m;
 	double	amb;
 	t_pix	*pix;
+	int		start;
 }				t_env;
 
 typedef struct	s_work
@@ -188,6 +243,11 @@ void			ft_creat_win(t_env *e);
 t_ray			*ft_refr(t_ray *ray, t_work *work, double *refl);
 t_ray			*ft_refl(t_ray *ray, t_work *work);
 t_obj_col		*ft_get_inters(t_nod *nod, t_ray *ray);
+
+/*
+** texture
+*/
+int				ft_select_texture(t_ray *ray, double t, t_obj *cur_obj, t_color *col);
 
 /*
 ** Normals
@@ -251,6 +311,19 @@ int				ft_get_lights(char *lights, size_t len, t_env *e);
 int				ft_set_config(char *config, t_env *e);
 void			ft_set_mat(char *mat, t_obj *obj);
 void			ft_set_equ(char *equ, t_obj *obj);
+
+/*
+** Noise
+*/
+void			generate_noise(double ***noise);
+double			smooth_noise(double x, double y, double ***noise);
+double			turbulence(double x, double y, double size, double ***noise);
+char			*gen_noise(double size);
+char			*gen_wood(double xy_period, double turb_power, double turb_size);
+
+t_color			get_pixel_color(char *data, int x, int y);
+void			put_pixel(char **data, int x, int y, int color);
+
 
 t_ray			*ft_calc_ray(int x, int y, t_env *e);
 t_color			*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj);

@@ -1,0 +1,255 @@
+
+<scene>
+
+	<config>
+		<ambient> 0.1 </ambient>
+		<filter>  </filter>
+	</config>
+
+	<camera>
+		<position>
+			<x> 0.0 </x>
+			<y> 0.0 </y>
+			<z> -400.0 </z>
+		</position>
+
+		<angle>
+			<x> 0.0 </x>
+			<y> 0.0 </y>
+			<z> 0.0 </z>
+		</angle>
+
+		<fov> 10.0 </fov>
+	</camera>
+
+	<lights>
+
+		<light>
+			<intensity> 0.5 </intensity>
+			<position>
+				<x> -20.0 </x>
+				<y> 45.0 </y>
+				<z> -150.0 </z>
+			</position>
+			<color>
+				<r> 1.0 </r>
+				<g> 1.0 </g>
+				<b> 1.0 </b>
+			</color>
+		</light>
+	</lights>
+	<objects>
+		<plane>
+			<position>
+				<x> -50.0 </x>
+				<y> 0.0 </y>
+				<z> 0.0 </z>
+			</position>
+
+			<normal>
+				<x> 1.0 </x>
+				<y> 0.0 </y>
+				<z> 0.0 </z>
+			</normal>
+			<mat>
+				<texture>texture/42.xpm</texture>
+				<tex_height>70</tex_height>
+				<tex_width>140</tex_width>
+				<offset_x>-70</offset_x>
+				<offset_y>40</offset_y>
+				<refraction> 0 </refraction>
+				<reflection> 0 </reflection>
+				<color>
+					<r> 1.0 </r>
+					<g> 1.0 </g>
+					<b> 0 </b>
+				</color>
+			</mat>
+		</plane>
+		<plane>
+			<position>
+				<x> 0.0 </x>
+				<y> -50.0 </y>
+				<z> 0.0 </z>
+			</position>
+			<normal>
+				<x> 0.0 </x>
+				<y> 1.0 </y>
+				<z> 0.0 </z>
+			</normal>
+			<mat>
+				<refraction> 0 </refraction>
+				<reflection> 0 </reflection>
+				<color>
+					<r> 0 </r>
+					<g> 1.0 </g>
+					<b> 1.0 </b>
+				</color>
+			</mat>
+		</plane>
+		<plane>
+			<position>
+				<x> 0.0 </x>
+				<y> 50.0 </y>
+				<z> 0.0 </z>
+			</position>
+			<normal>
+				<x> 0.0 </x>
+				<y> -1.0 </y>
+				<z> 0.0 </z>
+			</normal>
+			<mat>
+				<refraction> 0 </refraction>
+				<reflection> 0 </reflection>
+				<color>
+					<r> 1.0 </r>
+					<g> 0 </g>
+					<b> 1.0 </b>
+				</color>
+			</mat>
+		</plane>
+
+
+		<plane>
+			<position>
+				<x> 0.0 </x>
+				<y> 0.0 </y>
+				<z> 100.0 </z>
+			</position>
+
+			<normal>
+				<x> 0.0 </x>
+				<y> 0.0 </y>
+				<z> -1.0 </z>
+			</normal>
+			<mat>
+				<refraction> 0 </refraction>
+				<reflection> 0 </reflection>
+				<color>
+					<r> 1.0 </r>
+					<g> 0.0 </g>
+					<b> 0.0 </b>
+				</color>
+			</mat>
+		</plane>
+		<cylinder>
+			<position>
+				<x> 0.0 </x>
+				<y> 0.0 </y>
+				<z> -50.0 </z>
+			</position>
+
+			<radius> 20 </radius>
+
+			<direction>
+				<x> 0.0 </x>
+				<y> 1.0 </y>
+				<z> 0.0 </z>
+			</direction>
+			<mat>
+				<texture>texture/42.xpm</texture>
+				<tex_height>-50</tex_height>
+				<tex_width>50</tex_width>
+				<refraction> 0 </refraction>
+				<reflection> 0 </reflection>
+				<color>
+					<r> 0.0 </r>
+					<g> 0.341 </g>
+					<b> 0.13 </b>
+				</color>
+			</mat>
+		</cylinder>
+
+		<sphere>
+			<position>
+				<x> -25.0 </x>
+				<y> 0.0 </y>
+				<z> -80.0 </z>
+			</position>
+
+			<radius> 20.0 </radius>
+
+			<mat>
+				<texture>texture/BALLON.xpm</texture>
+				<tex_height>-50</tex_height>
+				<tex_width>50</tex_width>
+				<refraction> 0 </refraction>
+				<reflection> 0 </reflection>
+				<color>
+					<r> 0.26 </r>
+					<g> 0.36 </g>
+					<b> 0.78 </b>
+				</color>
+			</mat>
+		</sphere>
+		<cone>
+			<position>
+				<x> 20.0 </x>
+				<y> 6.0 </y>
+				<z> -70.0 </z>
+			</position>
+
+			<angle> 25.0 </angle>
+
+			<direction>
+				<x> 0.0 </x>
+				<y> 1.0 </y>
+				<z> 0.0 </z>
+			</direction>
+			<mat>
+				<texture>texture/42.xpm</texture>
+				<tex_height>-20</tex_height>
+				<tex_width>50</tex_width>
+				<refraction> 0 </refraction>
+				<reflection> 0 </reflection>
+				<color>
+					<r> 0.439 </r>
+					<g> 0.0 </g>
+					<b> 0.0 </b>
+				</color>
+			</mat>
+		</cone>
+		<sphere>
+			<position>
+				<x> 1000.0 </x>
+				<y> 0.0 </y>
+				<z> 120.0 </z>
+			</position>
+
+			<radius> 10.0 </radius>
+			<mat>
+				<refraction> 0.7 </refraction>
+				<reflection> 0 </reflection>
+				<indice opt> 1.5 </indice opt>
+				<color>
+					<r> 1 </r>
+					<g> 1 </g>
+					<b> 1 </b>
+				</color>
+			</mat>
+		</sphere>
+		<plane>
+			<position>
+				<x> 50.0 </x>
+				<y> 0.0 </y>
+				<z> 0.0 </z>
+			</position>
+			<normal>
+				<x> -1.0 </x>
+				<y> 0.0 </y>
+				<z> 0.0 </z>
+			</normal>
+			<mat>
+				<refraction> 0 </refraction>
+				<reflection> 0.8 </reflection>
+				<color>
+					<r> 0 </r>
+					<g> 0 </g>
+					<b> 0 </b>
+				</color>
+			</mat>
+		</plane>
+
+	</objects>
+
+</scene>

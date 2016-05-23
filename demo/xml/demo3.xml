@@ -1,4 +1,3 @@
-
 <scene>
 	<config>
 		<ambient> 0.3 </ambient>
@@ -49,13 +48,23 @@
 				<z> -1.0 </z>
 			</direction>
 			<mat>
+				<texture>
+					<perlin>
+						<noise>1</noise>
+					</perlin>
+					<height>-100</height>
+					<width>50</width>
+					<offset_x>0</offset_x>
+					<offset_y>10</offset_y>
+					<path>texture/42.xpm</path>
+				</texture>
 				<color>
 					<r> 0.55 </r>
 					<g> 0.0 </g>
 					<b> 0.0 </b>
 				</color>
 			</mat>
-		</cylinder>	
+		</cylinder>
 		<plane>
 			<position>
 				<x> 0.0 </x>

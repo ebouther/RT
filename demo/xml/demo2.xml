@@ -80,6 +80,11 @@
 				<z> 0.0 </z>
 			</direction>
 			<mat>
+
+				<texture>fichier</texture>
+				<tex_height> 10 </tex_height>
+				<tex_width> 10 </tex_width>
+
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
 				<color>

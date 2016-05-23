@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 15:43:31 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/10 13:54:08 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/23 10:39:26 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_ray		*ft_refr(t_ray *ray, t_work *work, double *refl)
 	calc = 1 - carre(n) * (1 - carre(p));
 	if (1 / carre(n) + carre(p) - 1 < 0)
 	{
-		printf("_______________no_refr____________________\n");
+		//printf("_______________no_refr____________________\n");
 		*refl = work->obj->mat.refr;
 		return (NULL);
 	}
