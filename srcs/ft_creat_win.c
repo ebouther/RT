@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/23 10:54:01 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/23 12:35:48 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,12 @@ void    init_tex(t_env  *e)
 	lst = e->obj;
 	while (lst)
 	{
-		if (((t_obj *)(lst->content))->mat.tex.tex != NULL)
+		if (((t_nod *)(lst->content))->obj->mat.tex.tex != NULL)
 		{
-			ft_stock_size_tex((t_obj *)lst->content);
-			((t_obj *)(lst->content))->mat.tex.img = mlx_xpm_file_to_image(e->mlx, ((t_obj *)(lst->content))->mat.tex.tex, &((t_obj *)(lst->content))->mat.tex.width1, &((t_obj *)(lst->content))->mat.tex.height1);
-			((t_obj *)(lst->content))->mat.tex.buf = mlx_get_data_addr(((t_obj *)(lst->content))->mat.tex.img, &((t_obj *)(lst->content))->mat.tex.bpp, &((t_obj *)(lst->content))->mat.tex.ls, &((t_obj *)(lst->content))->mat.tex.endian);
+			ft_stock_size_tex(((t_nod *)lst->content)->obj);
+			((t_nod *)lst->content)->obj->mat.tex.img = mlx_xpm_file_to_image(e->mlx, ((t_nod *)(lst->content))->obj->mat.tex.tex, &((t_nod *)(lst->content))->obj->mat.tex.width1, &((t_nod *)(lst->content))->obj->mat.tex.height1);
+			((t_nod *)lst->content)->obj->mat.tex.buf = mlx_get_data_addr(((t_nod *)(lst->content))->obj->mat.tex.img, &((t_nod *)(lst->content))->obj->mat.tex.bpp,
+															&((t_nod *)(lst->content))->obj->mat.tex.ls, &((t_nod *)(lst->content))->obj->mat.tex.endian);
 		}
 		lst = lst->next;
 	}
@@ -161,8 +162,8 @@ void			ft_creat_img(t_env *e)
 	e->img = mlx_new_image(e->mlx, SIZE_W, SIZE_H);
 	e->data = mlx_get_data_addr(e->img, &e->bpp, &e->ls, &e->endian);
 	if ((e->pix = (t_pix*)malloc(sizeof(t_pix) * SIZE_W * SIZE_H)) == NULL)
-		ft_error_exit("Error: malloc failed in ft_fill im.\n");
-//	init_tex(e);
+		ft_error_exit("Error: malloc failed in ft_fill_img.\n");
+	init_tex(e);
 	pos = 0;
 	while (pos < THREAD_NUM)
 	{
