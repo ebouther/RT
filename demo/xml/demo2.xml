@@ -80,14 +80,78 @@
 				<z> -1.0 </z>
 			</normal>
 			<mat>
+				<grid>  vnefjks  </grid>
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
 				<color>
+					<r> 0.13 </r>
+					<g> 0.21 </g>
+					<b> 0.45 </b>
+				</color>
+			</mat>
+		</plane>
+		<plane>
+			<position>
+				<x> 0.0 </x>
+				<y> 500.0 </y>
+				<z> 0.0 </z>
+			</position>
+			<normal>
+				<x> 0.0 </x>
+				<y> -1.0 </y>
+				<z> 0.0 </z>
+			</normal>
+			<mat>
+				<refraction> 0 </refraction>
+				<reflection> 0 </reflection>
+				<color>
+					<r> 0.65 </r>
+					<g> 0.25 </g>
+					<b> 0.65 </b>
+				</color>
+			</mat>
+		</plane>
+
+		<plane>
+			<position>
+				<x> 0.0 </x>
+				<y> -500.0 </y>
+				<z> 0.0 </z>
+			</position>
+			<normal>
+				<x> 0.0 </x>
+				<y> 1.0 </y>
+				<z> 0.0 </z>
+			</normal>
+			<mat>
+				<refraction> 0 </refraction>
+				<reflection> 0 </reflection>
+				<color>
+					<r> 0.23 </r>
+					<g> 0.15 </g>
+					<b> 0.65 </b>
+				</color>
+			</mat>
+		</plane>
+		<plane>
+			<position>
+				<x> 500.0 </x>
+				<y> 0.0 </y>
+				<z> 0.0 </z>
+			</position>
+			<normal>
+				<x> -1.0 </x>
+				<y> 0.0 </y>
+				<z> 0.0 </z>
+			</normal>
+			<mat>
+				<refraction> 0 </refraction>
+				<reflection> 0.9 </reflection>
+				<color>
 					<r> 0 </r>
 					<g> 0 </g>
-					<b> 1 </b>
+					<b> 0 </b>
 				</color>
-				<grid> vhfeo </grid>
 			</mat>
 		</plane>
 

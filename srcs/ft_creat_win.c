@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/24 11:44:41 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/24 14:52:16 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,6 @@ int				mouse_hook(int b, int x, int y, t_env *e)
 		e->xx = x;
 		e->yy = y;
 	}
-	printf("x= %d, y = %d\n",x,y);
 	ft_creat_img(e);
 	return (1);
 }
