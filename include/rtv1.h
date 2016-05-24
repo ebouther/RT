@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/23 10:55:17 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/24 11:09:07 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 # include <pthread.h>
 # include "mlx.h"
 
-# define THREAD_NUM 8
+# define THREAD_NUM 1
 # define SIZE_W 1000
 # define SIZE_H 1000
-# define WIDTH 100
+# define WIDTH 80
 # define HIGHT 80
 # define NOISE_WIDTH 1000
 # define NOISE_HEIGHT 1000
@@ -339,6 +339,7 @@ t_color			*ft_contact(t_ray *ray, t_env *e, t_obj **cur_obj);
 void	ft_make_screen(t_env *e, char *name);
 
 void	ft_antialiasing(t_env *e);
+void	ft_correction(t_env *e);
 
 void	ft_celshading(t_env *e);
 

@@ -6,11 +6,12 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/23 12:35:48 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/24 11:44:41 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <stdio.h>
 
 t_color		*ft_contact(t_ray *ray, t_env *e, t_obj **obj_pix)
 {
@@ -26,9 +27,16 @@ t_color		*ft_contact(t_ray *ray, t_env *e, t_obj **obj_pix)
 	while (lst)
 	{
 		tmp = ft_get_inters(lst->content, ray);
-		if (tmp->t[0] < t)
+		if (tmp->t[0] < t && tmp->t[0] > 0)
 		{
 			t = tmp->t[0];
+			if (obj_pix)
+				*obj_pix = ((t_obj *)lst->content);
+			cur_obj = tmp->obj;
+		}
+		else if (tmp->t[1] < t && tmp->t[1] > 0)
+		{
+			t = tmp->t[1];
 			if (obj_pix)
 				*obj_pix = ((t_obj *)lst->content);
 			cur_obj = tmp->obj;
@@ -64,9 +72,6 @@ void			ft_print_img(t_env *e)
 		y = 0;
 		while (y < SIZE_H)
 		{
-			kk = 0;
-			if (e->xx == x && e->yy == y)
-				kk = 1;
 			ft_put_pixelle(x, y, ft_rgbtoi(e->pix[x + y * SIZE_W].col), e);
 			y++;
 		}
@@ -181,12 +186,15 @@ void			ft_creat_img(t_env *e)
 
 int				key_hook(int kc, t_env *e)
 {
+	printf("%d\n",kc);
 	if (kc == 53)
 		exit(0);
 	else if (kc == 35)
 		ft_make_screen(e, "img.ppm");
 	else if (kc == 0)
 		ft_antialiasing(e);
+	else if (kc == 14)
+		ft_correction(e);
 	else if (kc == 8)
 		ft_celshading(e);
 	return (0);
@@ -199,7 +207,8 @@ int				mouse_hook(int b, int x, int y, t_env *e)
 		e->xx = x;
 		e->yy = y;
 	}
-	ft_fill_img(e);
+	printf("x= %d, y = %d\n",x,y);
+	ft_creat_img(e);
 	return (1);
 }
 

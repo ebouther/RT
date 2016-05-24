@@ -107,6 +107,7 @@ SRC_NAME = main.c \
 		   utils.c \
 		   ft_screen_shot.c \
 		   ft_antialiasing.c \
+		   ft_correction.c \
 		   ft_celshading.c \
 		   ft_ref.c \
 		   ft_op_composed_obj.c \

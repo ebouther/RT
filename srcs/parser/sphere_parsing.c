@@ -6,11 +6,12 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:47:45 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/10 14:10:55 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/23 18:09:20 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <stdio.h>
 
 static int	ft_set_sphere(char *sphere, t_env *e)
 {
@@ -57,5 +58,8 @@ int			ft_get_spheres(char *objects, size_t len, t_env *e)
 			break ;
 		objects += pos;
 	}
+	printf("sphere i_opt = %f\n", ((t_nod *)((e->obj)->content))->obj->mat.i_opt);
+	printf("sphere refr = %f\n", ((t_nod *)((e->obj)->content))->obj->mat.refr);
+	printf("sphere opac = %f\n", ((t_nod *)((e->obj)->content))->obj->mat.opac);
 	return (0);
 }
