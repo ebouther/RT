@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/24 11:09:07 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/24 14:50:37 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 
 # define THREAD_NUM 1
 # define SIZE_W 1000
-# define SIZE_H 1000
-# define WIDTH 80
+# define SIZE_H 800
+# define WIDTH 100
 # define HIGHT 80
 # define NOISE_WIDTH 1000
 # define NOISE_HEIGHT 1000
