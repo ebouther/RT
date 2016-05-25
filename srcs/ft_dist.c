@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:31:25 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/25 14:48:50 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/25 18:26:03 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,32 @@ double			*inters_plan(t_ray *ray, t_obj *obj)
 	t[0] = (obj->norm.x * (obj->pos.x - ray->pos.x) +
 			obj->norm.y * (obj->pos.y - ray->pos.y) +
 			obj->norm.z * (obj->pos.z - ray->pos.z)) / vd;
-	if (t[0] >= 0)
+	scl = scal(ray->dir, obj->norm);
+	if (t[0] > 0)
 	{
-		ft_normalise(&obj->norm);
-		scl = scal(ray->pos, obj->norm);
-		if (scl >= 0)
+		if (scl <= 0)
+			t[1] = FAR;
+		else
+		{
+			t[1] = t[0];
+			t[0] = -FAR;
+		}
+	}
+	else if (t[0] == 0)
+	{
+		t[0] = -FAR;
+		if (scl <= 0)
 			t[1] = FAR;
 		else
 			t[1] = -FAR;
 	}
 	else
 	{
-		t[1] = FAR;
-		t[0] = FAR;
+		t[0] = -FAR;
+		if (scl <= 0)
+			t[1] = FAR;
+		else
+			t[1] = -FAR;
 	}
 	return (t);
 }
