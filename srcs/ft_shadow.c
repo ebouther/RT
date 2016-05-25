@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/24 15:42:47 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/25 17:12:21 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,17 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	while (s.lst)
 	{
 		s.work.light = ((t_light *)(s.lst->content));
-		ft_in_light(&s.work, e, &s.col_res);
+		s.work.light->new_k = s.work.light->k / 10.0;
+		s.work.light->offset = (t_vec3){0, 0, 0};
+		int		i = 0;
+		while (i < 10)
+		{
+			//srand(time(NULL));
+			//s.work.light->offset = (t_vec3){(rand()/(double)RAND_MAX ) * (20 - -20) + -20,
+			//(rand()/(double)RAND_MAX ) * (20 - -20) + -20, (rand()/(double)RAND_MAX ) * (20 - -20) + -20};
+			ft_in_light(&s.work, e, &s.col_res);
+			i++;
+		}
 		s.lst = s.lst->next;
 	}
 	ft_bri_max(&s.col_res);
