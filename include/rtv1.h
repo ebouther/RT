@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/24 15:44:30 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/25 11:18:10 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,6 +297,11 @@ double			scal2(t_vec3 a);
 t_vec3			*pro(double a, t_vec3 *d);
 void			ft_rot_vec(double angle, t_vec3 axe, t_vec3 *vec );
 double			*ft_equa_sec2(double a, double b, double c);
+
+/*
+** Rotation
+*/
+t_vec3			ft_rotate(t_vec3 v, t_vec3 center, t_vec3 rot);
 
 /*
 ** Utils.c
