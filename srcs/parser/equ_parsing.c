@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 15:03:18 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/04 15:07:51 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/23 19:02:27 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,25 @@ void		ft_set_equ(char *equ, t_obj *obj)
 {
 	char	*value;
 
-	obj->equ.x1 = ((value = ft_get_inner(equ, "x1", NULL)) == NULL)
+	obj->equ.x1 = ((value = ft_get_inner(equ, "x1", NULL, NULL)) == NULL)
 		? 0: ft_atod(value);
 	free(value);
-	obj->equ.x2 = ((value = ft_get_inner(equ, "x2", NULL)) == NULL)
+	obj->equ.x2 = ((value = ft_get_inner(equ, "x2", NULL, NULL)) == NULL)
 		? 0: ft_atod(value);
 	free(value);
-	obj->equ.y1 = ((value = ft_get_inner(equ, "y1", NULL)) == NULL)
+	obj->equ.y1 = ((value = ft_get_inner(equ, "y1", NULL, NULL)) == NULL)
 		? 0: ft_atod(value);
 	free(value);
-	obj->equ.y2 = ((value = ft_get_inner(equ, "y2", NULL)) == NULL)
+	obj->equ.y2 = ((value = ft_get_inner(equ, "y2", NULL, NULL)) == NULL)
 		? 0: ft_atod(value);
 	free(value);
-	obj->equ.z1 = ((value = ft_get_inner(equ, "z1", NULL)) == NULL)
+	obj->equ.z1 = ((value = ft_get_inner(equ, "z1", NULL, NULL)) == NULL)
 		? 0: ft_atod(value);
 	free(value);
-	obj->equ.z2 = ((value = ft_get_inner(equ, "z2", NULL)) == NULL)
+	obj->equ.z2 = ((value = ft_get_inner(equ, "z2", NULL, NULL)) == NULL)
 		? 0: ft_atod(value);
 	free(value);
-	obj->equ.c = ((value = ft_get_inner(equ, "c", NULL)) == NULL)
+	obj->equ.c = ((value = ft_get_inner(equ, "c", NULL, NULL)) == NULL)
 		? 0: ft_atod(value);
 	free(value);
 }

@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 13:58:35 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/19 12:52:19 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/25 14:50:56 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_obj_col		*ft_inters_obj(t_nod *nod1, t_nod *nod2, t_ray *ray)
 	}
 	else
 		nod2->obj_col = nod2->op(nod2->r, nod2->l, ray);
-	if (nod1->obj_col->t[0] <= nod2->obj_col->t[0])
+	if (nod1->obj_col->t[0] < nod2->obj_col->t[0])
 	{
 		res = nod2->obj_col;
 		if (nod1->obj_col->t[1] < nod2->obj_col->t[0])

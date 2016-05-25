@@ -6,13 +6,13 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 09:30:55 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/10 15:26:28 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/23 18:56:47 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static int	ft_set_tore(char *tore, t_env *e)
+int			ft_set_tore(char *tore, t_env *e, t_nod *prnt)
 {
 	char	*position;
 	char	*direction;
@@ -23,15 +23,15 @@ static int	ft_set_tore(char *tore, t_env *e)
 
 	nod.obj = (t_obj *)malloc(sizeof(t_obj));
 	nod.obj->mat.brim = 0.1;
-	if ((position = ft_get_inner(tore, "position", NULL)) == NULL)
+	if ((position = ft_get_inner(tore, "position", NULL, NULL)) == NULL)
 		ft_error_exit("Error: tore require a position subobject.\n");
-	if ((radius = ft_get_inner(tore, "radius", NULL)) == NULL)
+	if ((radius = ft_get_inner(tore, "radius", NULL, NULL)) == NULL)
 		ft_error_exit("Error: tore require 2 radius subobject.\n");
-	if ((radius2 = ft_get_inner(tore, "radius2", NULL)) == NULL)
+	if ((radius2 = ft_get_inner(tore, "radius2", NULL, NULL)) == NULL)
 		ft_error_exit("Error: tore require 2 radius subobject.\n");
-	if ((mat = ft_get_inner(tore, "mat", NULL)) == NULL)
+	if ((mat = ft_get_inner(tore, "mat", NULL, NULL)) == NULL)
 		ft_error_exit("Error: tore require a color subobject.\n");
-	if ((direction = ft_get_inner(tore, "direction", NULL)) == NULL)
+	if ((direction = ft_get_inner(tore, "direction", NULL, NULL)) == NULL)
 		ft_error_exit("Error: tore require a direction subobject.\n");
 	ft_set_vec3(position, &nod.obj->pos);
 	ft_set_vec3(direction, &nod.obj->dir);
@@ -45,7 +45,10 @@ static int	ft_set_tore(char *tore, t_env *e)
 	nod.l = NULL;
 	nod.op = NULL;
 	nod.obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
-	ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
+	if (e)
+		ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
+	else
+		ft_memcpy(prnt, &nod, sizeof(t_nod));
 	ft_strdel(&position);
 	ft_strdel(&direction);
 	ft_strdel(&radius);
@@ -60,9 +63,9 @@ int			ft_get_tores(char *objects, size_t len, t_env *e)
 	int		pos;
 
 	pos = 0;
-	while ((tore = ft_get_inner(objects, "tore", &pos)) != NULL)
+	while ((tore = ft_get_inner(objects, "tore", &pos, NULL)) != NULL)
 	{
-		ft_set_tore(tore, e);
+		ft_set_tore(tore, e, NULL);
 		ft_strdel(&tore);
 		if ((int)len - pos < 0)
 			break ;

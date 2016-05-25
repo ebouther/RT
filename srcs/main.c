@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:52:18 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/19 11:49:05 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/19 13:26:41 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,11 @@ int		main(int ac, char **av)
 	if (ac != 2)
 		return (0);
 	ft_stock_scene(&e, av[1]);
+/*	while (e.c_obj)
+	{
+		if (((t_nod *)e.c_obj)
+		e.c_obj = e.c_obj->next;
+	}*/
 	ft_creat_win(&e);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:49:15 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/16 14:12:26 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/23 18:55:41 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int			ft_set_cone(char *cone, t_env *e, t_nod *prnt)
 
 	nod.obj = (t_obj *)malloc(sizeof(t_obj));
 	nod.obj->mat.brim = 0.1;
-	if ((position = ft_get_inner(cone, "position", NULL)) == NULL)
+	if ((position = ft_get_inner(cone, "position", NULL, NULL)) == NULL)
 		ft_error_exit("Error: cone require a position subobject.\n");
-	if ((angle = ft_get_inner(cone, "angle", NULL)) == NULL)
+	if ((angle = ft_get_inner(cone, "angle", NULL, NULL)) == NULL)
 		ft_error_exit("Error: cone require an angle subobject.\n");
-	if ((mat = ft_get_inner(cone, "mat", NULL)) == NULL)
+	if ((mat = ft_get_inner(cone, "mat", NULL, NULL)) == NULL)
 		ft_error_exit("Error: cone require a material subobject.\n");
-	if ((direction = ft_get_inner(cone, "direction", NULL)) == NULL)
+	if ((direction = ft_get_inner(cone, "direction", NULL, NULL)) == NULL)
 		ft_error_exit("Error: cone require a direction subobject.\n");
 	ft_set_vec3(position, &nod.obj->pos);
 	ft_set_vec3(direction, &nod.obj->dir);
@@ -59,7 +59,7 @@ int			ft_get_cones(char *objects, size_t len, t_env *e)
 	int		pos;
 
 	pos = 0;
-	while ((cone = ft_get_inner(objects, "cone", &pos)) != NULL)
+	while ((cone = ft_get_inner(objects, "cone", &pos, NULL)) != NULL)
 	{
 		ft_set_cone(cone, e, NULL);
 		ft_strdel(&cone);

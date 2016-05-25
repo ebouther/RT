@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/18 16:22:09 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/24 15:36:28 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,7 @@ void			ft_error_exit(const char *error);
 /*
 ** Parsing
 */
-char			*ft_get_inner(char *str, char *obj, int *end_tag);
+char			*ft_get_inner(char *str, char *obj, int *end_tag, int *start_tag);
 int				ft_set_vec3(char *obj, t_vec3 *vec3);
 int				ft_set_color(char *obj, t_color *col);
 int				ft_parse_scene(char *file, t_env *e);
@@ -269,7 +269,10 @@ int				ft_set_cylinder(char *cylinder, t_env *e, t_nod *prnt);
 int				ft_set_sphere(char *sphere, t_env *e, t_nod *prnt);
 int				ft_set_cone(char *cone, t_env *e, t_nod *prnt);
 int				ft_set_plane(char *plane, t_env *e, t_nod *prnt);
-int				ft_get_cobj(char *objects, char *op, t_env *e, int (*f)());
+int				ft_set_tore(char *tore, t_env *e, t_nod *prnt);
+int				ft_set_quadra(char *quadra, t_env *e, t_nod *prnt);
+int				ft_set_pobj(char *pobj, t_env *e, t_nod *prnt);
+int				ft_get_cobj(char *objects, t_env *e);
 int				ft_get_objtolist(char *objects, size_t len, t_env *e);
 
 t_ray			*ft_calc_ray(int x, int y, t_env *e);

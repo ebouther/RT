@@ -1,100 +1,195 @@
+
 <obj_composed>
 	<union>
-		<id> 0 </id>
+		<id> 1 </id>
 		<obj_1>
 			<union>
 				<obj_1>
-					<sphere>
-						<position>
-							<x> -42.0 </x>
-							<y> 10.0 </y>
-							<z> -40.0 </z>
-						</position>
+				<union>
+					<obj_1>
+						<sub>
+							<obj_1>
+								<inters>
+									<obj_1>
+										<sphere>
+											<position>
+												<x> 0.0 </x>
+												<y> 0.0 </y>
+												<z> 0.0 </z>
+											</position>
 
-						<radius> 5.0 </radius>
+											<radius> 20.0 </radius>
 
-						<mat>
-							<refraction> 0.0 </refraction>
-							<reflection> 0 </reflection>
-							<color>
-								<r> 1 </r>
-								<g> 0.0 </g>
-								<b> 0.0 </b>
-							</color>
-						</mat>
-					</sphere>
+											<mat>
+												<refraction> 0.0 </refraction>
+												<reflection> 0 </reflection>
+												<color>
+													<r> 0 </r>
+													<g> 0.34 </g>
+													<b> 0.235 </b>
+												</color>
+											</mat>
+										</sphere>
+									</obj_1>
+									<obj_2>
+										<cylinder>
+											<position>
+												<x> 0.0 </x>
+												<y> 0.0 </y>
+												<z> 0.0 </z>
+											</position>
+											
+											<radius> 19 </radius>
+
+											<direction>
+												<x> 0.0 </x>
+												<y> 1.0 </y>
+												<z> 0.0 </z>
+											</direction>
+											<mat>
+												<refraction> 0 </refraction>
+												<reflection> 0 </reflection>
+												<color>
+													<r> 0.0 </r>
+													<g> 0.341 </g>
+													<b> 0.13 </b>
+												</color>
+											</mat>
+										</cylinder>
+									</obj_2>
+								</inters>
+							</obj_1>
+							<obj_2>
+								<inters>
+									<obj_1>
+										<sphere>
+											<position>
+												<x> 10.0 </x>
+												<y> 10.0 </y>
+												<z> 0.0 </z>
+											</position>
+
+											<radius> 30.0 </radius>
+
+											<mat>
+												<refraction> 0 </refraction>
+												<reflection> 0.0 </reflection>
+												<color>
+													<r> 0.541 </r>
+													<g> 0.118 </g>
+													<b> 0.235 </b>
+												</color>
+											</mat>
+										</sphere>
+									</obj_1>
+									<obj_2>
+										<sphere>
+											<position>
+												<x> -10.0 </x>
+												<y> 10.0 </y>
+												<z> 0.0 </z>
+											</position>
+
+											<radius> 30.0 </radius>
+
+											<mat>
+												<refraction> 0 </refraction>
+												<reflection> 0.0 </reflection>
+												<color>
+													<r> 0.541 </r>
+													<g> 0.118 </g>
+													<b> 0.235 </b>
+												</color>
+											</mat>
+										</sphere>
+									</obj_2>
+								</inters>
+							</obj_2>
+						</sub>
+					</obj_1>
+					<obj_2>
+						<inters>
+							<obj_1>
+								<sphere>
+									<position>
+										<x> 0.0 </x>
+										<y> -20.0 </y>
+										<z> 0.0 </z>
+									</position>
+
+									<radius> 30.0 </radius>
+
+									<mat>
+										<refraction> 0 </refraction>
+										<reflection> 0 </reflection>
+										<color>
+											<r> 0.294 </r>
+											<g> 0.635 </g>
+											<b> 0.741 </b>
+										</color>
+									</mat>
+								</sphere>
+							</obj_1>
+							<obj_2>
+								<cone>
+									<position>
+										<x> 0.0 </x>
+										<y> -20.0 </y>
+										<z> 0.0 </z>
+									</position>
+											
+									<angle> 5.0 </angle>
+
+									<direction>
+										<x> 0.0 </x>
+										<y> 1.0 </y>
+										<z> 0.0 </z>
+									</direction>
+									<mat>
+										<refraction> 0 </refraction>
+										<reflection> 0 </reflection>
+										<color>
+											<r> 0.0 </r>
+											<g> 0.341 </g>
+											<b> 0.13 </b>
+										</color>
+									</mat>
+								</cone>
+							</obj_2>
+						</inters>
+					</obj_2>
+				</union>
 				</obj_1>
 				<obj_2>
-					<sphere>
-						<position>
-							<x> -50.0 </x>
-							<y> 10.0 </y>
-							<z> -40.0 </z>
-						</position>
+				<tore>
+					<position>
+						<x> 0.0 </x>
+						<y> -50.0 </y>
+						<z> 0.0 </z>
+					</position>
 
-						<radius> 5.0 </radius>
+					<radius> 10.0 </radius>
+					<radius2> 2.0 </radius2>
 
-						<mat>
-							<refraction> 0 </refraction>
-							<reflection> 0.0 </reflection>
-							<color>
-								<r> 0 </r>
-								<g> 1.0 </g>
-								<b> 0.0 </b>
-							</color>
-						</mat>
-					</sphere>
+					<direction>
+						<x> 0 </x>
+						<y> 1 </y>
+						<z> 0 </z>
+					</direction>
+					<mat>
+						<refraction> 0.0 </refraction>
+						<reflection> 0 </reflection>
+						<color>
+							<r> 0 </r>
+							<g> 0.34 </g>
+							<b> 0.235 </b>
+						</color>
+					</mat>
+				</tore>
 				</obj_2>
 			</union>
 		</obj_1>
 		<obj_2>
-			<sphere>
-				<position>
-					<x> 50.0 </x>
-					<y> 10.0 </y>
-					<z> -40.0 </z>
-				</position>
-
-				<radius> 50.0 </radius>
-
-				<mat>
-					<refraction> 0 </refraction>
-					<reflection> 0.0 </reflection>
-					<color>
-						<r> 0 </r>
-						<g> 0.0 </g>
-						<b> 1.0 </b>
-					</color>
-				</mat>
-			</sphere>
-		</obj_2>
-	</union>
-		</obj_1>
-		<obj_2>
-			<sphere>
-				<position>
-					<x> -40.0 </x>
-					<y> 10.0 </y>
-					<z> -40.0 </z>
-				</position>
-
-				<radius> 5.0 </radius>
-
-				<mat>
-					<refraction> 0 </refraction>
-					<reflection> 0.0 </reflection>
-					<color>
-						<r> 1 </r>
-						<g> 0.3 </g>
-						<b> 0.99 </b>
-					</color>
-				</mat>
-			</sphere>
-		</obj_2>
-	</union>
-	<sub>
-		<id> 1 </id>
-		<obj_1>
 			<sphere>
 				<position>
 					<x> 0.0 </x>
@@ -102,86 +197,20 @@
 					<z> 0.0 </z>
 				</position>
 
-				<radius> 20.0 </radius>
+				<radius> 10.0 </radius>
 
 				<mat>
 					<refraction> 0.0 </refraction>
-					<reflection> 0 </reflection>
+					<reflection> 0.2 </reflection>
 					<color>
-						<r> 1 </r>
-						<g> 0.3 </g>
-						<b> 0.99 </b>
-					</color>
-				</mat>
-			</sphere>
-		</obj_1>
-		<obj_2>
-			<sphere>
-				<position>
-					<x> 10.0 </x>
-					<y> 10.0 </y>
-					<z> -20.0 </z>
-				</position>
-
-				<radius> 15	.0 </radius>
-
-				<mat>
-					<refraction> 0 </refraction>
-					<reflection> 0.0 </reflection>
-					<color>
-						<r> 1 </r>
-						<g> 0.3 </g>
-						<b> 0.99 </b>
+						<r> 0 </r>
+						<g> 0.34 </g>
+						<b> 0.235 </b>
 					</color>
 				</mat>
 			</sphere>
 		</obj_2>
-	</sub>
-	<inters>
-		<id> 2 </id>
-		<obj_1>
-			<sphere>
-				<position>
-					<x> 20.0 </x>
-					<y> 0.0 </y>
-					<z> -30.0 </z>
-				</position>
-
-				<radius> 20.0 </radius>
-
-				<mat>
-					<refraction> 0.0 </refraction>
-					<reflection> 0 </reflection>
-					<color>
-						<r> 1 </r>
-						<g> 0.3 </g>
-						<b> 0.99 </b>
-					</color>
-				</mat>
-			</sphere>
-		</obj_1>
-		<obj_2>
-			<sphere>
-				<position>
-					<x> 40.0 </x>
-					<y> 0.0 </y>
-					<z> -30.0 </z>
-				</position>
-
-				<radius> 20.0 </radius>
-
-				<mat>
-					<refraction> 0 </refraction>
-					<reflection> 0.0 </reflection>
-					<color>
-						<r> 1 </r>
-						<g> 0.3 </g>
-						<b> 0.99 </b>
-					</color>
-				</mat>
-			</sphere>
-		</obj_2>
-	</inters>
+	</union>
 </obj_composed>
 
 <scene>
@@ -209,6 +238,19 @@
 	
 	<lights>
 		<light>
+			<intensity> 0.2 </intensity>
+			<position>
+				<x> -40.0 </x>
+				<y> 0.0 </y>
+				<z> 50.0 </z>
+			</position>
+			<color>
+				<r> 1.0 </r>
+				<g> 1.0 </g>
+				<b> 1.0 </b>
+			</color>
+		</light>
+		<light>
 			<intensity> 0.5 </intensity>
 			<position>
 				<x> 40.0 </x>
@@ -223,38 +265,24 @@
 		</light>
 	</lights>
 	<objects>
-		<obj>
-			<id> 0 </id>
-			<position>
-				<x> 20.0 </x>
-				<y> 0.0 </y>
-				<z> -20.0 </z>
-			</position>
-		</obj>
-		<obj>
-			<id> 2 </id>
-			<position>
-				<x> 0.0 </x>
-				<y> 0.0 </y>
-				<z> 20.0 </z>
-			</position>
-		</obj>
-		<obj>
-			<id> 2 </id>
-			<position>
-				<x> -40.0 </x>
-				<y> 0.0 </y>
-				<z> 20.0 </z>
-			</position>
-		</obj>
+
 		<obj>
 			<id> 1 </id>
 			<position>
 				<x> 0.0 </x>
-				<y> 0.0 </y>
-				<z> 20.0 </z>
+				<y> 10.0 </y>
+				<z> -50.0 </z>
 			</position>
 		</obj>
+		<obj>
+			<id> 0 </id>
+			<position>
+				<x> 0.0 </x>
+				<y> 10.0 </y>
+				<z> -80.0 </z>
+			</position>
+		</obj>
+
 		<plane>
 			<position>
 				<x> -50.0 </x>
@@ -270,9 +298,9 @@
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
 				<color>
-					<r> 1.0 </r>
-					<g> 1.0 </g>
-					<b> 0 </b>
+					<r> 0.639 </r>
+					<g> 0.09 </g>
+					<b> 0.0 </b>
 				</color>
 			</mat>
 		</plane>
@@ -291,9 +319,9 @@
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
 				<color>
-					<r> 0 </r>
-					<g> 1.0 </g>
-					<b> 1.0 </b>
+					<r> 0.267 </r>
+					<g> 0.639 </g>
+					<b> 0.474 </b>
 				</color>
 			</mat>
 		</plane>
@@ -312,9 +340,9 @@
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
 				<color>
-					<r> 1.0 </r>
-					<g> 0 </g>
-					<b> 1.0 </b>
+					<r> 0.381 </r>
+					<g> 0.047 </g>
+					<b> 0.0 </b>
 				</color>
 			</mat>
 		</plane>
@@ -337,82 +365,12 @@
 				<refraction> 0 </refraction>
 				<reflection> 0 </reflection>
 				<color>
-					<r> 1.0 </r>
-					<g> 0.0 </g>
-					<b> 0.0 </b>
+					<r> 0.0 </r>
+					<g> 0.639 </g>
+					<b> 0.357 </b>
 				</color>
 			</mat>
 		</plane>
-		
-		<sphere>
-			<position>
-				<x> 0.0 </x>
-				<y> 0.0 </y>
-				<z> 60.0 </z>
-			</position>
-
-			<radius> 20.0 </radius>
-
-			<mat>
-				<refraction> 0 </refraction>
-				<reflection> 0 </reflection>
-				<color>
-					<r> 0.26 </r>
-					<g> 0.36 </g>
-					<b> 0.78 </b>
-				</color>
-			</mat>
-		</sphere>
-
-		<cylinder>
-			<position>
-				<x> -40.0 </x>
-				<y> 0.0 </y>
-				<z> 60 </z>
-			</position>
-			
-			<radius> 5 </radius>
-
-			<direction>
-				<x> 1.0 </x>
-				<y> 1.0 </y>
-				<z> 0.0 </z>
-			</direction>
-			<mat>
-				<refraction> 0 </refraction>
-				<reflection> 0 </reflection>
-				<color>
-					<r> 0.0 </r>
-					<g> 0.341 </g>
-					<b> 0.13 </b>
-				</color>
-			</mat>
-		</cylinder>
-
-		<cone>
-			<position>
-				<x> 40.0 </x>
-				<y> 50.0 </y>
-				<z> 60.0 </z>
-			</position>
-			
-			<angle> 5.0 </angle>
-
-			<direction>
-				<x> 0.0 </x>
-				<y> 1.0 </y>
-				<z> 0.0 </z>
-			</direction>
-			<mat>
-				<refraction> 0 </refraction>
-				<reflection> 0.0 </reflection>
-				<color>
-					<r> 0.439 </r>
-					<g> 0.149 </g>
-					<b> 0.149 </b>
-				</color>
-			</mat>
-		</cone>
 
 		<plane>
 			<position>
@@ -427,11 +385,11 @@
 			</normal>
 			<mat>
 				<refraction> 0.0 </refraction>
-				<reflection> 0.9 </reflection>
+				<reflection> 1.0 </reflection>
 				<color>
-					<r> 0.0 </r>
-					<g> 0.0 </g>
-					<b> 0.0 </b>
+					<r> 1.0 </r>
+					<g> 1.0 </g>
+					<b> 1.0 </b>
 				</color>
 			</mat>
 		</plane>

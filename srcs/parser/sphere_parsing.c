@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:47:45 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/15 10:57:40 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/23 18:52:22 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ int		ft_set_sphere(char *sphere, t_env *e, t_nod *prnt)
 
 	nod.obj = (t_obj *)malloc(sizeof(t_obj));
 	nod.obj->mat.brim = 0.2;
-	if ((position = ft_get_inner(sphere, "position", NULL)) == NULL)
+	if ((position = ft_get_inner(sphere, "position", NULL, NULL)) == NULL)
 		ft_error_exit("Error: sphere require a position subobject.\n");
-	if ((radius = ft_get_inner(sphere, "radius", NULL)) == NULL)
+	if ((radius = ft_get_inner(sphere, "radius", NULL, NULL)) == NULL)
 		ft_error_exit("Error: sphere require a radius subobject.\n");
-	if ((mat = ft_get_inner(sphere, "mat", NULL)) == NULL)
+	if ((mat = ft_get_inner(sphere, "mat", NULL, NULL)) == NULL)
 		ft_error_exit("Error: sphere require a material subobject.\n");
 	ft_set_vec3(position, &nod.obj->pos);
 	nod.obj->rayon = ft_atod(radius);
@@ -53,7 +53,7 @@ int			ft_get_spheres(char *objects, size_t len, t_env *e)
 	int		pos;
 
 	pos = 0;
-	while ((sphere = ft_get_inner(objects, "sphere", &pos)) != NULL)
+	while ((sphere = ft_get_inner(objects, "sphere", &pos, NULL)) != NULL)
 	{
 		ft_set_sphere(sphere, e, NULL);
 		ft_strdel(&sphere);

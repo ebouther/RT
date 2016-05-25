@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 14:11:08 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/10 14:04:58 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/23 19:00:00 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static int	ft_set_light(char *light, t_env *e)
 	char	*color;
 	t_light	light_obj;
 
-	if ((position = ft_get_inner(light, "position", NULL)) == NULL)
+	if ((position = ft_get_inner(light, "position", NULL, NULL)) == NULL)
 		ft_error_exit("Error: light require a position subobject.\n");
-	if ((color = ft_get_inner(light, "color", NULL)) == NULL)
+	if ((color = ft_get_inner(light, "color", NULL, NULL)) == NULL)
 		ft_error_exit("Error: light require a color subobject.\n");
-	if ((intensity = ft_get_inner(light, "intensity", NULL)) == NULL)
+	if ((intensity = ft_get_inner(light, "intensity", NULL, NULL)) == NULL)
 		ft_error_exit("Error: light require a color subobject.\n");
 	ft_set_vec3(position, &light_obj.pos);
 	ft_set_color(color, &light_obj.col);
@@ -41,7 +41,7 @@ int			ft_get_lights(char *lights, size_t len, t_env *e)
 	int		pos;
 
 	pos = 0;
-	while ((light = ft_get_inner(lights, "light", &pos)) != NULL)
+	while ((light = ft_get_inner(lights, "light", &pos, NULL)) != NULL)
 	{
 		ft_set_light(light, e);
 		ft_strdel(&light);

@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:46:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/16 14:16:04 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/23 18:54:56 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ int			ft_set_plane(char *plane, t_env *e, t_nod *prnt)
 
 	nod.obj = (t_obj *)malloc(sizeof(t_obj));
 	nod.obj->mat.brim = 0.1;
-	if ((position = ft_get_inner(plane, "position", NULL)) == NULL)
+	if ((position = ft_get_inner(plane, "position", NULL, NULL)) == NULL)
 		ft_error_exit("Error: plane require a <position> subobject.\n");
-	if ((normal = ft_get_inner(plane, "normal", NULL)) == NULL)
+	if ((normal = ft_get_inner(plane, "normal", NULL, NULL)) == NULL)
 		ft_error_exit("Error: plane require a <normal> subobject.\n");
-	if ((mat = ft_get_inner(plane, "mat", NULL)) == NULL)
+	if ((mat = ft_get_inner(plane, "mat", NULL, NULL)) == NULL)
 		ft_error_exit("Error: plane require a material subobject.\n");
 	ft_set_vec3(position, &nod.obj->pos);
 	ft_set_vec3(normal, &nod.obj->norm);
@@ -54,7 +54,7 @@ int			ft_get_planes(char *objects, size_t len, t_env *e)
 	int		pos;
 
 	pos = 0;
-	while ((plane = ft_get_inner(objects, "plane", &pos)) != NULL)
+	while ((plane = ft_get_inner(objects, "plane", &pos, NULL)) != NULL)
 	{
 		ft_set_plane(plane, e, NULL);
 		ft_strdel(&plane);

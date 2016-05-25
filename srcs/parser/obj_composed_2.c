@@ -6,23 +6,37 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/16 16:15:55 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/19 12:59:14 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/23 19:13:47 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-int			ft_get_cobj(char *objects, char *op, t_env *e, int (*f)())
+int			ft_get_cobj(char *objects, t_env *e)
 {
 	char	*content;
 	int		pos;
 	size_t	len;
+	char	*unio;
+	char	*inters;
+	char	*sub;
+	int		u;
+	int		i;
+	int		s;
 
 	len = ft_strlen(objects);
 	pos = 0;
-	while ((content = ft_get_inner(objects, op, &pos)) != NULL)
+	while ((content = ft_get_inner(objects, "obj_composed", &pos, NULL)) != NULL)
 	{
-		f(content, e, NULL);
+		unio = ft_get_inner(content, "union", NULL, &u);
+		inters = ft_get_inner(content, "inters", NULL, &i);
+		sub = ft_get_inner(content, "sub", NULL, &s);
+		if (i != -1 && (i < s || s == -1) && (i < u || u == -1))
+			ft_get_inter(inters, e, NULL);
+		else if (u != -1 && (u < s || s == -1) && (u < i || i == -1))
+			ft_get_union(unio, e, NULL);
+		else if (s != -1 && (s < i || i == -1) && (s < u || u == -1))
+			ft_get_sub(sub, e, NULL);
 		ft_strdel(&content);
 		if ((int)len - pos < 0)
 			break ;
@@ -63,9 +77,9 @@ int			ft_getlst(char *content, t_env *e)
 	t_list	*save;
 
 	save = e->c_obj;
-	if ((id = ft_get_inner(content, "id", NULL)) == NULL)
+	if ((id = ft_get_inner(content, "id", NULL, NULL)) == NULL)
 		ft_error_exit("Error: obj need an id subobject");
-	position = ft_get_inner(content, "position", NULL);
+	position = ft_get_inner(content, "position", NULL, NULL);
 	nod = (t_nod *)malloc(sizeof(t_nod));
 	nod->id = ft_atod(id);
 	while (e->c_obj)
@@ -92,7 +106,7 @@ int			ft_get_objtolist(char *objects, size_t len, t_env *e)
 	int		pos;
 
 	pos = 0;
-	while ((content = ft_get_inner(objects, "obj", &pos)) != NULL)
+	while ((content = ft_get_inner(objects, "obj", &pos, NULL)) != NULL)
 	{
 		ft_getlst(content, e);
 		ft_strdel(&content);
