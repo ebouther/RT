@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 09:38:57 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/10 15:21:52 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/24 14:26:59 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,15 @@ double	*inters_tore(t_ray *ray, t_obj *obj)
 	{
 		r2 = ft_tor(r1, ray, obj);
 		if (r2 == 0)
+		{
 			res[0] = r1;
+			return (res);
+		}
 		else if (r2 < 0)
+		{
 			res[0] = ft_rec(r1 - 0.1, r1, ray, obj);
+			return (res);
+		}
 		r1 += 0.1;
 	}
 	return (res);

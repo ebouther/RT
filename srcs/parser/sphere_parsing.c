@@ -6,11 +6,12 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:47:45 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/10 14:10:55 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/24 12:13:13 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <stdio.h>
 
 static int	ft_set_sphere(char *sphere, t_env *e)
 {

@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/25 14:32:15 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/25 14:37:12 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ t_color		*ft_contact(t_ray *ray, t_env *e, t_obj **obj_pix)
 				*obj_pix = ((t_obj *)lst->content);
 			cur_obj = tmp->obj;
 		}
-
 		lst = lst->next;
 	}
 	if (t < FAR)
@@ -215,7 +214,6 @@ void			ft_creat_img(t_env *e)
 
 int				key_hook(int kc, t_env *e)
 {
-//	printf("%d\n",kc);
 	if (kc == 53)
 		exit(0);
 	else if (kc == 35)
@@ -236,7 +234,6 @@ int				mouse_hook(int b, int x, int y, t_env *e)
 		e->xx = x;
 		e->yy = y;
 	}
-//	printf("x= %d, y = %d\n",x,y);
 	ft_creat_img(e);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 09:45:01 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/10 15:55:33 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/25 11:25:22 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_vec3	*normal_tore(t_ray *ray, t_obj *obj)
 	t_vec3	*res;
 	t_vec3	cb;
 	t_vec3	ch;
-	double p;
+	double	p;
 
 	if ((res = (t_vec3 *)malloc(sizeof(t_vec3))) == NULL)
 		exit(-1);
@@ -54,7 +54,8 @@ t_vec3	*normal_quadra(t_ray *ray, t_obj *obj)
 
 	if ((res = (t_vec3 *)malloc(sizeof(t_vec3))) == NULL)
 		exit(-1);
-	pp = (t_vec3){ray->pos.x - obj->pos.x, ray->pos.y - obj->pos.y, ray->pos.z - obj->pos.z};
+	pp = (t_vec3){ray->pos.x - obj->pos.x, ray->pos.y - obj->pos.y,
+		ray->pos.z - obj->pos.z};
 	ft_rot_vec(obj->rot.x, (t_vec3){1, 0, 0}, &pp);
 	ft_rot_vec(obj->rot.y, (t_vec3){0, 1, 0}, &pp);
 	ft_rot_vec(obj->rot.z, (t_vec3){0, 0, 1}, &pp);

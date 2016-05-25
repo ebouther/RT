@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/25 12:07:24 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/25 14:44:44 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@
 # include <pthread.h>
 # include "mlx.h"
 
-# define THREAD_NUM 1
+# define COLOR_CLIP(x) (x < 1) ? x : 1
+
+# define THREAD_NUM 4
 # define SIZE_W 1000
 # define SIZE_H 800
 # define WIDTH 100
@@ -214,6 +216,26 @@ typedef struct	s_nod
 	t_obj				*obj;
 }				t_nod;
 
+typedef struct	s_work
+{
+	t_obj		*obj;
+	t_light		*light;
+	t_vec3		*normal;
+	t_ray		*ray;
+}				t_work;
+
+typedef struct	s_shadow
+{
+	t_color_res	col_res;
+	t_list		*lst;
+	t_color		*final_col;
+	t_work		work;
+	double		refl;
+	t_ray		*ray_refr;
+	t_ray		*ray_refl;
+	t_color		col;
+}				t_shadow;
+
 typedef struct	s_env
 {
 	int		bpp;
@@ -251,16 +273,6 @@ typedef struct	s_norm_stock_size_tex
 	char    *height;
 	char    **split;
 }				t_norm_stock_size_tex;
-
-
-
-typedef struct	s_work
-{
-	t_obj		*obj;
-	t_light		*light;
-	t_vec3		*normal;
-	t_ray		*ray;
-}				t_work;
 
 void			ft_put_pixelle(int x, int y, unsigned int c, t_env *e);
 void			ft_creat_img(t_env *e);
@@ -318,8 +330,13 @@ void			ft_rot_vec(double angle, t_vec3 axe, t_vec3 *vec );
 double			*ft_equa_sec2(double a, double b, double c);
 
 /*
- ** Utils.c
- */
+** Rotation
+*/
+t_vec3			ft_rotate(t_vec3 v, t_vec3 center, t_vec3 rot);
+
+/*
+** Utils.c
+*/
 char			*ft_strjoin_free(char *s1, char *s2);
 double			ft_atod(char *s);
 void			ft_error_exit(const char *error);
@@ -357,9 +374,19 @@ char			*gen_wood(double xy_period, double turb_power, double turb_size);
 t_color			get_pixel_color(char *data, int x, int y);
 void			put_pixel(char **data, int x, int y, int color);
 
+/*
+** Shadow
+*/
+t_color			*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj);
+void			ft_in_light(t_work *work, t_env *e, t_color_res *col_res);
+
+int				ft_checkerboard(t_ray *ray, double t);
+void			ft_color_mode(t_color *c, t_env *e);
+void			ft_bri_max(t_color_res *colres);
+
+
 
 t_ray			*ft_calc_ray(int x, int y, t_env *e);
-t_color			*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj);
 t_ray    		*ft_recalc_ori(t_ray *ray, double t);
 void			ft_recalc_dir(t_light *light, t_ray *ray, t_vec3 *norm);
 double			ft_dist(int i, t_env *e);
@@ -369,11 +396,13 @@ double			ft_dist(int i, t_env *e);
 double			ft_brillance(t_vec3 *pos_cam, t_ray *ray, t_vec3 *normal);
 t_color			*ft_contact(t_ray *ray, t_env *e, t_obj **cur_obj);
 
-void	ft_make_screen(t_env *e, char *name);
+void			ft_make_screen(t_env *e, char *name);
 
-void	ft_antialiasing(t_env *e);
-void	ft_correction(t_env *e);
+void			ft_antialiasing(t_env *e);
+void			ft_correction(t_env *e);
+void			ft_antialiasing(t_env *e);
+void			ft_correction(t_env *e);
 
-void	ft_celshading(t_env *e);
+void			ft_celshading(t_env *e);
 
 #endif
