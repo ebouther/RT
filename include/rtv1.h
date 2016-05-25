@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/25 11:18:10 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/25 14:44:44 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # define COLOR_CLIP(x) (x < 1) ? x : 1
 
 # define THREAD_NUM 4
-# define SIZE_W 100
-# define SIZE_H 100
+# define SIZE_W 1000
+# define SIZE_H 800
 # define WIDTH 100
 # define HIGHT 80
 # define NOISE_WIDTH 1000
@@ -91,6 +91,19 @@ typedef struct	s_wood
 	int			y;
 }				t_wood;
 
+typedef struct	s_norm_tex
+{
+	float       teta;
+	float       tetaA;
+	float       tetaB;
+	float       zA;
+	float       zB;
+	float       z;
+	float       y;
+	float       yB;
+	float		rayon;
+}				t_norm_tex;
+
 typedef struct s_tex
 {
 	char		*tex;
@@ -103,7 +116,7 @@ typedef struct s_tex
 	int     	bpp;
 	int			ls;
 	int			endian;
-    void		*img;
+	void		*img;
 	char		*buf;
 }				t_tex;
 
@@ -250,6 +263,17 @@ typedef struct	s_env
 	int		start;
 }				t_env;
 
+typedef struct	s_norm_stock_size_tex
+{
+	int     fd;
+	char    *buf;
+	int     res;
+	int     i;
+	char    *width;
+	char    *height;
+	char    **split;
+}				t_norm_stock_size_tex;
+
 void			ft_put_pixelle(int x, int y, unsigned int c, t_env *e);
 void			ft_creat_img(t_env *e);
 double			ft_equa_sec(double a, double b, double c);
@@ -259,13 +283,20 @@ t_ray			*ft_refl(t_ray *ray, t_work *work);
 t_obj_col		*ft_get_inters(t_nod *nod, t_ray *ray);
 
 /*
-** texture
-*/
+ ** texture
+ */
 int				ft_select_texture(t_ray *ray, double t, t_obj *cur_obj, t_color *col);
+t_vec3          ft_norm_tex(t_ray *ray, double t, t_obj *cur_obj, int i);
+void            ft_norm_tex_rot(t_obj *cur_obj, t_vec3 *pos);
+t_color         ft_get_tex_color(int x, int y, t_obj *cur_obj);
+unsigned int    ft_texture_sphere(t_ray *ray, double t, t_obj *cur_obj,
+        t_color *col);
+int             ft_texture(t_ray *ray, double t, t_obj *cur_obj, t_color *col);
+
 
 /*
-** Normals
-*/
+ ** Normals
+ */
 t_vec3			*normal_sphere(t_ray *ray, t_obj *obj);
 t_vec3			*normal_cyl(t_ray *ray, t_obj *obj);
 t_vec3			*normal_tore(t_ray *ray, t_obj *obj);
@@ -276,8 +307,8 @@ t_vec3			*normal_quadra(t_ray *ray, t_obj *obj);
 t_vec3			*normal_pobj(t_ray *ray, t_obj *obj);
 
 /*
-** Intersects
-*/
+ ** Intersects
+ */
 double			*inters_sphere(t_ray *ray, t_obj *obj);
 double			*inters_cyl(t_ray *ray, t_obj *obj);
 double			*inters_cone(t_ray *ray, t_obj *obj);
@@ -287,8 +318,8 @@ double			*inters_pobj(t_ray *ray, t_obj *obj);
 double			*inters_plan(t_ray *ray, t_obj *obj);
 
 /*
-** Math
-*/
+ ** Math
+ */
 void			ft_normalise(t_vec3 *vec);
 double			ft_norm(t_vec3 *vec);
 double			carre(double x);
@@ -311,8 +342,8 @@ double			ft_atod(char *s);
 void			ft_error_exit(const char *error);
 
 /*
-** Parsing
-*/
+ ** Parsing
+ */
 char			*ft_get_inner(char *str, char *obj, int *end_tag);
 int				ft_set_vec3(char *obj, t_vec3 *vec3);
 int				ft_set_color(char *obj, t_color *col);
@@ -332,8 +363,8 @@ void			ft_set_mat(char *mat, t_obj *obj);
 void			ft_set_equ(char *equ, t_obj *obj);
 
 /*
-** Noise
-*/
+ ** Noise
+ */
 void			generate_noise(double ***noise);
 double			smooth_noise(double x, double y, double ***noise);
 double			turbulence(double x, double y, double size, double ***noise);
@@ -367,6 +398,8 @@ t_color			*ft_contact(t_ray *ray, t_env *e, t_obj **cur_obj);
 
 void			ft_make_screen(t_env *e, char *name);
 
+void			ft_antialiasing(t_env *e);
+void			ft_correction(t_env *e);
 void			ft_antialiasing(t_env *e);
 void			ft_correction(t_env *e);
 
