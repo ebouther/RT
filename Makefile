@@ -93,6 +93,8 @@ SRC_NAME = main.c \
 		   ft_creat_win.c \
 		   ft_cal_gen.c \
 		   ft_texture.c \
+		   ft_texture2.c \
+		   ft_texture3.c \
 		   ft_angle_contact.c \
 		   ft_angle_contact2.c \
 		   ft_brillance.c \
@@ -107,6 +109,7 @@ SRC_NAME = main.c \
 		   utils.c \
 		   ft_screen_shot.c \
 		   ft_antialiasing.c \
+		   ft_correction.c \
 		   ft_celshading.c \
 		   ft_ref.c \
 		   ft_op_composed_obj.c \
