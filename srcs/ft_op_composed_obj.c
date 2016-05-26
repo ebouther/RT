@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 13:58:35 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/26 12:38:36 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/26 14:38:29 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_obj_col		*ft_inters_obj(t_nod *nod1, t_nod *nod2, t_ray *ray)
 	}
 	else
 		nod2->obj_col = nod2->op(nod2->r, nod2->l, ray);
-	if (nod1->obj_col->t[0] < nod2->obj_col->t[0] && nod2->obj_col->t[1] != -FAR ) 
+	if (nod1->obj_col->t[0] < nod2->obj_col->t[0]) 
 	{
 		if (kk)
 		{
@@ -73,7 +73,7 @@ t_obj_col		*ft_inters_obj(t_nod *nod1, t_nod *nod2, t_ray *ray)
 			printf ("t2[0] = %f,t2[1] = %f ___________1___________\n",nod2->obj_col->t[0], nod2->obj_col->t[1] );
 		}
 		res = nod2->obj_col;
-		res->t[1] = nod1->obj_col->t[1];
+		res->t[1] = nod1->obj_col->t[1] < nod2->obj_col->t[1] ? nod1->obj_col->t[1] : nod2->obj_col->t[1];
 		if (nod1->obj_col->t[1] <= nod2->obj_col->t[0]) 
 		{
 			res->t[0] = FAR;
@@ -82,7 +82,7 @@ t_obj_col		*ft_inters_obj(t_nod *nod1, t_nod *nod2, t_ray *ray)
 				printf("lolo\n");
 		}
 	}
-	else if (nod2->obj_col->t[0] < nod1->obj_col->t[0] || nod2->obj_col->t[1] != -FAR)
+	else if (nod2->obj_col->t[0] < nod1->obj_col->t[0])
 	{
 		if (kk)
 		{

@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 10:36:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/23 18:30:43 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/26 17:15:04 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ static int	ft_set_objects(char *objects, t_env *e)
 	ft_get_cones(objects, len, e);
 	ft_get_planes(objects, len, e);
 	ft_get_objtolist(objects, len, e);
+	ft_get_cubes(objects, len, e);
 	return (0);
 }
 

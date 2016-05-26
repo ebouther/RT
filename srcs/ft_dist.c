@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:31:25 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/25 18:26:03 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/26 16:41:00 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ double			*inters_plan(t_ray *ray, t_obj *obj)
 {
 	double	vd;
 	double	*t;
-	double	scl;
 
 	t = (double *)malloc(sizeof(double) * 2);
 	vd = obj->norm.x * ray->dir.x +
@@ -48,33 +47,9 @@ double			*inters_plan(t_ray *ray, t_obj *obj)
 	t[0] = (obj->norm.x * (obj->pos.x - ray->pos.x) +
 			obj->norm.y * (obj->pos.y - ray->pos.y) +
 			obj->norm.z * (obj->pos.z - ray->pos.z)) / vd;
-	scl = scal(ray->dir, obj->norm);
-	if (t[0] > 0)
-	{
-		if (scl <= 0)
-			t[1] = FAR;
-		else
-		{
-			t[1] = t[0];
-			t[0] = -FAR;
-		}
-	}
-	else if (t[0] == 0)
-	{
-		t[0] = -FAR;
-		if (scl <= 0)
-			t[1] = FAR;
-		else
-			t[1] = -FAR;
-	}
-	else
-	{
-		t[0] = -FAR;
-		if (scl <= 0)
-			t[1] = FAR;
-		else
-			t[1] = -FAR;
-	}
+	t[1] = FAR;
+	if (t[0] < 0)
+		t[0] = FAR;
 	return (t);
 }
 

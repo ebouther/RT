@@ -75,6 +75,7 @@ PARSER_FILES = parsing.c \
 			   plane_parsing.c \
 			   sphere_parsing.c \
 			   cone_parsing.c \
+			   cube_parsing.c \
 			   tore_parsing.c \
 			   quadra_parsing.c \
 			   pobj_parsing.c \

@@ -6,11 +6,46 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 09:45:01 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/23 13:18:20 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/26 17:57:01 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <stdio.h>
+
+t_vec3	*normal_cube(t_ray *ray, t_obj *obj)
+{
+	t_vec3	*res;
+	t_vec3	tmp;
+
+	tmp.x = ray->pos.x - obj->pos.x;
+	tmp.y = ray->pos.y - obj->pos.y;
+	tmp.z = ray->pos.z - obj->pos.z;
+	if ((res = (t_vec3 *)malloc(sizeof(t_vec3))) == NULL)
+		exit(-1);
+	if (scal(tmp, obj->dir) == obj->scale.z / 2 || scal(tmp, obj->dir) == -obj->scale.z / 2 )
+	{
+		res->x = obj->dir.x;
+		res->y = obj->dir.y;
+		res->z = obj->dir.z;
+	}
+	else if (scal(tmp, obj->dir2) == obj->scale.y / 2 || scal(tmp, obj->dir2) == -obj->scale.y / 2)
+	{
+		res->x = obj->dir2.x;
+		res->y = obj->dir2.y;
+		res->z = obj->dir2.z;
+	}
+	else
+	{
+		res->x = obj->dir3.x;
+		res->y = obj->dir3.y;
+		res->z = obj->dir3.z;
+	}
+	ft_normalise(res);
+	if (kk)
+		printf("norma = (%f, %f, %f)\n", res->x, res->y, res->z);
+	return (scal(*res, tmp) < 0 ? res : pro(-1, res));
+}
 
 t_vec3	*normal_tore(t_ray *ray, t_obj *obj)
 {
