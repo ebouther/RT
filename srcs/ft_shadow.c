@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/25 17:12:21 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/26 18:42:17 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,9 @@ void		ft_refl_refr_calc(t_obj *cur_obj, t_shadow *s, t_ray *ray, t_env *e)
 t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 {
 	t_shadow	s;
+	int			i[3];
 
+	i[0] = 0;
 	s.lst = e->light;
 	ft_init_shadow(&s, cur_obj, ray, t);
 	if (ray->iter >= NB_ITER)
@@ -79,16 +81,27 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj)
 	while (s.lst)
 	{
 		s.work.light = ((t_light *)(s.lst->content));
-		s.work.light->new_k = s.work.light->k / 10.0;
-		s.work.light->offset = (t_vec3){0, 0, 0};
-		int		i = 0;
-		while (i < 10)
+		s.work.light->new_k = s.work.light->k / (pow(s.work.light->nb_light + 1, 3));
+		s.work.light->offset = (t_vec3){-(s.work.light->nb_light * s.work.light->dist_light) / 2.0, -(s.work.light->nb_light * s.work.light->dist_light) / 2.0, -(s.work.light->nb_light * s.work.light->dist_light) / 2.0};
+		while (i[0] <= s.work.light->nb_light)
 		{
-			//srand(time(NULL));
-			//s.work.light->offset = (t_vec3){(rand()/(double)RAND_MAX ) * (20 - -20) + -20,
-			//(rand()/(double)RAND_MAX ) * (20 - -20) + -20, (rand()/(double)RAND_MAX ) * (20 - -20) + -20};
-			ft_in_light(&s.work, e, &s.col_res);
-			i++;
+			s.work.light->offset.y = -(s.work.light->nb_light * s.work.light->dist_light) / 2.0;
+			i[1] = 0;
+			while (i[1] <= s.work.light->nb_light)
+			{
+				s.work.light->offset.z = -(s.work.light->nb_light * s.work.light->dist_light) / 2.0;
+				i[2] = 0;
+				while (i[2] <= s.work.light->nb_light)
+				{
+					ft_in_light(&s.work, e, &s.col_res);
+					s.work.light->offset.z += s.work.light->dist_light;
+					i[2]++;
+				}
+				s.work.light->offset.y += s.work.light->dist_light;
+				i[1]++;
+			}
+			s.work.light->offset.x += s.work.light->dist_light;
+			i[0]++;
 		}
 		s.lst = s.lst->next;
 	}

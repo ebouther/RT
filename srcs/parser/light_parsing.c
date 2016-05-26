@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 14:11:08 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/10 14:04:58 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/26 18:01:03 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static int	ft_set_light(char *light, t_env *e)
 {
 	char	*position;
 	char	*intensity;
+	char	*nb_light;
+	char	*dist_light;
 	char	*color;
 	t_light	light_obj;
 
@@ -25,6 +27,12 @@ static int	ft_set_light(char *light, t_env *e)
 		ft_error_exit("Error: light require a color subobject.\n");
 	if ((intensity = ft_get_inner(light, "intensity", NULL)) == NULL)
 		ft_error_exit("Error: light require a color subobject.\n");
+	if ((nb_light = ft_get_inner(light, "nb_light", NULL)) == NULL)
+		ft_error_exit("Error: light require a nb_light subobject.\n");
+	if ((dist_light = ft_get_inner(light, "dist_light", NULL)) == NULL)
+		ft_error_exit("Error: light require a dist_light subobject.\n");
+	light_obj.nb_light = ft_atod(nb_light);
+	light_obj.dist_light = ft_atod(dist_light);
 	ft_set_vec3(position, &light_obj.pos);
 	ft_set_color(color, &light_obj.col);
 	light_obj.k = ft_atod(intensity);

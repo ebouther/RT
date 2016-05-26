@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/25 14:44:44 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/26 18:48:32 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,11 @@ typedef struct	s_light
 {
 	t_vec3	pos;
 	t_color	col;
+	t_vec3	offset;
 	double	k;
+	double	new_k;
+	int		nb_light;
+	double	dist_light;
 }				t_light;
 
 typedef	struct	s_cam
@@ -390,7 +394,7 @@ t_ray			*ft_calc_ray(int x, int y, t_env *e);
 t_ray    		*ft_recalc_ori(t_ray *ray, double t);
 void			ft_recalc_dir(t_light *light, t_ray *ray, t_vec3 *norm);
 double			ft_dist(int i, t_env *e);
-double			ft_dist_light(t_vec3 *ray_pos, t_vec3 *light_pos);
+double			ft_dist_light(t_vec3 *ray_pos, t_light *light);
 double			ft_angle_contact(t_ray *ray, t_vec3 *normal);
 double			ft_dist(int i, t_env *e);
 double			ft_brillance(t_vec3 *pos_cam, t_ray *ray, t_vec3 *normal);
