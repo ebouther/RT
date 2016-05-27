@@ -6,13 +6,9 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 13:58:35 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/09 16:59:08 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/27 17:12:01 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-//Géométrie de construction de solides
-
 
 #include "rtv1.h"
 
@@ -92,13 +88,9 @@ t_obj_col		*ft_sub_obj(t_nod *nod1, t_nod *nod2, t_ray *ray)
 	else
 		nod2->obj_col = nod2->op(nod2->l, nod2->r, ray);
 	if (nod1->obj_col->t[0] < nod2->obj_col->t[0])
-		res = nod1->obj_col;
-	else
-	{
-		nod2->obj_col->neg = -1;
-		res = nod2->obj_col;
-	}
-	return (res);
+		return (res = nod1->obj_col);
+	nod2->obj_col->neg = -1;
+	return (res = nod2->obj_col);
 }
 
 t_obj_col		*ft_get_inters(t_nod *nod, t_ray *ray)

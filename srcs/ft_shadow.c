@@ -6,11 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2016/05/27 15:44:00 by pboutin          ###   ########.fr       */
-=======
-/*   Updated: 2016/05/26 18:42:17 by ascholle         ###   ########.fr       */
->>>>>>> 134624bf2121a9f6e795a02f50e5cca4e9bedd61
+/*   Updated: 2016/05/27 17:13:05 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +74,9 @@ void						ft_refl_refr_calc(t_obj *cur_obj, t_shadow *s,
 t_color						*ft_ishadow(t_env *e, t_ray *ray, double t,
 		t_obj *cur_obj)
 {
-<<<<<<< HEAD
 	t_shadow					s;
 	t_norm_ft_calc_final_col	norm;
-=======
-	t_shadow	s;
 	int			i[3];
->>>>>>> 134624bf2121a9f6e795a02f50e5cca4e9bedd61
 
 	i[0] = 0;
 	s.lst = e->light;

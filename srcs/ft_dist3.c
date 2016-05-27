@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 12:41:50 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/27 14:31:14 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/27 17:26:57 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ double			*inters_quadra(t_ray *ray, t_obj *obj)
 	res = (double*)malloc(sizeof(double) * 2);
 	res[1] = FAR;
 	res[0] = FAR;
-	//if (kk)
-	//{
-	//	printf("t0 = %f, t1 = %f\n", t[0], t[1]);
-	//	printf("pos = %f, %f, %f\n", tmp.pos.x, tmp.pos.y, tmp.pos.z);
-	//}
+/*	if (kk)
+	{
+		printf("t0 = %f, t1 = %f\n", t[0], t[1]);
+		printf("pos = %f, %f, %f\n", tmp.pos.x, tmp.pos.y, tmp.pos.z);
+	}*/
 	if (t[0] == FAR || (t[0] < 0 && t[1] < 0))
 		res[0] = FAR;
 	if (t[0] < 0)

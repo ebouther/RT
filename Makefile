@@ -100,6 +100,7 @@ SRC_NAME = main.c \
 		   ft_brillance.c \
 		   ft_shadow.c \
 		   ft_shadow2.c \
+		   ft_shadow3.c \
 		   ft_dist.c \
 		   ft_dist2.c \
 		   ft_dist3.c \

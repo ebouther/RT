@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/27 17:22:37 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/27 17:34:37 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,12 +145,12 @@ typedef struct	s_type
 typedef struct	s_light
 {
 	t_vec3	pos;
-	t_color	col;
 	t_vec3	offset;
+	t_color	col;
 	double	k;
 	double	new_k;
-	int		nb_light;
 	double	dist_light;
+	int		nb_light;
 }				t_light;
 
 typedef	struct	s_cam
@@ -417,13 +417,12 @@ int				ft_checkerboard(t_ray *ray, double t);
 void			ft_color_mode(t_color *c, t_env *e);
 void			ft_bri_max(t_color_res *colres);
 
-
+double			ft_dist_light(t_vec3 *ray_pos, t_light *light);
 
 t_ray			*ft_calc_ray(int x, int y, t_env *e);
 t_ray    		*ft_recalc_ori(t_ray *ray, double t);
 void			ft_recalc_dir(t_light *light, t_ray *ray, t_vec3 *norm);
 double			ft_dist(int i, t_env *e);
-double			ft_dist_light(t_vec3 *ray_pos, t_light *light);
 double			ft_angle_contact(t_ray *ray, t_vec3 *normal);
 double			ft_dist(int i, t_env *e);
 double			ft_brillance(t_vec3 *pos_cam, t_ray *ray, t_vec3 *normal);
