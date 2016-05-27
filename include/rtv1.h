@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/27 15:50:38 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/27 17:22:37 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,6 +294,15 @@ typedef struct  s_norm_ft_calc_final_col
 	t_color_res *col_res;
 	double      refl;
 }               t_norm_ft_calc_final_col;
+
+typedef struct	s_light_parser
+{
+	char		*position;
+	char		*color;
+	char		*intensity;
+	char		*nb_light;
+	char		*dist_light;
+}				t_light_parser;
 
 void			ft_put_pixelle(int x, int y, unsigned int c, t_env *e);
 void			ft_creat_img(t_env *e);
