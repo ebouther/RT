@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:21:39 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/26 15:45:55 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/27 12:05:03 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_ray			*ft_calc_ray(int x, int y, t_env *e)
 	return (ray);
 }
 
-#include <stdio.h>
 inline double	ft_dist_light(t_vec3 *ray_pos, t_light *light)
 {
 	return (sqrt(
