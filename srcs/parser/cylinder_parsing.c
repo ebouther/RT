@@ -6,12 +6,27 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:45:04 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/10 15:07:48 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/27 15:32:06 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-#include <stdio.h>
+
+static void	ft_set_node(char *position, char *direction, char *radius,
+		t_nod *nod)
+{
+	ft_set_vec3(position, &nod->obj->pos);
+	ft_set_vec3(direction, &nod->obj->dir);
+	ft_normalise(&nod->obj->dir);
+	nod->obj->rayon = ft_atod(radius);
+	nod->obj->get_normal = &normal_cyl;
+	nod->obj->get_inters = &inters_cyl;
+	nod->r = NULL;
+	nod->l = NULL;
+	nod->op = NULL;
+	nod->obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
+}
+
 static int	ft_set_cylinder(char *cylinder, t_env *e)
 {
 	char	*position;
@@ -30,17 +45,8 @@ static int	ft_set_cylinder(char *cylinder, t_env *e)
 		ft_error_exit("Error: cylinder require a material subobject.\n");
 	if ((direction = ft_get_inner(cylinder, "direction", NULL)) == NULL)
 		ft_error_exit("Error: cylinder require a direction subobject.\n");
-	ft_set_vec3(position, &nod.obj->pos);
-	ft_set_vec3(direction, &nod.obj->dir);
-	ft_normalise(&nod.obj->dir);
-	nod.obj->rayon = ft_atod(radius);
 	ft_set_mat(mat, nod.obj);
-	nod.obj->get_normal = &normal_cyl;
-	nod.obj->get_inters = &inters_cyl;
-	nod.r = NULL;
-	nod.l = NULL;
-	nod.op = NULL;
-	nod.obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
+	ft_set_node(position, direction, radius, &nod);
 	ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
 	ft_strdel(&position);
 	ft_strdel(&direction);

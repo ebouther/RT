@@ -6,11 +6,27 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:49:15 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/10 14:02:45 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/27 15:27:51 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+static void	ft_set_cone_2(char *angle, char *position, char *direction,
+				t_nod *nod)
+{
+	ft_set_vec3(position, &nod->obj->pos);
+	ft_set_vec3(direction, &nod->obj->dir);
+	ft_normalise(&nod->obj->dir);
+	nod->obj->angle = ft_atod(angle) / 180 * M_PI;
+	nod->obj->get_normal = &normal_cone;
+	nod->obj->get_inters = &inters_cone;
+	nod->r = NULL;
+	nod->l = NULL;
+	nod->op = NULL;
+	if ((nod->obj_col = (t_obj_col *)malloc(sizeof(t_obj_col))) == NULL)
+		exit(-1);
+}
 
 static int	ft_set_cone(char *cone, t_env *e)
 {
@@ -30,17 +46,8 @@ static int	ft_set_cone(char *cone, t_env *e)
 		ft_error_exit("Error: cone require a material subobject.\n");
 	if ((direction = ft_get_inner(cone, "direction", NULL)) == NULL)
 		ft_error_exit("Error: cone require a direction subobject.\n");
-	ft_set_vec3(position, &nod.obj->pos);
-	ft_set_vec3(direction, &nod.obj->dir);
-	ft_normalise(&nod.obj->dir);
-	nod.obj->angle = ft_atod(angle) / 180 * M_PI;
 	ft_set_mat(mat, nod.obj);
-	nod.obj->get_normal = &normal_cone;
-	nod.obj->get_inters = &inters_cone;
-	nod.r = NULL;
-	nod.l = NULL;
-	nod.op = NULL;
-	nod.obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
+	ft_set_cone_2(angle, position, direction, &nod);
 	ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
 	ft_strdel(&position);
 	ft_strdel(&direction);
