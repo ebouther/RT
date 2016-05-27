@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/25 14:44:44 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/27 15:48:55 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,6 +274,23 @@ typedef struct	s_norm_stock_size_tex
 	char    **split;
 }				t_norm_stock_size_tex;
 
+typedef struct  s_norm_ft_atod
+{
+	double      res;
+	char        sgn;
+	int         pt;
+}				t_norm_ft_atod;
+
+typedef struct  s_norm_ft_calc_final_col
+{
+	t_env       *e;
+	t_color     *final_col;
+	t_color     *col;
+	t_obj       *cur_obj;
+	t_color_res *col_res;
+	double      refl;
+}               t_norm_ft_calc_final_col;
+
 void			ft_put_pixelle(int x, int y, unsigned int c, t_env *e);
 void			ft_creat_img(t_env *e);
 double			ft_equa_sec(double a, double b, double c);
@@ -377,6 +394,9 @@ void			put_pixel(char **data, int x, int y, int color);
 /*
 ** Shadow
 */
+t_norm_ft_calc_final_col    ft_norm_ishadow(t_norm_ft_calc_final_col norm,
+t_env *e, t_obj *cur_obj, t_shadow s);
+void            ft_calc_filtre(t_color *filtre, t_list *lst);
 t_color			*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj);
 void			ft_in_light(t_work *work, t_env *e, t_color_res *col_res);
 
