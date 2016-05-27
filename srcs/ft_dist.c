@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:31:25 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/25 11:45:20 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/27 12:24:23 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ double			*inters_cone(t_ray *ray, t_obj *obj)
 		- carre(b[0]);
 	c[1] = 2 * carre(cos(obj->angle)) * (a[0] * a[3] + a[1]
 			* a[4] + a[2] * a[5]) - 2 * b[0] * b[1];
-	c[2] = carre(cos(obj->angle)) *	(carre(a[3]) + carre(a[4]) + carre(a[5]))
+	c[2] = carre(cos(obj->angle)) * (carre(a[3]) + carre(a[4]) + carre(a[5]))
 		- carre(b[1]);
 	return (ft_equa_sec2(c[0], c[1], c[2]));
 }

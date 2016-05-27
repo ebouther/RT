@@ -6,18 +6,17 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 12:41:50 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/10 15:23:55 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/27 14:11:20 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-#include <stdio.h>
 
-static double			*inters_sphere2(t_ray *ray, t_obj *obj)
+static double	*inters_sphere2(t_ray *ray, t_obj *obj)
 {
-	double a;
-	double b;
-	double c;
+	double	a;
+	double	b;
+	double	c;
 	double	*res;
 
 	a = carre(ray->dir.x) + carre(ray->dir.y) + carre(ray->dir.z);
@@ -40,11 +39,12 @@ static double	ft_equ(double t, t_ray *ray, t_obj *obj)
 	ft_rot_vec(obj->rot.x, (t_vec3){1, 0, 0}, &(tmp));
 	ft_rot_vec(obj->rot.y, (t_vec3){0, 1, 0}, &(tmp));
 	ft_rot_vec(obj->rot.z, (t_vec3){0, 0, 1}, &(tmp));
-
 	cb.x = t * ray->dir.x + ray->pos.x;
 	cb.y = t * ray->dir.y + ray->pos.y;
 	cb.z = t * ray->dir.z + ray->pos.z;
-	return (cb.x * obj->equ.x1 + carre(cb.x) * obj->equ.x2 + cb.y * obj->equ.y1 + carre(cb.y) * obj->equ.y2 +cb.z * obj->equ.z1 + carre(cb.z) * obj->equ.z2 + obj->equ.c);
+	return (cb.x * obj->equ.x1 + carre(cb.x) * obj->equ.x2 + cb.y
+		* obj->equ.y1 + carre(cb.y) * obj->equ.y2 + cb.z * obj->equ.z1 + carre(cb.z)
+		* obj->equ.z2 + obj->equ.c);
 }
 
 static double	ft_rec(double t1, double t2, t_ray *ray, t_obj *obj, int s)
@@ -57,16 +57,17 @@ static double	ft_rec(double t1, double t2, t_ray *ray, t_obj *obj, int s)
 		return (ft_rec(t1, (t1 + t2) / 2.0, ray, obj, s));
 }
 
-double	*inters_quadra(t_ray *ray, t_obj *obj)
+double			*inters_quadra(t_ray *ray, t_obj *obj)
 {
-	double *t;
-	double t1;
-	double r2;
-	double r1;
-	t_ray tmp;
-	double *res;
+	double	*t;
+	double	t1;
+	double	r2;
+	double	r1;
+	t_ray	tmp;
+	double	*res;
 
-	tmp = (t_ray){{ray->pos.x - obj->pos.x, ray->pos.y - obj->pos.y, ray->pos.z - obj->pos.z},{ray->dir.x, ray->dir.y, ray->dir.z},0,0};
+	tmp = (t_ray){{ray->pos.x - obj->pos.x, ray->pos.y - obj->pos.y,
+		ray->pos.z - obj->pos.z}, {ray->dir.x, ray->dir.y, ray->dir.z}, 0, 0};
 	ft_rot_vec(obj->rot.x, (t_vec3){1, 0, 0}, &(tmp.pos));
 	ft_rot_vec(obj->rot.x, (t_vec3){1, 0, 0}, &(tmp.dir));
 	ft_rot_vec(obj->rot.y, (t_vec3){0, 1, 0}, &(tmp.pos));
@@ -79,14 +80,14 @@ double	*inters_quadra(t_ray *ray, t_obj *obj)
 	res[0] = FAR;
 	if (kk)
 	{
-		printf("t0 = %f, t1 = %f\n",t[0],t[1]);
-		printf("pos = %f, %f, %f\n",tmp.pos.x, tmp.pos.y, tmp.pos.z);
+		printf("t0 = %f, t1 = %f\n", t[0], t[1]);
+		printf("pos = %f, %f, %f\n", tmp.pos.x, tmp.pos.y, tmp.pos.z);
 	}
 	if (t[0] == FAR || (t[0] < 0 && t[1] < 0))
 		res[0] = FAR;
 	if (t[0] < 0)
 		t1 = 0;
-	else	
+	else
 		t1 = t[0];
 	while (t1 < t[1])
 	{

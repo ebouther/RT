@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:21:39 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/25 11:42:22 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/27 12:05:03 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,12 @@ t_ray			*ft_calc_ray(int x, int y, t_env *e)
 	return (ray);
 }
 
-inline double	ft_dist_light(t_vec3 *ray_pos, t_vec3 *light_pos)
+inline double	ft_dist_light(t_vec3 *ray_pos, t_light *light)
 {
-	return (sqrt(carre(light_pos->x - ray_pos->x) +
-				carre(light_pos->y - ray_pos->y) +
-				carre(light_pos->z - ray_pos->z)));
+	return (sqrt(
+				carre((light->pos.x + light->offset.x) - ray_pos->x) +
+				carre((light->pos.y + light->offset.y) - ray_pos->y) +
+				carre((light->pos.z + light->offset.z) - ray_pos->z)));
 }
 
 t_ray			*ft_recalc_ori(t_ray *ray, double t)
@@ -59,9 +60,9 @@ t_ray			*ft_recalc_ori(t_ray *ray, double t)
 
 void			ft_recalc_dir(t_light *light, t_ray *ray, t_vec3 *norm)
 {
-	ray->dir.x = light->pos.x - ray->pos.x;
-	ray->dir.y = light->pos.y - ray->pos.y;
-	ray->dir.z = light->pos.z - ray->pos.z;
+	ray->dir.x = light->pos.x + light->offset.x - ray->pos.x;
+	ray->dir.y = light->pos.y + light->offset.y - ray->pos.y;
+	ray->dir.z = light->pos.z + light->offset.z - ray->pos.z;
 	ray->pos.x = ray->pos.x + 0.01 * norm->x;
 	ray->pos.y = ray->pos.y + 0.01 * norm->y;
 	ray->pos.z = ray->pos.z + 0.01 * norm->z;

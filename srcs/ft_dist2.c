@@ -6,14 +6,13 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 09:38:57 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/24 14:26:59 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/27 14:06:08 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-#include <stdio.h>
 
-double		*ft_equa_sec2(double a, double b, double c)
+double			*ft_equa_sec2(double a, double b, double c)
 {
 	double delt;
 	double r1;
@@ -42,11 +41,11 @@ double		*ft_equa_sec2(double a, double b, double c)
 	return (res);
 }
 
-static double			*inters_sphere2(t_ray *ray, t_obj *obj)
+static double	*inters_sphere2(t_ray *ray, t_obj *obj)
 {
-	double a;
-	double b;
-	double c;
+	double	a;
+	double	b;
+	double	c;
 	double	*res;
 
 	a = carre(ray->dir.x) + carre(ray->dir.y) + carre(ray->dir.z);
@@ -63,15 +62,16 @@ static double			*inters_sphere2(t_ray *ray, t_obj *obj)
 static double	ft_tor(double t, t_ray *ray, t_obj *obj)
 {
 	t_vec3 cb;
+	double r2;
 	double r;
-	double R;
 
 	cb.x = t * ray->dir.x + ray->pos.x - obj->pos.x;
 	cb.y = t * ray->dir.y + ray->pos.y - obj->pos.y;
 	cb.z = t * ray->dir.z + ray->pos.z - obj->pos.z;
-	r = obj->rayon2;
-	R = obj->rayon;
-	return (carre(scal2(cb) - carre(r) + carre(R)) - 4 * carre(R) * (scal2(cb) - carre(scal(cb, obj->dir))));
+	r2 = obj->rayon2;
+	r = obj->rayon;
+	return (carre(scal2(cb) - carre(r2) + carre(r)) - 4
+		* carre(r) * (scal2(cb) - carre(scal(cb, obj->dir))));
 }
 
 static double	ft_rec(double r1, double r2, t_ray *ray, t_obj *obj)
@@ -84,7 +84,7 @@ static double	ft_rec(double r1, double r2, t_ray *ray, t_obj *obj)
 		return (ft_rec(r1, (r1 + r2) / 2.0, ray, obj));
 }
 
-double	*inters_tore(t_ray *ray, t_obj *obj)
+double			*inters_tore(t_ray *ray, t_obj *obj)
 {
 	double *t;
 	double r1;
@@ -99,7 +99,7 @@ double	*inters_tore(t_ray *ray, t_obj *obj)
 		res[0] = FAR;
 	if (t[0] < 0)
 		r1 = 0;
-	else	
+	else
 		r1 = t[0];
 	while (r1 < t[1])
 	{

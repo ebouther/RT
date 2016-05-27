@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/24 15:27:18 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/27 15:45:33 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/27 15:50:09 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ static void		ft_light_col(t_color_res *col_res, t_work *work,
 
 	col_add = (t_color_res){{0, 0, 0}, {0, 0, 0}, NULL, NULL};
 	angle_contact = ft_angle_contact(work->ray, work->normal);
-	col_add.diffuse.r += filtre->r * angle_contact * work->light->k;
+	col_add.diffuse.r += filtre->r * angle_contact * work->light->new_k;
 	col_add.specular.r += filtre->r * ft_fpower(ft_brillance(&e->cam.dir,
 				work->ray, work->normal), 20) * work->obj->mat.brim;
-	col_add.diffuse.g += filtre->g * angle_contact * work->light->k;
+	col_add.diffuse.g += filtre->g * angle_contact * work->light->new_k;
 	col_add.specular.g += filtre->g * ft_fpower(ft_brillance(&e->cam.dir,
 				work->ray, work->normal), 20) * work->obj->mat.brim;
-	col_add.diffuse.b += filtre->b * angle_contact * work->light->k;
+	col_add.diffuse.b += filtre->b * angle_contact * work->light->new_k;
 	col_add.specular.b += filtre->b * ft_fpower(ft_brillance(&e->cam.dir,
 				work->ray, work->normal), 20) * work->obj->mat.brim;
 	col_res->diffuse.r += col_add.diffuse.r;
@@ -44,8 +44,8 @@ void			ft_in_light(t_work *work, t_env *e, t_color_res *col_res)
 	double		tmp;
 	t_color		filtre;
 
-	ft_recalc_dir(work->light, work->ray, work->normal);
 	lst = e->obj;
+	ft_recalc_dir(work->light, work->ray, work->normal);
 	filtre = (t_color){work->light->col.r, work->light->col.g,
 		work->light->col.b};
 	while (lst)
@@ -53,9 +53,9 @@ void			ft_in_light(t_work *work, t_env *e, t_color_res *col_res)
 		obj = ft_get_inters(lst->content, work->ray);
 		tmp = obj->t[0] > 0 ? obj->t[0] : obj->t[1];
 		if (((t_nod *)(lst->content))->obj->mat.refr > 0 && tmp > 0
-				&& tmp < ft_dist_light(&work->ray->pos, &work->light->pos))
+				&& tmp < ft_dist_light(&work->ray->pos, work->light))
 			ft_calc_filtre(&filtre, lst);
-		else if (!(tmp > ft_dist_light(&work->ray->pos, &work->light->pos)
+		else if (!(tmp > ft_dist_light(&work->ray->pos, work->light)
 			|| tmp < 0))
 			break ;
 		lst = lst->next;

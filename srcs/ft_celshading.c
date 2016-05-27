@@ -6,14 +6,29 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/09 17:31:31 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/23 16:51:29 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/27 12:11:51 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-#include <stdio.h>
 
-int	ft_voisin(int x, int y, t_env *e)
+static void	ft_fill_data(int x, int y, t_env *e)
+{
+	if ((unsigned char)e->data[(x * 4 + SIZE_W * 4 * y)] < 240)
+		e->data[(x * 4 + SIZE_W * 4 * y)] = ((e->data[(x * 4
+				+ SIZE_W * 4 * y)] / 30) + 1) * 30;
+	if ((unsigned char)e->data[(x * 4 + SIZE_W * 4 * y) + 1] < 240)
+		e->data[(x * 4 + SIZE_W * 4 * y) + 1] = ((e->data[(x * 4
+				+ SIZE_W * 4 * y) + 1] / 30) + 1) * 30;
+	if ((unsigned char)e->data[(x * 4 + SIZE_W * 4 * y) + 2] < 240)
+		e->data[(x * 4 + SIZE_W * 4 * y) + 2] = ((e->data[(x * 4
+				+ SIZE_W * 4 * y) + 2] / 30) + 1) * 30;
+	if ((unsigned char)e->data[(x * 4 + SIZE_W * 4 * y) + 3] < 240)
+		e->data[(x * 4 + SIZE_W * 4 * y) + 3] = ((e->data[(x * 4
+				+ SIZE_W * 4 * y) + 3] / 30) + 1) * 30;
+}
+
+static int	ft_voisin(int x, int y, t_env *e)
 {
 	t_obj	*tmp;
 	int		x1;
@@ -35,7 +50,7 @@ int	ft_voisin(int x, int y, t_env *e)
 	return (0);
 }
 
-void	ft_celshading(t_env *e)
+void		ft_celshading(t_env *e)
 {
 	int		x;
 	int		y;
@@ -54,20 +69,11 @@ void	ft_celshading(t_env *e)
 				e->data[(x * 4 + SIZE_W * 4 * y) + 3] = 0;
 			}
 			else
-			{
-				if ((unsigned char)e->data[(x * 4 + SIZE_W * 4 * y)] < 240)
-					e->data[(x * 4 + SIZE_W * 4 * y)] = ((e->data[(x * 4 + SIZE_W * 4 * y)] / 30) + 1) * 30;
-				if ((unsigned char)e->data[(x * 4 + SIZE_W * 4 * y) + 1] < 240)
-					e->data[(x * 4 + SIZE_W * 4 * y) + 1] = ((e->data[(x * 4 + SIZE_W * 4 * y) + 1] / 30) + 1) * 30;
-				if ((unsigned char)e->data[(x * 4 + SIZE_W * 4 * y) + 2] < 240)
-					e->data[(x * 4 + SIZE_W * 4 * y) + 2] = ((e->data[(x * 4 + SIZE_W * 4 * y) + 2] / 30) + 1) * 30;
-				if ((unsigned char)e->data[(x * 4 + SIZE_W * 4 * y) + 3] < 240)
-					e->data[(x * 4 + SIZE_W * 4 * y) + 3] = ((e->data[(x * 4 + SIZE_W * 4 * y) + 3] / 30) + 1) * 30;
-			}
+				ft_fill_data(x, y, e);
 			y++;
 		}
 		x++;
-	}	
+	}
 	mlx_clear_window(e->mlx, e->win);
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 }
