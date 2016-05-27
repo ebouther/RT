@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:52:18 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/10 13:57:37 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/27 14:26:14 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	ft_stock_scene(t_env *e, char *av)
 	ft_init_env(e);
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		file = ft_strjoin(tmp = file, line);
+		tmp = file;
+		file = ft_strjoin(tmp, line);
 		free(tmp);
 	}
 	if (ft_parse_scene(file, e) == -1)
