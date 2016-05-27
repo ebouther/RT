@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/24 15:27:18 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/25 16:23:50 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/27 15:50:09 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,6 @@ static void		ft_light_col(t_color_res *col_res, t_work *work,
 	col_res->specular.g += col_add.specular.g;
 	col_res->diffuse.b += col_add.diffuse.b;
 	col_res->specular.b += col_add.specular.b;
-}
-
-void			ft_calc_filtre(t_color *filtre, t_list *lst)
-{
-	filtre->r *= ((t_nod *)(lst->content))->obj->mat.col.r
-		* ((t_nod *)(lst->content))->obj->mat.refr;
-	filtre->g *= ((t_nod *)(lst->content))->obj->mat.col.g
-		* ((t_nod *)(lst->content))->obj->mat.refr;
-	filtre->b *= ((t_nod *)(lst->content))->obj->mat.col.b
-		* ((t_nod *)(lst->content))->obj->mat.refr;
 }
 
 void			ft_in_light(t_work *work, t_env *e, t_color_res *col_res)
