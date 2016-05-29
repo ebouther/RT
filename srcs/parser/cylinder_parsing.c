@@ -40,7 +40,7 @@ int		ft_set_cylinder(char *cylinder, t_env *e, t_nod *prnt)
 	nod.obj->get_inters = &inters_cyl;
 	nod.r = NULL;
 	nod.l = NULL;
-	nod.op = NULL;
+	nod.op = empty;
 	nod.obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
 	nod.obj_col->neg = 1;
 	if (e)

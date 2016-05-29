@@ -150,9 +150,17 @@ typedef struct	s_obj_col
 	char		neg;
 }				t_obj_col;
 
+typedef enum	e_op
+{
+		empty,
+		inters,
+		sub,
+		uni
+}				t_op;
+
 typedef struct	s_nod
 {
-	t_obj_col			*(*op)(struct s_nod *, struct s_nod *, t_ray *);
+	t_op				op;
 	struct s_nod		*r;
 	struct s_nod		*l;
 	t_obj_col			*obj_col;

@@ -48,7 +48,7 @@ int			ft_get_cobj(char *objects, t_env *e)
 void		ft_treecpy(t_nod **dest, t_nod *src, t_vec3 pos)
 {
 	*dest = (t_nod *)malloc(sizeof(t_nod));
-	if (src->obj)
+	if (src->op == empty)
 	{
 		(*dest)->obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
 		(*dest)->obj = (t_obj *)malloc(sizeof(t_obj));
@@ -56,7 +56,7 @@ void		ft_treecpy(t_nod **dest, t_nod *src, t_vec3 pos)
 		(*dest)->obj->pos = (t_vec3){pos.x + (*dest)->obj->pos.x, pos.y + (*dest)->obj->pos.y, pos.z + (*dest)->obj->pos.z};
 		(*dest)->l = NULL;
 		(*dest)->r = NULL;
-		(*dest)->op = NULL;
+		(*dest)->op = empty;
 	}
 	else
 	{

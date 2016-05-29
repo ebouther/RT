@@ -31,15 +31,20 @@ t_color		*ft_contact(t_ray *ray, t_env *e, t_obj **obj_pix)
 		{
 			t = tmp->t[0];
 			if (obj_pix)
-				*obj_pix = ((t_obj *)lst->content);
+				*obj_pix = tmp->obj;
 			cur_obj = tmp->obj;
 		}
 		else if (tmp->t[1] < t && tmp->t[1] > 0)
 		{
 			t = tmp->t[1];
 			if (obj_pix)
-				*obj_pix = ((t_obj *)lst->content);
+				*obj_pix = tmp->obj;
 			cur_obj = tmp->obj;
+		}
+		else
+		{
+			free(tmp->t);
+			free(tmp);
 		}
 		lst = lst->next;
 	}

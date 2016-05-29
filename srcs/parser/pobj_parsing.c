@@ -160,7 +160,7 @@ int			ft_set_pobj(char *pobj, t_env *e, t_nod *prnt)
 	nod.obj->get_inters = &inters_pobj;
 	nod.r = NULL;
 	nod.l = NULL;
-	nod.op = NULL;
+	nod.op = empty;
 	nod.obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
 	if (e)
 		ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
