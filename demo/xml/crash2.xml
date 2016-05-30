@@ -181,8 +181,8 @@
 		<obj>
 			<id> 1 </id>
 			<position>
-				<x> 0.0 </x>
-				<y> 0.0 </y>
+				<x> 10.0 </x>
+				<y> 10.0 </y>
 				<z> 0.0 </z>
 			</position>
 		</obj>
