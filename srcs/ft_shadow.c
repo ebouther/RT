@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/13 14:55:20 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/30 15:13:45 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void		ft_in_light(t_work *work, t_env *e, t_color_res *col_res)
 	filtre = (t_color){work->light->col.r, work->light->col.g, work->light->col.b};
 	while (lst)
 	{
-		//tmp = ((t_obj *)(lst->content))->get_inters(work->ray, (t_obj *)(lst->content));
 		obj = ft_get_inters(lst->content, work->ray);
 		if (obj->obj->mat.refr > 0 && obj->t[0] > 0 && obj->t[0] < ft_dist_light(&work->ray->pos, &work->light->pos) )
 		{
