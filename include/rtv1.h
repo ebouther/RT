@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/27 17:34:37 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/30 17:13:36 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define COLOR_CLIP(x) (x < 1) ? x : 1
 
-# define THREAD_NUM 4
+# define THREAD_NUM 1
 # define SIZE_W 1000
 # define SIZE_H 800
 # define WIDTH 100
@@ -145,6 +145,7 @@ typedef struct	s_type
 typedef struct	s_light
 {
 	t_vec3	pos;
+	t_vec3	dir;
 	t_vec3	offset;
 	t_color	col;
 	double	k;
@@ -302,6 +303,7 @@ typedef struct	s_light_parser
 	char		*intensity;
 	char		*nb_light;
 	char		*dist_light;
+	char		*dist;
 }				t_light_parser;
 
 void			ft_put_pixelle(int x, int y, unsigned int c, t_env *e);

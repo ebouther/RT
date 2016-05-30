@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/27 17:13:05 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/30 17:59:20 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ t_color						*ft_ishadow(t_env *e, t_ray *ray, double t,
 	t_norm_ft_calc_final_col	norm;
 	int			i[3];
 
-	i[0] = 0;
 	s.lst = e->light;
 	ft_init_shadow(&s, cur_obj, ray, t);
 	if (ray->iter >= NB_ITER)
@@ -86,6 +85,7 @@ t_color						*ft_ishadow(t_env *e, t_ray *ray, double t,
 	ft_refl_refr_calc(cur_obj, &s, ray, e);
 	while (s.lst)
 	{
+		i[0] = 0;
 		s.work.light = ((t_light *)(s.lst->content));
 		s.work.light->new_k = s.work.light->k / (pow(s.work.light->nb_light + 1, 3));
 		s.work.light->offset = (t_vec3){-(s.work.light->nb_light * s.work.light->dist_light) / 2.0, -(s.work.light->nb_light * s.work.light->dist_light) / 2.0, -(s.work.light->nb_light * s.work.light->dist_light) / 2.0};

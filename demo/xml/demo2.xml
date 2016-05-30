@@ -36,6 +36,8 @@
 				<g> 1.0 </g>
 				<b> 1.0 </b>
 			</color>
+			<nb_light> 0 </nb_light>
+			<dist_light> 0 </dist_light>
 		</light>
 	</lights>
 

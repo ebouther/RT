@@ -23,34 +23,57 @@
 	
 	<lights>
 		<light>
-			<intensity> 0.2 </intensity>
+			<intensity> 0.4 </intensity>
 			<position>
-				<x> -40.0 </x>
+				<x> 0.0 </x>
 				<y> 0.0 </y>
-				<z> 50.0 </z>
+				<z> -100.0 </z>
 			</position>
-			<nb_light> 4 </nb_light>
-			<dist_light> 1 </dist_light>
+			<nb_light> 0 </nb_light>
+			<dist_light> 0 </dist_light>
+		
 			<color>
-				<r> 1.0 </r>
-				<g> 1.0 </g>
+				<r> 0.0 </r>
+				<g> 0.0 </g>
 				<b> 1.0 </b>
 			</color>
 		</light>
 		<light>
-			<intensity> 0.5 </intensity>
+			<intensity> 0.4 </intensity>
 			<position>
-				<x> 40.0 </x>
+				<x> 0.0 </x>
 				<y> 0.0 </y>
-				<z> -210.0 </z>
+				<z> -200.0 </z>
 			</position>
-			<nb_light> 4 </nb_light>
-			<dist_light> 1 </dist_light>
+			<dir>
+				<x> 0.0 </x>
+				<y> 1.0 </y>
+				<z> 1.0 </z>
+			</dir>
+			<nb_light> 0 </nb_light>
+			<dist_light> 0 </dist_light>
+			<color>
+				<r> 0.0 </r>
+				<g> 1.0 </g>
+				<b> 0.0 </b>
+			</color>
+
+		</light>
+		<light>
+			<intensity> 0.4 </intensity>
+			<position>
+				<x> 0.0 </x>
+				<y> 0.0 </y>
+				<z> -200.0 </z>
+			</position>
+			<nb_light> 0 </nb_light>
+			<dist_light> 0 </dist_light>
 			<color>
 				<r> 1.0 </r>
-				<g> 1.0 </g>
-				<b> 1.0 </b>
+				<g> 0.0 </g>
+				<b> 0.0 </b>
 			</color>
+
 		</light>
 	</lights>
 	<objects>
@@ -62,7 +85,7 @@
 			</position>
 			<mat>
 				<refraction> 0 </refraction>
-				<reflection> 0 </reflection>
+				<reflection> 0.0 </reflection>
 				<color>
 					<r> 0.639 </r>
 					<g> 0.09 </g>

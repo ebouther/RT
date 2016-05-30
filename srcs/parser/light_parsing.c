@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 14:11:08 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/27 16:06:35 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/30 17:03:40 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ static int	ft_set_light(char *light, t_env *e)
 		ft_error_exit("Error: light require a color subobject.\n");
 	if ((p.intensity = ft_get_inner(light, "intensity", NULL)) == NULL)
 		ft_error_exit("Error: light require a color subobject.\n");
+	if ((p.dist = ft_get_inner(light, "dir", NULL)) == NULL)
+		ft_bzero(&light_obj.dir, sizeof(t_vec3));
+	else
+		ft_set_vec3(p.dist, &light_obj.dir);
 	if ((p.nb_light = ft_get_inner(light, "nb_light", NULL)) == NULL)
 		ft_error_exit("Error: light require a nb_light subobject.\n");
 	if ((p.dist_light = ft_get_inner(light, "dist_light", NULL)) == NULL)

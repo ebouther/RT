@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:21:39 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/27 12:05:03 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/30 12:32:03 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,22 @@ t_ray			*ft_recalc_ori(t_ray *ray, double t)
 	res->dir.z = ray->dir.z;
 	return (res);
 }
-
+#include <stdio.h>
 void			ft_recalc_dir(t_light *light, t_ray *ray, t_vec3 *norm)
 {
-	ray->dir.x = light->pos.x + light->offset.x - ray->pos.x;
-	ray->dir.y = light->pos.y + light->offset.y - ray->pos.y;
-	ray->dir.z = light->pos.z + light->offset.z - ray->pos.z;
+	if (light->dir.x == 0 && light->dir.y == 0 && light->dir.z == 0)
+	{
+		ray->dir.x = light->pos.x + light->offset.x - ray->pos.x;
+		ray->dir.y = light->pos.y + light->offset.y - ray->pos.y;
+		ray->dir.z = light->pos.z + light->offset.z - ray->pos.z;
+	}
+	else
+	{
+		ray->dir.x = -light->dir.x;
+		ray->dir.y = -light->dir.y;
+		ray->dir.z = -light->dir.z;
+		write(1, "bbbb", 4);
+	}
 	ray->pos.x = ray->pos.x + 0.01 * norm->x;
 	ray->pos.y = ray->pos.y + 0.01 * norm->y;
 	ray->pos.z = ray->pos.z + 0.01 * norm->z;
