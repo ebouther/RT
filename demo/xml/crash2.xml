@@ -1,47 +1,50 @@
 
 <obj_composed>
-	<inters>
-		<id> 2 </id>
+	<sub>
+		<id> 1 </id>
 		<obj_1>
 			<inters>
 				<obj_1>
-					<plane>
+					<cube>
 						<position>
 							<x> 0 </x>
-							<y> 0.0 </y>
-							<z> 10.0 </z>
+							<y> 0 </y>
+							<z> 0 </z>
 						</position>
-						<normal>
-							<x> 0.0 </x>
-							<y> 0.0 </y>
-							<z> 1.0 </z>
-						</normal>
-						<radius> 80 </radius>
+						<direction>
+							<x> 1 </x>
+							<y> 1 </y>
+							<z> 1 </z>
+						</direction>
+						<direction2>
+							<x> -1 </x>
+							<y> 0 </y>
+							<z> 1 </z>
+						</direction2>
+						<scale>
+							<x> 20.0 </x>
+							<y> 20.0 </y>
+							<z> 20.0 </z>
+						</scale>
 						<mat>
 							<refraction> 0.0 </refraction>
 							<reflection> 0 </reflection>
 							<color>
-								<r> 0 </r>
-								<g> 1 </g>
+								<r> 1 </r>
+								<g> 0 </g>
 								<b> 0 </b>
 							</color>
 						</mat>
-					</plane>
+					</cube>
 				</obj_1>
 				<obj_2>
-					<plane>
+					<sphere>
 						<position>
 							<x> 0.0 </x>
 							<y> 0.0 </y>
-							<z> 9.99999999 </z>
+							<z> 0.0 </z>
 						</position>
-						<normal>
-							<x> 0.0 </x>
-							<y> 0.0 </y>
-							<z> -1.0 </z>
-						</normal>
-
-						<radius> 80 </radius>
+						<radius> 13.5 </radius>
 						<mat>
 							<refraction> 0 </refraction>
 							<reflection> 0 </reflection>
@@ -51,38 +54,93 @@
 								<b> 1 </b>
 							</color>
 						</mat>
-					</plane>
+					</sphere>
 				</obj_2>
 			</inters>
 		</obj_1>
 		<obj_2>
-			<cylinder>
-				<position>
-					<x> 0.0 </x>
-					<y> 0.0 </y>
-					<z> 0.0 </z>
-				</position>
-				<radius> 10 </radius>
-				<direction>
-					<x> 1.0 </x>
-					<y> 0 </y>
-					<z> 1.0 </z>
-				</direction>
-				<mat>
-					<refraction> 0 </refraction>
-					<reflection> 0 </reflection>
-					<color>
-						<r> 1 </r>
-						<g> 0 </g>
-						<b> 0 </b>
-					</color>
-				</mat>
-			</cylinder>
+			<union>
+				<obj_1>
+					<union>
+						<obj_1>
+							<cylinder>
+								<position>
+									<x> 0 </x>
+									<y> 0 </y>
+									<z> 0 </z>
+								</position>
+								<direction>
+									<x> -1 </x>
+									<y> 2 </y>
+									<z> -1 </z>
+								</direction>
+								<radius> 7.5 </radius>
+								<mat>
+									<refraction> 0 </refraction>
+									<reflection> 0 </reflection>
+									<color>
+										<r> 0 </r>
+										<g> 1 </g>
+										<b> 0 </b>
+									</color>
+								</mat>
+							</cylinder>
+						</obj_1>
+						<obj_2>
+							<cylinder>
+								<position>
+									<x> 0 </x>
+									<y> 0 </y>
+									<z> 0 </z>
+								</position>
+								<direction>
+									<x> 1 </x>
+									<y> 1 </y>
+									<z> 1 </z>
+								</direction>
+								<radius> 7.5 </radius>
+								<mat>
+									<refraction> 0 </refraction>
+									<reflection> 0 </reflection>
+									<color>
+										<r> 0 </r>
+										<g> 1 </g>
+										<b> 0 </b>
+									</color>
+								</mat>
+							</cylinder>
+						</obj_2>
+					</union>
+				</obj_1>
+				<obj_2>
+					<cylinder>
+						<position>
+							<x> 0 </x>
+							<y> 0 </y>
+							<z> 0 </z>
+						</position>
+						<direction>
+							<x> -1 </x>
+							<y> 0 </y>
+							<z> 1 </z>
+						</direction>
+						<radius> 7.5 </radius>
+						<mat>
+							<refraction> 0 </refraction>
+							<reflection> 0 </reflection>
+							<color>
+								<r> 0 </r>
+								<g> 1 </g>
+								<b> 0 </b>
+							</color>
+						</mat>
+					</cylinder>
+				</obj_2>
+			</union>
 		</obj_2>
-	</inters>
+	</sub>
 </obj_composed>
 <scene>
-
 	<config>
 		<ambient> 0.2 </ambient>
 		<filter>  </filter>
@@ -106,11 +164,11 @@
 
 	<lights>
 		<light>
-			<intensity> 0.5 </intensity>
+			<intensity> 0.4 </intensity>
 			<position>
-				<x> 40.0 </x>
-				<y> 0.0 </y>
-				<z> -210.0 </z>
+				<x> -10.0 </x>
+				<y> 40.0 </y>
+				<z> -180.0 </z>
 			</position>
 			<color>
 				<r> 1.0 </r>
@@ -121,44 +179,34 @@
 	</lights>
 	<objects>
 		<obj>
-			<id> 2 </id>
+			<id> 1 </id>
 			<position>
-				<x> 10.0 </x>
+				<x> 0.0 </x>
 				<y> 0.0 </y>
 				<z> 0.0 </z>
 			</position>
 		</obj>
-		<cube>
+		<plane>
 			<position>
-				<x> 10.0 </x>
+				<x> 0.0 </x>
 				<y> 0.0 </y>
-				<z> 0.0 </z>
+				<z> 40.0 </z>				
 			</position>
-			<scale>
-				<x> 10.0 </x>
-				<y> 0.0 </y>
-				<z> 0.0 </z>
-			</scale>
-			<direction>
+			<normal>
 				<x> 0.0 </x>
 				<y> 0.0 </y>
-				<z> 0.0 </z>
-			</direction>
-			<direction2>
-				<x> 0.0 </x>
-				<y> 0.0 </y>
-				<z> 0.0 </z>
-			</direction2>
-			<mat>
-				<refraction> 0 </refraction>
-				<reflection> 0 </reflection>
-				<color>
-					<r> 1 </r>
-					<g> 0 </g>
-					<b> 0 </b>
-				</color>
-			</mat>
-		</cube>
+				<z> -1.0 </z>
+			</normal>
+						<mat>
+							<refraction> 0 </refraction>
+							<reflection> 0 </reflection>
+							<color>
+								<r> 0.4 </r>
+								<g> 0.45 </g>
+								<b> 0.32 </b>
+							</color>
+						</mat>			
+		</plane>
 	</objects>
 
 </scene>

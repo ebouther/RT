@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 14:56:13 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/24 14:45:07 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/30 14:45:00 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	ft_set_cobjects(char *obj, t_nod *nod)
 			ft_set_plane(form, NULL, nod);
 	else if ((form = ft_get_inner(obj, "tore", NULL, NULL)) != NULL)
 			ft_set_tore(form, NULL, nod);
+	else if ((form = ft_get_inner(obj, "cube", NULL, NULL)) != NULL)
+			ft_set_cube(form, NULL, nod);
 }
 
 int		ft_get_union(char *unio, t_env *e, t_nod *prnt)
@@ -65,9 +67,9 @@ int		ft_get_union(char *unio, t_env *e, t_nod *prnt)
 	nod.obj_col = NULL;
 	nod.op = uni;
 	nod.r = (t_nod *)malloc(sizeof(t_nod));
-	ft_set_cobjects(obj_1, nod.r);
+	ft_set_cobjects(obj_2, nod.r);
 	nod.l = (t_nod *)malloc(sizeof(t_nod));
-	ft_set_cobjects(obj_2, nod.l);
+	ft_set_cobjects(obj_1, nod.l);
 	if (e)
 		ft_lstadd(&e->c_obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
 	else
@@ -93,9 +95,9 @@ int		ft_get_inter(char *intersect, t_env *e, t_nod *prnt)
 	nod.obj_col = NULL;
 	nod.op = inters;
 	nod.r = (t_nod *)malloc(sizeof(t_nod));
-	ft_set_cobjects(obj_1, nod.r);
+	ft_set_cobjects(obj_2, nod.r);
 	nod.l = (t_nod *)malloc(sizeof(t_nod));
-	ft_set_cobjects(obj_2, nod.l);
+	ft_set_cobjects(obj_1, nod.l);
 	if (e)
 		ft_lstadd(&e->c_obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
 	else
@@ -121,9 +123,9 @@ int		ft_get_sub(char *substit, t_env *e, t_nod *prnt)
 	nod.obj_col = NULL;
 	nod.op = sub;
 	nod.r = (t_nod *)malloc(sizeof(t_nod));
-	ft_set_cobjects(obj_1, nod.r);
+	ft_set_cobjects(obj_2, nod.r);
 	nod.l = (t_nod *)malloc(sizeof(t_nod));
-	ft_set_cobjects(obj_2, nod.l);
+	ft_set_cobjects(obj_1, nod.l);
 	if (e)
 		ft_lstadd(&e->c_obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
 	else

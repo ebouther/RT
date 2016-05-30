@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/26 14:41:05 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/26 17:25:20 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/30 12:40:31 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,16 @@ int		ft_set_cube(char *cube, t_env *e, t_nod *prnt)
 	if ((direction2 = ft_get_inner(cube, "direction2", NULL, NULL)) == NULL)
 		nod.obj->dir2 = (t_vec3){0, 1, 0};
 	else
-		ft_set_vec3(direction, &nod.obj->dir2);
+		ft_set_vec3(direction2, &nod.obj->dir2);
 	if (scal(nod.obj->dir2, nod.obj->dir) != 0)
 		ft_error_exit("Error: Non-orthogonal vectors.\n");
 	if ((scale = ft_get_inner(cube, "scale", NULL, NULL)) == NULL)
 		ft_error_exit("Error: cube require a scale subobject.\n");
+	ft_normalise(&nod.obj->dir);
+	ft_normalise(&nod.obj->dir2);
 	ft_set_vec3(position, &nod.obj->pos);
 	ft_set_vec3(scale, &nod.obj->scale);
 	ft_dir3(nod.obj->dir, nod.obj->dir2, &nod.obj->dir3);
-	ft_normalise(&nod.obj->dir);
-	ft_normalise(&nod.obj->dir2);
 	ft_set_mat(mat, nod.obj);
 	nod.obj->get_normal = &normal_cube;
 	nod.obj->get_inters = &inters_cube;
@@ -87,10 +87,5 @@ int			ft_get_cubes(char *objects, size_t len, t_env *e)
 			break ;
 		objects += pos;
 	}
-	printf("cube = pose( %f, %f, %f)\n",((t_nod*)((e->obj)->content))->obj->pos.x, ((t_nod*)((e->obj)->content))->obj->pos.y, ((t_nod*)((e->obj))->content)->obj->pos.z);
-	printf("cube = dir( %f, %f, %f)\n",((t_nod*)((e->obj)->content))->obj->dir.x, ((t_nod*)((e->obj)->content))->obj->dir.y, ((t_nod*)((e->obj))->content)->obj->dir.z);
-	printf("cube = dir2( %f, %f, %f)\n",((t_nod*)((e->obj)->content))->obj->dir2.x, ((t_nod*)((e->obj)->content))->obj->dir2.y, ((t_nod*)((e->obj))->content)->obj->dir2.z);
-	printf("cube = dir3( %f, %f, %f)\n",((t_nod*)((e->obj)->content))->obj->dir3.x, ((t_nod*)((e->obj)->content))->obj->dir3.y, ((t_nod*)((e->obj))->content)->obj->dir3.z);
-	printf("cube = scale( %f, %f, %f)\n",((t_nod*)((e->obj)->content))->obj->scale.x, ((t_nod*)((e->obj)->content))->obj->scale.y, ((t_nod*)((e->obj))->content)->obj->scale.z);
 	return (0);
 }
