@@ -20,7 +20,7 @@
 
 		<fov> 10.0 </fov>
 	</camera>
-	
+
 	<lights>
 		<light>
 			<intensity> 0.4 </intensity>
@@ -31,7 +31,7 @@
 			</position>
 			<nb_light> 0 </nb_light>
 			<dist_light> 0 </dist_light>
-		
+
 			<color>
 				<r> 0.0 </r>
 				<g> 0.0 </g>
@@ -77,6 +77,26 @@
 		</light>
 	</lights>
 	<objects>
+		<c_tore>
+			<position>
+				<x> 0.0 </x>
+				<y> 0.0 </y>
+				<z> 0.0 </z>
+			</position>
+			<direction>
+				<x> 45 </x>
+				<y> 0 </y>
+				<z> 45.0 </z>
+			</direction>
+			<radius> 20.0 </radius>
+			<radius2> 6.0 </radius2>
+			<iteration> 200 </iteration>
+			<color>
+				<r> 1.0 </r>
+				<g> 0.0 </g>
+				<b> 0.0 </b>
+			</color>
+		</c_tore>
 		<sphere>
 			<position>
 				<x> 0.0 </x>
@@ -167,7 +187,7 @@
 			</position>
 
 			<normal>
-				
+
 				<x> 0.0 </x>
 				<y> 0.0 </y>
 				<z> -1.0 </z>
