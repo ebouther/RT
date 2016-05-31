@@ -6,11 +6,12 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 13:57:32 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/31 10:04:18 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 10:58:39 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <stdio.h>
 
 static void	ft_set_noise2(char *perlin, double *xy_period,
 				double *turb_power, double *turb_size)
@@ -89,8 +90,7 @@ static void	ft_set_mat2(char *mat, t_obj *obj)
 	obj->mat.grid =
 ((value = ft_get_inner(mat, "grid", NULL, NULL)) == NULL) ? FALSE : TRUE;
 	free(value);
-	(value = ft_get_inner(mat, "texture", NULL, NULL)) == NULL ?
-	obj->mat.tex.tex = NULL : ft_set_tex(value, obj);
+	(value = ft_get_inner(mat, "texture", NULL, NULL)) == NULL ? obj->mat.tex.tex = NULL :ft_set_tex(value, obj);
 	free(value);
 	obj->mat.opac =
 ((value = ft_get_inner(mat, "opac", NULL, NULL)) == NULL) ?

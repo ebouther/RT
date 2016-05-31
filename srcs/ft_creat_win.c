@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 09:40:42 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 10:49:08 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,31 @@
 #include <stdio.h>
 
 /*void		ft_get_touch(t_obj_col *tmp, t_obj *cur_obj, t_obj **obj_pix, double *t, t_env *e, t_ray *ray)
-{
-	t_list		*lst;
+  {
+  t_list		*lst;
 
-	lst = e->obj;
-	while (lst)
-	{
-		tmp = ft_get_inters(lst->content, ray);
-		if (tmp->t[0] < *t && tmp->t[0] > 0)
-		{
-			*t = tmp->t[0];
-			if (obj_pix)
-				*obj_pix = ((t_obj *)lst->content);
-			cur_obj = tmp->obj;
-		}
-		else if (tmp->t[1] < *t && tmp->t[1] > 0)
-		{
-			*t = tmp->t[1];
-			if (obj_pix)
-				*obj_pix = ((t_obj *)lst->content);
-			cur_obj = tmp->obj;
-		}
-		lst = lst->next;
-	}
+  lst = e->obj;
+  while (lst)
+  {
+  tmp = ft_get_inters(lst->content, ray);
+  if (tmp->t[0] < *t && tmp->t[0] > 0)
+  {
+ *t = tmp->t[0];
+ if (obj_pix)
+ *obj_pix = ((t_obj *)lst->content);
+ cur_obj = tmp->obj;
+ }
+ else if (tmp->t[1] < *t && tmp->t[1] > 0)
+ {
+ *t = tmp->t[1];
+ if (obj_pix)
+ *obj_pix = ((t_obj *)lst->content);
+ cur_obj = tmp->obj;
+ }
+ lst = lst->next;
+ }
 
-}*/
+ }*/
 
 t_color		*ft_contact(t_ray *ray, t_env *e, t_obj **obj_pix)
 {
@@ -50,7 +50,7 @@ t_color		*ft_contact(t_ray *ray, t_env *e, t_obj **obj_pix)
 	if (ray == NULL)
 		return (NULL);
 	t = FAR;
-//	ft_get_touch(tmp, cur_obj, obj_pix, &t, e, ray);
+	//	ft_get_touch(tmp, cur_obj, obj_pix, &t, e, ray);
 	lst = e->obj;
 	while (lst)
 	{
@@ -138,6 +138,32 @@ void	ft_stock_size_tex(t_obj *cur_obj)
 	close(norm.fd);
 }
 
+void	ft_init_tex_node(t_nod *node, t_env *e)
+{
+	if (node->op == empty)
+	{
+		if (node->obj->mat.tex.tex != NULL)
+		{
+			ft_stock_size_tex(node->obj);
+			node->obj->mat.tex.img =
+				mlx_xpm_file_to_image(e->mlx, node->obj->mat.tex.tex,
+						&node->obj->mat.tex.width1,
+						&node->obj->mat.tex.height1);
+			node->obj->mat.tex.buf =
+				mlx_get_data_addr(node->obj->mat.tex.img,
+						&node->obj->mat.tex.bpp,
+						&node->obj->mat.tex.ls,
+						&node->obj->mat.tex.endian);
+		}
+	}
+	else
+	{
+		ft_init_tex_node(node->l, e);
+		ft_init_tex_node(node->r, e);
+	}
+
+}
+
 void	init_tex(t_env *e)
 {
 	t_list	*lst;
@@ -145,19 +171,7 @@ void	init_tex(t_env *e)
 	lst = e->obj;
 	while (lst)
 	{
-		if (((t_nod *)(lst->content))->obj->mat.tex.tex != NULL)
-		{
-			ft_stock_size_tex(((t_nod *)lst->content)->obj);
-			((t_nod *)lst->content)->obj->mat.tex.img =
-mlx_xpm_file_to_image(e->mlx, ((t_nod *)(lst->content))->obj->mat.tex.tex,
-&((t_nod *)(lst->content))->obj->mat.tex.width1,
-&((t_nod *)(lst->content))->obj->mat.tex.height1);
-			((t_nod *)lst->content)->obj->mat.tex.buf =
-mlx_get_data_addr(((t_nod *)(lst->content))->obj->mat.tex.img,
-&((t_nod *)(lst->content))->obj->mat.tex.bpp,
-&((t_nod *)(lst->content))->obj->mat.tex.ls,
-&((t_nod *)(lst->content))->obj->mat.tex.endian);
-		}
+		ft_init_tex_node(((t_nod*)(lst->content)), e);
 		lst = lst->next;
 	}
 }
@@ -182,7 +196,7 @@ static void			*ft_fill_img(void *e)
 				kk = 1;
 			ray = ft_calc_ray(coor[0], coor[1], ((t_env *)e));
 			((t_env *)e)->pix[coor[0] + coor[1] * SIZE_W].col = ft_contact(ray,
-			e, &((t_env *)e)->pix[coor[0] + coor[1] * SIZE_W].obj);
+				e, &((t_env *)e)->pix[coor[0] + coor[1] * SIZE_W].obj);
 			free(ray);
 			coor[1]++;
 		}
@@ -247,11 +261,11 @@ int				mouse_hook(int b, int x, int y, t_env *e)
 void			ft_creat_win(t_env *e)
 {
 	e->pix_zero.x = ((double)HIGHT / 2.0) * e->cam.up.x - ((double)WIDTH / 2.0)
-	* e->cam.right.x;
+		* e->cam.right.x;
 	e->pix_zero.y = ((double)HIGHT / 2.0) * e->cam.up.y - ((double)WIDTH / 2.0)
-	* e->cam.right.y;
+		* e->cam.right.y;
 	e->pix_zero.z = ((double)HIGHT / 2.0) * e->cam.up.z - ((double)WIDTH / 2.0)
-	* e->cam.right.z;
+		* e->cam.right.z;
 	e->mlx = mlx_init();
 	e->win = mlx_new_window(e->mlx, SIZE_W, SIZE_H, "RT");
 	ft_creat_img(e);

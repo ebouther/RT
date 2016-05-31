@@ -12,14 +12,14 @@
 							<z> 0 </z>
 						</position>
 						<direction>
-							<x> 1 </x>
-							<y> 1 </y>
+							<x> 0 </x>
+							<y> 0 </y>
 							<z> 1 </z>
 						</direction>
 						<direction2>
-							<x> -1 </x>
-							<y> 0 </y>
-							<z> 1 </z>
+							<x> 0 </x>
+							<y> 1 </y>
+							<z> 0 </z>
 						</direction2>
 						<scale>
 							<x> 20.0 </x>
@@ -70,9 +70,9 @@
 									<z> 0 </z>
 								</position>
 								<direction>
-									<x> -1 </x>
-									<y> 2 </y>
-									<z> -1 </z>
+									<x> 0 </x>
+									<y> 1 </y>
+									<z> 0 </z>
 								</direction>
 								<radius> 7.5 </radius>
 								<mat>
@@ -94,8 +94,8 @@
 									<z> 0 </z>
 								</position>
 								<direction>
-									<x> 1 </x>
-									<y> 1 </y>
+									<x> 0 </x>
+									<y> 0 </y>
 									<z> 1 </z>
 								</direction>
 								<radius> 7.5 </radius>
@@ -120,9 +120,9 @@
 							<z> 0 </z>
 						</position>
 						<direction>
-							<x> -1 </x>
+							<x> 1 </x>
 							<y> 0 </y>
-							<z> 1 </z>
+							<z> 0 </z>
 						</direction>
 						<radius> 7.5 </radius>
 						<mat>
@@ -183,10 +183,28 @@
 		<obj>
 			<id> 1 </id>
 			<position>
-				<x> 10.0 </x>
-				<y> 10.0 </y>
+				<x> 0.0 </x>
+				<y> 0.0 </y>
 				<z> 0.0 </z>
 			</position>
+			<rotation>
+				<x> 0.0 </x>
+				<y> 0.0 </y>
+				<z> 0.0 </z>
+			</rotation>
+		</obj>
+		<obj>
+			<id> 1 </id>
+			<position>
+				<x> 40.0 </x>
+				<y> 40.0 </y>
+				<z> -60.0 </z>
+			</position>
+			<rotation>
+				<x> -10.0 </x>
+				<y> -30.0 </y>
+				<z> 40.0 </z>
+			</rotation>
 		</obj>
 		<plane>
 			<position>
@@ -209,31 +227,6 @@
 							</color>
 						</mat>			
 		</plane>
-		<sphere>
-			<position>
-				<x> 0.0 </x>
-				<y> 0.0 </y>
-				<z> -40.0 </z>				
-			</position>
-			<normal>
-				<x> 0.0 </x>
-				<y> 0.0 </y>
-				<z> -1.0 </z>
-			</normal>
-			<radius>
-				10
-			</radius>
-						<mat>
-							<refraction> 1 </refraction>
-							<reflection> 0 </reflection>
-							<indice opt> 1.1 </indice opt>
-							<color>
-								<r> 0 </r>
-								<g> 0 </g>
-								<b> 0.45 </b>
-							</color>
-						</mat>			
-		</sphere>
 	</objects>
 
 </scene>
