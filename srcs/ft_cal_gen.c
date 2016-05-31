@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:21:39 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/30 12:32:03 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/31 12:36:52 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_ray			*ft_recalc_ori(t_ray *ray, double t)
 	res->dir.z = ray->dir.z;
 	return (res);
 }
-#include <stdio.h>
+
 void			ft_recalc_dir(t_light *light, t_ray *ray, t_vec3 *norm)
 {
 	if (light->dir.x == 0 && light->dir.y == 0 && light->dir.z == 0)
@@ -71,7 +71,6 @@ void			ft_recalc_dir(t_light *light, t_ray *ray, t_vec3 *norm)
 		ray->dir.x = -light->dir.x;
 		ray->dir.y = -light->dir.y;
 		ray->dir.z = -light->dir.z;
-		write(1, "bbbb", 4);
 	}
 	ray->pos.x = ray->pos.x + 0.01 * norm->x;
 	ray->pos.y = ray->pos.y + 0.01 * norm->y;

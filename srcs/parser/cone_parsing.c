@@ -6,17 +6,21 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:49:15 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/31 09:59:10 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 14:26:29 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static void	ft_set_cone_2(char *angle, char *position, char *direction,
+static void	ft_set_cone_2(char *speed, char *angle, char *position, char *direction,
 				t_nod *nod)
 {
 	ft_set_vec3(position, &nod->obj->pos);
 	ft_set_vec3(direction, &nod->obj->dir);
+	if (speed)
+		ft_set_vec3(speed, &nod->obj->speed);
+	else
+		nod->obj->speed = (t_vec3){0, 0, 0};
 	ft_normalise(&nod->obj->dir);
 	nod->obj->angle = ft_atod(angle) / 180 * M_PI;
 	nod->obj->get_normal = &normal_cone;
@@ -34,10 +38,10 @@ int			ft_set_cone(char *cone, t_env *e, t_nod *prnt)
 	char	*direction;
 	char	*angle;
 	char	*mat;
+	char	*speed;
 	t_nod	nod;
 
 	nod.obj = (t_obj *)malloc(sizeof(t_obj));
-	nod.obj->mat.brim = 0.1;
 	if ((position = ft_get_inner(cone, "position", NULL, NULL)) == NULL)
 		ft_error_exit("Error: cone require a position subobject.\n");
 	if ((angle = ft_get_inner(cone, "angle", NULL, NULL)) == NULL)
@@ -46,8 +50,10 @@ int			ft_set_cone(char *cone, t_env *e, t_nod *prnt)
 		ft_error_exit("Error: cone require a material subobject.\n");
 	if ((direction = ft_get_inner(cone, "direction", NULL, NULL)) == NULL)
 		ft_error_exit("Error: cone require a direction subobject.\n");
+	if ((speed = ft_get_inner(cone, "speed", NULL, NULL)) == NULL)
+		speed = NULL;
 	ft_set_mat(mat, nod.obj);
-	ft_set_cone_2(angle, position, direction, &nod);
+	ft_set_cone_2(speed, angle, position, direction, &nod);
 	if (e)
 		ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
 	else
@@ -56,6 +62,7 @@ int			ft_set_cone(char *cone, t_env *e, t_nod *prnt)
 	ft_strdel(&direction);
 	ft_strdel(&angle);
 	ft_strdel(&mat);
+	ft_strdel(&speed);
 	return (0);
 }
 

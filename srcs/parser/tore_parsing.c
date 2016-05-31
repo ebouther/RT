@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 09:30:55 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 12:06:50 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 14:36:33 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int			ft_set_tore(char *tore, t_env *e, t_nod *prnt)
 	char	*radius;
 	char	*radius2;
 	char	*mat;
+	char	*speed;
 	t_nod	nod;
 
 	nod.obj = (t_obj *)malloc(sizeof(t_obj));
-	nod.obj->mat.brim = 0.1;
 	if ((position = ft_get_inner(tore, "position", NULL, NULL)) == NULL)
 		ft_error_exit("Error: tore require a position subobject.\n");
 	if ((radius = ft_get_inner(tore, "radius", NULL, NULL)) == NULL)
@@ -33,6 +33,10 @@ int			ft_set_tore(char *tore, t_env *e, t_nod *prnt)
 		ft_error_exit("Error: tore require a color subobject.\n");
 	if ((direction = ft_get_inner(tore, "direction", NULL, NULL)) == NULL)
 		ft_error_exit("Error: tore require a direction subobject.\n");
+	if ((speed = ft_get_inner(tore, "speed", NULL, NULL)) == NULL)
+		nod.obj->speed = (t_vec3){0, 0, 0};
+	else
+		ft_set_vec3(speed, &nod.obj->speed);
 	ft_set_vec3(position, &nod.obj->pos);
 	ft_set_vec3(direction, &nod.obj->dir);
 	ft_normalise(&nod.obj->dir);
@@ -54,6 +58,7 @@ int			ft_set_tore(char *tore, t_env *e, t_nod *prnt)
 	ft_strdel(&radius);
 	ft_strdel(&radius2);
 	ft_strdel(&mat);
+	ft_strdel(&speed);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/26 14:41:05 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/30 12:40:31 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 14:35:13 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int		ft_set_cube(char *cube, t_env *e, t_nod *prnt)
 	char	*direction2;
 	char	*scale;
 	char	*mat;
+	char	*speed;
 	t_nod	nod;
 
 	nod.obj = (t_obj *)malloc(sizeof(t_obj));
-	nod.obj->mat.brim = 0.1;
 	if ((position = ft_get_inner(cube, "position", NULL, NULL)) == NULL)
 		ft_error_exit("Error: cube require a position subobject.\n");
 	if ((mat = ft_get_inner(cube, "mat", NULL, NULL)) == NULL)
@@ -48,6 +48,10 @@ int		ft_set_cube(char *cube, t_env *e, t_nod *prnt)
 		ft_error_exit("Error: Non-orthogonal vectors.\n");
 	if ((scale = ft_get_inner(cube, "scale", NULL, NULL)) == NULL)
 		ft_error_exit("Error: cube require a scale subobject.\n");
+	if ((speed = ft_get_inner(cube, "speed", NULL, NULL)) == NULL)
+		nod.obj->dir = (t_vec3){0, 0, 0};
+	else
+		ft_set_vec3(speed, &nod.obj->speed);
 	ft_normalise(&nod.obj->dir);
 	ft_normalise(&nod.obj->dir2);
 	ft_set_vec3(position, &nod.obj->pos);

@@ -6,7 +6,7 @@
 /*   By: pboutin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/27 15:38:57 by pboutin           #+#    #+#             */
-/*   Updated: 2016/05/27 15:44:46 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/31 15:00:39 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ t_norm_ft_calc_final_col    ft_norm_ishadow(t_norm_ft_calc_final_col norm,
 void            ft_calc_filtre(t_color *filtre, t_list *lst)
 {
 	filtre->r *= ((t_nod *)(lst->content))->obj->mat.col.r
-		* ((t_nod *)(lst->content))->obj->mat.refr;
+		* (1 - ((t_nod *)(lst->content))->obj->mat.opac);
 	filtre->g *= ((t_nod *)(lst->content))->obj->mat.col.g
-		* ((t_nod *)(lst->content))->obj->mat.refr;
+		* (1 - ((t_nod *)(lst->content))->obj->mat.opac);
 	filtre->b *= ((t_nod *)(lst->content))->obj->mat.col.b
-		* ((t_nod *)(lst->content))->obj->mat.refr;
+		* (1 -((t_nod *)(lst->content))->obj->mat.opac);
 }

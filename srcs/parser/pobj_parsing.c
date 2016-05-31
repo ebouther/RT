@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 10:28:22 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 12:06:02 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 14:35:56 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,10 +141,10 @@ int			ft_set_pobj(char *pobj, t_env *e, t_nod *prnt)
 	char	*radius;
 	char	*path;
 	char	*mat;
+	char	*speed;
 	t_nod	nod;
 
 	nod.obj = (t_obj*)malloc(sizeof(t_obj));
-	nod.obj->mat.brim = 0.1;
 	if ((position = ft_get_inner(pobj, "position", NULL, NULL)) == NULL)
 		ft_error_exit("Error: pobj require a position subobject.\n");
 	if ((path = ft_get_inner(pobj, "path", NULL, NULL)) == NULL)
@@ -153,6 +153,10 @@ int			ft_set_pobj(char *pobj, t_env *e, t_nod *prnt)
 		ft_error_exit("Error: pobj require a radius subobject.\n");
 	if ((mat = ft_get_inner(pobj, "mat", NULL, NULL)) == NULL)
 		ft_error_exit("Error: pobj require a material subobject.\n");
+	if ((speed = ft_get_inner(pobj, "speed", NULL, NULL)) == NULL)
+		nod.obj->speed = (t_vec3){0, 0, 0};
+	else
+		ft_set_vec3(speed, &nod.obj->speed);
 	ft_set_vec3(position, &nod.obj->pos);
 	nod.obj->rayon = ft_atod(radius);
 	ft_set_mat(mat, nod.obj);
@@ -171,6 +175,7 @@ int			ft_set_pobj(char *pobj, t_env *e, t_nod *prnt)
 	ft_strdel(&radius);
 	ft_strdel(&path);
 	ft_strdel(&mat);
+	ft_strdel(&speed);
 	return (0);
 }
 

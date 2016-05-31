@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 12:09:04 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 12:32:50 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ typedef struct	s_obj
 	t_vec3	dir;
 	t_vec3	dir2;
 	t_vec3	dir3;
-	t_vec3	motion;
+	t_vec3	speed;
 	t_vec3	*v;
 	t_vec3	*vn;
 	char 	*path;
