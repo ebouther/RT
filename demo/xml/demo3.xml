@@ -1,13 +1,13 @@
 <scene>
 	<config>
-		<ambient> 0.3 </ambient>
+		<ambient> 0.5 </ambient>
 		<filter> </filter>
 	</config>
 	<camera>
 		<position>
 			<x> 0.0 </x>
 			<y> 0.0 </y>
-			<z> 0.0 </z>
+			<z> -40.0 </z>
 		</position>
 		<angle>
 			<x> 0.0 </x>
@@ -19,11 +19,11 @@
 
 	<lights>
 		<light>
-			<intensity> 1.0 </intensity>
+			<intensity> 1 </intensity>
 			<position>
 				<x> 40.0 </x>
 				<y>  0.0 </y>
-				<z> 90.0 </z>
+				<z> -10.0 </z>
 			</position>
 			<color>
 				<r> 0.9 </r>
@@ -34,18 +34,66 @@
 	</lights>
 
 	<objects>
+		<quadra>
+			<position>
+				<x> 0.0 </x>
+				<y> 0.0 </y>
+				<z> 0.0 </z>
+			</position>
+			<equ>
+				<x1> 0 </x1>
+				<x2> 1 </x2>
+				<y1> 0 </y1>
+				<y2> 0 </y2>
+				<z1> 0 </z1>
+				<z2> 1 </z2>
+				<c>  -64 </c>
+			</equ>
+			<radius> 10 </radius>
+			<rotation>
+				<x> 10.0 </x>
+				<y> 10.0 </y>
+				<z> 0.0 </z>
+			</rotation>
+			<normal>
+				<x> 0.0 </x>
+				<y> 0.0 </y>
+				<z> -1.0 </z>
+			</normal>
+			<mat>
+				<color>
+					<r> 0.4 </r>
+					<g> 0.5 </g>
+					<b> 0.6 </b>
+				</color>
+			</mat>
+		</quadra>	
 		<cylinder>
 			<position>
-				<x> 10.0 </x>
-				<y> 0.0 </y>
-				<z> 100.0 </z>
+				<x> 6.0 </x>
+				<y> 10.0 </y>
+				<z> 0.0 </z>
 			</position>
-			<radius> 20 </radius>
-			<radius2> 5 </radius2>
+			<equ>
+				<x1> 0 </x1>
+				<x2> 1 </x2>
+				<y1> 0 </y1>
+				<y2> 0 </y2>
+				<z1> 0 </z1>
+				<z2> 1 </z2>
+				<c>  -64 </c>
+			</equ>
+			<radius> 15 </radius>
+			<radius2> 3 </radius2>
+			<rotation>
+				<x> 10.0 </x>
+				<y> 10.0 </y>
+				<z> 0.0 </z>
+			</rotation>
 			<direction>
-				<x> 0.0 </x>
-				<y> 1.0 </y>
-				<z> -1.0 </z>
+				<x> 1.0 </x>
+				<y> 0.0 </y>
+				<z> 1.0 </z>
 			</direction>
 			<mat>
 				<texture>
@@ -59,9 +107,9 @@
 					<path>texture/42.xpm</path>
 				</texture>
 				<color>
-					<r> 0.55 </r>
-					<g> 0.0 </g>
-					<b> 0.0 </b>
+					<r> 0.4 </r>
+					<g> 0.8 </g>
+					<b> 0.6 </b>
 				</color>
 			</mat>
 		</cylinder>
@@ -69,8 +117,23 @@
 			<position>
 				<x> 0.0 </x>
 				<y> 0.0 </y>
-				<z> 150.0 </z>
+				<z> 0.0 </z>
 			</position>
+			<equ>
+				<x1> 0 </x1>
+				<x2> 1 </x2>
+				<y1> 0 </y1>
+				<y2> 1 </y2>
+				<z1> 0 </z1>
+				<z2> 1 </z2>
+				<c>  -64 </c>
+			</equ>
+			<radius> 10 </radius>
+			<rotation>
+				<x> 0.0 </x>
+				<y> 0.0 </y>
+				<z> 0.0 </z>
+			</rotation>
 			<normal>
 				<x> 0.0 </x>
 				<y> 0.0 </y>
@@ -78,9 +141,9 @@
 			</normal>
 			<mat>
 				<color>
-					<r> 0.10 </r>
-					<g> 0.15 </g>
-					<b> 0.36 </b>
+					<r> 0.9 </r>
+					<g> 0.65 </g>
+					<b> 0.12 </b>
 				</color>
 			</mat>
 		</plane>	

@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 10:49:08 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 12:07:42 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ unsigned int	ft_rgbtoi(t_color *color)
 	res = (256 * 256 * (unsigned int)(color->r * 255) +
 			256 * (unsigned int)(color->g * 255) +
 			(unsigned int)(color->b * 255));
-	free(color);
 	return (res);
 }
 
@@ -233,6 +232,7 @@ void			ft_creat_img(t_env *e)
 
 int				key_hook(int kc, t_env *e)
 {
+	printf("%d\n",kc);
 	if (kc == 53)
 		exit(0);
 	else if (kc == 35)
@@ -243,6 +243,9 @@ int				key_hook(int kc, t_env *e)
 		ft_correction(e);
 	else if (kc == 8)
 		ft_celshading(e);
+	else if (kc == 46)
+		ft_motion_blur(e);
+
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:46:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/23 18:54:56 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/31 12:05:43 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ int			ft_set_plane(char *plane, t_env *e, t_nod *prnt)
 	ft_set_vec3(normal, &nod.obj->norm);
 	ft_normalise(&nod.obj->norm);
 	ft_set_mat(mat, nod.obj);
+	nod.obj->motion.x = 0;
+	nod.obj->motion.y = 0;
+	nod.obj->motion.z = 0;
 	nod.obj->get_normal = &normal_plan;
 	nod.obj->get_inters = &inters_plan;
 	nod.r = NULL;

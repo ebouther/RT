@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 10:59:15 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 12:09:04 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,14 +134,6 @@ typedef struct s_mat
 	char		waves;
 }				t_mat;
 
-typedef struct	s_type
-{
-	int		sph;
-	int		plan;
-	int		cone;
-	int		cyl;
-}				t_type;
-
 typedef struct	s_light
 {
 	t_vec3	pos;
@@ -194,6 +186,7 @@ typedef struct	s_obj
 	t_vec3	dir;
 	t_vec3	dir2;
 	t_vec3	dir3;
+	t_vec3	motion;
 	t_vec3	*v;
 	t_vec3	*vn;
 	char 	*path;
@@ -210,6 +203,7 @@ typedef	struct	s_pix
 {
 	t_obj		*obj;
 	t_color		*col;
+	double		t;
 }				t_pix;	
 
 typedef struct	s_obj_col
@@ -274,6 +268,8 @@ typedef struct	s_env
 	void	*win;
 	void	*img;
 	char	*data;
+	void	*img2;
+	char	*data2;
 	t_vec3	pix_zero;
 	t_cam	cam;
 	t_list	*obj;
@@ -467,7 +463,7 @@ double			ft_dist(int i, t_env *e);
 double			ft_angle_contact(t_ray *ray, t_vec3 *normal);
 double			ft_dist(int i, t_env *e);
 double			ft_brillance(t_vec3 *pos_cam, t_ray *ray, t_vec3 *normal);
-t_color			*ft_contact(t_ray *ray, t_env *e, t_obj **cur_obj);
+t_color			*ft_contact(t_ray *ray, t_env *e, t_obj **_objpix);
 
 void			ft_make_screen(t_env *e, char *name);
 
@@ -477,5 +473,7 @@ void			ft_antialiasing(t_env *e);
 void			ft_correction(t_env *e);
 
 void			ft_celshading(t_env *e);
+
+void	ft_motion_blur(t_env *e);
 
 #endif

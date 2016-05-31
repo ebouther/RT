@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/09 17:31:31 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/27 12:11:51 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/31 12:09:59 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	ft_voisin(int x, int y, t_env *e)
 		y1 = -1;
 		while (y1 < 2)
 		{
-			if (e->pix[x + x1 + SIZE_W * (y + y1)].obj != tmp)
+			if (e->pix[x + SIZE_W * y].col == NULL || e->pix[x + x1 + SIZE_W * (y + y1)].obj != tmp)
 				return (1);
 			y1++;
 		}
@@ -66,7 +66,6 @@ void		ft_celshading(t_env *e)
 				e->data[(x * 4 + SIZE_W * 4 * y)] = 0;
 				e->data[(x * 4 + SIZE_W * 4 * y) + 1] = 0;
 				e->data[(x * 4 + SIZE_W * 4 * y) + 2] = 0;
-				e->data[(x * 4 + SIZE_W * 4 * y) + 3] = 0;
 			}
 			else
 				ft_fill_data(x, y, e);

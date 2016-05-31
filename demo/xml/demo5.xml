@@ -39,54 +39,39 @@
 	</lights>
 
 	<objects>
-		<pobj>
+		<sphere>
 			<position>
-				<x> 5 </x>
-				<y> -20 </y>
+				<x> 0 </x>
+				<y> 6 </y>
 				<z> 0 </z>
 			</position>
-			<path> tronc.obj </path>
-			<radius> 7 </radius>
+			<radius> 1 </radius>
 			<mat>
 				<color>
-					<r> 0.35 </r>
-					<g> 0.23 </g>
-					<b> 0.06 </b>
+					<r> 0.45 </r>
+					<g> 0.10 </g>
+					<b> 0.13 </b>
 				</color>
 			</mat>
-		</pobj>
-		<pobj>
-			<position>
-				<x> 5 </x>
-				<y> -20 </y>
-				<z> 0 </z>
-			</position>
-			<path> branche.obj </path>
-			<radius> 7 </radius>
-			<mat>
-				<color>
-					<r> 0.04 </r>
-					<g> 0.42 </g>
-					<b> 0.04 </b>
-				</color>
-			</mat>
-		</pobj>
+		</sphere>
+
+
 		<plane>
 			<position>
-				<x> 5 </x>
-				<y> -20 </y>
-				<z> 0 </z>
+				<x> 0 </x>
+				<y> 0 </y>
+				<z> 10 </z>
 			</position>
 			<normal>
 				<x> 0 </x>
-				<y> -1 </y>
-				<z> 0 </z>
+				<y> 0 </y>
+				<z> -1 </z>
 			</normal>
 			<mat>
 				<color>
-					<r> 0.04 </r>
+					<r> 0.6 </r>
 					<g> 0.42 </g>
-					<b> 0.04 </b>
+					<b> 0.1 </b>
 				</color>
 			</mat>
 		</plane>
