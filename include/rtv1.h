@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/30 17:13:36 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/31 09:39:08 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,10 @@ typedef struct	s_obj
 	t_vec3	rot;
 	t_vec3	pos;
 	t_vec3	norm;
+	t_vec3	scale;
 	t_vec3	dir;
+	t_vec3	dir2;
+	t_vec3	dir3;
 	t_vec3	*v;
 	t_vec3	*vn;
 	char 	*path;
@@ -198,6 +201,10 @@ typedef struct	s_obj
 	t_mat	mat;
 	t_equ	equ;
 }				t_obj;
+
+typedef struct	s_obj_cp
+{
+}				t_obj_cp;
 
 typedef	struct	s_pix
 {
@@ -212,13 +219,22 @@ typedef struct	s_obj_col
 	char		neg;
 }				t_obj_col;
 
+typedef enum	e_op
+{
+		empty,
+		inters,
+		sub,
+		uni
+}				t_op;
+
 typedef struct	s_nod
 {
-	t_obj_col			*(*op)(struct s_nod *, struct s_nod *, t_ray *);
+	t_op				op;
 	struct s_nod		*r;
 	struct s_nod		*l;
 	t_obj_col			*obj_col;
 	t_obj				*obj;
+	int					id;
 }				t_nod;
 
 typedef struct	s_work
@@ -266,6 +282,7 @@ typedef struct	s_env
 	double	amb;
 	t_pix	*pix;
 	int		start;
+	t_list	*c_obj;
 }				t_env;
 
 typedef struct	s_norm_stock_size_tex
@@ -331,6 +348,7 @@ int             ft_texture(t_ray *ray, double t, t_obj *cur_obj, t_color *col);
  */
 t_vec3			*normal_sphere(t_ray *ray, t_obj *obj);
 t_vec3			*normal_cyl(t_ray *ray, t_obj *obj);
+t_vec3			*normal_cube(t_ray *ray, t_obj *obj);
 t_vec3			*normal_tore(t_ray *ray, t_obj *obj);
 t_vec3			*normal_cone(t_ray *ray, t_obj *obj);
 t_vec3			*normal_tore(t_ray *ray, t_obj *obj);
@@ -348,6 +366,12 @@ double			*inters_tore(t_ray *ray, t_obj *obj);
 double			*inters_quadra(t_ray *ray, t_obj *obj);
 double			*inters_pobj(t_ray *ray, t_obj *obj);
 double			*inters_plan(t_ray *ray, t_obj *obj);
+double			*inters_cube(t_ray *ray, t_obj *obj);
+
+
+t_obj_col		*ft_union_obj(t_nod *nod1, t_nod *nod2, t_ray *ray);
+t_obj_col		*ft_inters_obj(t_nod *nod1, t_nod *nod2, t_ray *ray);
+t_obj_col		*ft_sub_obj(t_nod *nod1, t_nod *nod2, t_ray *ray);
 
 /*
  ** Math
@@ -374,9 +398,10 @@ double			ft_atod(char *s);
 void			ft_error_exit(const char *error);
 
 /*
+<<<<<<< HEAD
  ** Parsing
- */
-char			*ft_get_inner(char *str, char *obj, int *end_tag);
+*/
+char			*ft_get_inner(char *str, char *obj, int *end_tag, int *start_tag);
 int				ft_set_vec3(char *obj, t_vec3 *vec3);
 int				ft_set_color(char *obj, t_color *col);
 int				ft_parse_scene(char *file, t_env *e);
@@ -393,6 +418,20 @@ int				ft_get_lights(char *lights, size_t len, t_env *e);
 int				ft_set_config(char *config, t_env *e);
 void			ft_set_mat(char *mat, t_obj *obj);
 void			ft_set_equ(char *equ, t_obj *obj);
+int				ft_get_union(char *unio, t_env *e, t_nod *prnt);
+int				ft_get_inter(char *inters, t_env *e, t_nod *prnt);
+int				ft_get_sub(char *sub, t_env *e, t_nod *prnt);
+int				ft_set_cylinder(char *cylinder, t_env *e, t_nod *prnt);
+int				ft_set_sphere(char *sphere, t_env *e, t_nod *prnt);
+int				ft_set_cone(char *cone, t_env *e, t_nod *prnt);
+int				ft_set_plane(char *plane, t_env *e, t_nod *prnt);
+int				ft_set_cube(char *plane, t_env *e, t_nod *prnt);
+int				ft_set_tore(char *tore, t_env *e, t_nod *prnt);
+int				ft_set_quadra(char *quadra, t_env *e, t_nod *prnt);
+int				ft_set_pobj(char *pobj, t_env *e, t_nod *prnt);
+int				ft_get_cobj(char *objects, t_env *e);
+int				ft_get_objtolist(char *objects, size_t len, t_env *e);
+int				ft_get_cubes(char *objects, size_t len, t_env *e);
 
 /*
  ** Noise

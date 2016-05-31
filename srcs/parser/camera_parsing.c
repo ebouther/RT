@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 16:31:14 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/27 15:34:56 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/31 09:44:15 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ int			ft_set_camera(char *camera, t_env *e)
 	char	*angle;
 	char	*fov;
 
-	if ((position = ft_get_inner(camera, "position", NULL)) == NULL)
+	if ((position = ft_get_inner(camera, "position", NULL, NULL)) == NULL)
 		ft_error_exit("error: camera require a position subobject.\n");
-	if ((angle = ft_get_inner(camera, "angle", NULL)) == NULL)
+	if ((angle = ft_get_inner(camera, "angle", NULL, NULL)) == NULL)
 		ft_error_exit("error: camera require an angle subobject.\n");
-	if ((fov = ft_get_inner(camera, "fov", NULL)) == NULL)
+	if ((fov = ft_get_inner(camera, "fov", NULL, NULL)) == NULL)
 		ft_error_exit("error: camera require a fov subobject.\n");
 	ft_set_vec3(position, &(e->cam.pos));
 	ft_set_vec3(angle, &(e->cam.angle));

@@ -75,6 +75,7 @@ PARSER_FILES = parsing.c \
 			   plane_parsing.c \
 			   sphere_parsing.c \
 			   cone_parsing.c \
+			   cube_parsing.c \
 			   tore_parsing.c \
 			   quadra_parsing.c \
 			   pobj_parsing.c \
@@ -84,6 +85,8 @@ PARSER_FILES = parsing.c \
 			   mat_parsing.c \
 			   equ_parsing.c \
 			   noise_parser.c
+			   obj_composed.c \
+			   obj_composed_2.c \
 
 PARSER = $(addprefix $(PARSER_PATH), $(PARSER_FILES))
 PARSER_OBJ_PATH = $(addprefix $(OBJ_PATH), $(PARSER_PATH))

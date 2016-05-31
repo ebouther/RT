@@ -6,11 +6,106 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/09 09:57:59 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/10 15:25:18 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/30 12:40:21 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <stdio.h>
+
+static int ft_incube(double t, t_ray* ray,t_obj* obj)
+{
+	t_vec3 tmp;
+
+	tmp.x = (ray->pos.x + t * ray->dir.x - obj->pos.x);
+	tmp.y = (ray->pos.y + t * ray->dir.y - obj->pos.y);
+	tmp.z = (ray->pos.z + t * ray->dir.z - obj->pos.z);
+
+	if (fabs(scal(tmp, obj->dir)) - 0.0001 <= fabs(obj->scale.z / 2.0) &&
+			fabs(scal(tmp, obj->dir2)) - 0.0001 <= fabs(obj->scale.y / 2.0) &&
+			fabs(scal(tmp, obj->dir3)) - 0.0001 <= fabs(obj->scale.x / 2.0))
+		return (1);
+	return (0);
+}
+
+double			*inters_cube(t_ray *ray, t_obj *obj)
+{
+	t_vec3	p;
+	double	*res;
+	double tmp;
+	double	a;
+	double	b;
+
+	p.x = ray->pos.x - obj->pos.x;
+	p.y = ray->pos.y - obj->pos.y;
+	p.z = ray->pos.z - obj->pos.z;
+	if ((res = (double*)malloc(sizeof(double) * 2)) == NULL)
+		ft_error_exit("malloc failed in inters_cube");
+	res[1] = FAR;
+	res[0] = FAR;
+	if ((a = scal(obj->dir, ray->dir)) != 0)
+	{
+		b = scal(obj->dir, p);
+		tmp = (obj->scale.z / 2.0 - b) / a;
+		if (ft_incube(tmp, ray, obj))
+			res[0] = tmp;
+		tmp = (-obj->scale.z / 2.0 - b) / a;
+		if (ft_incube(tmp, ray, obj))
+		{
+			if (res[0] == FAR)
+				res[0] = tmp;
+			else if (tmp != res[0])
+				res[1] = tmp;
+		}
+	}
+	if ((a = scal(obj->dir2, ray->dir)) != 0)
+	{
+		b = scal(obj->dir2, p);
+		tmp = (obj->scale.y / 2.0 - b) / a;
+		if (ft_incube(tmp, ray, obj))
+		{
+			if (res[0] == FAR)
+				res[0] = tmp;
+			else if (tmp != res[0])
+				res[1] = tmp;
+		}
+		tmp = (-obj->scale.y / 2.0 - b) / a;
+		if (ft_incube(tmp, ray, obj))
+		{
+			if (res[0] == FAR)
+				res[0] = tmp;
+			else if (tmp != res[0])
+				res[1] = tmp;
+		}
+	}
+	if ((a = scal(obj->dir3, ray->dir)) != 0)
+	{
+		b = scal(obj->dir3, p);
+		tmp = (obj->scale.x / 2.0 - b) / a;
+		if (ft_incube(tmp, ray, obj))
+		{
+			if (res[0] == FAR)
+				res[0] = tmp;
+			else if (tmp != res[0])
+				res[1] = tmp;
+		}
+		tmp = (-obj->scale.x / 2.0 - b) / a;
+		if (ft_incube(tmp, ray, obj))
+		{
+			if (res[0] == FAR)
+				res[0] = tmp;
+			else if (tmp != res[0])
+				res[1] = tmp;
+		}
+	}
+	if (res[0] > res[1])
+	{
+		tmp = res[0];
+		res[0] = res[1];
+		res[1] = tmp;
+	}
+	return(res);
+}
 
 double			*inters_pobj(t_ray *ray, t_obj *obj)
 {

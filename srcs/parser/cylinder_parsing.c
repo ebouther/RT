@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:45:04 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/27 15:32:06 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/05/31 09:45:42 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ static int	ft_set_cylinder(char *cylinder, t_env *e)
 
 	nod.obj = (t_obj *)malloc(sizeof(t_obj));
 	nod.obj->mat.brim = 0.1;
-	if ((position = ft_get_inner(cylinder, "position", NULL)) == NULL)
+	if ((position = ft_get_inner(cylinder, "position", NULL, NULL)) == NULL)
 		ft_error_exit("Error: cylinder require a position subobject.\n");
-	if ((radius = ft_get_inner(cylinder, "radius", NULL)) == NULL)
+	if ((radius = ft_get_inner(cylinder, "radius", NULL, NULL)) == NULL)
 		ft_error_exit("Error: cylinder require a radius subobject.\n");
-	if ((mat = ft_get_inner(cylinder, "mat", NULL)) == NULL)
+	if ((mat = ft_get_inner(cylinder, "mat", NULL, NULL)) == NULL)
 		ft_error_exit("Error: cylinder require a material subobject.\n");
-	if ((direction = ft_get_inner(cylinder, "direction", NULL)) == NULL)
+	if ((direction = ft_get_inner(cylinder, "direction", NULL, NULL)) == NULL)
 		ft_error_exit("Error: cylinder require a direction subobject.\n");
 	ft_set_mat(mat, nod.obj);
 	ft_set_node(position, direction, radius, &nod);
@@ -61,9 +61,9 @@ int			ft_get_cylinders(char *objects, size_t len, t_env *e)
 	int		pos;
 
 	pos = 0;
-	while ((cylinder = ft_get_inner(objects, "cylinder", &pos)) != NULL)
+	while ((cylinder = ft_get_inner(objects, "cylinder", &pos, NULL)) != NULL)
 	{
-		ft_set_cylinder(cylinder, e);
+		ft_set_cylinder(cylinder, e, NULL);
 		ft_strdel(&cylinder);
 		if ((int)len - pos < 0)
 			break ;

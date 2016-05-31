@@ -6,104 +6,159 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 13:58:35 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/27 17:12:01 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/31 09:42:13 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <stdio.h>
 
-t_obj_col		*ft_union_obj(t_nod *nod1, t_nod *nod2, t_ray *ray)
+int			ft_treecpy2(t_obj_col *tcol, t_nod **dest, t_nod *src, t_ray *ray, int i)
 {
-	t_obj_col	*res;
 
-	if (!nod1->op)
+	*dest = (t_nod *)malloc(sizeof(t_nod));	
+	if (src->op == empty)
 	{
-		nod1->obj_col->t = nod1->obj->get_inters(ray, nod1->obj);
-		nod1->obj_col->obj = nod1->obj;
-		nod1->obj_col->neg = 1;
+		(*dest)->obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
+		(*dest)->obj_col->t = src->obj->get_inters(ray, src->obj);
+		tcol[i].t = (double*)malloc(sizeof(double) * 2);
+		tcol[i].t[0] = (*dest)->obj_col->t[0];
+		tcol[i].t[1] = (*dest)->obj_col->t[1];
+		tcol[i].obj = src->obj;
+		(*dest)->obj_col->obj = src->obj;
+		(*dest)->obj = src->obj;
+		(*dest)->op = empty;
+		return (i + 1);
 	}
 	else
-		nod1->obj_col = nod1->op(nod1->l, nod1->r, ray);
-	if (!nod2->op)
 	{
-		nod2->obj_col->t = nod2->obj->get_inters(ray, nod2->obj);
-		nod2->obj_col->obj = nod2->obj;
-		nod2->obj_col->neg = 1;
+		(*dest)->op = src->op;
+		i = ft_treecpy2(tcol, &(*dest)->l, src->l, ray, i);
+		i = ft_treecpy2(tcol, &(*dest)->r, src->r, ray, i);
 	}
-	else
-		nod2->obj_col = nod2->op(nod2->l, nod2->r, ray);
-	if (nod1->obj_col->t[0] < nod2->obj_col->t[0])
-		res = nod1->obj_col;
-	else
-		res = nod2->obj_col;
-	return (res);
+	return (i);
 }
 
-t_obj_col		*ft_inters_obj(t_nod *nod1, t_nod *nod2, t_ray *ray)
-{
-	t_obj_col	*res;
 
-	if (!nod1->op)
+int				ft_opop(double t, t_nod* nod)
+{
+	if (nod->op == inters)
+		return(ft_opop(t, nod->l) && ft_opop(t, nod->r));
+	else if (nod->op == sub)
+		return(ft_opop(t, nod->l) && !ft_opop(t, nod->r));
+	else if (nod->op == uni)
+		return(ft_opop(t, nod->l) || ft_opop(t, nod->r));
+	else
 	{
-		nod1->obj_col->t = nod1->obj->get_inters(ray, nod1->obj);
-		nod1->obj_col->obj = nod1->obj;
-		nod1->obj_col->neg = 1;
+		if (t >= nod->obj_col->t[0] && t < nod->obj_col->t[1])
+			return (1);
+		else
+			return (0);
 	}
-	else
-		nod1->obj_col = nod1->op(nod1->l, nod1->r, ray);
-	if (!nod2->op)
-	{
-		nod2->obj_col->t = nod2->obj->get_inters(ray, nod2->obj);
-		nod2->obj_col->obj = nod2->obj;
-		nod2->obj_col->neg = 1;
-	}
-	else
-		nod2->obj_col = nod2->op(nod2->l, nod2->r, ray);
-	if (nod1->obj_col->t[0] == FAR || nod2->obj_col->t[0] == FAR)
-		res = nod2->obj_col;
-	else
-		res = (nod1->obj_col->t[0] > nod2->obj_col->t[0]) ? nod1->obj_col
-			: nod2->obj_col;
-	return (res);
 }
 
-t_obj_col		*ft_sub_obj(t_nod *nod1, t_nod *nod2, t_ray *ray)
+void			ft_sort_tnod(t_obj_col *tcol, t_nod *tnod, double n)
 {
+	int i;
+
+	i = 0;
+	while (i < n)
+	{
+		if (tcol[i].t[0] == FAR || !ft_opop(tcol[i].t[0], tnod))
+			tcol[i].t[0] = FAR;
+		if (tcol[i].t[1] == FAR || !ft_opop(tcol[i].t[1], tnod))
+			tcol[i].t[1] = FAR;
+		i++;
+	}
+}
+
+t_obj_col		*ft_min_nod(t_obj_col* tcol, int n)
+{
+	int			i;
+	int			k;
+	double		tmp;
 	t_obj_col	*res;
 
-	if (!nod1->op)
+	i = 0;
+	tmp = FAR;
+	k = 0;
+	while (i < n)
 	{
-		nod1->obj_col->t = nod1->obj->get_inters(ray, nod1->obj);
-		nod1->obj_col->obj = nod1->obj;
-		nod1->obj_col->neg = 1;
+		if (tmp > tcol[i].t[0] || tmp > tcol[i].t[1] )
+		{
+			tmp = fmin(tcol[i].t[0],tcol[i].t[1]);
+			k = i;
+		}
+		i++;
+	}	
+	res = (t_obj_col *)malloc(sizeof(t_obj_col));
+	res->obj = tcol[k].obj;
+	res->t = (double *)malloc(sizeof(double) * 2);
+	res->t[0] = fmin(tcol[k].t[0], tcol[k].t[1]);
+	res->t[1] = FAR;
+	res->obj = tcol[k].obj;
+	return (res); 
+}
+
+double			ft_nb_nod(t_nod *nod)
+{
+	return (nod->op == empty ? 1 : ft_nb_nod(nod->l) + ft_nb_nod(nod->r));
+}
+
+void			ft_free_tcol(t_obj_col *tcol, double n)
+{
+	int i;
+
+	i = 0;
+	while (i < n)
+	{
+		free(tcol[i].t);
+		i++;
+	}
+	free(tcol);
+}
+
+void			ft_free_tnod(t_nod *tnod)
+{
+	if (tnod->op == empty)
+	{
+		free(tnod->obj_col->t);
+		free(tnod->obj_col);
+		free(tnod);
 	}
 	else
-		nod1->obj_col = nod1->op(nod1->l, nod1->r, ray);
-	if (!nod2->op)
 	{
-		nod2->obj_col->t = nod2->obj->get_inters(ray, nod2->obj);
-		nod2->obj_col->obj = nod2->obj;
-		nod2->obj_col->neg = 1;
+		ft_free_tnod(tnod->l);
+		ft_free_tnod(tnod->r);
 	}
-	else
-		nod2->obj_col = nod2->op(nod2->l, nod2->r, ray);
-	if (nod1->obj_col->t[0] < nod2->obj_col->t[0])
-		return (res = nod1->obj_col);
-	nod2->obj_col->neg = -1;
-	return (res = nod2->obj_col);
 }
 
 t_obj_col		*ft_get_inters(t_nod *nod, t_ray *ray)
 {
 	t_obj_col	*res;
+	t_nod		*tnod;
+	t_obj_col	*tcol;
+	double		n;
 
-	if (!nod->op)
+	if (nod->op == empty)
 	{
-		res = nod->obj_col;
+		tnod = NULL;
+		tcol = NULL;
+		res = (t_obj_col*)malloc(sizeof(t_obj_col));
 		res->obj = nod->obj;
 		res->t = nod->obj->get_inters(ray, nod->obj);
 	}
 	else
-		res = nod->op(nod->l, nod->r, ray);
+	{
+		n = ft_nb_nod(nod);
+		tcol = (t_obj_col*)malloc(sizeof(t_obj_col) * n);
+		ft_treecpy2(tcol, &tnod, nod, ray, 0);
+		ft_sort_tnod(tcol, tnod, n);
+		res = ft_min_nod(tcol, n);
+	}
+	if (tnod)
+		ft_free_tnod(tnod);
+	if (tcol)
+		ft_free_tcol(tcol, n);
 	return (res);
 }

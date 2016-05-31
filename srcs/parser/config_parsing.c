@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 18:13:41 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/10 14:03:40 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/23 19:00:19 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int			ft_set_config(char *config, t_env *e)
 	char	*ambient;
 	char	*filter;
 
-	if ((ambient = ft_get_inner(config, "ambient", NULL)) == NULL)
+	if ((ambient = ft_get_inner(config, "ambient", NULL, NULL)) == NULL)
 		ft_putstr("There are no ambient light in your scene file.\n");
-	if ((filter = ft_get_inner(config, "filter", NULL)) == NULL)
+	if ((filter = ft_get_inner(config, "filter", NULL, NULL)) == NULL)
 		ft_putstr("There are no filter in your scene file.\n");
 	e->amb = ft_atod(ambient);
 	if (filter != NULL && ft_strstr(filter, "sepia"))

@@ -1,0 +1,237 @@
+
+<obj_composed>
+	<sub>
+		<id> 1 </id>
+		<obj_1>
+			<inters>
+				<obj_1>
+					<cube>
+						<position>
+							<x> 0 </x>
+							<y> 0 </y>
+							<z> 0 </z>
+						</position>
+						<direction>
+							<x> 1 </x>
+							<y> 1 </y>
+							<z> 1 </z>
+						</direction>
+						<direction2>
+							<x> -1 </x>
+							<y> 0 </y>
+							<z> 1 </z>
+						</direction2>
+						<scale>
+							<x> 20.0 </x>
+							<y> 20.0 </y>
+							<z> 20.0 </z>
+						</scale>
+						<mat>
+							<refraction> 0.0 </refraction>
+							<reflection> 0 </reflection>
+							<color>
+								<r> 1 </r>
+								<g> 0 </g>
+								<b> 0 </b>
+							</color>
+						</mat>
+					</cube>
+				</obj_1>
+				<obj_2>
+					<sphere>
+						<position>
+							<x> 0.0 </x>
+							<y> 0.0 </y>
+							<z> 0.0 </z>
+						</position>
+						<radius> 13.5 </radius>
+						<mat>
+							<refraction> 0 </refraction>
+							<reflection> 0 </reflection>
+							<color>
+								<r> 0 </r>
+								<g> 0 </g>
+								<b> 1 </b>
+							</color>
+						</mat>
+					</sphere>
+				</obj_2>
+			</inters>
+		</obj_1>
+		<obj_2>
+			<union>
+				<obj_1>
+					<union>
+						<obj_1>
+							<cylinder>
+								<position>
+									<x> 0 </x>
+									<y> 0 </y>
+									<z> 0 </z>
+								</position>
+								<direction>
+									<x> -1 </x>
+									<y> 2 </y>
+									<z> -1 </z>
+								</direction>
+								<radius> 7.5 </radius>
+								<mat>
+									<refraction> 0 </refraction>
+									<reflection> 0 </reflection>
+									<color>
+										<r> 0 </r>
+										<g> 1 </g>
+										<b> 0 </b>
+									</color>
+								</mat>
+							</cylinder>
+						</obj_1>
+						<obj_2>
+							<cylinder>
+								<position>
+									<x> 0 </x>
+									<y> 0 </y>
+									<z> 0 </z>
+								</position>
+								<direction>
+									<x> 1 </x>
+									<y> 1 </y>
+									<z> 1 </z>
+								</direction>
+								<radius> 7.5 </radius>
+								<mat>
+									<refraction> 0 </refraction>
+									<reflection> 0 </reflection>
+									<color>
+										<r> 0 </r>
+										<g> 1 </g>
+										<b> 0 </b>
+									</color>
+								</mat>
+							</cylinder>
+						</obj_2>
+					</union>
+				</obj_1>
+				<obj_2>
+					<cylinder>
+						<position>
+							<x> 0 </x>
+							<y> 0 </y>
+							<z> 0 </z>
+						</position>
+						<direction>
+							<x> -1 </x>
+							<y> 0 </y>
+							<z> 1 </z>
+						</direction>
+						<radius> 7.5 </radius>
+						<mat>
+							<refraction> 0 </refraction>
+							<reflection> 0 </reflection>
+							<color>
+								<r> 0 </r>
+								<g> 1 </g>
+								<b> 0 </b>
+							</color>
+						</mat>
+					</cylinder>
+				</obj_2>
+			</union>
+		</obj_2>
+	</sub>
+</obj_composed>
+<scene>
+	<config>
+		<ambient> 0.2 </ambient>
+		<filter>  </filter>
+	</config>
+
+	<camera>
+		<position>
+			<x> 0.0 </x>
+			<y> 0.0 </y>
+			<z> -400.0 </z>
+		</position>
+
+		<angle>
+			<x> 0.0 </x>
+			<y> 0.0 </y>
+			<z> 0.0 </z>
+		</angle>
+
+		<fov> 10.0 </fov>
+	</camera>
+
+	<lights>
+		<light>
+			<intensity> 0.4 </intensity>
+			<position>
+				<x> -10.0 </x>
+				<y> 40.0 </y>
+				<z> -180.0 </z>
+			</position>
+			<color>
+				<r> 1.0 </r>
+				<g> 1.0 </g>
+				<b> 1.0 </b>
+			</color>
+		</light>
+	</lights>
+	<objects>
+		<obj>
+			<id> 1 </id>
+			<position>
+				<x> 10.0 </x>
+				<y> 10.0 </y>
+				<z> 0.0 </z>
+			</position>
+		</obj>
+		<plane>
+			<position>
+				<x> 0.0 </x>
+				<y> 0.0 </y>
+				<z> 40.0 </z>				
+			</position>
+			<normal>
+				<x> 0.0 </x>
+				<y> 0.0 </y>
+				<z> -1.0 </z>
+			</normal>
+						<mat>
+							<refraction> 0 </refraction>
+							<reflection> 0 </reflection>
+							<color>
+								<r> 1 </r>
+								<g> 1 </g>
+								<b> 1 </b>
+							</color>
+						</mat>			
+		</plane>
+		<sphere>
+			<position>
+				<x> 0.0 </x>
+				<y> 0.0 </y>
+				<z> -40.0 </z>				
+			</position>
+			<normal>
+				<x> 0.0 </x>
+				<y> 0.0 </y>
+				<z> -1.0 </z>
+			</normal>
+			<radius>
+				10
+			</radius>
+						<mat>
+							<refraction> 1 </refraction>
+							<reflection> 0 </reflection>
+							<indice opt> 1.1 </indice opt>
+							<color>
+								<r> 0 </r>
+								<g> 0 </g>
+								<b> 0.45 </b>
+							</color>
+						</mat>			
+		</sphere>
+	</objects>
+
+</scene>

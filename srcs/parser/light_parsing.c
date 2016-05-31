@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 14:11:08 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/30 17:03:40 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/31 09:47:59 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int			ft_get_lights(char *lights, size_t len, t_env *e)
 	int		pos;
 
 	pos = 0;
-	while ((light = ft_get_inner(lights, "light", &pos)) != NULL)
+	while ((light = ft_get_inner(lights, "light", &pos, NULL)) != NULL)
 	{
 		ft_set_light(light, e);
 		ft_strdel(&light);

@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 10:28:22 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/10 15:32:45 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/24 15:36:13 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ static void	ft_read_pobj(char *path, t_obj *pobj)
 	printf("il y a %d sommet, %d vecteurs normaux et %d faces\n",size[0], size[1],i);
 }
 
-static int	ft_set_pobj(char *pobj, t_env *e)
+int			ft_set_pobj(char *pobj, t_env *e, t_nod *prnt)
 {
 	char	*position;
 	char	*radius;
@@ -144,13 +144,13 @@ static int	ft_set_pobj(char *pobj, t_env *e)
 
 	nod.obj = (t_obj*)malloc(sizeof(t_obj));
 	nod.obj->mat.brim = 0.1;
-	if ((position = ft_get_inner(pobj, "position", NULL)) == NULL)
+	if ((position = ft_get_inner(pobj, "position", NULL, NULL)) == NULL)
 		ft_error_exit("Error: pobj require a position subobject.\n");
-	if ((path = ft_get_inner(pobj, "path", NULL)) == NULL)
+	if ((path = ft_get_inner(pobj, "path", NULL, NULL)) == NULL)
 		ft_error_exit("error: pobj require a path to the .obj file.\n");
-	if ((radius = ft_get_inner(pobj, "radius", NULL)) == NULL)
+	if ((radius = ft_get_inner(pobj, "radius", NULL, NULL)) == NULL)
 		ft_error_exit("Error: pobj require a radius subobject.\n");
-	if ((mat = ft_get_inner(pobj, "mat", NULL)) == NULL)
+	if ((mat = ft_get_inner(pobj, "mat", NULL, NULL)) == NULL)
 		ft_error_exit("Error: pobj require a material subobject.\n");
 	ft_set_vec3(position, &nod.obj->pos);
 	nod.obj->rayon = ft_atod(radius);
@@ -160,9 +160,12 @@ static int	ft_set_pobj(char *pobj, t_env *e)
 	nod.obj->get_inters = &inters_pobj;
 	nod.r = NULL;
 	nod.l = NULL;
-	nod.op = NULL;
+	nod.op = empty;
 	nod.obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
-	ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_obj)));
+	if (e)
+		ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
+	else
+		ft_memcpy(prnt, &nod, sizeof(t_nod));
 	ft_strdel(&position);
 	ft_strdel(&radius);
 	ft_strdel(&path);
@@ -176,9 +179,9 @@ int			ft_get_pobjs(char *objects, size_t len, t_env *e)
 	int		pos;
 
 	pos = 0;
-	while ((pobj = ft_get_inner(objects, "pobj", &pos)) != NULL)
+	while ((pobj = ft_get_inner(objects, "pobj", &pos, NULL)) != NULL)
 	{
-		ft_set_pobj(pobj, e);
+		ft_set_pobj(pobj, e, NULL);
 		ft_strdel(&pobj);
 		if ((int)len - pos < 0)
 			break ;
