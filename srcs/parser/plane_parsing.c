@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:46:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/31 12:05:43 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 14:35:43 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,24 @@ int			ft_set_plane(char *plane, t_env *e, t_nod *prnt)
 	char	*position;
 	char	*normal;
 	char	*mat;
+	char	*speed;
 	t_nod	nod;
 
 	nod.obj = (t_obj *)malloc(sizeof(t_obj));
-	nod.obj->mat.brim = 0.1;
 	if ((position = ft_get_inner(plane, "position", NULL, NULL)) == NULL)
 		ft_error_exit("Error: plane require a <position> subobject.\n");
 	if ((normal = ft_get_inner(plane, "normal", NULL, NULL)) == NULL)
 		ft_error_exit("Error: plane require a <normal> subobject.\n");
 	if ((mat = ft_get_inner(plane, "mat", NULL, NULL)) == NULL)
 		ft_error_exit("Error: plane require a material subobject.\n");
+	if ((speed = ft_get_inner(plane, "speed", NULL, NULL)) == NULL)
+		nod.obj->speed = (t_vec3){0, 0, 0};
+	else
+		ft_set_vec3(speed, &nod.obj->speed);
 	ft_set_vec3(position, &nod.obj->pos);
 	ft_set_vec3(normal, &nod.obj->norm);
 	ft_normalise(&nod.obj->norm);
 	ft_set_mat(mat, nod.obj);
-	nod.obj->motion.x = 0;
-	nod.obj->motion.y = 0;
-	nod.obj->motion.z = 0;
 	nod.obj->get_normal = &normal_plan;
 	nod.obj->get_inters = &inters_plan;
 	nod.r = NULL;

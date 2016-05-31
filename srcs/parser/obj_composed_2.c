@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/16 16:15:55 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/30 16:16:06 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 14:27:50 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int			ft_get_cobj(char *objects, t_env *e)
 	return (0);
 }
 
-void		ft_treecpy(t_nod **dest, t_nod *src, t_vec3 pos, t_vec3 rot)
+void		ft_treecpy(t_nod **dest, t_nod *src, t_vec3 pos, t_vec3 rot, t_vec3 speed)
 {
 	*dest = (t_nod *)malloc(sizeof(t_nod));
 	if (src->op == empty)
@@ -87,6 +87,7 @@ void		ft_treecpy(t_nod **dest, t_nod *src, t_vec3 pos, t_vec3 rot)
 		(*dest)->obj->pos = (t_vec3){pos.x + (*dest)->obj->pos.x, pos.y + (*dest)->obj->pos.y, pos.z + (*dest)->obj->pos.z};
 		(*dest)->l = NULL;
 		(*dest)->r = NULL;
+		(*dest)->obj->speed = (t_vec3){speed.x, speed.y, speed.z};
 		(*dest)->op = empty;
 	}
 	else
@@ -94,8 +95,8 @@ void		ft_treecpy(t_nod **dest, t_nod *src, t_vec3 pos, t_vec3 rot)
 		(*dest)->obj_col = NULL;
 		(*dest)->obj = NULL;
 		(*dest)->op = src->op;
-		ft_treecpy(&(*dest)->l, src->l, pos, rot);
-		ft_treecpy(&(*dest)->r, src->r, pos, rot);
+		ft_treecpy(&(*dest)->l, src->l, pos, rot, speed);
+		ft_treecpy(&(*dest)->r, src->r, pos, rot, speed);
 	}
 }
 
@@ -103,9 +104,11 @@ int			ft_getlst(char *content, t_env *e)
 {
 	char	*position;
 	char	*rotation;
+	char	*cspeed;
 	char	*id;
 	t_vec3	pos;
 	t_vec3	rot;
+	t_vec3	speed;
 	t_nod	*nod;
 	t_list	*save;
 
@@ -114,6 +117,7 @@ int			ft_getlst(char *content, t_env *e)
 		ft_error_exit("Error: obj need an id subobject");
 	position = ft_get_inner(content, "position", NULL, NULL);
 	rotation = ft_get_inner(content, "rotation", NULL, NULL);
+	cspeed = ft_get_inner(content, "speed", NULL, NULL);
 	nod = (t_nod *)malloc(sizeof(t_nod));
 	nod->id = ft_atod(id);
 	while (e->c_obj)
@@ -128,7 +132,11 @@ int			ft_getlst(char *content, t_env *e)
 				ft_set_vec3(rotation, &rot);
 			else
 				rot = (t_vec3){0, 0, 0};
-			ft_treecpy(&nod, e->c_obj->content, pos, rot);
+			if (cspeed)
+				ft_set_vec3(cspeed, &speed);
+			else
+				speed = (t_vec3){0, 0, 0};
+			ft_treecpy(&nod, e->c_obj->content, pos, rot, speed);
 			ft_lstadd(&e->obj, ft_lstnew((void *)nod, sizeof(t_nod)));
 			break;
 		}

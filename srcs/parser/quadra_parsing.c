@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 12:30:47 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 12:06:20 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 14:36:07 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "rtv1.h"
@@ -19,10 +19,10 @@ int			ft_set_quadra(char *quadra, t_env *e, t_nod *prnt)
 	char	*equ;
 	char	*rotation;
 	char	*mat;
+	char	*speed;
 	t_nod	nod;
 
 	nod.obj = (t_obj *)malloc(sizeof(t_obj));
-	nod.obj->mat.brim = 0.1;
 	if ((position = ft_get_inner(quadra, "position", NULL, NULL)) == NULL)
 		ft_error_exit("Error: quadra require a position subobject.\n");
 	if ((rotation = ft_get_inner(quadra, "rotation", NULL, NULL)) == NULL)
@@ -33,6 +33,10 @@ int			ft_set_quadra(char *quadra, t_env *e, t_nod *prnt)
 		ft_error_exit("Error: quadra require a radius subobject.\n");
 	if ((mat = ft_get_inner(quadra, "mat", NULL, NULL)) == NULL)
 		ft_error_exit("Error: quadra require a color subobject.\n");
+	if ((speed = ft_get_inner(quadra, "speed", NULL, NULL)) == NULL)
+		nod.obj->speed = (t_vec3){0, 0, 0};
+	else
+		ft_set_vec3(speed, &nod.obj->speed);
 	ft_set_vec3(position, &nod.obj->pos);
 	ft_set_vec3(rotation, &nod.obj->rot);
 	ft_set_equ(equ, nod.obj);
@@ -53,6 +57,7 @@ int			ft_set_quadra(char *quadra, t_env *e, t_nod *prnt)
 	ft_strdel(&equ);
 	ft_strdel(&rotation);
 	ft_strdel(&mat);
+	ft_strdel(&speed);
 	return (0);
 }
 

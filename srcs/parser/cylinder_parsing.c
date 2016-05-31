@@ -6,17 +6,21 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:45:04 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/31 12:05:30 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 14:35:27 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static void	ft_set_node(char *position, char *direction, char *radius,
+static void	ft_set_node(char *speed, char *position, char *direction, char *radius,
 		t_nod *nod)
 {
 	ft_set_vec3(position, &nod->obj->pos);
 	ft_set_vec3(direction, &nod->obj->dir);
+	if (speed)
+		ft_set_vec3(speed, &nod->obj->speed);
+	else
+		nod->obj->speed = (t_vec3){0, 0, 0};
 	ft_normalise(&nod->obj->dir);
 	nod->obj->rayon = ft_atod(radius);
 	nod->obj->get_normal = &normal_cyl;
@@ -33,10 +37,10 @@ int			ft_set_cylinder(char *cylinder, t_env *e, t_nod *prnt)
 	char	*direction;
 	char	*radius;
 	char	*mat;
+	char	*speed;
 	t_nod	nod;
 
 	nod.obj = (t_obj *)malloc(sizeof(t_obj));
-	nod.obj->mat.brim = 0.1;
 	if ((position = ft_get_inner(cylinder, "position", NULL, NULL)) == NULL)
 		ft_error_exit("Error: cylinder require a position subobject.\n");
 	if ((radius = ft_get_inner(cylinder, "radius", NULL, NULL)) == NULL)
@@ -45,8 +49,10 @@ int			ft_set_cylinder(char *cylinder, t_env *e, t_nod *prnt)
 		ft_error_exit("Error: cylinder require a material subobject.\n");
 	if ((direction = ft_get_inner(cylinder, "direction", NULL, NULL)) == NULL)
 		ft_error_exit("Error: cylinder require a direction subobject.\n");
+	if ((speed = ft_get_inner(cylinder, "speed", NULL, NULL)) == NULL)
+		speed = NULL;
 	ft_set_mat(mat, nod.obj);
-	ft_set_node(position, direction, radius, &nod);
+	ft_set_node(speed, position, direction, radius, &nod);
 	if (e)
 		ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
 	else
@@ -55,6 +61,7 @@ int			ft_set_cylinder(char *cylinder, t_env *e, t_nod *prnt)
 	ft_strdel(&direction);
 	ft_strdel(&radius);
 	ft_strdel(&mat);
+	ft_strdel(&speed);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 15:55:04 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/31 17:28:58 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define COLOR_CLIP(x) (x < 1) ? x : 1
 
-# define THREAD_NUM 1
+# define THREAD_NUM 4
 # define SIZE_W 1000
 # define SIZE_H 800
 # define WIDTH 100
@@ -196,7 +196,7 @@ typedef struct	s_obj
 	t_vec3	dir;
 	t_vec3	dir2;
 	t_vec3	dir3;
-	t_vec3	motion;
+	t_vec3	speed;
 	t_vec3	*v;
 	t_vec3	*vn;
 	char 	*path;

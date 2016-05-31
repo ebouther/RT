@@ -23,7 +23,7 @@
 
 	<lights>
 		<light>
-			<intensity> 0.4 </intensity>
+			<intensity> 0.2 </intensity>
 			<position>
 				<x> 0.0 </x>
 				<y> 0.0 </y>
@@ -33,13 +33,13 @@
 			<dist_light> 0 </dist_light>
 
 			<color>
-				<r> 0.0 </r>
-				<g> 0.0 </g>
+				<r> 1.0 </r>
+				<g> 1.0 </g>
 				<b> 1.0 </b>
 			</color>
 		</light>
 		<light>
-			<intensity> 0.4 </intensity>
+			<intensity> 0.2 </intensity>
 			<position>
 				<x> 0.0 </x>
 				<y> 0.0 </y>
@@ -53,14 +53,14 @@
 			<nb_light> 0 </nb_light>
 			<dist_light> 0 </dist_light>
 			<color>
-				<r> 0.0 </r>
+				<r> 1.0 </r>
 				<g> 1.0 </g>
-				<b> 0.0 </b>
+				<b> 1.0 </b>
 			</color>
 
 		</light>
 		<light>
-			<intensity> 0.4 </intensity>
+			<intensity> 0.2 </intensity>
 			<position>
 				<x> 0.0 </x>
 				<y> 0.0 </y>
@@ -70,8 +70,8 @@
 			<dist_light> 0 </dist_light>
 			<color>
 				<r> 1.0 </r>
-				<g> 0.0 </g>
-				<b> 0.0 </b>
+				<g> 1.0 </g>
+				<b> 1.0 </b>
 			</color>
 
 		</light>

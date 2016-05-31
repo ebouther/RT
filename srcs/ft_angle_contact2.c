@@ -6,14 +6,21 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 09:45:01 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 12:00:25 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 16:28:16 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 #include <stdio.h>
 
-t_vec3	*normal_cube(t_ray *ray, t_obj *obj)
+static void	affect_pos(t_vec3 *dest, t_vec3 *src)
+{
+	dest->x = src->x;
+	dest->y = src->y;
+	dest->z = src->z;
+}
+
+t_vec3		*normal_cube(t_ray *ray, t_obj *obj)
 {
 	t_vec3	*res;
 	t_vec3	tmp;
@@ -24,23 +31,11 @@ t_vec3	*normal_cube(t_ray *ray, t_obj *obj)
 	if ((res = (t_vec3 *)malloc(sizeof(t_vec3))) == NULL)
 		exit(-1);
 	if (fabs(fabs(scal(tmp, obj->dir)) - obj->scale.z / 2.0) < 0.01)
-	{
-		res->x = obj->dir.x;
-		res->y = obj->dir.y;
-		res->z = obj->dir.z;
-	}
+		affect_pos(res, &obj->dir);
 	else if (fabs(fabs(scal(tmp, obj->dir2)) - obj->scale.y / 2.0) < 0.01)
-	{
-		res->x = obj->dir2.x;
-		res->y = obj->dir2.y;
-		res->z = obj->dir2.z;
-	}
+		affect_pos(res, &obj->dir2);
 	else if (fabs(fabs(scal(tmp, obj->dir3)) - obj->scale.x / 2.0) < 0.01)
-	{
-		res->x = obj->dir3.x;
-		res->y = obj->dir3.y;
-		res->z = obj->dir3.z;
-	}
+		affect_pos(res, &obj->dir3);
 	else
 	{
 		res->x = 0;
@@ -51,7 +46,7 @@ t_vec3	*normal_cube(t_ray *ray, t_obj *obj)
 	return (scal(*res, tmp) >= 0 ? res : pro(-1, res));
 }
 
-t_vec3	*normal_tore(t_ray *ray, t_obj *obj)
+t_vec3		*normal_tore(t_ray *ray, t_obj *obj)
 {
 	t_vec3	*res;
 	t_vec3	cb;
@@ -77,7 +72,7 @@ t_vec3	*normal_tore(t_ray *ray, t_obj *obj)
 	return (scal(*res, ray->dir) < 0 ? res : pro(-1, res));
 }
 
-t_vec3	*normal_pobj(t_ray *ray, t_obj *obj)
+t_vec3		*normal_pobj(t_ray *ray, t_obj *obj)
 {
 	t_vec3	*res;
 
@@ -88,7 +83,7 @@ t_vec3	*normal_pobj(t_ray *ray, t_obj *obj)
 	return (scal(*res, ray->dir) < 0 ? res : pro(-1, res));
 }
 
-t_vec3	*normal_quadra(t_ray *ray, t_obj *obj)
+t_vec3		*normal_quadra(t_ray *ray, t_obj *obj)
 {
 	t_vec3	*res;
 	t_vec3	pp;

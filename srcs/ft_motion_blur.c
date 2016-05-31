@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/13 12:07:26 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 11:55:40 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 14:22:42 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_flou(t_env *e, int x, int y, int x_end, int y_end, int x_start, int y_st
 
 }
 
-void	ft_mot_pix(int x_start, int y_start, t_vec3 mot, t_env *e)
+void	ft_mot_pix(int x_start, int y_start, t_vec3 speed, t_env *e)
 {
 	int y_end;
 	int x_end;
@@ -49,8 +49,8 @@ void	ft_mot_pix(int x_start, int y_start, t_vec3 mot, t_env *e)
 	int	dx;
 	int	dy;
 
-	x_end = x_start - (int)scal(e->cam.right, mot);
-	y_end = y_start + (int)scal(e->cam.up, mot);
+	x_end = x_start - (int)scal(e->cam.right, speed);
+	y_end = y_start + (int)scal(e->cam.up, speed);
 	x = x_start;
 	dx = (x_start <= x_end ? 1 : -1);
 	dy = (y_start <= y_end ? 1 : -1);
@@ -103,8 +103,8 @@ void	ft_motion_blur(t_env *e)
 		y_start = 0;
 		while (y_start < SIZE_H)
 		{
-			if (e->pix[x_start + y_start * SIZE_W].obj->motion.x || e->pix[x_start + y_start * SIZE_W].obj->motion.y || e->pix[x_start + y_start * SIZE_W].obj->motion.z)
-				ft_mot_pix(x_start, y_start, e->pix[x_start + y_start * SIZE_W].obj->motion, e);
+			if (e->pix[x_start + y_start * SIZE_W].obj->speed.x || e->pix[x_start + y_start * SIZE_W].obj->speed.y || e->pix[x_start + y_start * SIZE_W].obj->speed.z)
+				ft_mot_pix(x_start, y_start, e->pix[x_start + y_start * SIZE_W].obj->speed, e);
 			y_start++;
 		}
 		x_start++;

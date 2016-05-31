@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/24 15:27:18 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/31 10:56:04 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 15:15:08 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,13 @@ void			ft_color_mode(t_color *c, t_env *e)
 		c->g = c->r;
 		c->b = c->r;
 	}
+	else if (e->color_m == 3)
+	{
+		c->g = 0;
+		c->b = 0;
+	}
+	else if (e->color_m == 4)
+		c->r = 0;
 }
 
 int				ft_checkerboard(t_ray *ray, double t)

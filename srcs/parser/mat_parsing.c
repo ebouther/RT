@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 13:57:32 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/31 10:58:39 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 15:04:23 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ static void	ft_set_mat2(char *mat, t_obj *obj)
 	obj->mat.opac =
 ((value = ft_get_inner(mat, "opac", NULL, NULL)) == NULL) ?
 1 - obj->mat.refl - obj->mat.refr : ft_atod(value);
+	if (obj->mat.opac == 0)
+		obj->mat.col = (t_color){1, 1 ,1};
 	free(value);
 	obj->mat.waves =
 ((value = ft_get_inner(mat, "waves", NULL, NULL)) == NULL) ? FALSE : TRUE;
