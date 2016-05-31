@@ -6,82 +6,65 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/13 12:07:26 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/13 16:53:44 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 11:55:40 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 #include <stdio.h>
 
-
-int		max2(int a, int b)
+int	ft_sur_droite(int x, int y, int x_end, int y_end, int x_start, int y_start)
 {
-	if (a >= b)
-		return (a);
-	return (b);
-}
-
-int		min2(int a, int b)
-{
-	if (a <= b)
-		return (a);
-	return (b);
-}
-
-int	ft_sur_droite(int x1, int y1, int xf, int yf, int x, int y)
-{
-	if (x != xf)
-		if (y1 == x1 * (y - yf) / (x - xf) + y - x * (y - yf) / (x - xf))
+	if (x_start != x_end)
+		if (y == x * (y_start - y_end) / (x_start - x_end) + y_start - x_start * (y_start - y_end) / (x_start - x_end))
 			return (1);
-	if (y != yf)
-		if (x1 == y1 * (x - xf) / (y - yf) + x - y * (x - xf) / (y - yf))
+	if (y_start != y_end)
+		if (x == y * (x_start - x_end) / (y_start - y_end) + x_start - y_start * (x_start - x_end) / (y_start - y_end))
 			return (1);
 	return (0);
 }
 
-void	ft_flou(t_env *e, int x1, int y1, int xf, int yf, int x, int y)
+void	ft_flou(t_env *e, int x, int y, int x_end, int y_end, int x_start, int y_start)
 {
 	double	f;
 	double	p;
 
-	if ((p = sqrt(carre(xf - x) + carre(yf - y))))
-		f = sqrt(carre(xf - x1) + carre(yf - y1)) / p;
+	if ((p = sqrt(carre(x_end - x_start) + carre(y_end - y_start))))
+		f = sqrt(carre(x_start - x) + carre(y_start - y)) / p;
 	else
-		f = 1;
-//	f = pow(f, 0.1);
-	e->data2[x1 * 4 + 4 * y1 * SIZE_W + 3] = (unsigned char)((1 - f) * 255);
-	printf("x1 =%d,  y1 %d\n",x1,y1);
-	e->data2[x1 * 4 + 4 * y1 * SIZE_W] = e->data[x * 4 + 4 * y * SIZE_W];
-	e->data2[x1 * 4 + 4 * y1 * SIZE_W + 1] = e->data[x * 4 + 4 * y * SIZE_W + 1];
-	e->data2[x1 * 4 + 4 * y1 * SIZE_W + 2] = e->data[x * 4 + 4 * y * SIZE_W + 2];
+		return;
+	e->data2[x * 4 + 4 * y * SIZE_W] += (unsigned char)(e->data[x_start * 4 + 4 * y_start * SIZE_W] * f / p) ;
+	e->data2[x * 4 + 4 * y * SIZE_W + 1] += (unsigned char)(e->data[x_start * 4 + 4 * y_start * SIZE_W + 1] * f / p);
+	e->data2[x * 4 + 4 * y * SIZE_W + 2] += (unsigned char)(e->data[x_start * 4 + 4 * y_start * SIZE_W + 2] * f / p);
+	e->data2[x * 4 + 4 * y * SIZE_W + 3] -= (unsigned char)(255 * (1 - f * f * f) / p);
 
 }
 
-void	ft_mot_pix(int x, int y, t_vec3 mot, t_env *e)
+void	ft_mot_pix(int x_start, int y_start, t_vec3 mot, t_env *e)
 {
-	int yf;
-	int xf;
-	int x1;
-	int y1;
+	int y_end;
+	int x_end;
+	int x;
+	int y;
+	int	dx;
+	int	dy;
 
-	xf = x + (int)scal(e->cam.right, mot);
-	yf = y - (int)scal(e->cam.up, mot);
-	x1 = min2(xf ,x);
-	while (x1 <= max2(x, xf))
+	x_end = x_start - (int)scal(e->cam.right, mot);
+	y_end = y_start + (int)scal(e->cam.up, mot);
+	x = x_start;
+	dx = (x_start <= x_end ? 1 : -1);
+	dy = (y_start <= y_end ? 1 : -1);
+	while (x != x_end + dx)
 	{
-		y1 = min2(yf, y);
-		while (y1 <= max2(y, yf))
+		y = y_start;
+		while (y != y_end + dy)
 		{
-			if (ft_sur_droite(x1, y1, xf, yf, x, y))
-			{
-				ft_flou(e, x1, y1, xf, yf, x, y);	
-			}
-			y1++;
+			if (ft_sur_droite(x, y, x_end, y_end, x_start, y_start))
+				ft_flou(e, x, y, x_end, y_end, x_start, y_start);	
+			y += dy;
 		}
-		x1++;
+		x += dx;
 	}
-
-
 }
 
 void	ft_init_im(t_env *e)
@@ -95,6 +78,9 @@ void	ft_init_im(t_env *e)
 		y = 0;
 		while (y < SIZE_H)
 		{
+			e->data2[4 * x + SIZE_W * 4 * y] = 0;
+			e->data2[4 * x + SIZE_W * 4 * y] = 0;
+			e->data2[4 * x + SIZE_W * 4 * y] = 0;
 			e->data2[4 * x + SIZE_W * 4 * y + 3] = 255;
 			y++;
 		}
@@ -105,23 +91,23 @@ void	ft_init_im(t_env *e)
 
 void	ft_motion_blur(t_env *e)
 {
-	int x;
-	int y;
+	int x_start;
+	int y_start;
 
 	e->img2 = mlx_new_image(e->mlx, SIZE_W, SIZE_H);
 	e->data2 = mlx_get_data_addr(e->img2, &e->bpp, &e->ls, &e->endian);
 	ft_init_im(e);
-	x = 0;
-	while (x < SIZE_W)
+	x_start = 0;
+	while (x_start < SIZE_W)
 	{
-		y = 0;
-		while (y < SIZE_H)
+		y_start = 0;
+		while (y_start < SIZE_H)
 		{
-			if (e->pix[x + y * SIZE_W].obj->motion.x || e->pix[x + y * SIZE_W].obj->motion.y || e->pix[x + y * SIZE_W].obj->motion.z)
-				ft_mot_pix(x, y, e->pix[x + y * SIZE_W].obj->motion, e);
-			y++;
+			if (e->pix[x_start + y_start * SIZE_W].obj->motion.x || e->pix[x_start + y_start * SIZE_W].obj->motion.y || e->pix[x_start + y_start * SIZE_W].obj->motion.z)
+				ft_mot_pix(x_start, y_start, e->pix[x_start + y_start * SIZE_W].obj->motion, e);
+			y_start++;
 		}
-		x++;
+		x_start++;
 	}
 	mlx_clear_window(e->mlx, e->win);
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
