@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 13:49:15 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/31 09:45:01 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 09:59:10 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static void	ft_set_cone_2(char *angle, char *position, char *direction,
 	nod->obj->get_inters = &inters_cone;
 	nod->r = NULL;
 	nod->l = NULL;
-	nod->op = NULL;
+	nod->op = empty;
 	if ((nod->obj_col = (t_obj_col *)malloc(sizeof(t_obj_col))) == NULL)
 		exit(-1);
 }
 
-static int	ft_set_cone(char *cone, t_env *e)
+int			ft_set_cone(char *cone, t_env *e, t_nod *prnt)
 {
 	char	*position;
 	char	*direction;
@@ -48,7 +48,10 @@ static int	ft_set_cone(char *cone, t_env *e)
 		ft_error_exit("Error: cone require a direction subobject.\n");
 	ft_set_mat(mat, nod.obj);
 	ft_set_cone_2(angle, position, direction, &nod);
-	ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
+	if (e)
+		ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
+	else
+		ft_memcpy(prnt, &nod, sizeof(t_nod));
 	ft_strdel(&position);
 	ft_strdel(&direction);
 	ft_strdel(&angle);

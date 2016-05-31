@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 14:11:08 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/31 09:47:59 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 10:02:57 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,19 @@ static int	ft_set_light(char *light, t_env *e)
 	t_light_parser	p;
 	t_light			light_obj;
 
-	if ((p.position = ft_get_inner(light, "position", NULL)) == NULL)
+	if ((p.position = ft_get_inner(light, "position", NULL, NULL)) == NULL)
 		ft_error_exit("Error: light require a position subobject.\n");
-	if ((p.color = ft_get_inner(light, "color", NULL)) == NULL)
+	if ((p.color = ft_get_inner(light, "color", NULL, NULL)) == NULL)
 		ft_error_exit("Error: light require a color subobject.\n");
-	if ((p.intensity = ft_get_inner(light, "intensity", NULL)) == NULL)
+	if ((p.intensity = ft_get_inner(light, "intensity", NULL, NULL)) == NULL)
 		ft_error_exit("Error: light require a color subobject.\n");
-	if ((p.dist = ft_get_inner(light, "dir", NULL)) == NULL)
+	if ((p.dist = ft_get_inner(light, "dir", NULL, NULL)) == NULL)
 		ft_bzero(&light_obj.dir, sizeof(t_vec3));
 	else
 		ft_set_vec3(p.dist, &light_obj.dir);
-	if ((p.nb_light = ft_get_inner(light, "nb_light", NULL)) == NULL)
+	if ((p.nb_light = ft_get_inner(light, "nb_light", NULL, NULL)) == NULL)
 		ft_error_exit("Error: light require a nb_light subobject.\n");
-	if ((p.dist_light = ft_get_inner(light, "dist_light", NULL)) == NULL)
+	if ((p.dist_light = ft_get_inner(light, "dist_light", NULL, NULL)) == NULL)
 		ft_error_exit("Error: light require a dist_light subobject.\n");
 	ft_set_light2(&p, &light_obj);
 	ft_lstadd(&e->light, ft_lstnew((void *)&light_obj, sizeof(t_light)));
