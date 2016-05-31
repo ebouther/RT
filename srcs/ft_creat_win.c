@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 12:07:42 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 14:22:03 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,31 +175,74 @@ void	init_tex(t_env *e)
 	}
 }
 
+static void			ft_pixmalloc(t_pix *pix)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < SIZE_H)
+	{
+		j = 0;
+		while (j < SIZE_W)
+		{
+			pix[j + i * SIZE_W].col = (t_color *)ft_memalloc(sizeof(t_color));
+			j++;
+		}
+		i++;
+	}
+}
+
 static void			*ft_fill_img(void *e)
 {
 	int				coor[2];
 	int				start;
 	int				end;
 	t_ray			*ray;
+	t_vec3			dist;
+	int				k;
+	t_color			*tmp_col;
 
+	k = 0;
 	start = floor((SIZE_W / THREAD_NUM * ((t_env *)e)->start));
 	end = ceil((SIZE_W / THREAD_NUM) * (((t_env *)e)->start + 1));
-	coor[0] = start;
-	while (coor[0] < end)
+	ft_pixmalloc(((t_env *)e)->pix);
+	if (((t_env *)e)->color_m >= 3)
 	{
-		coor[1] = 0;
-		while (coor[1] < SIZE_H)
+		dist.x = ((t_env *)e)->cam.right.x * 0.6;
+		dist.y = ((t_env *)e)->cam.right.y * 0.6;
+		dist.z = ((t_env *)e)->cam.right.z * 0.6;
+		((t_env *)e)->cam.pos.x -= dist.x;
+		((t_env *)e)->cam.pos.y -= dist.y;
+		((t_env *)e)->cam.pos.z -= dist.z;
+	}
+	while ((++k <= 2 && ((t_env *)e)->color_m >= 3) || k == 1)
+	{
+		coor[0] = start;
+		while (coor[0] < end)
 		{
-			kk = 0;
-			if (((t_env *)e)->xx == coor[0] && ((t_env *)e)->yy == coor[1])
-				kk = 1;
-			ray = ft_calc_ray(coor[0], coor[1], ((t_env *)e));
-			((t_env *)e)->pix[coor[0] + coor[1] * SIZE_W].col = ft_contact(ray,
-				e, &((t_env *)e)->pix[coor[0] + coor[1] * SIZE_W].obj);
-			free(ray);
-			coor[1]++;
+			coor[1] = 0;
+			while (coor[1] < SIZE_H)
+			{
+				kk = 0;
+				if (((t_env *)e)->xx == coor[0] && ((t_env *)e)->yy == coor[1])
+					kk = 1;
+				ray = ft_calc_ray(coor[0], coor[1], ((t_env *)e));
+				tmp_col = ft_contact(ray, e, &((t_env *)e)->pix[coor[0] +
+					coor[1] * SIZE_W].obj);
+				((t_env *)e)->pix[coor[0] + coor[1] * SIZE_W].col->r += tmp_col->r;
+				((t_env *)e)->pix[coor[0] + coor[1] * SIZE_W].col->g += tmp_col->g;
+				((t_env *)e)->pix[coor[0] + coor[1] * SIZE_W].col->b += tmp_col->b;
+				free(ray);
+				free(tmp_col);
+				coor[1]++;
+			}
+			coor[0]++;
 		}
-		coor[0]++;
+		((t_env *)e)->cam.pos.x += 2 * dist.x;
+		((t_env *)e)->cam.pos.y += 2 * dist.y;
+		((t_env *)e)->cam.pos.z += 2 * dist.z;
+		((t_env *)e)->color_m++;
 	}
 	pthread_exit(NULL);
 }

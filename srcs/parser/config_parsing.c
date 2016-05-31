@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 18:13:41 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/23 19:00:19 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/05/31 12:41:49 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int			ft_set_config(char *config, t_env *e)
 		e->color_m = 1;
 	else if (filter != NULL && ft_strstr(filter, "B&W"))
 		e->color_m = 2;
+	else if (filter != NULL && ft_strstr(filter, "3D"))
+		e->color_m = 3;
 	else
 		e->color_m = 0;
 	ft_strdel(&ambient);
