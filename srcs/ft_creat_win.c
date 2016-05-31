@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 15:14:51 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 16:15:59 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,12 +229,15 @@ static void			*ft_fill_img(void *e)
 					kk = 1;
 				ray = ft_calc_ray(coor[0], coor[1], ((t_env *)e));
 				tmp_col = ft_contact(ray, e, &((t_env *)e)->pix[coor[0] +
-					coor[1] * SIZE_W].obj);
-				((t_env *)e)->pix[coor[0] + coor[1] * SIZE_W].col->r += tmp_col->r;
-				((t_env *)e)->pix[coor[0] + coor[1] * SIZE_W].col->g += tmp_col->g;
-				((t_env *)e)->pix[coor[0] + coor[1] * SIZE_W].col->b += tmp_col->b;
+						coor[1] * SIZE_W].obj);
+				if (tmp_col)
+				{
+					((t_env *)e)->pix[coor[0] + coor[1] * SIZE_W].col->r += tmp_col->r;
+					((t_env *)e)->pix[coor[0] + coor[1] * SIZE_W].col->g += tmp_col->g;
+					((t_env *)e)->pix[coor[0] + coor[1] * SIZE_W].col->b += tmp_col->b;
+					free(tmp_col);
+				}
 				free(ray);
-				free(tmp_col);
 				coor[1]++;
 			}
 			coor[0]++;
