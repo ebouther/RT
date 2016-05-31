@@ -158,7 +158,46 @@
 			</mat>
 		</plane>
 
+		<quadra>
+			<position>
+				<x> 10.0 </x>
+				<y> 10.0 </y>
+				<z> 10.0 </z>
+			</position>
+			<rotation>
+				<x> 5 </x>
+				<y> 5 </y>
+				<z> 5</z> 
+			</rotation>
+			<radius> 30 </radius>
+			<equ>
+				<x1> 0 </x1>
+				<x2> 1 </x2>
+				<y1> 0 </y1>
+				<y2> 1 </y2>
+				<z1> 0 </z1>
+				<z2> 1 </z2>
+				<c> -10 </c>
+			</equ>
 
+			<direction>
+				
+				<x> -20.0 </x>
+				<y> 0.0 </y>
+				<z> -50.0 </z>
+			</direction>
+			<radius> 20 </radius>
+			<radius2> 5 </radius2>
+			<mat>
+				<refraction> 0 </refraction>
+				<reflection> 0 </reflection>
+				<color>
+					<r> 0.3 </r>
+					<g> 0.639 </g>
+					<b> 0.357 </b>
+				</color>
+			</mat>
+		</quadra>
 		<plane>
 			<position>
 				<x> 0.0 </x>
