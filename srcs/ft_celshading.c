@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/09 17:31:31 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 12:09:59 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 15:53:31 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static int	ft_voisin(int x, int y, t_env *e)
 		y1 = -1;
 		while (y1 < 2)
 		{
-			if (e->pix[x + SIZE_W * y].col == NULL || e->pix[x + x1 + SIZE_W * (y + y1)].obj != tmp)
+			if (e->pix[x + SIZE_W * y].col == NULL || e->pix[x + x1 +
+			SIZE_W * (y + y1)].obj != tmp)
 				return (1);
 			y1++;
 		}

@@ -2,7 +2,7 @@
 
 	<config>
 		<ambient> 0.2 </ambient>
-		<filter> 3D </filter>
+		<filter>  </filter>
 	</config>
 
 	<camera>
