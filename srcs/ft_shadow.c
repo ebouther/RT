@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 15:11:03 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 17:21:22 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,21 @@ void						ft_init_shadow(t_shadow *s, t_obj *cur_obj,
 
 void						ft_calc_final_col(t_norm_ft_calc_final_col norm)
 {
-	norm.final_col->r = COLOR_CLIP(norm.e->amb * norm.col->r + norm.col->r * norm.col_res->diffuse.r * norm.cur_obj->mat.opac + norm.col_res->specular.r +norm.cur_obj->mat.refr * (norm.col_res->refr ? norm.col_res->refr->r : 0) +(norm.cur_obj->mat.refl + norm.refl) * (norm.col_res->refl ?norm.col_res->refl->r : 0));
-	norm.final_col->g = COLOR_CLIP(norm.e->amb * norm.col->g + norm.col->g *norm.col_res->diffuse.g * norm.cur_obj->mat.opac + norm.col_res->specular.g +norm.cur_obj->mat.refr * (norm.col_res->refr ? norm.col_res->refr->g : 0) +(norm.cur_obj->mat.refl + norm.refl) * (norm.col_res->refl ?norm.col_res->refl->g : 0));
-	norm.final_col->b = COLOR_CLIP(norm.e->amb * norm.col->b + norm.col->b *norm.col_res->diffuse.b * norm.cur_obj->mat.opac + norm.col_res->specular.b +norm.cur_obj->mat.refr * (norm.col_res->refr ? norm.col_res->refr->b : 0) +(norm.cur_obj->mat.refl + norm.refl) * (norm.col_res->refl ?norm.col_res->refl->b : 0));
+	norm.final_col->r = COLOR_CLIP(norm.e->amb * norm.col->r + norm.col->r *
+	norm.col_res->diffuse.r * norm.cur_obj->mat.opac + norm.col_res->specular.r
+	+ norm.cur_obj->mat.refr * (norm.col_res->refr ? norm.col_res->refr->r : 0)
+	+ (norm.cur_obj->mat.refl + norm.refl) * (norm.col_res->refl ?
+		norm.col_res->refl->r : 0));
+	norm.final_col->g = COLOR_CLIP(norm.e->amb * norm.col->g + norm.col->g *
+	norm.col_res->diffuse.g * norm.cur_obj->mat.opac + norm.col_res->specular.g
+	+ norm.cur_obj->mat.refr * (norm.col_res->refr ? norm.col_res->refr->g : 0)
+	+ (norm.cur_obj->mat.refl + norm.refl) * (norm.col_res->refl ?
+	norm.col_res->refl->g : 0));
+	norm.final_col->b = COLOR_CLIP(norm.e->amb * norm.col->b + norm.col->b *
+	norm.col_res->diffuse.b * norm.cur_obj->mat.opac + norm.col_res->specular.b
+	+ norm.cur_obj->mat.refr * (norm.col_res->refr ? norm.col_res->refr->b : 0) 
+	+ (norm.cur_obj->mat.refl + norm.refl) * (norm.col_res->refl ?
+	norm.col_res->refl->b : 0));
 }
 
 void						ft_refl_refr_calc(t_obj *cur_obj, t_shadow *s,
@@ -59,12 +71,40 @@ void						ft_refl_refr_calc(t_obj *cur_obj, t_shadow *s,
 	}
 }
 
+void						ft_smooth_shadows(t_shadow *s, t_env *e)
+{
+	int			i[3];
+
+	i[0] = 0;
+	while (i[0] <= s->work.light->nb_light)
+	{
+		s->work.light->offset.y = -(s->work.light->nb_light
+				* s->work.light->dist_light) / 2.0;
+		i[1] = 0;
+		while (i[1] <= s->work.light->nb_light)
+		{
+			s->work.light->offset.z = -(s->work.light->nb_light
+					* s->work.light->dist_light) / 2.0;
+			i[2] = 0;
+			while (i[2]++ <= s->work.light->nb_light)
+			{
+				ft_in_light(&s->work, e, &s->col_res);
+				s->work.light->offset.z += s->work.light->dist_light;
+			}
+			s->work.light->offset.y += s->work.light->dist_light;
+			i[1]++;
+		}
+		s->work.light->offset.x += s->work.light->dist_light;
+		i[0]++;
+	}
+
+}
+
 t_color						*ft_ishadow(t_env *e, t_ray *ray, double t,
 		t_obj *cur_obj)
 {
 	t_shadow					s;
 	t_norm_ft_calc_final_col	norm;
-	int			i[3];
 
 	s.lst = e->light;
 	ft_init_shadow(&s, cur_obj, ray, t);
@@ -73,30 +113,14 @@ t_color						*ft_ishadow(t_env *e, t_ray *ray, double t,
 	ft_refl_refr_calc(cur_obj, &s, ray, e);
 	while (s.lst)
 	{
-		i[0] = 0;
 		s.work.light = ((t_light *)(s.lst->content));
-		s.work.light->new_k = s.work.light->k / (pow(s.work.light->nb_light + 1, 3));
-		s.work.light->offset = (t_vec3){-(s.work.light->nb_light * s.work.light->dist_light) / 2.0, -(s.work.light->nb_light * s.work.light->dist_light) / 2.0, -(s.work.light->nb_light * s.work.light->dist_light) / 2.0};
-		while (i[0] <= s.work.light->nb_light)
-		{
-			s.work.light->offset.y = -(s.work.light->nb_light * s.work.light->dist_light) / 2.0;
-			i[1] = 0;
-			while (i[1] <= s.work.light->nb_light)
-			{
-				s.work.light->offset.z = -(s.work.light->nb_light * s.work.light->dist_light) / 2.0;
-				i[2] = 0;
-				while (i[2] <= s.work.light->nb_light)
-				{
-					ft_in_light(&s.work, e, &s.col_res);
-					s.work.light->offset.z += s.work.light->dist_light;
-					i[2]++;
-				}
-				s.work.light->offset.y += s.work.light->dist_light;
-				i[1]++;
-			}
-			s.work.light->offset.x += s.work.light->dist_light;
-			i[0]++;
-		}
+		s.work.light->new_k = s.work.light->k /
+			(pow(s.work.light->nb_light + 1, 3));
+		s.work.light->offset = (t_vec3){-(s.work.light->nb_light
+			* s.work.light->dist_light) / 2.0, -(s.work.light->nb_light
+			* s.work.light->dist_light) / 2.0, -(s.work.light->nb_light
+			* s.work.light->dist_light) / 2.0};
+		ft_smooth_shadows(&s, e);
 		s.lst = s.lst->next;
 	}
 	ft_bri_max(&s.col_res);

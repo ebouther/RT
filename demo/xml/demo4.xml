@@ -24,6 +24,8 @@
 
 	<lights>
 		<light>
+			<nb_light> 0 </nb_light>
+			<dist_light> 0 </dist_light>
 			<intensity> 0.8 </intensity>
 			<position>
 				<x> -20.0 </x>
