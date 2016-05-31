@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 17:28:58 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/05/31 19:49:19 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define COLOR_CLIP(x) (x < 1) ? x : 1
 
-# define THREAD_NUM 4
+# define THREAD_NUM 8
 # define SIZE_W 1000
 # define SIZE_H 800
 # define WIDTH 100
@@ -113,6 +113,16 @@ typedef struct  s_c_tore
 	double      rayon2;
 	double      iter;
 }               t_c_tore;
+
+typedef struct  s_c_helice
+{
+	t_color     col;
+	t_vec3      pos;
+	t_vec3      dir;
+	double      rayon;
+	double      iter;
+	double      height;
+}               t_c_helice;
 
 	typedef struct s_tex
 {
@@ -336,7 +346,7 @@ void			ft_creat_win(t_env *e);
 t_ray			*ft_refr(t_ray *ray, t_work *work, double *refl);
 t_ray			*ft_refl(t_ray *ray, t_work *work);
 t_obj_col		*ft_get_inters(t_nod *nod, t_ray *ray);
-
+int     ft_get_composed_objects(char *objects, size_t len, t_env *e);
 /*
  ** texture
  */
