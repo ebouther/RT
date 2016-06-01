@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 12:41:50 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 17:57:35 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/06/01 10:54:34 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ static double	ft_equ(double t, t_ray *ray, t_obj *obj)
 		+ carre(cb.z) * obj->equ.z2 + obj->equ.c);
 }
 
-static double	ft_rec(double t1, double t2, t_ray *ray, t_obj *obj, int s)
+static double	ft_rec(double t[2], t_ray *ray, t_obj *obj, int s)
 {
-	if (fabs(t1 - t2) < 0.001)
-		return (fmin(t1, t2));
-	if (ft_equ((t1 + t2) / 2.0, ray, obj) > 0 && s)
-		return (ft_rec((t1 + t2) / 2.0, t2, ray, obj, s));
+	if (fabs(t[0] - t[1]) < 0.001)
+		return (fmin(t[0], t[1]));
+	if (ft_equ((t[0] + t[1]) / 2.0, ray, obj) > 0 && s)
+		return (ft_rec((double[2]){(t[0] + t[1]) / 2.0, t[1]}, ray, obj, s));
 	else
-		return (ft_rec(t1, (t1 + t2) / 2.0, ray, obj, s));
+		return (ft_rec((double[2]){t[0], (t[0] + t[1]) / 2.0}, ray, obj, s));
 }
 
 static double	*ft_init_inters(t_obj *obj, t_ray *tmp, t_ray *ray, double **t)
@@ -100,7 +100,7 @@ double			*inters_quadra(t_ray *ray, t_obj *obj)
 		}
 		else if ((r[1] * r[0]) < 0.0)
 		{
-			res[0] = ft_rec(t1, t1 + 0.1, &tmp, obj, r[0] > 0);
+			res[0] = ft_rec((double[2]){t1, t1 + 0.1}, &tmp, obj, r[0] > 0);
 			break ;
 		}
 	}

@@ -6,64 +6,73 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/13 12:07:26 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 14:22:42 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/01 14:03:20 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 #include <stdio.h>
 
-int	ft_sur_droite(int x, int y, int x_end, int y_end, int x_start, int y_start)
+int		ft_sur_droite(int xy[2], int xy_end[2], int x_start, int y_start)
 {
-	if (x_start != x_end)
-		if (y == x * (y_start - y_end) / (x_start - x_end) + y_start - x_start * (y_start - y_end) / (x_start - x_end))
+	if (x_start != xy_end[0])
+		if (xy[0] == xy[1] * (y_start - xy_end[1]) / (x_start - xy_end[0])
+		+ y_start - x_start * (y_start - xy_end[1]) / (x_start - xy_end[0]))
 			return (1);
-	if (y_start != y_end)
-		if (x == y * (x_start - x_end) / (y_start - y_end) + x_start - y_start * (x_start - x_end) / (y_start - y_end))
+	if (y_start != xy_end[1])
+		if (xy[0] == xy[1] * (x_start - xy_end[0]) / (y_start - xy_end[1])
+		+ x_start - y_start * (x_start - xy_end[0]) / (y_start - xy_end[1]))
 			return (1);
 	return (0);
 }
 
-void	ft_flou(t_env *e, int x, int y, int x_end, int y_end, int x_start, int y_start)
+void	ft_flou(t_env *e, int xy[2], int xy_end[2], int xy_start[2])
 {
 	double	f;
 	double	p;
 
-	if ((p = sqrt(carre(x_end - x_start) + carre(y_end - y_start))))
-		f = sqrt(carre(x_start - x) + carre(y_start - y)) / p;
+	if ((p = sqrt(carre(xy_end[0] - xy_start[0])
+	+ carre(xy_end[1] - xy_start[1]))))
+		f = sqrt(carre(xy_start[0] - xy[0]) + carre(xy_start[1] - xy[1])) / p;
 	else
-		return;
-	e->data2[x * 4 + 4 * y * SIZE_W] += (unsigned char)(e->data[x_start * 4 + 4 * y_start * SIZE_W] * f / p) ;
-	e->data2[x * 4 + 4 * y * SIZE_W + 1] += (unsigned char)(e->data[x_start * 4 + 4 * y_start * SIZE_W + 1] * f / p);
-	e->data2[x * 4 + 4 * y * SIZE_W + 2] += (unsigned char)(e->data[x_start * 4 + 4 * y_start * SIZE_W + 2] * f / p);
-	e->data2[x * 4 + 4 * y * SIZE_W + 3] -= (unsigned char)(255 * (1 - f * f * f) / p);
-
+		return ;
+	e->data2[xy[0] * 4 + 4 * xy[1] * SIZE_W] +=
+			(unsigned char)(e->data[xy_start[0] * 4 + 4
+			* xy_start[1] * SIZE_W] / p / p);
+	e->data2[xy[0] * 4 + 4 * xy[1] * SIZE_W + 1] +=
+			(unsigned char)(e->data[xy_start[0] * 4 + 4
+			* xy_start[1] * SIZE_W + 1] / p / p);
+	e->data2[xy[0] * 4 + 4 * xy[1] * SIZE_W + 2] +=
+			(unsigned char)(e->data[xy_start[0] * 4 + 4
+			* xy_start[1] * SIZE_W + 2] / p / p);
+	e->data2[xy[0] * 4 + 4 * xy[1] * SIZE_W + 3] -=
+			(unsigned char)(255 * (1 - f * f * f) / p);
 }
 
 void	ft_mot_pix(int x_start, int y_start, t_vec3 speed, t_env *e)
 {
 	int y_end;
 	int x_end;
-	int x;
-	int y;
+	int xy[2];
 	int	dx;
 	int	dy;
 
 	x_end = x_start - (int)scal(e->cam.right, speed);
 	y_end = y_start + (int)scal(e->cam.up, speed);
-	x = x_start;
+	xy[0] = x_start;
 	dx = (x_start <= x_end ? 1 : -1);
 	dy = (y_start <= y_end ? 1 : -1);
-	while (x != x_end + dx)
+	while (xy[0] != x_end + dx)
 	{
-		y = y_start;
-		while (y != y_end + dy)
+		xy[1] = y_start;
+		while (xy[1] != y_end + dy)
 		{
-			if (ft_sur_droite(x, y, x_end, y_end, x_start, y_start))
-				ft_flou(e, x, y, x_end, y_end, x_start, y_start);	
-			y += dy;
+			if (ft_sur_droite(xy, (int[2]){x_end, y_end}, x_start, y_start))
+				ft_flou(e, xy, (int[2]){x_end, y_end},
+				(int[2]){x_start, y_start});
+			xy[1] += dy;
 		}
-		x += dx;
+		xy[0] += dx;
 	}
 }
 
@@ -86,7 +95,6 @@ void	ft_init_im(t_env *e)
 		}
 		x++;
 	}
-
 }
 
 void	ft_motion_blur(t_env *e)
@@ -97,17 +105,21 @@ void	ft_motion_blur(t_env *e)
 	e->img2 = mlx_new_image(e->mlx, SIZE_W, SIZE_H);
 	e->data2 = mlx_get_data_addr(e->img2, &e->bpp, &e->ls, &e->endian);
 	ft_init_im(e);
-	x_start = 0;
-	while (x_start < SIZE_W)
+	x_start = -1;
+	while (++x_start < SIZE_W)
 	{
-		y_start = 0;
-		while (y_start < SIZE_H)
+		y_start = -1;
+		while (++y_start < SIZE_H)
 		{
-			if (e->pix[x_start + y_start * SIZE_W].obj->speed.x || e->pix[x_start + y_start * SIZE_W].obj->speed.y || e->pix[x_start + y_start * SIZE_W].obj->speed.z)
-				ft_mot_pix(x_start, y_start, e->pix[x_start + y_start * SIZE_W].obj->speed, e);
-			y_start++;
+			if (e->pix[x_start + y_start * SIZE_W].obj)
+			{
+				if (e->pix[x_start + y_start * SIZE_W].obj->speed.x ||
+				e->pix[x_start + y_start * SIZE_W].obj->speed.y ||
+				e->pix[x_start + y_start * SIZE_W].obj->speed.z)
+					ft_mot_pix(x_start, y_start,
+					e->pix[x_start + y_start * SIZE_W].obj->speed, e);
+			}
 		}
-		x_start++;
 	}
 	mlx_clear_window(e->mlx, e->win);
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
