@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/01 13:32:42 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/06/01 13:57:47 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define COLOR_CLIP(x) (x < 1) ? x : 1
 
-# define THREAD_NUM 8
+# define THREAD_NUM 4
 # define SIZE_W 1000
 # define SIZE_H 800
 # define WIDTH 100

@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/13 12:07:26 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/01 11:30:20 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/06/01 14:03:20 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ void	ft_flou(t_env *e, int xy[2], int xy_end[2], int xy_start[2])
 		return ;
 	e->data2[xy[0] * 4 + 4 * xy[1] * SIZE_W] +=
 			(unsigned char)(e->data[xy_start[0] * 4 + 4
-			* xy_start[1] * SIZE_W] * f / p);
+			* xy_start[1] * SIZE_W] / p / p);
 	e->data2[xy[0] * 4 + 4 * xy[1] * SIZE_W + 1] +=
 			(unsigned char)(e->data[xy_start[0] * 4 + 4
-			* xy_start[1] * SIZE_W + 1] * f / p);
+			* xy_start[1] * SIZE_W + 1] / p / p);
 	e->data2[xy[0] * 4 + 4 * xy[1] * SIZE_W + 2] +=
 			(unsigned char)(e->data[xy_start[0] * 4 + 4
-			* xy_start[1] * SIZE_W + 2] * f / p);
+			* xy_start[1] * SIZE_W + 2] / p / p);
 	e->data2[xy[0] * 4 + 4 * xy[1] * SIZE_W + 3] -=
 			(unsigned char)(255 * (1 - f * f * f) / p);
 }
