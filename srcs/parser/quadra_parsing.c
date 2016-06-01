@@ -6,11 +6,11 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 12:30:47 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/01 10:36:27 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/01 13:58:21 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "rtv1.h"
-#include <printf.h>
 
 int			ft_set_quadra(char *quadra, t_env *e, t_nod *prnt)
 {

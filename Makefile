@@ -84,6 +84,7 @@ PARSER_FILES = parsing.c \
 			   config_parsing.c \
 			   mat_parsing.c \
 			   equ_parsing.c \
+			   noise.c \
 			   noise_parser.c \
 			   obj_composed.c \
 				obj_composed_2.c\
@@ -159,12 +160,14 @@ $(NAME): $(OBJ_PATH) $(OBJ)
 clean:
 	@$(call put_title,Cleaning)
 	@$(RM) $(OBJ_PATH)
+	@make -C ./libft clean
 	@$(call cmd_color,$(CLEAN_COLOR),rm -rf $(OBJ))
 
 #	Removeing binary
 fclean : clean
 	@$(RM) $(NAME)
 	@$(call cmd_color,$(CLEAN_COLOR),rm -rf $(NAME))
+	@make -C ./libft fclean
 
 re: fclean all
 

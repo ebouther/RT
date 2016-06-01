@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/01 12:20:32 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/01 13:57:47 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,43 +273,43 @@ typedef struct	s_shadow
 
 typedef struct	s_env
 {
-	int		bpp;
-	int 	endian;
-	int 	endian1;
-	int		bpp1;
-	int		ls1;
-	int 	ls;
-	void	*img1;
-	char	*buf;
-	int		aa;
-	int 	xx;
-	int 	yy;
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*data;
-	void	*img2;
-	char	*data2;
-	t_vec3	pix_zero;
-	t_cam	cam;
-	t_list	*obj;
-	t_list	*light;
-	int		color_m;
-	double	amb;
-	t_pix	*pix;
-	int		start;
-	t_list	*c_obj;
+	int			bpp;
+	int			endian;
+	int			endian1;
+	int			bpp1;
+	int			ls1;
+	int			ls;
+	void		*img1;
+	char		*buf;
+	int			aa;
+	int			xx;
+	int			yy;
+	void		*mlx;
+	void		*win;
+	void		*img;
+	char		*data;
+	void		*img2;
+	char		*data2;
+	t_vec3		pix_zero;
+	t_cam		cam;
+	t_list		*obj;
+	t_list		*light;
+	int			color_m;
+	double		amb;
+	t_pix		*pix;
+	int			start;
+	t_list		*c_obj;
 }				t_env;
 
 typedef struct	s_norm_stock_size_tex
 {
-	int     fd;
-	char    *buf;
-	int     res;
-	int     i;
-	char    *width;
-	char    *height;
-	char    **split;
+	int			fd;
+	char		*buf;
+	int			res;
+	int			i;
+	char		*width;
+	char		*height;
+	char		**split;
 }				t_norm_stock_size_tex;
 
 typedef struct  s_norm_ft_atod
@@ -338,6 +338,29 @@ typedef struct	s_light_parser
 	char		*dist_light;
 	char		*dist;
 }				t_light_parser;
+
+typedef struct	s_set_cobj
+{
+	char		*form;
+	char		*unio;
+	char		*substit;
+	char		*intersect;
+	int			i;
+	int			u;
+	int			s;
+}				t_set_cobj;
+
+typedef struct	s_set_obj
+{
+	char		*position;
+	char		*direction;
+	char		*normal;
+	char		*radius;
+	char		*radius2;
+	char		*angle;
+	char		*mat;
+	char		*speed;
+}				t_set_obj;
 
 void			ft_put_pixelle(int x, int y, unsigned int c, t_env *e);
 void			ft_creat_img(t_env *e);
@@ -417,14 +440,11 @@ double			ft_atod(char *s);
 void			ft_error_exit(const char *error);
 
 /*
-   <<<<<<< HEAD
- ** Parsing
- */
+** Parsing
+*/
 char			*ft_get_inner(char *str, char *obj, int *end_tag, int *start_tag);
-int				ft_set_vec3(char *obj, t_vec3 *vec3);
-int				ft_set_color(char *obj, t_color *col);
 int				ft_parse_scene(char *file, t_env *e);
-int				ft_set_camera(char *camera, t_env *e);
+
 int				ft_get_cylinders(char *objects, size_t len, t_env *e);
 int				ft_get_tores(char *objects, size_t len, t_env *e);
 int				ft_get_spheres(char *objects, size_t len, t_env *e);
@@ -434,23 +454,27 @@ int				ft_get_tores(char *objects, size_t len, t_env *e);
 int				ft_get_quadras(char *objects, size_t len, t_env *e);
 int				ft_get_pobjs(char *objects, size_t len, t_env *e);
 int				ft_get_lights(char *lights, size_t len, t_env *e);
-int				ft_set_config(char *config, t_env *e);
-void			ft_set_mat(char *mat, t_obj *obj);
-void			ft_set_equ(char *equ, t_obj *obj);
-int				ft_get_union(char *unio, t_env *e, t_nod *prnt);
+void			ft_get_union(char *unio, t_env *e, t_nod *prnt);
 int				ft_get_inter(char *inters, t_env *e, t_nod *prnt);
 int				ft_get_sub(char *sub, t_env *e, t_nod *prnt);
-int				ft_set_cylinder(char *cylinder, t_env *e, t_nod *prnt);
-int				ft_set_sphere(char *sphere, t_env *e, t_nod *prnt);
-int				ft_set_cone(char *cone, t_env *e, t_nod *prnt);
-int				ft_set_plane(char *plane, t_env *e, t_nod *prnt);
-int				ft_set_cube(char *plane, t_env *e, t_nod *prnt);
-int				ft_set_tore(char *tore, t_env *e, t_nod *prnt);
-int				ft_set_quadra(char *quadra, t_env *e, t_nod *prnt);
-int				ft_set_pobj(char *pobj, t_env *e, t_nod *prnt);
 int				ft_get_cobj(char *objects, t_env *e);
 int				ft_get_objtolist(char *objects, size_t len, t_env *e);
 int				ft_get_cubes(char *objects, size_t len, t_env *e);
+
+void			ft_set_mat(char *mat, t_obj *obj);
+void			ft_set_equ(char *equ, t_obj *obj);
+void			ft_set_cone(char *cone, t_env *e, t_nod *prnt);
+void			ft_set_tore(char *tore, t_env *e, t_nod *prnt);
+int				ft_set_vec3(char *obj, t_vec3 *vec3);
+int				ft_set_color(char *obj, t_color *col);
+int				ft_set_camera(char *camera, t_env *e);
+int				ft_set_config(char *config, t_env *e);
+int				ft_set_cylinder(char *cylinder, t_env *e, t_nod *prnt);
+int				ft_set_sphere(char *sphere, t_env *e, t_nod *prnt);
+int				ft_set_plane(char *plane, t_env *e, t_nod *prnt);
+int				ft_set_cube(char *plane, t_env *e, t_nod *prnt);
+int				ft_set_quadra(char *quadra, t_env *e, t_nod *prnt);
+int				ft_set_pobj(char *pobj, t_env *e, t_nod *prnt);
 
 /*
  ** Noise

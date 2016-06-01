@@ -6,60 +6,56 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 09:30:55 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 14:36:33 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/01 12:02:31 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-int			ft_set_tore(char *tore, t_env *e, t_nod *prnt)
+static void	ft_set_nod(t_nod *nod, t_set_obj *s, char *tore)
 {
-	char	*position;
-	char	*direction;
-	char	*radius;
-	char	*radius2;
-	char	*mat;
-	char	*speed;
-	t_nod	nod;
+	ft_set_vec3(s->position, &nod->obj->pos);
+	ft_set_vec3(s->direction, &nod->obj->dir);
+	ft_normalise(&nod->obj->dir);
+	nod->obj->rayon = ft_atod(s->radius);
+	nod->obj->get_normal = &normal_tore;
+	nod->obj->get_inters = &inters_tore;
+	nod->r = NULL;
+	nod->l = NULL;
+	nod->op = empty;
+	nod->obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
+	(s->speed = ft_get_inner(tore, "speed", NULL, NULL)) == NULL ?
+		(void)(nod->obj->speed = (t_vec3){0, 0, 0}) :
+		ft_set_vec3(s->speed, &nod->obj->speed);
+	ft_set_mat(s->mat, nod->obj);
+	nod->obj->rayon2 = ft_atod(s->radius2);
+	ft_strdel(&s->position);
+	ft_strdel(&s->direction);
+	ft_strdel(&s->radius);
+}
+
+void		ft_set_tore(char *tore, t_env *e, t_nod *prnt)
+{
+	t_set_obj	s;
+	t_nod		nod;
 
 	nod.obj = (t_obj *)malloc(sizeof(t_obj));
-	if ((position = ft_get_inner(tore, "position", NULL, NULL)) == NULL)
+	if ((s.position = ft_get_inner(tore, "position", NULL, NULL)) == NULL)
 		ft_error_exit("Error: tore require a position subobject.\n");
-	if ((radius = ft_get_inner(tore, "radius", NULL, NULL)) == NULL)
+	if ((s.radius = ft_get_inner(tore, "radius", NULL, NULL)) == NULL)
 		ft_error_exit("Error: tore require 2 radius subobject.\n");
-	if ((radius2 = ft_get_inner(tore, "radius2", NULL, NULL)) == NULL)
+	if ((s.radius2 = ft_get_inner(tore, "radius2", NULL, NULL)) == NULL)
 		ft_error_exit("Error: tore require 2 radius subobject.\n");
-	if ((mat = ft_get_inner(tore, "mat", NULL, NULL)) == NULL)
+	if ((s.mat = ft_get_inner(tore, "mat", NULL, NULL)) == NULL)
 		ft_error_exit("Error: tore require a color subobject.\n");
-	if ((direction = ft_get_inner(tore, "direction", NULL, NULL)) == NULL)
+	if ((s.direction = ft_get_inner(tore, "direction", NULL, NULL)) == NULL)
 		ft_error_exit("Error: tore require a direction subobject.\n");
-	if ((speed = ft_get_inner(tore, "speed", NULL, NULL)) == NULL)
-		nod.obj->speed = (t_vec3){0, 0, 0};
-	else
-		ft_set_vec3(speed, &nod.obj->speed);
-	ft_set_vec3(position, &nod.obj->pos);
-	ft_set_vec3(direction, &nod.obj->dir);
-	ft_normalise(&nod.obj->dir);
-	nod.obj->rayon = ft_atod(radius);
-	nod.obj->rayon2 = ft_atod(radius2);
-	ft_set_mat(mat, nod.obj);
-	nod.obj->get_normal = &normal_tore;
-	nod.obj->get_inters = &inters_tore;
-	nod.r = NULL;
-	nod.l = NULL;
-	nod.op = empty;
-	nod.obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
-	if (e)
-		ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
-	else
+	ft_set_nod(&nod, &s, tore);
+	e ? ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod))) :
 		ft_memcpy(prnt, &nod, sizeof(t_nod));
-	ft_strdel(&position);
-	ft_strdel(&direction);
-	ft_strdel(&radius);
-	ft_strdel(&radius2);
-	ft_strdel(&mat);
-	ft_strdel(&speed);
-	return (0);
+	ft_strdel(&s.radius2);
+	ft_strdel(&s.mat);
+	ft_strdel(&s.speed);
 }
 
 int			ft_get_tores(char *objects, size_t len, t_env *e)
