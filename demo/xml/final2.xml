@@ -1,0 +1,72 @@
+
+<scene>
+	<config>
+		<ambient> 0.2 </ambient>
+		<filter>  </filter>
+	</config>
+
+	<camera>
+		<position>
+			<x> 0.0 </x>
+			<y> 0.0 </y>
+			<z> -400.0 </z>
+		</position>
+
+		<angle>
+			<x> 0.0 </x>
+			<y> 0.0 </y>
+			<z> 0.0 </z>
+		</angle>
+
+		<fov> 10.0 </fov>
+	</camera>
+
+	<lights>
+		<light>
+			<nb_light> 0 </nb_light>
+			<dist_light> 0 </dist_light>
+			<intensity> 0.6 </intensity>
+			<position>
+				<x> 0.0 </x>
+				<y> 200.0 </y>
+				<z> -280.0 </z>
+			</position>
+			<color>
+				<r> 1.0 </r>
+				<g> 1.0 </g>
+				<b> 1.0 </b>
+			</color>
+		</light>
+	</lights>
+	<objects>
+		<quadra>
+			<position>
+				<x> 0 </x>
+				<y> 0 </y>
+				<z> 0 </z>
+			</position>
+			<rotation>
+				<x> -90 </x>
+				<y> 0 </y>
+				<z> 0 </z>				
+			</rotation>
+			<radius> 30 </radius>
+			<equ> 
+				<x1> 0 </x1>
+				<x2> 1 </x2>
+				<y1> 0 </y1>
+				<y2> 1 </y2>
+				<z1> 0 </z1>
+				<z2> -1 </z2>
+				<c>  -1 </c>
+			</equ>
+			<mat>
+				<color>
+					<r> 0.6 </r>
+					<g> 0.6 </g>
+					<b> 0.6 </b>					
+				</color>
+			</mat>
+		</quadra>
+	</objects>
+</scene>
