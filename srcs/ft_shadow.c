@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/01 16:50:37 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/01 17:20:43 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void						ft_calc_final_col(t_norm_ft_calc_final_col norm)
 	norm.col_res->refl->g : 0));
 	norm.final_col->b = COLOR_CLIP(norm.e->amb * norm.col->b + norm.col->b *
 	norm.col_res->diffuse.b * norm.cur_obj->mat.opac + norm.col_res->specular.b
-	+ norm.cur_obj->mat.refr * (norm.col_res->refr ? norm.col_res->refr->b : 0) 
+	+ norm.cur_obj->mat.refr * (norm.col_res->refr ? norm.col_res->refr->b : 0)
 	+ (norm.cur_obj->mat.refl + norm.refl) * (norm.col_res->refl ?
 	norm.col_res->refl->b : 0));
 }
@@ -97,7 +97,6 @@ void						ft_smooth_shadows(t_shadow *s, t_env *e)
 		s->work.light->offset.x += s->work.light->dist_light;
 		i[0]++;
 	}
-
 }
 
 t_color						*ft_ishadow(t_env *e, t_ray *ray, double t,
