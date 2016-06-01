@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 12:22:26 by ebouther          #+#    #+#             */
-/*   Updated: 2016/06/01 16:12:27 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/01 17:18:01 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ static void	ft_init_gen(double ***noise, char **data)
 	i = 0;
 	srand(time(NULL));
 	if ((*noise = (double **)malloc(sizeof(double *) * NOISE_HEIGHT)) == NULL)
-		ft_error_exit("Cannot allocate memory.\n");
+		ft_error_exit("Noise: Cannot allocate memory.\n");
 	while (i < NOISE_HEIGHT)
 		(*noise)[i++] = (double *)malloc(sizeof(double *) * NOISE_WIDTH);
 	generate_noise(noise);
 	if ((*data = (char *)malloc(sizeof(char) * NOISE_WIDTH * NOISE_HEIGHT * 4))
 			== NULL)
-		ft_error_exit("Cannot allocate memory.\n");
+		ft_error_exit("Noise: Cannot allocate memory.\n");
 	ft_bzero((void *)*data, NOISE_HEIGHT * NOISE_WIDTH);
 }
 
@@ -37,8 +37,8 @@ char		*gen_noise(double size)
 	char	*data;
 	double	**noise;
 
-	ft_init_gen(&noise, &data);
 	y = 0;
+	ft_init_gen(&noise, &data);
 	while (y < NOISE_HEIGHT)
 	{
 		x = 0;
