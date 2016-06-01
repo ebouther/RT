@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/26 14:41:05 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 14:35:13 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 16:55:40 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		ft_set_cube(char *cube, t_env *e, t_nod *prnt)
 	if ((scale = ft_get_inner(cube, "scale", NULL, NULL)) == NULL)
 		ft_error_exit("Error: cube require a scale subobject.\n");
 	if ((speed = ft_get_inner(cube, "speed", NULL, NULL)) == NULL)
-		nod.obj->dir = (t_vec3){0, 0, 0};
+		nod.obj->speed = (t_vec3){0, 0, 0};
 	else
 		ft_set_vec3(speed, &nod.obj->speed);
 	ft_normalise(&nod.obj->dir);

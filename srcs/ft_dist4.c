@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/09 09:57:59 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 16:16:57 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 17:51:40 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,6 @@ double			*inters_cube(t_ray *ray, t_obj *obj)
 		res[0] = res[1];
 		res[1] = tmp;
 	}
-	if (kk)
-		printf("res: t[0] = %f, t[1] = %f\n",res[0],res[1]);
 	return(res);
 }
 
