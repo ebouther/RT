@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 13:57:32 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/31 15:04:23 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/01 11:40:30 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,26 @@ void		ft_set_tex(char *tex, t_obj *obj)
 	char	*value;
 
 	obj->mat.tex.tex =
-((value = ft_get_inner(tex, "path", NULL, NULL)) == NULL) ? NULL : ft_strdup(value);
+((value = ft_get_inner(tex, "path", NULL, NULL)) == NULL) ?
+	NULL : ft_strdup(value);
 	free(value);
 	(value = ft_get_inner(tex, "perlin", NULL, NULL)) == NULL ?
-obj->mat.tex.buf = NULL : ft_set_noise(value, obj);
+		obj->mat.tex.buf = NULL : ft_set_noise(value, obj);
 	free(value);
 	obj->mat.tex.height =
-((value = ft_get_inner(tex, "height", NULL, NULL)) == NULL) ? -70 : ft_atoi(value);
+	((value = ft_get_inner(tex, "height", NULL, NULL)) == NULL) ?
+		-70 : ft_atoi(value);
 	free(value);
 	obj->mat.tex.width =
 ((value = ft_get_inner(tex, "width", NULL, NULL)) == NULL) ? 0 : ft_atoi(value);
 	free(value);
 	obj->mat.tex.off_x =
-((value = ft_get_inner(tex, "offset_x", NULL, NULL)) == NULL) ? 0 : ft_atod(value);
+((value = ft_get_inner(tex, "offset_x", NULL, NULL)) == NULL) ?
+		0 : ft_atod(value);
 	free(value);
 	obj->mat.tex.off_y =
-((value = ft_get_inner(tex, "offset_y", NULL, NULL)) == NULL) ? 0 : ft_atod(value);
+((value = ft_get_inner(tex, "offset_y", NULL, NULL)) == NULL) ?
+	0 : ft_atod(value);
 	free(value);
 }
 
@@ -85,21 +89,23 @@ static void	ft_set_mat2(char *mat, t_obj *obj)
 	char	*value;
 
 	obj->mat.refl =
-((value = ft_get_inner(mat, "reflection", NULL, NULL)) == NULL) ? 0 : ft_atod(value);
+	((value = ft_get_inner(mat, "reflection", NULL, NULL)) == NULL) ?
+		0 : ft_atod(value);
 	free(value);
 	obj->mat.grid =
-((value = ft_get_inner(mat, "grid", NULL, NULL)) == NULL) ? FALSE : TRUE;
+	((value = ft_get_inner(mat, "grid", NULL, NULL)) == NULL) ? FALSE : TRUE;
 	free(value);
-	(value = ft_get_inner(mat, "texture", NULL, NULL)) == NULL ? obj->mat.tex.tex = NULL :ft_set_tex(value, obj);
+	(value = ft_get_inner(mat, "texture", NULL, NULL)) == NULL ?
+		obj->mat.tex.tex = NULL : ft_set_tex(value, obj);
 	free(value);
 	obj->mat.opac =
-((value = ft_get_inner(mat, "opac", NULL, NULL)) == NULL) ?
-1 - obj->mat.refl - obj->mat.refr : ft_atod(value);
+	((value = ft_get_inner(mat, "opac", NULL, NULL)) == NULL) ?
+		1 - obj->mat.refl - obj->mat.refr : ft_atod(value);
 	if (obj->mat.opac == 0)
-		obj->mat.col = (t_color){1, 1 ,1};
+		obj->mat.col = (t_color){1, 1, 1};
 	free(value);
 	obj->mat.waves =
-((value = ft_get_inner(mat, "waves", NULL, NULL)) == NULL) ? FALSE : TRUE;
+	((value = ft_get_inner(mat, "waves", NULL, NULL)) == NULL) ? FALSE : TRUE;
 	free(value);
 }
 
@@ -116,13 +122,16 @@ void		ft_set_mat(char *mat, t_obj *obj)
 ((value = ft_get_inner(mat, "brim", NULL, NULL)) == NULL) ? 0 : ft_atod(value);
 	free(value);
 	obj->mat.brip =
-((value = ft_get_inner(mat, "brip", NULL, NULL)) == NULL) ? 0 : (char)ft_atoi(value);
+		((value = ft_get_inner(mat, "brip", NULL, NULL)) == NULL) ?
+		0 : (char)ft_atoi(value);
 	free(value);
 	obj->mat.i_opt =
-((value = ft_get_inner(mat, "indice opt", NULL, NULL)) == NULL) ? 1 : ft_atod(value);
+		((value = ft_get_inner(mat, "indice opt", NULL, NULL)) == NULL) ?
+			1 : ft_atod(value);
 	free(value);
 	obj->mat.refr =
-((value = ft_get_inner(mat, "refraction", NULL, NULL)) == NULL) ? 0 : ft_atod(value);
+		((value = ft_get_inner(mat, "refraction", NULL, NULL)) == NULL) ?
+			0 : ft_atod(value);
 	free(value);
 	ft_set_mat2(mat, obj);
 }
