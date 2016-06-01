@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/01 13:32:42 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/06/01 14:55:27 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,18 @@
 # define TRUE 1
 # define FALSE 0
 
+# define ERR_NO_SCENE "Error: Add a <scene> object to your scene.\n"
+# define ERR_NO_CAM "Error: add a camera to your scene.\n"
+# define ERR_NO_CONFIG "Error: There are no config in your scene file.\n"
+
 int kk;
 
+/*
+**  ____________________________________________________________________
+** |																	|
+** |				** SUCH TYPEDEFS, MUCH STRUCTS **					|
+** |____________________________________________________________________|
+*/
 typedef struct	s_equ
 {
 	double		x1;
@@ -215,10 +225,6 @@ typedef struct	s_obj
 	t_equ	equ;
 }				t_obj;
 
-typedef struct	s_obj_cp
-{
-}				t_obj_cp;
-
 typedef	struct	s_pix
 {
 	t_obj		*obj;
@@ -271,6 +277,12 @@ typedef struct	s_shadow
 	t_color		col;
 }				t_shadow;
 
+/*
+**  ____________________________________________________________________
+** |																	|
+** |						==> JUNKS HERE	<==							|
+** |____________________________________________________________________|
+*/
 typedef struct	s_env
 {
 	int			bpp;
@@ -301,6 +313,12 @@ typedef struct	s_env
 	t_list		*c_obj;
 }				t_env;
 
+/*
+**  ____________________________________________________________________
+** |																	|
+** |				**  DOES NOT DESERVE TO BE HERE	**					|
+** |____________________________________________________________________|
+*/
 typedef struct	s_norm_stock_size_tex
 {
 	int			fd;
@@ -329,6 +347,12 @@ typedef struct  s_norm_ft_calc_final_col
 	double      refl;
 }               t_norm_ft_calc_final_col;
 
+/*
+**  ____________________________________________________________________
+** |																	|
+** |						**  PARSER STRUCTS **						|
+** |____________________________________________________________________|
+*/
 typedef struct	s_light_parser
 {
 	char		*position;
@@ -362,6 +386,12 @@ typedef struct	s_set_obj
 	char		*speed;
 }				t_set_obj;
 
+/*
+**  ____________________________________________________________________
+** |																	|
+** |							**  PROTOTYPES **						|
+** |____________________________________________________________________|
+*/
 void			ft_put_pixelle(int x, int y, unsigned int c, t_env *e);
 void			ft_creat_img(t_env *e);
 double			ft_equa_sec(double a, double b, double c);
@@ -369,10 +399,11 @@ void			ft_creat_win(t_env *e);
 t_ray			*ft_refr(t_ray *ray, t_work *work, double *refl);
 t_ray			*ft_refl(t_ray *ray, t_work *work);
 t_obj_col		*ft_get_inters(t_nod *nod, t_ray *ray);
-int     ft_get_composed_objects(char *objects, size_t len, t_env *e);
+int     		ft_get_composed_objects(char *objects, size_t len, t_env *e);
+
 /*
- ** texture
- */
+** Texture
+*/
 int				ft_select_texture(t_ray *ray, double t, t_obj *cur_obj, t_color *col);
 t_vec3          ft_norm_tex(t_ray *ray, double t, t_obj *cur_obj, int i);
 void            ft_norm_tex_rot(t_obj *cur_obj, t_vec3 *pos);
@@ -380,9 +411,9 @@ t_color         ft_get_tex_color(int x, int y, t_obj *cur_obj);
 unsigned int    ft_texture_sphere(t_ray *ray, double t, t_obj *cur_obj,
 		t_color *col);
 int             ft_texture(t_ray *ray, double t, t_obj *cur_obj, t_color *col);
-void        ft_rot_axex(double angle, t_vec3 *vec);
-void        ft_rot_axez(double angle, t_vec3 *vec);
-void        ft_rot_axey(double angle, t_vec3 *vec);
+void			ft_rot_axex(double angle, t_vec3 *vec);
+void			ft_rot_axez(double angle, t_vec3 *vec);
+void			ft_rot_axey(double angle, t_vec3 *vec);
 
 
 /*
@@ -443,7 +474,7 @@ void			ft_error_exit(const char *error);
 ** Parsing
 */
 char			*ft_get_inner(char *str, char *obj, int *end_tag, int *start_tag);
-int				ft_parse_scene(char *file, t_env *e);
+void			ft_parse_scene(char *file, t_env *e);
 
 int				ft_get_cylinders(char *objects, size_t len, t_env *e);
 int				ft_get_tores(char *objects, size_t len, t_env *e);
@@ -477,8 +508,8 @@ int				ft_set_quadra(char *quadra, t_env *e, t_nod *prnt);
 int				ft_set_pobj(char *pobj, t_env *e, t_nod *prnt);
 
 /*
- ** Noise
- */
+** Noise
+*/
 void			generate_noise(double ***noise);
 double			smooth_noise(double x, double y, double ***noise);
 double			turbulence(double x, double y, double size, double ***noise);
@@ -488,11 +519,27 @@ char			*gen_wood(double xy_period, double turb_power, double turb_size);
 t_color			get_pixel_color(char *data, int x, int y);
 void			put_pixel(char **data, int x, int y, int color);
 
+
 /*
- ** Shadow
- */
-t_norm_ft_calc_final_col    ft_norm_ishadow(t_norm_ft_calc_final_col norm,
-		t_env *e, t_obj *cur_obj, t_shadow s);
+**  ____________________________________________________________________
+** |																	|
+** |					==> BAD ALIGNED INCOMING <==					|
+** |____________________________________________________________________|
+*/
+t_norm_ft_calc_final_col	ft_norm_ishadow(t_norm_ft_calc_final_col norm,
+				t_env *e, t_obj *cur_obj, t_shadow s);
+/*
+**  ____________________________________________________________________
+** |																	|
+** |					    /\			/\								|
+** |						|| UP THERE ||								|
+** |____________________________________________________________________|
+*/
+
+
+/*
+** Shadow
+*/
 void            ft_calc_filtre(t_color *filtre, t_list *lst);
 t_color			*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj);
 void			ft_in_light(t_work *work, t_env *e, t_color_res *col_res);

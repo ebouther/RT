@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/01 12:21:22 by ebouther          #+#    #+#             */
-/*   Updated: 2016/06/01 12:55:57 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/06/01 13:53:16 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,3 @@ double		turbulence(double x, double y, double size, double ***noise)
 	}
 	return (128.0 * value / initial_size);
 }
-
