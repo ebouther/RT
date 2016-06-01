@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 16:47:56 by ascholle         ###   ########.fr       */
+/*   Updated: 2016/06/01 11:02:00 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,7 @@ static void			ft_pixmalloc(t_pix *pix)
 		while (j < SIZE_W)
 		{
 			pix[j + i * SIZE_W].col = (t_color *)ft_memalloc(sizeof(t_color));
+			pix[j + i * SIZE_W].obj = NULL;
 			j++;
 		}
 		i++;
