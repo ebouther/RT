@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/01 15:01:42 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/06/01 16:54:35 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -540,7 +540,7 @@ t_norm_ft_calc_final_col	ft_norm_ishadow(t_norm_ft_calc_final_col norm,
 /*
 ** Shadow
 */
-void            ft_calc_filtre(t_color *filtre, t_list *lst);
+void            ft_calc_filtre(t_color *filtre, t_obj *obj);
 t_color			*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj);
 void			ft_in_light(t_work *work, t_env *e, t_color_res *col_res);
 

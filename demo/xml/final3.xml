@@ -1,0 +1,268 @@
+
+<obj_composed>
+	<sub>
+		<id> 1 </id>
+		<obj_1>
+			<inters>
+				<obj_1>
+					<cylinder>
+						<position>
+							<x> 0 </x>
+							<y> 0 </y>
+							<z> 0 </z>
+						</position>
+						<direction>
+							<x> 0 </x>
+							<y> 1 </y>
+							<z> 0 </z>
+						</direction>
+						<radius> 20 </radius>
+						<mat> 
+							<color>
+								<r> 1 </r>
+								<g> 1 </g>
+								<b> 1 </b>
+							</color>
+							<refraction> 0.75 </refraction>
+							<indice opt> 1.15 </indice opt>
+						</mat>
+					</cylinder>
+				</obj_1>
+				<obj_2>
+					<cube>
+						<position>
+							<x> 0 </x>
+							<y> 0 </y>
+							<z> 0 </z>
+						</position>
+						<scale>
+							<x> 50 </x>
+							<y> 40 </y>
+							<z> 50 </z>
+						</scale>
+						<mat> 
+							<color>
+								<r> 1 </r>
+								<g> 1 </g>
+								<b> 1 </b>
+							</color>
+							<refraction> 0.75 </refraction>
+							<indice opt> 1.15 </indice opt>
+						</mat>
+					</cube>
+				</obj_2>
+			</inters>
+		</obj_1>
+		<obj_2>
+			<inters>
+				<obj_1>
+					<cylinder>
+						<position>
+							<x> 0 </x>
+							<y> 5 </y>
+							<z> 0 </z>
+						</position>
+						<direction>
+							<x> 0 </x>
+							<y> 1 </y>
+							<z> 0 </z>
+						</direction>
+						<radius> 18 </radius>
+						<mat> 
+							<color>
+								<r> 0 </r>
+								<g> 0 </g>
+								<b> 0 </b>
+							</color>
+							<refraction> 0.9 </refraction>
+							<indice opt> 1 </indice opt>
+						</mat>
+					</cylinder>
+				</obj_1>
+				<obj_2>
+					<cube>
+						<position>
+							<x> 0 </x>
+							<y> 0 </y>
+							<z> 0 </z>
+						</position>
+						<scale>
+							<x> 50 </x>
+							<y> 40 </y>
+							<z> 50 </z>
+						</scale>
+						<mat> 
+							<color>
+								<r> 0 </r>
+								<g> 0 </g>
+								<b> 0 </b>
+							</color>
+							<refraction> 0.9 </refraction>
+							<indice opt> 1 </indice opt>
+						</mat>
+					</cube>
+				</obj_2>
+			</inters>
+		</obj_2>
+	</sub>
+</obj_composed>
+
+<obj_composed>
+	<inters>
+		<id> 2 </id>
+		<obj_1>
+			<cylinder>
+				<position>
+					<x> 0 </x>
+					<y> 0 </y>
+					<z> 0 </z>
+				</position>
+				<direction>
+					<x> 0 </x>
+					<y> 1 </y>
+					<z> 0 </z>
+				</direction>
+				<radius> 2 </radius>
+				<mat> 
+					<color>
+						<r> 0.9 </r>
+						<g> 0 </g>
+						<b> 0 </b>
+					</color>
+				</mat>
+			</cylinder>
+		</obj_1>
+		<obj_2>
+			<cube>
+				<position>
+					<x> 0 </x>
+					<y> 0 </y>
+					<z> 0 </z>
+				</position>
+				<scale>
+					<x> 50 </x>
+					<y> 50 </y>
+					<z> 50 </z>
+				</scale>
+				<mat> 
+					<color>
+						<r> 0.75 </r>
+						<g> 0 </g>
+						<b> 0 </b>
+					</color>
+				</mat>
+			</cube>
+		</obj_2>
+	</inters>	
+</obj_composed>
+<scene>
+	<config>
+		<ambient> 0.2 </ambient>
+		<filter>  </filter>
+	</config>
+
+	<camera>
+		<position>
+			<x> 0.0 </x>
+			<y> -20.0 </y>
+			<z> -410.0 </z>
+		</position>
+
+		<angle>
+			<x> 0.0 </x>
+			<y> 0.0 </y>
+			<z> 0.0 </z>
+		</angle>
+
+		<fov> 10.0 </fov>
+	</camera>
+
+	<lights>
+		<light>
+			<nb_light> 0 </nb_light>
+			<dist_light> 0 </dist_light>
+			<intensity> 0.6 </intensity>
+			<position>
+				<x> 0.0 </x>
+				<y> 80.0 </y>
+				<z> -40.0 </z>
+			</position>
+			<color>
+				<r> 1.0 </r>
+				<g> 1.0 </g>
+				<b> 1.0 </b>
+			</color>
+		</light>
+	</lights>
+	<objects>
+
+		<plane>
+			<position>
+				<x> 0 </x>
+				<y> 0 </y>
+				<z> 300 </z>					
+			</position>
+			<normal>
+				<x> 0 </x>
+				<y> 0 </y>
+				<z> -1 </z>				
+			</normal>
+			<mat>
+				<texture>
+					<height>2000</height>
+					<width>1000</width>
+					<offset_x> 240 </offset_x>
+					<offset_y>80</offset_y>
+					<perlin>
+						<wood> 1 </wood>
+					</perlin>
+				</texture>
+				<color>
+					<r> 0.73 </r>
+					<g> 0.15 </g>
+					<b> 0.63 </b>
+				</color>
+			</mat>
+		</plane>
+		<cube>
+			<position>
+				<x> 0 </x>
+				<y> -120 </y>
+				<z> 0 </z>
+			</position>
+			<scale>
+				<x> 200 </x>
+				<y> 10 </y>
+				<z> 200 </z>
+			</scale>
+			<mat>
+				<color>
+					<r> 0.43 </r>
+					<g> 0.36 </g>
+					<b> 0.65 </b>
+				</color>
+			</mat>
+		</cube>
+		<obj>
+			<position>
+				<x> 0 </x>
+				<y> -93 </y>
+				<z> 0 </z>				
+			</position>
+			<id> 1 </id>
+		</obj>
+		<obj>
+			<rotation>
+				<x> 0 </x>
+				<y> 0 </y>
+				<z> -45 </z>
+			</rotation>
+			<position>
+				<x> 10 </x>
+				<y> -85 </y>
+				<z> 0 </z>				
+			</position>
+			<id> 2 </id>
+		</obj>
+	</objects>
+</scene>

@@ -264,7 +264,7 @@
 
 <scene>
 	<config>
-		<ambient> 0.2 </ambient>
+		<ambient> 0 </ambient>
 		<filter>  </filter>
 	</config>
 
@@ -288,7 +288,7 @@
 		<light>
 			<nb_light> 0 </nb_light>
 			<dist_light> 0 </dist_light>
-			<intensity> 0.6 </intensity>
+			<intensity> 0.7 </intensity>
 			<position>
 				<x> 0.0 </x>
 				<y> 200.0 </y>

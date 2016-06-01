@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/24 15:27:18 by ebouther          #+#    #+#             */
-/*   Updated: 2016/06/01 10:19:53 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/01 16:52:33 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void			ft_in_light(t_work *work, t_env *e, t_color_res *col_res)
 		tmp = obj->t[0] > 0 ? obj->t[0] : obj->t[1];
 		if (obj->obj->mat.refr > 0 && tmp > 0
 				&& tmp < ft_dist_light(&work->ray->pos, work->light))
-			ft_calc_filtre(&filtre, lst);
+			ft_calc_filtre(&filtre, obj->obj);
 		else if (!(tmp > ft_dist_light(&work->ray->pos, work->light)
 			|| tmp < 0))
 			break ;
