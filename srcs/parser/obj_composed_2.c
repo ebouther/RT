@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/16 16:15:55 by ascholle          #+#    #+#             */
-/*   Updated: 2016/05/31 14:27:50 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/01 11:22:19 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	ft_rot_cam(double angle, t_vec3 axe, t_obj *obj, t_vec3 rep[3])
 	ft_rot_vec(angle, axe, &rep[1]);
 	ft_rot_vec(angle, axe, &rep[2]);
 	ft_rot_vec(angle, axe, &obj->dir);
+	ft_rot_vec(angle, axe, &obj->pos);
 	ft_rot_vec(angle, axe, &obj->dir2);
 	ft_rot_vec(angle, axe, &obj->dir3);
 	ft_rot_vec(angle, axe, &obj->norm);
@@ -27,11 +28,11 @@ static void	ft_rot_obj(t_obj *obj, t_vec3 rot)
 {
 	t_vec3 rep[3];
 
-	rep[0].x = 0;
-	rep[0].y = 1.0;
+	rep[0].x = 1.0;
+	rep[0].y = 0;
 	rep[0].z = 0;
-	rep[1].x = 1.0;
-	rep[1].y = 0;
+	rep[1].x = 0;
+	rep[1].y = 1.0;
 	rep[1].z = 0;
 	rep[2].x = 0;
 	rep[2].y = 0;

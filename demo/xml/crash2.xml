@@ -143,7 +143,7 @@
 <scene>
 	<config>
 		<ambient> 0.2 </ambient>
-		<filter> sepia </filter>
+		<filter>  </filter>
 	</config>
 
 	<camera>

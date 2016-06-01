@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/13 12:07:26 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 14:22:42 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/01 12:08:45 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,10 @@ void	ft_flou(t_env *e, int x, int y, int x_end, int y_end, int x_start, int y_st
 		f = sqrt(carre(x_start - x) + carre(y_start - y)) / p;
 	else
 		return;
-	e->data2[x * 4 + 4 * y * SIZE_W] += (unsigned char)(e->data[x_start * 4 + 4 * y_start * SIZE_W] * f / p) ;
-	e->data2[x * 4 + 4 * y * SIZE_W + 1] += (unsigned char)(e->data[x_start * 4 + 4 * y_start * SIZE_W + 1] * f / p);
-	e->data2[x * 4 + 4 * y * SIZE_W + 2] += (unsigned char)(e->data[x_start * 4 + 4 * y_start * SIZE_W + 2] * f / p);
+	e->data2[x * 4 + 4 * y * SIZE_W] += (unsigned char)(e->data[x_start * 4 + 4 * y_start * SIZE_W] / p / p ) ;
+	e->data2[x * 4 + 4 * y * SIZE_W + 1] += (unsigned char)(e->data[x_start * 4 + 4 * y_start * SIZE_W + 1] / p / p);
+	e->data2[x * 4 + 4 * y * SIZE_W + 2] += (unsigned char)(e->data[x_start * 4 + 4 * y_start * SIZE_W + 2] / p / p);
 	e->data2[x * 4 + 4 * y * SIZE_W + 3] -= (unsigned char)(255 * (1 - f * f * f) / p);
-
 }
 
 void	ft_mot_pix(int x_start, int y_start, t_vec3 speed, t_env *e)
@@ -103,8 +102,11 @@ void	ft_motion_blur(t_env *e)
 		y_start = 0;
 		while (y_start < SIZE_H)
 		{
-			if (e->pix[x_start + y_start * SIZE_W].obj->speed.x || e->pix[x_start + y_start * SIZE_W].obj->speed.y || e->pix[x_start + y_start * SIZE_W].obj->speed.z)
-				ft_mot_pix(x_start, y_start, e->pix[x_start + y_start * SIZE_W].obj->speed, e);
+			if (e->pix[x_start + y_start * SIZE_W].obj)
+			{
+				if (e->pix[x_start + y_start * SIZE_W].obj->speed.x || e->pix[x_start + y_start * SIZE_W].obj->speed.y || e->pix[x_start + y_start * SIZE_W].obj->speed.z)
+					ft_mot_pix(x_start, y_start, e->pix[x_start + y_start * SIZE_W].obj->speed, e);
+			}
 			y_start++;
 		}
 		x_start++;

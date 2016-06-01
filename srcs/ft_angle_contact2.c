@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 09:45:01 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 18:01:55 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/01 10:02:41 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_vec3		*normal_cube(t_ray *ray, t_obj *obj)
 	ft_normalise(res);
 	if (kk)
 		printf("res = (%f, %f, %f)\n",res->x,res->y,res->z);
-	return (scal(*res, tmp) >= 0 ? res : pro(-1, res));
+	return (scal(*res, ray->dir) < 0 ? res : pro(-1, res));
 }
 
 t_vec3		*normal_tore(t_ray *ray, t_obj *obj)
