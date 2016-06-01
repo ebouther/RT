@@ -6,13 +6,14 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 10:36:51 by ebouther          #+#    #+#             */
-/*   Updated: 2016/05/31 14:22:10 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/01 14:59:41 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-char		*ft_get_matching_end(char *str, char *obj_start_tag, char *obj_end_tag)
+char		*ft_get_matching_end(char *str, char *obj_start_tag,
+				char *obj_end_tag)
 {
 	int			count;
 	int			i;
@@ -39,46 +40,50 @@ char		*ft_get_matching_end(char *str, char *obj_start_tag, char *obj_end_tag)
 	return (NULL);
 }
 
+static char	*ft_inner(int *end_tag, size_t len, char *ptr[2], char *str)
+{
+	char	*ret;
+	
+	if (end_tag != NULL)
+		*end_tag = (int)ptr[1] - (int)str + len + 1;
+	if (ptr[1] - (ptr[0] + len + 1) >= 0)
+	{
+		if (end_tag != NULL)
+			*end_tag = (int)ptr[1] - (int)str + len + 1;
+		if ((ret = malloc(ptr[1] - (ptr[0] + len) + 1)) == NULL)
+			exit(-1);
+		ft_strncpy(ret, ptr[0] + len, ptr[1] - (ptr[0] + len));
+		ret[ptr[1] - (ptr[0] + len)] = '\0';
+		return (ret);
+	}
+	return (NULL);
+}
+
 char		*ft_get_inner(char *str, char *obj, int *end_tag, int *start_tag)
 {
 	char	*obj_start_tag;
 	char	*obj_end_tag;
 	char	*ptr[2];
-	size_t	len;
 	char	*ret;
 
+	ret = NULL;
 	obj_start_tag = ft_strjoin_free(ft_strdup("<"),
 			ft_strjoin_free(ft_strdup(obj), ft_strdup(">")));
 	obj_end_tag = ft_strjoin_free(ft_strdup("</"),
 			ft_strjoin_free(ft_strdup(obj), ft_strdup(">")));
-	len = ft_strlen(obj_start_tag);
 	if ((ptr[0] = ft_strstr(str, obj_start_tag)) != NULL
-			&& (ptr[1] = ft_get_matching_end(ptr[0] + 1, obj_start_tag, obj_end_tag)) != NULL)
+		&& (ptr[1] = ft_get_matching_end(ptr[0] + 1,
+			obj_start_tag, obj_end_tag)) != NULL)
 	{
 		if (start_tag)
 			*start_tag = ptr[0] - str;
-		if (end_tag != NULL)
-			*end_tag = (int)ptr[1] - (int)str + len + 1;
-		if ((ret = (char *)malloc(ptr[1] - (ptr[0] + len) + 1)) == NULL)
-			exit(-1);
-		if (ptr[1] - (ptr[0] + len + 1) >= 0)
-		{
-			if (end_tag != NULL)
-				*end_tag = (int)ptr[1] - (int)str + len + 1;
-			if ((ret = malloc(ptr[1] - (ptr[0] + len) + 1)) == NULL)
-				exit(-1);
-			ft_strncpy(ret, ptr[0] + len, ptr[1] - (ptr[0] + len));
-			ret[ptr[1] - (ptr[0] + len)] = '\0';
-			ft_strdel(&obj_start_tag);
-			ft_strdel(&obj_end_tag);
-			return (ret);
-		}
+		ret = ft_inner(end_tag, ft_strlen(obj_start_tag), ptr, str);
 	}
-	if (start_tag)
+	if (ret == NULL && start_tag)
 		*start_tag = -1;
 	ft_strdel(&obj_start_tag);
 	ft_strdel(&obj_end_tag);
-	return (NULL);
+	return (ret);
 }
 
 int			ft_set_vec3(char *obj, t_vec3 *vec3)
@@ -143,7 +148,16 @@ static int	ft_set_objects(char *objects, t_env *e)
 	return (0);
 }
 
-int			ft_parse_scene(char *file, t_env *e)
+static void		ft_free_all_dat_stuff(char **str[5])
+{
+	ft_strdel(str[0]);
+	ft_strdel(str[1]);
+	ft_strdel(str[2]);
+	ft_strdel(str[3]);
+	ft_strdel(str[4]);
+}
+
+void			ft_parse_scene(char *file, t_env *e)
 {
 	char	*scene;
 	char	*camera;
@@ -153,24 +167,19 @@ int			ft_parse_scene(char *file, t_env *e)
 
 	ft_get_cobj(file, e);
 	if ((scene = ft_get_inner(file, "scene", NULL, NULL)) == NULL)
-		ft_error_exit("Add a <scene> object to your scene.\n");
+		ft_error_exit(ERR_NO_SCENE);
 	if ((camera = ft_get_inner(scene, "camera", NULL, NULL)) == NULL)
-		ft_error_exit("Error: add a camera to your scene.\n");
-	if ((lights = ft_get_inner(scene, "lights", NULL, NULL)) != NULL)
-		ft_get_lights(lights, ft_strlen(lights), e);
-	else
-		ft_putstr("There are no lights in your scene file.\n");
+		ft_error_exit(ERR_NO_CAM);
+	if ((config = ft_get_inner(scene, "config", NULL, NULL)) == NULL)
+		ft_error_exit(ERR_NO_CONFIG);
 	if ((objects = ft_get_inner(scene, "objects", NULL, NULL)) == NULL)
 		ft_putstr("There are no objects in your scene file.\n");
-	if ((config = ft_get_inner(scene, "config", NULL, NULL)) == NULL)
-		ft_error_exit("There are no config in your scene file.\n");
+	((lights = ft_get_inner(scene, "lights", NULL, NULL)) != NULL) ? 
+		ft_get_lights(lights, ft_strlen(lights), e) :
+		ft_putstr("There are no lights in your scene file.\n");
 	ft_set_config(config, e);
-		ft_strdel(&lights);
 	ft_set_camera(camera, e);
 	ft_set_objects(objects, e);
-	ft_strdel(&scene);
-	ft_strdel(&camera);
-	ft_strdel(&objects);
-	ft_strdel(&config);
-	return (0);
+	ft_free_all_dat_stuff((char **[5]){&lights, &scene, &camera, &objects,
+											&config});
 }

@@ -6,12 +6,11 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 12:22:26 by ebouther          #+#    #+#             */
-/*   Updated: 2016/06/01 12:48:38 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/06/01 13:52:50 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
 
 static void	ft_init_gen(double ***noise, char **data)
 {
