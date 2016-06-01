@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/01 12:05:22 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/06/01 13:32:42 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define COLOR_CLIP(x) (x < 1) ? x : 1
 
-# define THREAD_NUM 4
+# define THREAD_NUM 8
 # define SIZE_W 1000
 # define SIZE_H 800
 # define WIDTH 100
@@ -104,7 +104,27 @@ typedef struct	s_norm_tex
 	float		rayon;
 }				t_norm_tex;
 
-typedef struct s_tex
+typedef struct  s_c_tore
+{
+	t_color     col;
+	t_vec3      pos;
+	t_vec3      dir;
+	double      rayon;
+	double      rayon2;
+	double      iter;
+}               t_c_tore;
+
+typedef struct  s_c_helice
+{
+	t_color     col;
+	t_vec3      pos;
+	t_vec3      dir;
+	double      rayon;
+	double      iter;
+	double      height;
+}               t_c_helice;
+
+	typedef struct s_tex
 {
 	char		*tex;
 	int			height;
@@ -215,10 +235,10 @@ typedef struct	s_obj_col
 
 typedef enum	e_op
 {
-		empty,
-		inters,
-		sub,
-		uni
+	empty,
+	inters,
+	sub,
+	uni
 }				t_op;
 
 typedef struct	s_nod
@@ -349,7 +369,7 @@ void			ft_creat_win(t_env *e);
 t_ray			*ft_refr(t_ray *ray, t_work *work, double *refl);
 t_ray			*ft_refl(t_ray *ray, t_work *work);
 t_obj_col		*ft_get_inters(t_nod *nod, t_ray *ray);
-
+int     ft_get_composed_objects(char *objects, size_t len, t_env *e);
 /*
  ** texture
  */
@@ -358,8 +378,11 @@ t_vec3          ft_norm_tex(t_ray *ray, double t, t_obj *cur_obj, int i);
 void            ft_norm_tex_rot(t_obj *cur_obj, t_vec3 *pos);
 t_color         ft_get_tex_color(int x, int y, t_obj *cur_obj);
 unsigned int    ft_texture_sphere(t_ray *ray, double t, t_obj *cur_obj,
-        t_color *col);
+		t_color *col);
 int             ft_texture(t_ray *ray, double t, t_obj *cur_obj, t_color *col);
+void        ft_rot_axex(double angle, t_vec3 *vec);
+void        ft_rot_axez(double angle, t_vec3 *vec);
+void        ft_rot_axey(double angle, t_vec3 *vec);
 
 
 /*
@@ -405,13 +428,13 @@ void			ft_rot_vec(double angle, t_vec3 axe, t_vec3 *vec );
 double			*ft_equa_sec2(double a, double b, double c);
 
 /*
-** Rotation
-*/
+ ** Rotation
+ */
 t_vec3			ft_rotate(t_vec3 v, t_vec3 center, t_vec3 rot);
 
 /*
-** Utils.c
-*/
+ ** Utils.c
+ */
 char			*ft_strjoin_free(char *s1, char *s2);
 double			ft_atod(char *s);
 void			ft_error_exit(const char *error);
@@ -466,10 +489,10 @@ t_color			get_pixel_color(char *data, int x, int y);
 void			put_pixel(char **data, int x, int y, int color);
 
 /*
-** Shadow
-*/
+ ** Shadow
+ */
 t_norm_ft_calc_final_col    ft_norm_ishadow(t_norm_ft_calc_final_col norm,
-t_env *e, t_obj *cur_obj, t_shadow s);
+		t_env *e, t_obj *cur_obj, t_shadow s);
 void            ft_calc_filtre(t_color *filtre, t_list *lst);
 t_color			*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj);
 void			ft_in_light(t_work *work, t_env *e, t_color_res *col_res);

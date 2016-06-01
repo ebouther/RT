@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 17:13:59 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/30 15:39:52 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/05/31 16:49:02 by ascholle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ double	ft_norm(t_vec3 *vec)
 
 double	ft_equa_sec(double a, double b, double c)
 {
-	double delt;
+	double	delt;
 	double	r1;
 	double	r2;
 
@@ -46,7 +46,7 @@ double	ft_equa_sec(double a, double b, double c)
 	else if (delt > 0)
 	{
 		r1 = (-b - sqrt(delt)) / (2 * a);
-	   	r2 = (-b + sqrt(delt)) / (2 * a);
+		r2 = (-b + sqrt(delt)) / (2 * a);
 		if (r1 * r2 < 0)
 		{
 			if (r1 <= 0)
