@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/01 16:54:35 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/01 17:46:03 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -378,9 +378,11 @@ typedef struct	s_set_obj
 {
 	char		*position;
 	char		*direction;
+	char		*direction2;
 	char		*normal;
 	char		*radius;
 	char		*radius2;
+	char		*scale;
 	char		*angle;
 	char		*mat;
 	char		*speed;
