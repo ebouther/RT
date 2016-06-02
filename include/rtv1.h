@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/01 17:46:03 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/02 11:46:33 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -400,6 +400,11 @@ double			ft_equa_sec(double a, double b, double c);
 void			ft_creat_win(t_env *e);
 t_ray			*ft_refr(t_ray *ray, t_work *work, double *refl);
 t_ray			*ft_refl(t_ray *ray, t_work *work);
+double			ft_nb_nod(t_nod *nod);
+void			ft_free_tcol(t_obj_col *tcol, double n);
+void			ft_free_tnod(t_nod *nod);
+int				ft_opop(double t, t_nod *nod);
+void			ft_sort_tnod(t_obj_col *tcol, t_nod *tnod, double n);
 t_obj_col		*ft_get_inters(t_nod *nod, t_ray *ray);
 int     		ft_get_composed_objects(char *objects, size_t len, t_env *e);
 
