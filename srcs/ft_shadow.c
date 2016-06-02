@@ -6,14 +6,13 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/01 17:20:43 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/02 16:48:43 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void						ft_get_mat_col(t_color *col, t_obj *cur_obj,
-	t_ray *ray, double t)
+void		ft_get_mat_col(t_color *col, t_obj *cur_obj, t_ray *ray, double t)
 {
 	*col = cur_obj->mat.col;
 	if (cur_obj->mat.grid == TRUE && ft_checkerboard(ray, t))
@@ -22,7 +21,7 @@ void						ft_get_mat_col(t_color *col, t_obj *cur_obj,
 		ft_select_texture(ray, t, cur_obj, col);
 }
 
-void						ft_init_shadow(t_shadow *s, t_obj *cur_obj,
+void		ft_init_shadow(t_shadow *s, t_obj *cur_obj,
 				t_ray *ray, double t)
 {
 	s->work.obj = cur_obj;
@@ -35,27 +34,24 @@ void						ft_init_shadow(t_shadow *s, t_obj *cur_obj,
 	s->work.normal = cur_obj->get_normal(s->work.ray, cur_obj);
 }
 
-void						ft_calc_final_col(t_norm_ft_calc_final_col norm)
+void		ft_calc_final_col(t_env *e, t_color *final_col, t_color *col,
+				t_obj *cur_obj, t_color_res *col_res, double refl)
 {
-	norm.final_col->r = COLOR_CLIP(norm.e->amb * norm.col->r + norm.col->r *
-	norm.col_res->diffuse.r * norm.cur_obj->mat.opac + norm.col_res->specular.r
-	+ norm.cur_obj->mat.refr * (norm.col_res->refr ? norm.col_res->refr->r : 0)
-	+ (norm.cur_obj->mat.refl + norm.refl) * (norm.col_res->refl ?
-		norm.col_res->refl->r : 0));
-	norm.final_col->g = COLOR_CLIP(norm.e->amb * norm.col->g + norm.col->g *
-	norm.col_res->diffuse.g * norm.cur_obj->mat.opac + norm.col_res->specular.g
-	+ norm.cur_obj->mat.refr * (norm.col_res->refr ? norm.col_res->refr->g : 0)
-	+ (norm.cur_obj->mat.refl + norm.refl) * (norm.col_res->refl ?
-	norm.col_res->refl->g : 0));
-	norm.final_col->b = COLOR_CLIP(norm.e->amb * norm.col->b + norm.col->b *
-	norm.col_res->diffuse.b * norm.cur_obj->mat.opac + norm.col_res->specular.b
-	+ norm.cur_obj->mat.refr * (norm.col_res->refr ? norm.col_res->refr->b : 0)
-	+ (norm.cur_obj->mat.refl + norm.refl) * (norm.col_res->refl ?
-	norm.col_res->refl->b : 0));
+	final_col->r = COLOR_CLIP(e->amb * col->r + col->r * col_res->diffuse.r
+		* cur_obj->mat.opac + col_res->specular.r + cur_obj->mat.refr
+		* (col_res->refr ? col_res->refr->r : 0) + (cur_obj->mat.refl + refl)
+		* (col_res->refl ? col_res->refl->r : 0));
+	final_col->g = COLOR_CLIP(e->amb * col->g + col->g * col_res->diffuse.g
+		* cur_obj->mat.opac + col_res->specular.g + cur_obj->mat.refr
+		* (col_res->refr ? col_res->refr->g : 0) + (cur_obj->mat.refl + refl)
+		* (col_res->refl ? col_res->refl->g : 0));
+	final_col->b = COLOR_CLIP(e->amb * col->b + col->b * col_res->diffuse.b
+		* cur_obj->mat.opac + col_res->specular.b + cur_obj->mat.refr
+		* (col_res->refr ? col_res->refr->b : 0) + (cur_obj->mat.refl + refl)
+		* (col_res->refl ? col_res->refl->b : 0));
 }
 
-void						ft_refl_refr_calc(t_obj *cur_obj, t_shadow *s,
-		t_ray *ray, t_env *e)
+void		ft_refl_refr_calc(t_obj *cur_obj, t_shadow *s, t_ray *ray, t_env *e)
 {
 	if (cur_obj->mat.refr > 0)
 	{
@@ -102,8 +98,7 @@ void						ft_smooth_shadows(t_shadow *s, t_env *e)
 t_color						*ft_ishadow(t_env *e, t_ray *ray, double t,
 		t_obj *cur_obj)
 {
-	t_shadow					s;
-	t_norm_ft_calc_final_col	norm;
+	t_shadow	s;
 
 	s.lst = e->light;
 	ft_init_shadow(&s, cur_obj, ray, t);
@@ -123,9 +118,7 @@ t_color						*ft_ishadow(t_env *e, t_ray *ray, double t,
 		s.lst = s.lst->next;
 	}
 	ft_bri_max(&s.col_res);
-	norm.final_col = s.final_col;
-	norm = ft_norm_ishadow(norm, e, cur_obj, s);
-	ft_calc_final_col(norm);
+	ft_calc_final_col(e, s.final_col, &s.col, cur_obj, &s.col_res, s.refl);
 	ft_color_mode(s.final_col, e);
 	free(s.work.normal);
 	free(s.work.ray);
