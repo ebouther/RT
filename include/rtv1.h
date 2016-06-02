@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/01 17:46:03 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/02 11:42:21 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int kk;
 /*
 **  ____________________________________________________________________
 ** |																	|
-** |				** SUCH TYPEDEFS, MUCH STRUCTS **					|
+** |				** MUCH TYPEDEFS, SUCH STRUCTS **					|
 ** |____________________________________________________________________|
 */
 typedef struct	s_equ
@@ -379,14 +379,49 @@ typedef struct	s_set_obj
 	char		*position;
 	char		*direction;
 	char		*direction2;
+	char		*rotation;
 	char		*normal;
 	char		*radius;
 	char		*radius2;
 	char		*scale;
 	char		*angle;
 	char		*mat;
+	char		*equ;
 	char		*speed;
 }				t_set_obj;
+
+typedef struct	s_get_cobj
+{
+	char		*content;
+	int			pos;
+	size_t		len;
+	char		*unio;
+	char		*inters;
+	char		*sub;
+	int			u;
+	int			i;
+	int			s;
+}				t_get_cobj;
+
+typedef struct	s_getlst
+{
+	char		*position;
+	char		*rotation;
+	char		*cspeed;
+	char		*id;
+	t_vec3		pos;
+	t_vec3		rot;
+	t_vec3		speed;
+	t_nod		*nod;
+	t_list		*save;
+}				t_getlst;
+
+typedef struct	s_tree_vec3
+{
+	t_vec3		pos;
+	t_vec3		rot;
+	t_vec3		speed;
+}				t_tree_vec3;
 
 /*
 **  ____________________________________________________________________
@@ -498,6 +533,7 @@ void			ft_set_mat(char *mat, t_obj *obj);
 void			ft_set_equ(char *equ, t_obj *obj);
 void			ft_set_cone(char *cone, t_env *e, t_nod *prnt);
 void			ft_set_tore(char *tore, t_env *e, t_nod *prnt);
+void			ft_set_quadra(char *quadra, t_env *e, t_nod *prnt);
 int				ft_set_vec3(char *obj, t_vec3 *vec3);
 int				ft_set_color(char *obj, t_color *col);
 int				ft_set_camera(char *camera, t_env *e);
@@ -506,8 +542,10 @@ int				ft_set_cylinder(char *cylinder, t_env *e, t_nod *prnt);
 int				ft_set_sphere(char *sphere, t_env *e, t_nod *prnt);
 int				ft_set_plane(char *plane, t_env *e, t_nod *prnt);
 int				ft_set_cube(char *plane, t_env *e, t_nod *prnt);
-int				ft_set_quadra(char *quadra, t_env *e, t_nod *prnt);
 int				ft_set_pobj(char *pobj, t_env *e, t_nod *prnt);
+
+
+void			ft_rot_obj(t_obj *obj, t_vec3 rot);
 
 /*
 ** Noise

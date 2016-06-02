@@ -6,7 +6,7 @@
 /*   By: ascholle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/16 16:15:55 by ascholle          #+#    #+#             */
-/*   Updated: 2016/06/01 11:22:19 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/02 11:27:46 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_rot_cam(double angle, t_vec3 axe, t_obj *obj, t_vec3 rep[3])
 	ft_rot_vec(angle, axe, &obj->norm);
 }
 
-static void	ft_rot_obj(t_obj *obj, t_vec3 rot)
+void		ft_rot_obj(t_obj *obj, t_vec3 rot)
 {
 	t_vec3 rep[3];
 
@@ -44,122 +44,28 @@ static void	ft_rot_obj(t_obj *obj, t_vec3 rot)
 
 int			ft_get_cobj(char *objects, t_env *e)
 {
-	char	*content;
-	int		pos;
-	size_t	len;
-	char	*unio;
-	char	*inters;
-	char	*sub;
-	int		u;
-	int		i;
-	int		s;
+	t_get_cobj	g;
 
-	len = ft_strlen(objects);
-	pos = 0;
-	while ((content = ft_get_inner(objects, "obj_composed", &pos, NULL)) != NULL)
+	g.len = ft_strlen(objects);
+	g.pos = 0;
+	while ((g.content =
+			ft_get_inner(objects, "obj_composed", &g.pos, NULL)) != NULL)
 	{
-		unio = ft_get_inner(content, "union", NULL, &u);
-		inters = ft_get_inner(content, "inters", NULL, &i);
-		sub = ft_get_inner(content, "sub", NULL, &s);
-		if (i != -1 && (i < s || s == -1) && (i < u || u == -1))
-			ft_get_inter(inters, e, NULL);
-		else if (u != -1 && (u < s || s == -1) && (u < i || i == -1))
-			ft_get_union(unio, e, NULL);
-		else if (s != -1 && (s < i || i == -1) && (s < u || u == -1))
-			ft_get_sub(sub, e, NULL);
-		ft_strdel(&content);
-		if ((int)len - pos < 0)
+		g.unio = ft_get_inner(g.content, "union", NULL, &g.u);
+		g.inters = ft_get_inner(g.content, "inters", NULL, &g.i);
+		g.sub = ft_get_inner(g.content, "sub", NULL, &g.s);
+		if (g.i != -1 && (g.i < g.s || g.s == -1) && (g.i < g.u || g.u == -1))
+			ft_get_inter(g.inters, e, NULL);
+		else if (g.u != -1 && (g.u < g.s
+					|| g.s == -1) && (g.u < g.i || g.i == -1))
+			ft_get_union(g.unio, e, NULL);
+		else if (g.s != -1 && (g.s < g.i
+					|| g.i == -1) && (g.s < g.u || g.u == -1))
+			ft_get_sub(g.sub, e, NULL);
+		ft_strdel(&g.content);
+		if ((int)g.len - g.pos < 0)
 			break ;
-		objects += pos;
-	}
-	return (0);
-}
-
-void		ft_treecpy(t_nod **dest, t_nod *src, t_vec3 pos, t_vec3 rot, t_vec3 speed)
-{
-	*dest = (t_nod *)malloc(sizeof(t_nod));
-	if (src->op == empty)
-	{
-		(*dest)->obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
-		(*dest)->obj = (t_obj *)malloc(sizeof(t_obj));
-		ft_memcpy((*dest)->obj, src->obj, sizeof(t_obj));
-		if (rot.x || rot.y || rot.z)
-			ft_rot_obj((*dest)->obj, rot);
-		(*dest)->obj->pos = (t_vec3){pos.x + (*dest)->obj->pos.x, pos.y + (*dest)->obj->pos.y, pos.z + (*dest)->obj->pos.z};
-		(*dest)->l = NULL;
-		(*dest)->r = NULL;
-		(*dest)->obj->speed = (t_vec3){speed.x, speed.y, speed.z};
-		(*dest)->op = empty;
-	}
-	else
-	{
-		(*dest)->obj_col = NULL;
-		(*dest)->obj = NULL;
-		(*dest)->op = src->op;
-		ft_treecpy(&(*dest)->l, src->l, pos, rot, speed);
-		ft_treecpy(&(*dest)->r, src->r, pos, rot, speed);
-	}
-}
-
-int			ft_getlst(char *content, t_env *e)
-{
-	char	*position;
-	char	*rotation;
-	char	*cspeed;
-	char	*id;
-	t_vec3	pos;
-	t_vec3	rot;
-	t_vec3	speed;
-	t_nod	*nod;
-	t_list	*save;
-
-	save = e->c_obj;
-	if ((id = ft_get_inner(content, "id", NULL, NULL)) == NULL)
-		ft_error_exit("Error: obj need an id subobject");
-	position = ft_get_inner(content, "position", NULL, NULL);
-	rotation = ft_get_inner(content, "rotation", NULL, NULL);
-	cspeed = ft_get_inner(content, "speed", NULL, NULL);
-	nod = (t_nod *)malloc(sizeof(t_nod));
-	nod->id = ft_atod(id);
-	while (e->c_obj)
-	{
-		if (nod->id == ((t_nod *)e->c_obj->content)->id)
-		{
-			if (position)
-				ft_set_vec3(position, &pos);
-			else
-				pos = (t_vec3){0, 0, 0};
-			if (rotation)
-				ft_set_vec3(rotation, &rot);
-			else
-				rot = (t_vec3){0, 0, 0};
-			if (cspeed)
-				ft_set_vec3(cspeed, &speed);
-			else
-				speed = (t_vec3){0, 0, 0};
-			ft_treecpy(&nod, e->c_obj->content, pos, rot, speed);
-			ft_lstadd(&e->obj, ft_lstnew((void *)nod, sizeof(t_nod)));
-			break;
-		}
-		e->c_obj = e->c_obj->next;
-	}
-	e->c_obj = save;
-	return (0);
-}
-
-int			ft_get_objtolist(char *objects, size_t len, t_env *e)
-{
-	char	*content;
-	int		pos;
-
-	pos = 0;
-	while ((content = ft_get_inner(objects, "obj", &pos, NULL)) != NULL)
-	{
-		ft_getlst(content, e);
-		ft_strdel(&content);
-		if ((int)len - pos < 0)
-			break ;
-		objects += pos;
+		objects += g.pos;
 	}
 	return (0);
 }
