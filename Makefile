@@ -87,8 +87,11 @@ PARSER_FILES = parsing.c \
 			   noise.c \
 			   noise_parser.c \
 			   obj_composed.c \
-				obj_composed_2.c\
-				composed_obj_parsing.c
+			   obj_composed_2.c\
+			   obj_composed_3.c\
+			   composed_obj_parsing.c \
+			   scene_parsing.c \
+			   parsing_utils.c
 
 PARSER = $(addprefix $(PARSER_PATH), $(PARSER_FILES))
 PARSER_OBJ_PATH = $(addprefix $(OBJ_PATH), $(PARSER_PATH))
