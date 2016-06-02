@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/02 12:01:56 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/02 17:09:18 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct	s_vec3
 	double		z;
 }				t_vec3;
 
-typedef struct s_color
+typedef struct	s_color
 {
 	double		r;
 	double		g;
@@ -103,38 +103,38 @@ typedef struct	s_wood
 
 typedef struct	s_norm_tex
 {
-	float       teta;
-	float       tetaA;
-	float       tetaB;
-	float       zA;
-	float       zB;
-	float       z;
-	float       y;
-	float       yB;
+	float		teta;
+	float		tetaA;
+	float		tetaB;
+	float		zA;
+	float		zB;
+	float		z;
+	float		y;
+	float		yB;
 	float		rayon;
 }				t_norm_tex;
 
-typedef struct  s_c_tore
+typedef struct	s_c_tore
 {
-	t_color     col;
-	t_vec3      pos;
-	t_vec3      dir;
-	double      rayon;
-	double      rayon2;
-	double      iter;
-}               t_c_tore;
+	t_color		col;
+	t_vec3		pos;
+	t_vec3		dir;
+	double		rayon;
+	double		rayon2;
+	double		iter;
+}				t_c_tore;
 
-typedef struct  s_c_helice
+typedef struct	s_c_helice
 {
-	t_color     col;
-	t_vec3      pos;
-	t_vec3      dir;
-	double      rayon;
-	double      iter;
-	double      height;
-}               t_c_helice;
+	t_color		col;
+	t_vec3		pos;
+	t_vec3		dir;
+	double		rayon;
+	double		iter;
+	double		height;
+}				t_c_helice;
 
-	typedef struct s_tex
+typedef struct	s_tex
 {
 	char		*tex;
 	int			height;
@@ -143,14 +143,14 @@ typedef struct  s_c_helice
 	double		off_y;
 	int			height1;
 	int			width1;
-	int     	bpp;
+	int			bpp;
 	int			ls;
 	int			endian;
 	void		*img;
 	char		*buf;
 }				t_tex;
 
-typedef struct s_mat
+typedef struct	s_mat
 {
 	t_color		col;
 	char		grid;
@@ -219,7 +219,7 @@ typedef struct	s_obj
 	t_vec3	speed;
 	t_vec3	*v;
 	t_vec3	*vn;
-	char 	*path;
+	char	*path;
 	t_list	*face;
 	t_mat	mat;
 	t_equ	equ;
@@ -230,7 +230,7 @@ typedef	struct	s_pix
 	t_obj		*obj;
 	t_color		*col;
 	double		t;
-}				t_pix;	
+}				t_pix;
 
 typedef struct	s_obj_col
 {
@@ -330,22 +330,22 @@ typedef struct	s_norm_stock_size_tex
 	char		**split;
 }				t_norm_stock_size_tex;
 
-typedef struct  s_norm_ft_atod
+typedef struct	s_norm_ft_atod
 {
-	double      res;
-	char        sgn;
-	int         pt;
+	double		res;
+	char		sgn;
+	int			pt;
 }				t_norm_ft_atod;
 
-typedef struct  s_norm_ft_calc_final_col
+typedef struct	s_norm_ft_calc_final_col
 {
-	t_env       *e;
-	t_color     *final_col;
-	t_color     *col;
-	t_obj       *cur_obj;
-	t_color_res *col_res;
-	double      refl;
-}               t_norm_ft_calc_final_col;
+	t_env		*e;
+	t_color		*final_col;
+	t_color		*col;
+	t_obj		*cur_obj;
+	t_color_res	*col_res;
+	double		refl;
+}				t_norm_ft_calc_final_col;
 
 /*
 **  ____________________________________________________________________
@@ -441,26 +441,26 @@ void			ft_free_tnod(t_nod *nod);
 int				ft_opop(double t, t_nod *nod);
 void			ft_sort_tnod(t_obj_col *tcol, t_nod *tnod, double n);
 t_obj_col		*ft_get_inters(t_nod *nod, t_ray *ray);
-int     		ft_get_composed_objects(char *objects, size_t len, t_env *e);
+int				ft_get_composed_objects(char *objects, size_t len, t_env *e);
 
 /*
 ** Texture
 */
-int				ft_select_texture(t_ray *ray, double t, t_obj *cur_obj, t_color *col);
-t_vec3          ft_norm_tex(t_ray *ray, double t, t_obj *cur_obj, int i);
-void            ft_norm_tex_rot(t_obj *cur_obj, t_vec3 *pos);
-t_color         ft_get_tex_color(int x, int y, t_obj *cur_obj);
-unsigned int    ft_texture_sphere(t_ray *ray, double t, t_obj *cur_obj,
+int				ft_select_texture(t_ray *ray, double t, t_obj *cur_obj,
+					t_color *col);
+t_vec3			ft_norm_tex(t_ray *ray, double t, t_obj *cur_obj, int i);
+void			ft_norm_tex_rot(t_obj *cur_obj, t_vec3 *pos);
+t_color			ft_get_tex_color(int x, int y, t_obj *cur_obj);
+unsigned int	ft_texture_sphere(t_ray *ray, double t, t_obj *cur_obj,
 		t_color *col);
-int             ft_texture(t_ray *ray, double t, t_obj *cur_obj, t_color *col);
+int				ft_texture(t_ray *ray, double t, t_obj *cur_obj, t_color *col);
 void			ft_rot_axex(double angle, t_vec3 *vec);
 void			ft_rot_axez(double angle, t_vec3 *vec);
 void			ft_rot_axey(double angle, t_vec3 *vec);
 
-
 /*
- ** Normals
- */
+** Normals
+*/
 t_vec3			*normal_sphere(t_ray *ray, t_obj *obj);
 t_vec3			*normal_cyl(t_ray *ray, t_obj *obj);
 t_vec3			*normal_cube(t_ray *ray, t_obj *obj);
@@ -472,8 +472,8 @@ t_vec3			*normal_quadra(t_ray *ray, t_obj *obj);
 t_vec3			*normal_pobj(t_ray *ray, t_obj *obj);
 
 /*
- ** Intersects
- */
+** Intersects
+*/
 double			*inters_sphere(t_ray *ray, t_obj *obj);
 double			*inters_cyl(t_ray *ray, t_obj *obj);
 double			*inters_cone(t_ray *ray, t_obj *obj);
@@ -483,31 +483,30 @@ double			*inters_pobj(t_ray *ray, t_obj *obj);
 double			*inters_plan(t_ray *ray, t_obj *obj);
 double			*inters_cube(t_ray *ray, t_obj *obj);
 
-
 t_obj_col		*ft_union_obj(t_nod *nod1, t_nod *nod2, t_ray *ray);
 t_obj_col		*ft_inters_obj(t_nod *nod1, t_nod *nod2, t_ray *ray);
 t_obj_col		*ft_sub_obj(t_nod *nod1, t_nod *nod2, t_ray *ray);
 
 /*
- ** Math
- */
+** Math
+*/
 void			ft_normalise(t_vec3 *vec);
 double			ft_norm(t_vec3 *vec);
 double			carre(double x);
 double			scal(t_vec3 a, t_vec3 b);
 double			scal2(t_vec3 a);
 t_vec3			*pro(double a, t_vec3 *d);
-void			ft_rot_vec(double angle, t_vec3 axe, t_vec3 *vec );
+void			ft_rot_vec(double angle, t_vec3 axe, t_vec3 *vec);
 double			*ft_equa_sec2(double a, double b, double c);
 
 /*
- ** Rotation
- */
+** Rotation
+*/
 t_vec3			ft_rotate(t_vec3 v, t_vec3 center, t_vec3 rot);
 
 /*
- ** Utils.c
- */
+** Utils.c
+*/
 char			*ft_strjoin_free(char *s1, char *s2);
 double			ft_atod(char *s);
 void			ft_error_exit(const char *error);
@@ -515,7 +514,8 @@ void			ft_error_exit(const char *error);
 /*
 ** Parsing
 */
-char			*ft_get_inner(char *str, char *obj, int *end_tag, int *start_tag);
+char			*ft_get_inner(char *str, char *obj, int *end_tag,
+					int *start_tag);
 void			ft_parse_scene(char *file, t_env *e);
 
 int				ft_get_cylinders(char *objects, size_t len, t_env *e);
@@ -549,7 +549,6 @@ int				ft_set_plane(char *plane, t_env *e, t_nod *prnt);
 int				ft_set_cube(char *plane, t_env *e, t_nod *prnt);
 int				ft_set_pobj(char *pobj, t_env *e, t_nod *prnt);
 
-
 void			ft_rot_obj(t_obj *obj, t_vec3 rot);
 
 /*
@@ -559,11 +558,11 @@ void			generate_noise(double ***noise);
 double			smooth_noise(double x, double y, double ***noise);
 double			turbulence(double x, double y, double size, double ***noise);
 char			*gen_noise(double size);
-char			*gen_wood(double xy_period, double turb_power, double turb_size);
+char			*gen_wood(double xy_period, double turb_power,
+					double turb_size);
 
 t_color			get_pixel_color(char *data, int x, int y);
 void			put_pixel(char **data, int x, int y, int color);
-
 
 /*
 **  ____________________________________________________________________
@@ -581,11 +580,10 @@ t_norm_ft_calc_final_col	ft_norm_ishadow(t_norm_ft_calc_final_col norm,
 ** |____________________________________________________________________|
 */
 
-
 /*
 ** Shadow
 */
-void            ft_calc_filtre(t_color *filtre, t_obj *obj);
+void			ft_calc_filtre(t_color *filtre, t_obj *obj);
 t_color			*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj);
 void			ft_in_light(t_work *work, t_env *e, t_color_res *col_res);
 
@@ -596,7 +594,7 @@ void			ft_bri_max(t_color_res *colres);
 double			ft_dist_light(t_vec3 *ray_pos, t_light *light);
 
 t_ray			*ft_calc_ray(int x, int y, t_env *e);
-t_ray    		*ft_recalc_ori(t_ray *ray, double t);
+t_ray			*ft_recalc_ori(t_ray *ray, double t);
 void			ft_recalc_dir(t_light *light, t_ray *ray, t_vec3 *norm);
 double			ft_dist(int i, t_env *e);
 double			ft_angle_contact(t_ray *ray, t_vec3 *normal);
