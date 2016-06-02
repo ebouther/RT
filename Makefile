@@ -110,6 +110,7 @@ SRC_NAME = main.c \
 		   ft_dist2.c \
 		   ft_dist3.c \
 		   ft_dist4.c \
+		   ft_dist5.c \
 		   ft_math.c \
 		   ft_math2.c \
 		   ft_math3.c \

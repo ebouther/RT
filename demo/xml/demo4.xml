@@ -47,7 +47,7 @@
 				<y> 5 </y>
 				<z> 0 </z>
 			</position>
-			<path>obj4.obj</path>
+			<path>tst1.obj</path>
 			<radius> 7 </radius>
 			<mat>
 				<color>
@@ -57,24 +57,5 @@
 				</color>
 			</mat>
 		</pobj>
-		<plane>
-			<position>
-				<x> 5 </x>
-				<y> 5 </y>
-				<z> 30 </z>
-			</position>
-			<normal>
-				<x> 0 </x>
-				<y> 0 </y>
-				<z> -1 </z>
-			</normal>
-			<mat>
-				<color>
-					<r> 0.8 </r>
-					<g> 0.2 </g>
-					<b> 0.5 </b>
-				</color>
-			</mat>
-		</plane>
-	</objects>
+			</objects>
 </scene>
