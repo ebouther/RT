@@ -107,12 +107,15 @@ QString EditScene::xml_light(SceneLight *light)
     QString object;
     QTextStream(&object) <<
         "<light>"
+             "<nb_light>"<< light->nb_light <<"</nb_light>"
+             "<dist_light>"<< light->dist_light <<"</dist_light>"
              "<position>"
                 "<x>"<< light->pos_x <<"</x>"
                 "<y>"<< light->pos_y <<"</y>"
                 "<z>"<< light->pos_z <<"</z>"
             "</position>"
-            "<intensity>"<< light->intensity <<"</intensity>"
+            "<intensity>"<< light->intensity
+                         <<"</intensity>"
             "<color>"
                 "<r>"<< light->col_r <<"</r>"
                 "<g>"<< light->col_g <<"</g>"

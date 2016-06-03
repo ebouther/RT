@@ -18,7 +18,8 @@ HEADERS += \
     selectobject.h \
     editobject.h \
     sceneobject.h \
-    editlight.h
+    editlight.h \
+    scenelight.h
 
 FORMS += \
     mainwindow.ui \

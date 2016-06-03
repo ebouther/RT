@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>347</width>
-    <height>439</height>
+    <width>374</width>
+    <height>622</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -57,13 +57,14 @@
     <rect>
      <x>140</x>
      <y>250</y>
-     <width>81</width>
+     <width>91</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <pointsize>22</pointsize>
+     <italic>true</italic>
     </font>
    </property>
    <property name="text">
@@ -73,8 +74,8 @@
   <widget class="QPushButton" name="add_light">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>350</y>
+     <x>110</x>
+     <y>530</y>
      <width>151</width>
      <height>81</height>
     </rect>
@@ -120,13 +121,14 @@
     <rect>
      <x>150</x>
      <y>170</y>
-     <width>51</width>
+     <width>61</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <pointsize>22</pointsize>
+     <italic>true</italic>
     </font>
    </property>
    <property name="text">
@@ -193,6 +195,7 @@
    <property name="font">
     <font>
      <pointsize>22</pointsize>
+     <italic>true</italic>
     </font>
    </property>
    <property name="text">
@@ -210,6 +213,96 @@
    </property>
    <property name="value">
     <double>0.300000000000000</double>
+   </property>
+  </widget>
+  <widget class="QLabel" name="position_2">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>340</y>
+     <width>181</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>22</pointsize>
+     <italic>false</italic>
+     <underline>true</underline>
+    </font>
+   </property>
+   <property name="text">
+    <string>Smooth Shadow:</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="nb_light">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>400</y>
+     <width>48</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>999</number>
+   </property>
+   <property name="value">
+    <number>0</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="radius_label_2">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>390</y>
+     <width>171</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>19</pointsize>
+     <italic>true</italic>
+    </font>
+   </property>
+   <property name="text">
+    <string>Number of lights :</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="dist_light">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>450</y>
+     <width>48</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>999</number>
+   </property>
+   <property name="value">
+    <number>0</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="radius_label_3">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>440</y>
+     <width>171</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>19</pointsize>
+     <italic>true</italic>
+    </font>
+   </property>
+   <property name="text">
+    <string>Distance of lights :</string>
    </property>
   </widget>
  </widget>

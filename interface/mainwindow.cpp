@@ -25,7 +25,10 @@ int MainWindow::render_scene()
     QString rt_bin = QFileDialog::getOpenFileName(this,
         tr("Select rtv1 binary"), QDir::homePath(), tr("Rtv1 binary (rtv1)"));
     QFileInfo rt_path(rt_bin);
-    rt_process.start(rt_bin, QStringList() << rt_path.absoluteDir().absolutePath() + "/scene.xml");
+    QString scene_file = QFileDialog::getOpenFileName(this,
+        tr("Select scene file"), QDir::homePath(), tr("XML scene file (*.xml)"));
+    QFileInfo scene_path(scene_file);
+    rt_process.start(rt_bin, QStringList() << scene_path.absoluteFilePath());//rt_path.absoluteDir().absolutePath() + "/scene.xml");
     if (!rt_process.waitForStarted())
         return 0;
     if (!rt_process.waitForFinished())

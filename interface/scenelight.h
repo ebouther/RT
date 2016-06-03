@@ -17,6 +17,9 @@ public:
     double col_b;
 
     double intensity;
+
+    int     dist_light;
+    int     nb_light;
 };
 
 #endif // SCENELIGHT_H
