@@ -101,6 +101,8 @@ PARSER_OBJ_PATH = $(addprefix $(OBJ_PATH), $(PARSER_PATH))
 SRC_NAME = main.c \
 		   ft_put_pixelle.c \
 		   ft_creat_win.c \
+		   init_tex.c \
+		   ft_calc_image.c \
 		   ft_cal_gen.c \
 		   ft_texture.c \
 		   ft_texture2.c \
