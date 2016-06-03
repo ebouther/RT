@@ -1,21 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pobj_parsing3.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/06/03 11:29:23 by ebouther          #+#    #+#             */
+/*   Updated: 2016/06/03 11:30:38 by ebouther         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rtv1.h"
 
 void		ft_read_face(t_obj *pobj, char *line, int size[3])
 {
-	char 	*c;
+	char	*c;
 	t_face	face;
 
 	c = line;
 	while (*c != ' ')
-		c++;	
+		c++;
 	if ((face.v1 = ft_atoi(++c) - 1) >= size[0])
 		ft_error_exit("Error: invalid .obj file (1to many faces).\n");
 	while (*c != '/')
-		c++;	
+		c++;
 	if ((face.vn = ft_atoi(c + 2) - 1) >= size[1])
 		ft_error_exit("Error: invalid .obj file (2to many faces).\n");
 	while (*c != ' ')
-		c++;	
+		c++;
 	if ((face.v2 = ft_atoi(++c) - 1) >= size[0])
 		ft_error_exit("Error: invalid .obj file (3to many faces).\n");
 	while (*c != ' ')
@@ -66,21 +78,20 @@ void		ft_read_vec(t_list **lst, char *line)
 	if ((vec = (t_vec3*)malloc(sizeof(t_vec3))) == NULL)
 		ft_error_exit("Error: in malloc vec file\n");
 	c = line;
-	while(*c != ' ')
+	while (*c != ' ')
 	{
 		c++;
 	}
 	vec->x = ft_atod(++c);
-	while(*c != ' ')
+	while (*c != ' ')
 	{
 		c++;
 	}
 	vec->y = ft_atod(++c);
-	while(*c != ' ')
+	while (*c != ' ')
 	{
 		c++;
 	}
 	vec->z = ft_atod(++c);
 	ft_lstadd(lst, ft_lstnew((void*)vec, sizeof(t_vec3)));
 }
-
