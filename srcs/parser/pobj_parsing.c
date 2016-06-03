@@ -11,171 +11,54 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
-#include <stdio.h>
 
-static void	ft_read_face(t_obj *pobj, char *line, int size[2])
+void		ft_pobj_del(t_set_obj p)
 {
-	char 	*c;
-	t_face	face;
-
-	c = line;
-	while (*c != ' ')
-		c++;	
-	if ((face.v1 = ft_atoi(++c) - 1) >= size[0])
-		ft_error_exit("Error: invalid .obj file (1to many faces).\n");
-	while (*c != '/')
-		c++;	
-	if ((face.vn = ft_atoi(c + 2) - 1) >= size[1])
-		ft_error_exit("Error: invalid .obj file (2to many faces).\n");
-	while (*c != ' ')
-		c++;	
-	if ((face.v2 = ft_atoi(++c) - 1) >= size[0])
-		ft_error_exit("Error: invalid .obj file (3to many faces).\n");
-	while (*c != ' ')
-		c++;
-	if ((face.v3 = ft_atoi(++c) - 1) >= size[0])
-		ft_error_exit("Error: invalid .obj file (4to many faces).\n");
-
-	ft_lstadd(&pobj->face, ft_lstnew((void *)&face, sizeof(t_obj)));
+	ft_strdel(&p.position);
+	ft_strdel(&p.path);
+	ft_strdel(&p.radius);
+	ft_strdel(&p.mat);
+	ft_strdel(&p.speed);
 }
 
-static void	ft_tab_vect(t_obj *pobj, int size[2], t_list *lst)
+static void	ft_set_pobj2(t_set_obj p, t_nod *nod)
 {
-	int		i;
-	t_list	*tmp;
-
-	i = size[1] - 1;
-	tmp = lst;
-	if ((pobj->v = (t_vec3*)malloc(sizeof(t_vec3) * size[0])) == NULL)
-		ft_error_exit("Error: invalid path for the .obj file\n");
-	if ((pobj->vn = (t_vec3*)malloc(sizeof(t_vec3) * size[1])) == NULL)
-		ft_error_exit("Error: invalid path for the .obj file\n");
-	while (i >= 0)
-	{
-		(pobj->vn)[i].x =((t_vec3*)(tmp->content))->x;
-		(pobj->vn)[i].y =((t_vec3*)(tmp->content))->y;
-		(pobj->vn)[i].z =((t_vec3*)(tmp->content))->z;
-		tmp = tmp->next;
-		i--;
-	}
-	i = size[0] - 1;
-	while (i >= 0)
-	{
-		(pobj->v)[i].x =((t_vec3*)(tmp->content))->x;
-		(pobj->v)[i].y =((t_vec3*)(tmp->content))->y;
-		(pobj->v)[i].z =((t_vec3*)(tmp->content))->z;
-		tmp = tmp->next;
-		i--;
-	}
-}
-
-static void	ft_read_vec(t_list **lst, char *line)
-{
-	t_vec3	*vec;
-	char	*c;
-
-	if ((vec = (t_vec3*)malloc(sizeof(t_vec3))) == NULL)
-		ft_error_exit("Error: in malloc vec file\n");
-	c = line;
-	while(*c != ' ')
-	{
-		c++;
-	}
-	vec->x = ft_atod(++c);
-	while(*c != ' ')
-	{
-		c++;
-	}
-	vec->y = ft_atod(++c);
-	while(*c != ' ')
-	{
-		c++;
-	}
-	vec->z = ft_atod(++c);
-	ft_lstadd(lst, ft_lstnew((void*)vec, sizeof(t_vec3)));
-}
-
-static void	ft_read_pobj(char *path, t_obj *pobj)
-{
-	int		fd;
-	char	*line;
-	int		ret;
-	int		size[2];
-	t_list	*lst;
-	int i = 0;
-
-	lst = NULL;
-	if ((fd = open(path, O_RDONLY)) == -1)
-		ft_error_exit("Error: invalid path for the .obj file\n");
-	size[0] = 0; 
-	size[1] = 0; 
-	pobj->v = NULL;
-	pobj->face = NULL;
-	while ((ret = get_next_line(fd, &line)) > 0)
-	{
-		if (*line == 'v')
-		{
-			if (*(line + 1) == ' ')
-				size[0] ++;
-			else if (*(line + 1 ) == 'n')
-				size[1] ++;
-			ft_read_vec(&lst, line);
-		}
-		else if (*line == 'f')
-		{
-			if (pobj->v == NULL)
-				ft_tab_vect(pobj, size, lst);
-			ft_read_face(pobj, line, size);
-			i++;
-		}
-	}
-	if (ret == -1)
-		ft_error_exit("Error: no read possible for the .obj file\n");
-	
-	printf("il y a %d sommet, %d vecteurs normaux et %d faces\n",size[0], size[1],i);
+	ft_set_vec3(p.position, &nod->obj->pos);
+	nod->obj->rayon = ft_atod(p.radius);
+	ft_set_mat(p.mat, nod->obj);
+	ft_read_pobj(p.path, nod->obj);
+	nod->obj->get_normal = &normal_pobj;
+	nod->obj->get_inters = &inters_pobj;
+	nod->r = NULL;
+	nod->l = NULL;
+	nod->op = empty;
 }
 
 int			ft_set_pobj(char *pobj, t_env *e, t_nod *prnt)
 {
-	char	*position;
-	char	*radius;
-	char	*path;
-	char	*mat;
-	char	*speed;
-	t_nod	nod;
+	t_set_obj	p;
+	t_nod		nod;
 
 	nod.obj = (t_obj*)malloc(sizeof(t_obj));
-	if ((position = ft_get_inner(pobj, "position", NULL, NULL)) == NULL)
+	if ((p.position = ft_get_inner(pobj, "position", NULL, NULL)) == NULL)
 		ft_error_exit("Error: pobj require a position subobject.\n");
-	if ((path = ft_get_inner(pobj, "path", NULL, NULL)) == NULL)
+	if ((p.path = ft_get_inner(pobj, "path", NULL, NULL)) == NULL)
 		ft_error_exit("error: pobj require a path to the .obj file.\n");
-	if ((radius = ft_get_inner(pobj, "radius", NULL, NULL)) == NULL)
+	if ((p.radius = ft_get_inner(pobj, "radius", NULL, NULL)) == NULL)
 		ft_error_exit("Error: pobj require a radius subobject.\n");
-	if ((mat = ft_get_inner(pobj, "mat", NULL, NULL)) == NULL)
+	if ((p.mat = ft_get_inner(pobj, "mat", NULL, NULL)) == NULL)
 		ft_error_exit("Error: pobj require a material subobject.\n");
-	if ((speed = ft_get_inner(pobj, "speed", NULL, NULL)) == NULL)
+	if ((p.speed = ft_get_inner(pobj, "speed", NULL, NULL)) == NULL)
 		nod.obj->speed = (t_vec3){0, 0, 0};
 	else
-		ft_set_vec3(speed, &nod.obj->speed);
-	ft_set_vec3(position, &nod.obj->pos);
-	nod.obj->rayon = ft_atod(radius);
-	ft_set_mat(mat, nod.obj);
-	ft_read_pobj(path, nod.obj);
-	nod.obj->get_normal = &normal_pobj;
-	nod.obj->get_inters = &inters_pobj;
-	nod.r = NULL;
-	nod.l = NULL;
-	nod.op = empty;
+		ft_set_vec3(p.speed, &nod.obj->speed);
+	ft_set_pobj2(p, &nod);
 	nod.obj_col = (t_obj_col *)malloc(sizeof(t_obj_col));
 	if (e)
 		ft_lstadd(&e->obj, ft_lstnew((void *)&nod, sizeof(t_nod)));
 	else
 		ft_memcpy(prnt, &nod, sizeof(t_nod));
-	ft_strdel(&position);
-	ft_strdel(&radius);
-	ft_strdel(&path);
-	ft_strdel(&mat);
-	ft_strdel(&speed);
+	ft_pobj_del(p);
 	return (0);
 }
 

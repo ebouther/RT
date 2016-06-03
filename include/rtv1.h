@@ -377,6 +377,7 @@ typedef struct	s_set_cobj
 typedef struct	s_set_obj
 {
 	char		*position;
+	char		*path;
 	char		*direction;
 	char		*direction2;
 	char		*rotation;
@@ -550,6 +551,10 @@ int				ft_set_cube(char *plane, t_env *e, t_nod *prnt);
 int				ft_set_pobj(char *pobj, t_env *e, t_nod *prnt);
 
 void			ft_rot_obj(t_obj *obj, t_vec3 rot);
+void			ft_read_face(t_obj *pobj, char *line, int size[3]);
+void			ft_read_pobj(char *path, t_obj *pobj);
+void			ft_tab_vec(t_obj *pobj, int size[3], t_list *lst);
+void			ft_read_vec(t_list **lst, char *line);
 
 /*
 ** Noise

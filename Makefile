@@ -79,6 +79,8 @@ PARSER_FILES = parsing.c \
 			   tore_parsing.c \
 			   quadra_parsing.c \
 			   pobj_parsing.c \
+			   pobj_parsing2.c \
+			   pobj_parsing3.c \
 			   cylinder_parsing.c \
 			   light_parsing.c \
 			   config_parsing.c \
