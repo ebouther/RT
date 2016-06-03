@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/02 17:09:18 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/06/03 15:03:35 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -431,6 +431,9 @@ typedef struct	s_tree_vec3
 ** |____________________________________________________________________|
 */
 void			ft_put_pixelle(int x, int y, unsigned int c, t_env *e);
+void			ft_pixmalloc(t_pix *pix);
+void			ft_print_img(t_env *e);
+
 void			ft_creat_img(t_env *e);
 double			ft_equa_sec(double a, double b, double c);
 void			ft_creat_win(t_env *e);
@@ -445,15 +448,21 @@ t_obj_col		*ft_get_inters(t_nod *nod, t_ray *ray);
 int				ft_get_composed_objects(char *objects, size_t len, t_env *e);
 
 /*
+** Calc Image
+*/
+void				*ft_fill_img(void *e);
+
+/*
 ** Texture
 */
+void			init_tex(t_env *e);
 int				ft_select_texture(t_ray *ray, double t, t_obj *cur_obj,
 					t_color *col);
 t_vec3			ft_norm_tex(t_ray *ray, double t, t_obj *cur_obj, int i);
 void			ft_norm_tex_rot(t_obj *cur_obj, t_vec3 *pos);
 t_color			ft_get_tex_color(int x, int y, t_obj *cur_obj);
 unsigned int	ft_texture_sphere(t_ray *ray, double t, t_obj *cur_obj,
-		t_color *col);
+					t_color *col);
 int				ft_texture(t_ray *ray, double t, t_obj *cur_obj, t_color *col);
 void			ft_rot_axex(double angle, t_vec3 *vec);
 void			ft_rot_axez(double angle, t_vec3 *vec);

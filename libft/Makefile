@@ -6,7 +6,7 @@
 #    By: jbelless <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/26 08:56:13 by jbelless          #+#    #+#              #
-#    Updated: 2016/03/07 14:03:18 by jbelless         ###   ########.fr        #
+#    Updated: 2016/06/03 15:24:21 by ebouther         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ SRCS_PATH = ./srcs/
 INC_PATH = ./include/
 
 SRCS_NAME  = 	ft_atoi.c \
-		ft_atof.c \
 		ft_power.c \
 		ft_fpower.c \
 		ft_bzero.c \

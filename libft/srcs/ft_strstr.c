@@ -6,12 +6,11 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/26 16:01:07 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/23 18:16:32 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/06/03 15:27:00 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
 
 char	*ft_strstr(const char *in, const char *str)
 {
@@ -32,6 +31,6 @@ char	*ft_strstr(const char *in, const char *str)
 			if (!sc)
 				return (NULL);
 		}
-	} 
+	}
 	return ((char *)(in - 1));
 }
