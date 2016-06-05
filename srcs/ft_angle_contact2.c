@@ -78,6 +78,8 @@ t_vec3		*normal_pobj(t_ray *ray, t_obj *obj)
 	if ((res = (t_vec3 *)malloc(sizeof(t_vec3))) == NULL)
 		exit(-1);
 	*res = (t_vec3){obj->norm.x, obj->norm.y, obj->norm.z};
+	if (kk)
+		printf("norm = (%f, %f, %f)\n", res->x, res->y, res->z);
 	return (scal(*res, ray->dir) < 0 ? res : pro(-1, res));
 }
 

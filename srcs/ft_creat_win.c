@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <stdio.h>
 
 void			ft_creat_img(t_env *e)
 {
@@ -62,6 +63,7 @@ int				mouse_hook(int b, int x, int y, t_env *e)
 		e->xx = x;
 		e->yy = y;
 	}
+	printf("x = %d, y = %d\n",x,y);
 	ft_creat_img(e);
 	return (1);
 }

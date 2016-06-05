@@ -1,51 +1,52 @@
 
 <obj_composed>
 
-	<inters>
+	<sub>
 		<id> 1 </id>
 		<obj_1>
+			<sphere>
+				<position>
+					<x> 0 </x>
+					<y> 11 </y>
+					<z> 0 </z>
+				</position>
+				<radius> 13 </radius>
+				<mat> 
+					<color>
+						<r> 0.5 </r>
+						<g> 0.5 </g>
+						<b> 0.5 </b>
+					</color>
+					<refraction> 0.8 </refraction>
+					<indice opt> 1.05 </indice opt>
+				</mat>
+			</sphere>
+
+		</obj_1>
+		<obj_2>
 			<cube>
 				<position>
 					<x> 0 </x>
-					<y> 10 </y>
+					<y> 2 </y>
 					<z> 0 </z>
 				</position>
 				<scale>
-					<x> 100 </x>
-					<y> 100 </y>
-					<z> 20 </z>
+					<x> 45 </x>
+					<y> 10 </y>
+					<z> 45 </z>
 				</scale>
 				<mat> 
 					<color>
 						<r> 0 </r>
 						<g> 0 </g>
-						<b> 0 </b>
+						<b> 0.5 </b>
 					</color>
-					<refraction> 1 </refraction>
+					<refraction> 0 </refraction>
 					<indice opt> 1 </indice opt>
 				</mat>
 			</cube>
-		</obj_1>
-		<obj_2>
-			<sphere>
-				<position>
-					<x> 0 </x>
-					<y> 0 </y>
-					<z> 0 </z>
-				</position>
-				<radius> 15 </radius>
-				<mat> 
-					<color>
-						<r> 0 </r>
-						<g> 0 </g>
-						<b> 0 </b>
-					</color>
-					<refraction> 1 </refraction>
-					<indice opt> 1 </indice opt>
-				</mat>
-			</sphere>
 		</obj_2>
-	</inters>
+	</sub>
 </obj_composed>
 
 <scene>
@@ -57,12 +58,12 @@
 	<camera>
 		<position>
 			<x> 0.0 </x>
-			<y> 30.0 </y>
-			<z> -190.0 </z>
+			<y> -25.0 </y>
+			<z> -200.0 </z>
 		</position>
 
 		<angle>
-			<x> 15.0 </x>
+			<x> -15.0 </x>
 			<y> 0.0 </y>
 			<z> 0.0 </z>
 		</angle>
@@ -78,7 +79,7 @@
 			<position>
 				<x> 0.0 </x>
 				<y> 80.0 </y>
-				<z> 80.0 </z>
+				<z> -150.0 </z>
 			</position>
 			<color>
 				<r> 1.0 </r>
@@ -88,21 +89,70 @@
 		</light>
 	</lights>
 	<objects>
+		<plane>
+			<normal>
+				<x> 0</x>
+				<y> 0</y>
+				<z> -1</z>
+			</normal>
+			<position>
+				<x> 0 </x>
+				<y> 0 </y>
+				<z> 250 </z>
+			</position>
+			<mat>
+				<color>
+					<r> 0.09</r>
+					<g> 0.34 </g>
+					<b> 0.20</b>
+				</color>
+			</mat>
+		</plane>
+		<pobj>
+			<position>
+				<x> 0 </x>
+				<y> 0 </y>
+				<z> -5 </z>
+			</position>
+			<radius> 15</radius>
+			<path>42.obj</path>
+			<mat>
+				<color>
+					<r> 0.88</r>
+					<g> 0.88 </g>
+					<b> 0.88</b>
+				</color>
+			</mat>
+		</pobj>
 		<pobj>
 			<position>
 				<x> 0 </x>
 				<y> 0 </y>
 				<z> 0 </z>
 			</position>
-			<radius>5</radius>
-			<path>42.obj</path> 
+			<radius> 15</radius>
+			<path>base.obj</path>
 			<mat>
 				<color>
-					<r> 0.86 </r>
-					<g> 0.86 </g>
-					<b> 0.86 </b>
+					<r> 0.35</r>
+					<g> 0.16 </g>
+					<b> 0.0</b>
 				</color>
 			</mat>
 		</pobj>
+		<obj>
+			<id> 1</id>
+			<position>
+				<x> 0.5 </x>
+				<y> -10 </y>
+				<z> 9 </z>
+			</position>
+			<rotation>
+				<x> -75</x>
+				<y> 45</y>
+				<z> 0</z>
+			</rotation>
+		</obj>
+
 	</objects>
 </scene>

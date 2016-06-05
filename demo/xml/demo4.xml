@@ -2,7 +2,7 @@
 <scene>
 
 	<config>
-		<ambient> 0.2 </ambient>
+		<ambient> 0 </ambient>
 		<filter>  </filter>
 	</config>
 
@@ -28,7 +28,7 @@
 			<dist_light> 0 </dist_light>
 			<intensity> 0.8 </intensity>
 			<position>
-				<x> -20.0 </x>
+				<x> 40.0 </x>
 				<y> -10.0 </y>
 				<z> -30.0 </z>
 			</position>
@@ -47,8 +47,8 @@
 				<y> 5 </y>
 				<z> 0 </z>
 			</position>
-			<path>tst1.obj</path>
-			<radius> 7 </radius>
+			<path>cube.obj</path>
+			<radius> 20 </radius>
 			<mat>
 				<color>
 					<r> 0.0 </r>

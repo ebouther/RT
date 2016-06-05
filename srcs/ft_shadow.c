@@ -22,7 +22,7 @@ void		ft_get_mat_col(t_color *col, t_obj *cur_obj, t_ray *ray, double t)
 }
 
 void		ft_init_shadow(t_shadow *s, t_obj *cur_obj,
-				t_ray *ray, double t)
+		t_ray *ray, double t)
 {
 	s->work.obj = cur_obj;
 	s->col_res = (t_color_res){{0, 0, 0}, {0, 0, 0}, NULL, NULL};
@@ -35,20 +35,20 @@ void		ft_init_shadow(t_shadow *s, t_obj *cur_obj,
 }
 
 void		ft_calc_final_col(t_env *e, t_color *final_col, t_color *col,
-				t_obj *cur_obj, t_color_res *col_res, double refl)
+		t_obj *cur_obj, t_color_res *col_res, double refl)
 {
 	final_col->r = COLOR_CLIP(e->amb * col->r + col->r * col_res->diffuse.r
-		* cur_obj->mat.opac + col_res->specular.r + cur_obj->mat.refr
-		* (col_res->refr ? col_res->refr->r : 0) + (cur_obj->mat.refl + refl)
-		* (col_res->refl ? col_res->refl->r : 0));
+			* cur_obj->mat.opac + col_res->specular.r + cur_obj->mat.refr
+			* (col_res->refr ? col_res->refr->r : 0) + (cur_obj->mat.refl + refl)
+			* (col_res->refl ? col_res->refl->r : 0));
 	final_col->g = COLOR_CLIP(e->amb * col->g + col->g * col_res->diffuse.g
-		* cur_obj->mat.opac + col_res->specular.g + cur_obj->mat.refr
-		* (col_res->refr ? col_res->refr->g : 0) + (cur_obj->mat.refl + refl)
-		* (col_res->refl ? col_res->refl->g : 0));
+			* cur_obj->mat.opac + col_res->specular.g + cur_obj->mat.refr
+			* (col_res->refr ? col_res->refr->g : 0) + (cur_obj->mat.refl + refl)
+			* (col_res->refl ? col_res->refl->g : 0));
 	final_col->b = COLOR_CLIP(e->amb * col->b + col->b * col_res->diffuse.b
-		* cur_obj->mat.opac + col_res->specular.b + cur_obj->mat.refr
-		* (col_res->refr ? col_res->refr->b : 0) + (cur_obj->mat.refl + refl)
-		* (col_res->refl ? col_res->refl->b : 0));
+			* cur_obj->mat.opac + col_res->specular.b + cur_obj->mat.refr
+			* (col_res->refr ? col_res->refr->b : 0) + (cur_obj->mat.refl + refl)
+			* (col_res->refl ? col_res->refl->b : 0));
 }
 
 void		ft_refl_refr_calc(t_obj *cur_obj, t_shadow *s, t_ray *ray, t_env *e)
@@ -111,9 +111,9 @@ t_color						*ft_ishadow(t_env *e, t_ray *ray, double t,
 		s.work.light->new_k = s.work.light->k /
 			(pow(s.work.light->nb_light + 1, 3));
 		s.work.light->offset = (t_vec3){-(s.work.light->nb_light
-			* s.work.light->dist_light) / 2.0, -(s.work.light->nb_light
-			* s.work.light->dist_light) / 2.0, -(s.work.light->nb_light
-			* s.work.light->dist_light) / 2.0};
+				* s.work.light->dist_light) / 2.0, -(s.work.light->nb_light
+					* s.work.light->dist_light) / 2.0, -(s.work.light->nb_light
+						* s.work.light->dist_light) / 2.0};
 		ft_smooth_shadows(&s, e);
 		s.lst = s.lst->next;
 	}
