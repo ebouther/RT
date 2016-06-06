@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:57:07 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/03 14:57:13 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/06/06 10:06:10 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void			ft_print_img(t_env *e)
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 }
 
-
 void			ft_pixmalloc(t_pix *pix)
 {
 	int		i;
@@ -64,7 +63,7 @@ void			ft_pixmalloc(t_pix *pix)
 	}
 }
 
-void	ft_put_pixelle(int x, int y, unsigned int couleur, t_env *e)
+void			ft_put_pixelle(int x, int y, unsigned int couleur, t_env *e)
 {
 	unsigned char	*c;
 	unsigned int	*ptrc;

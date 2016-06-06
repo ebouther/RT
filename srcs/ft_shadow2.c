@@ -6,11 +6,11 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/24 15:27:18 by ebouther          #+#    #+#             */
-/*   Updated: 2016/06/03 11:34:50 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/06/06 12:01:29 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <rtv1.h>
+#include "rtv1.h"
 
 static void		ft_light_col(t_color_res *col_res, t_work *work,
 					t_color *filtre, t_env *e)
@@ -109,17 +109,30 @@ void			ft_color_mode(t_color *c, t_env *e)
 		c->r = 0;
 }
 
-int				ft_checkerboard(t_ray *ray, double t)
+void			ft_smooth_shadows(t_shadow *s, t_env *e)
 {
-	t_vec3	pos;
+	int			i[3];
 
-	pos = (t_vec3){ray->dir.x * t + ray->pos.x, ray->dir.y * t + ray->pos.y,
-		ray->dir.z * t + ray->pos.z};
-	if ((int)pos.y <= 0)
-		pos.y--;
-	if ((int)pos.x <= 0)
-		pos.x--;
-	if ((((int)pos.x + (int)pos.y) / 2) % 2 == 0)
-		return (1);
-	return (0);
+	i[0] = 0;
+	while (i[0] <= s->work.light->nb_light)
+	{
+		s->work.light->offset.y = -(s->work.light->nb_light
+				* s->work.light->dist_light) / 2.0;
+		i[1] = 0;
+		while (i[1] <= s->work.light->nb_light)
+		{
+			s->work.light->offset.z = -(s->work.light->nb_light
+					* s->work.light->dist_light) / 2.0;
+			i[2] = 0;
+			while (i[2]++ <= s->work.light->nb_light)
+			{
+				ft_in_light(&s->work, e, &s->col_res);
+				s->work.light->offset.z += s->work.light->dist_light;
+			}
+			s->work.light->offset.y += s->work.light->dist_light;
+			i[1]++;
+		}
+		s->work.light->offset.x += s->work.light->dist_light;
+		i[0]++;
+	}
 }

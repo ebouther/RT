@@ -6,11 +6,12 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:01:00 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/03 15:23:11 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/06/06 11:43:32 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <stdio.h>
 
 void			ft_creat_img(t_env *e)
 {
@@ -62,7 +63,6 @@ int				mouse_hook(int b, int x, int y, t_env *e)
 		e->xx = x;
 		e->yy = y;
 	}
-	ft_creat_img(e);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/06 18:41:50 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/06/06 18:48:18 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # define SIZE_H 800
 # define WIDTH 100
 # define HIGHT 80
-# define NOISE_WIDTH 1000
-# define NOISE_HEIGHT 1000
+# define NOISE_WIDTH 3000
+# define NOISE_HEIGHT 3000
 # define FAR 1000000000
 # define NB_ITER 10
 # define TRUE 1
@@ -37,8 +37,6 @@
 # define ERR_NO_SCENE "Error: Add a <scene> object to your scene.\n"
 # define ERR_NO_CAM "Error: add a camera to your scene.\n"
 # define ERR_NO_CONFIG "Error: There are no config in your scene file.\n"
-
-int kk;
 
 /*
 **  ____________________________________________________________________
@@ -104,13 +102,13 @@ typedef struct	s_wood
 typedef struct	s_norm_tex
 {
 	float		teta;
-	float		tetaA;
-	float		tetaB;
-	float		zA;
-	float		zB;
+	float		teta_a;
+	float		teta_b;
+	float		za;
+	float		zb;
 	float		z;
 	float		y;
-	float		yB;
+	float		yb;
 	float		rayon;
 }				t_norm_tex;
 
@@ -167,63 +165,63 @@ typedef struct	s_mat
 
 typedef struct	s_light
 {
-	t_vec3	pos;
-	t_vec3	dir;
-	t_vec3	offset;
-	t_color	col;
-	double	k;
-	double	new_k;
-	double	dist_light;
-	int		nb_light;
+	t_vec3		pos;
+	t_vec3		dir;
+	t_vec3		offset;
+	t_color		col;
+	double		k;
+	double		new_k;
+	double		dist_light;
+	int			nb_light;
 }				t_light;
 
 typedef	struct	s_cam
 {
-	t_vec3	pos;
-	t_vec3	angle;
-	t_vec3	dir;
-	t_vec3	up;
-	t_vec3	right;
-	double	distfo;
+	t_vec3		pos;
+	t_vec3		angle;
+	t_vec3		dir;
+	t_vec3		up;
+	t_vec3		right;
+	double		distfo;
 }				t_cam;
 
 typedef struct	s_ray
 {
-	t_vec3	pos;
-	t_vec3	dir;
-	double	i_opt;
-	int		iter;
+	t_vec3		pos;
+	t_vec3		dir;
+	double		i_opt;
+	int			iter;
 }				t_ray;
 
 typedef	struct	s_face
 {
-	int		v1;
-	int		v2;
-	int		v3;
-	int		vn;
+	int			v1;
+	int			v2;
+	int			v3;
+	int			vn;
 }				t_face;
 
 typedef struct	s_obj
 {
-	t_vec3	*(*get_normal)();
-	double	*(*get_inters)(t_ray *ray, struct s_obj *obj);
-	double	rayon;
-	double	rayon2;
-	double	angle;
-	t_vec3	rot;
-	t_vec3	pos;
-	t_vec3	norm;
-	t_vec3	scale;
-	t_vec3	dir;
-	t_vec3	dir2;
-	t_vec3	dir3;
-	t_vec3	speed;
-	t_vec3	*v;
-	t_vec3	*vn;
-	char	*path;
-	t_list	*face;
-	t_mat	mat;
-	t_equ	equ;
+	t_vec3		*(*get_normal)();
+	double		*(*get_inters)(t_ray *ray, struct s_obj *obj);
+	double		rayon;
+	double		rayon2;
+	double		angle;
+	t_vec3		rot;
+	t_vec3		pos;
+	t_vec3		norm;
+	t_vec3		scale;
+	t_vec3		dir;
+	t_vec3		dir2;
+	t_vec3		dir3;
+	t_vec3		speed;
+	t_vec3		*v;
+	t_vec3		*vn;
+	char		*path;
+	t_list		*face;
+	t_mat		mat;
+	t_equ		equ;
 }				t_obj;
 
 typedef	struct	s_pix
@@ -250,12 +248,12 @@ typedef enum	e_op
 
 typedef struct	s_nod
 {
-	t_op				op;
-	struct s_nod		*r;
-	struct s_nod		*l;
-	t_obj_col			*obj_col;
-	t_obj				*obj;
-	int					id;
+	t_op			op;
+	struct s_nod	*r;
+	struct s_nod	*l;
+	t_obj_col		*obj_col;
+	t_obj			*obj;
+	int				id;
 }				t_nod;
 
 typedef struct	s_work
@@ -460,7 +458,7 @@ int				ft_get_composed_objects(char *objects, size_t len, t_env *e);
 /*
 ** Calc Image
 */
-void				*ft_fill_img(void *e);
+void			*ft_fill_img(void *e);
 
 /*
 ** Texture
@@ -589,27 +587,12 @@ t_color			get_pixel_color(char *data, int x, int y);
 void			put_pixel(char **data, int x, int y, int color);
 
 /*
-**  ____________________________________________________________________
-** |																	|
-** |					==> BAD ALIGNED INCOMING <==					|
-** |____________________________________________________________________|
-*/
-t_norm_ft_calc_final_col	ft_norm_ishadow(t_norm_ft_calc_final_col norm,
-				t_env *e, t_obj *cur_obj, t_shadow s);
-/*
-**  ____________________________________________________________________
-** |																	|
-** |					    /\			/\								|
-** |						|| UP THERE ||								|
-** |____________________________________________________________________|
-*/
-
-/*
 ** Shadow
 */
 void			ft_calc_filtre(t_color *filtre, t_obj *obj);
 t_color			*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj);
 void			ft_in_light(t_work *work, t_env *e, t_color_res *col_res);
+void			ft_smooth_shadows(t_shadow *s, t_env *e);
 
 int				ft_checkerboard(t_ray *ray, double t);
 void			ft_color_mode(t_color *c, t_env *e);
@@ -624,7 +607,7 @@ double			ft_dist(int i, t_env *e);
 double			ft_angle_contact(t_ray *ray, t_vec3 *normal);
 double			ft_dist(int i, t_env *e);
 double			ft_brillance(t_vec3 *pos_cam, t_ray *ray, t_vec3 *normal);
-t_color			*ft_contact(t_ray *ray, t_env *e, t_obj **_objpix);
+t_color			*ft_contact(t_ray *ray, t_env *e, t_obj **objpix);
 
 void			ft_make_screen(t_env *e, char *name);
 
@@ -635,6 +618,6 @@ void			ft_correction(t_env *e);
 
 void			ft_celshading(t_env *e);
 
-void	ft_motion_blur(t_env *e);
+void			ft_motion_blur(t_env *e);
 
 #endif
