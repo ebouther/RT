@@ -23,18 +23,18 @@ int				ft_texture(t_ray *ray, double t, t_obj *cur_obj, t_color *col)
 	norm.teta = acos((pos.x) / cur_obj->rayon);
 	pos = ft_norm_tex(ray, t, cur_obj, cur_obj->mat.tex.height);
 	ft_norm_tex_rot(cur_obj, &pos);
-	norm.zA = pos.y;
+	norm.za = pos.y;
 	pos = ft_norm_tex(ray, t, cur_obj, cur_obj->mat.tex.width);
 	ft_norm_tex_rot(cur_obj, &pos);
-	norm.zB = pos.y;
-	norm.tetaA = acos(-1);
-	norm.tetaB = acos(1);
-	if (norm.teta < norm.tetaA && norm.teta > norm.tetaB &&
-			norm.z < norm.zB && norm.z > norm.zA)
+	norm.zb = pos.y;
+	norm.teta_a = acos(-1);
+	norm.teta_b = acos(1);
+	if (norm.teta < norm.teta_a && norm.teta > norm.teta_b &&
+			norm.z < norm.zb && norm.z > norm.za)
 	{
-		*col = ft_get_tex_color((int)((norm.teta - norm.tetaA) / (norm.tetaB -
-norm.tetaA) * cur_obj->mat.tex.width1), (int)(cur_obj->mat.tex.height1 - (((
-norm.z - norm.zA) / (norm.zB - norm.zA)) * cur_obj->mat.tex.height1)), cur_obj);
+		*col = ft_get_tex_color((int)((norm.teta - norm.teta_a) / (norm.teta_b -
+norm.teta_a) * cur_obj->mat.tex.width1), (int)(cur_obj->mat.tex.height1 - (((
+norm.z - norm.za) / (norm.zb - norm.za)) * cur_obj->mat.tex.height1)), cur_obj);
 		return (1);
 	}
 	return (0);
