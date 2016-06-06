@@ -115,7 +115,7 @@
 				<z> -5 </z>
 			</position>
 			<radius> 15</radius>
-			<path>42.obj</path>
+			<path>demo/objs/42.obj</path>
 			<mat>
 				<color>
 					<r> 0.88</r>
@@ -131,7 +131,7 @@
 				<z> 0 </z>
 			</position>
 			<radius> 15</radius>
-			<path>base.obj</path>
+			<path>demo/objs/base.obj</path>
 			<mat>
 				<color>
 					<r> 0.35</r>

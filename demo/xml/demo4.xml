@@ -47,7 +47,7 @@
 				<y> 5 </y>
 				<z> 0 </z>
 			</position>
-			<path>cube.obj</path>
+			<path>demo/objs/cube.obj</path>
 			<radius> 20 </radius>
 			<mat>
 				<color>
