@@ -100,6 +100,7 @@ void EditScene::save_to_file()
              "</scene>" << endl;
 
     }
+    this->close();
 }
 
 QString EditScene::xml_light(SceneLight *light)
