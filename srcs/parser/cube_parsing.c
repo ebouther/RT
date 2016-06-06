@@ -6,14 +6,13 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/26 14:41:05 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/05 22:43:17 by pboutin          ###   ########.fr       */
+/*   Updated: 2016/06/06 18:51:44 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-#include <stdio.h>
 
-void		ft_dir3(t_vec3 dir, t_vec3 dir2, t_vec3 *dir3)
+void			ft_dir3(t_vec3 dir, t_vec3 dir2, t_vec3 *dir3)
 {
 	dir3->x = dir2.y * dir.z - dir2.z * dir.y;
 	dir3->y = dir2.z * dir.x - dir2.x * dir.z;
