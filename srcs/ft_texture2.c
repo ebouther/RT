@@ -34,18 +34,18 @@ unsigned int	ft_texture_cone(t_ray *ray, double t, t_obj *cur_obj,
 	pos = ft_norm_tex(ray, t, cur_obj, cur_obj->mat.tex.height);
 	ft_normalise(&cur_obj->dir);
 	ft_norm_tex_rot(cur_obj, &pos);
-	norm.zA = pos.y;
+	norm.za = pos.y;
 	pos = ft_norm_tex(ray, t, cur_obj, cur_obj->mat.tex.width);
 	ft_norm_tex_rot(cur_obj, &pos);
-	norm.zB = pos.y;
-	norm.tetaA = acos(-1);
-	norm.tetaB = acos(1);
-	if (norm.teta < norm.tetaA &&
-			norm.teta > norm.tetaB && norm.z < norm.zB && norm.z > norm.zA)
+	norm.zb = pos.y;
+	norm.teta_a = acos(-1);
+	norm.teta_b = acos(1);
+	if (norm.teta < norm.teta_a &&
+			norm.teta > norm.teta_b && norm.z < norm.zb && norm.z > norm.za)
 	{
-		*col = ft_get_tex_color((int)((norm.teta - norm.tetaA) / (norm.tetaB -
-norm.tetaA) * cur_obj->mat.tex.width1), (int)(cur_obj->mat.tex.height1 - (((
-norm.z - norm.zA) / (norm.zB - norm.zA)) * cur_obj->mat.tex.height1)), cur_obj);
+		*col = ft_get_tex_color((int)((norm.teta - norm.teta_a) / (norm.teta_b -
+norm.teta_a) * cur_obj->mat.tex.width1), (int)(cur_obj->mat.tex.height1 - (((
+norm.z - norm.za) / (norm.zb - norm.za)) * cur_obj->mat.tex.height1)), cur_obj);
 		return (1);
 	}
 	return (0);
@@ -72,8 +72,8 @@ t_norm_tex		ft_norm_tex_plan(t_ray *ray, double t, t_obj *cur_obj)
 		norm.z = ray->dir.x * t + ray->pos.x;
 		norm.y = ray->dir.z * t + ray->pos.z;
 	}
-	norm.zB = cur_obj->mat.tex.off_x - cur_obj->mat.tex.width;
-	norm.yB = cur_obj->mat.tex.off_y - cur_obj->mat.tex.height;
+	norm.zb = cur_obj->mat.tex.off_x - cur_obj->mat.tex.width;
+	norm.yb = cur_obj->mat.tex.off_y - cur_obj->mat.tex.height;
 	return (norm);
 }
 
@@ -83,13 +83,13 @@ unsigned int	ft_texture_plan(t_ray *ray, double t, t_obj *cur_obj,
 	t_norm_tex	norm;
 
 	norm = ft_norm_tex_plan(ray, t, cur_obj);
-	if (norm.z < cur_obj->mat.tex.off_x && norm.z > norm.zB &&
-			norm.y < cur_obj->mat.tex.off_y && norm.y > norm.yB)
+	if (norm.z < cur_obj->mat.tex.off_x && norm.z > norm.zb &&
+			norm.y < cur_obj->mat.tex.off_y && norm.y > norm.yb)
 	{
-		*col = ft_get_tex_color((int)(((norm.z - norm.zB) / (
-			cur_obj->mat.tex.off_x - norm.zB)) * cur_obj->mat.tex.width1),
-				(int)(cur_obj->mat.tex.height1 - (((norm.y - norm.yB) /
-					(cur_obj->mat.tex.off_y - norm.yB)) *
+		*col = ft_get_tex_color((int)(((norm.z - norm.zb) / (
+			cur_obj->mat.tex.off_x - norm.zb)) * cur_obj->mat.tex.width1),
+				(int)(cur_obj->mat.tex.height1 - (((norm.y - norm.yb) /
+					(cur_obj->mat.tex.off_y - norm.yb)) *
 						cur_obj->mat.tex.height1)), cur_obj);
 		return (1);
 	}

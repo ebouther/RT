@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/06 11:25:49 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/06 11:50:27 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,20 @@ void		ft_init_shadow(t_shadow *s, t_obj *cur_obj,
 	s->work.normal = cur_obj->get_normal(s->work.ray, cur_obj);
 }
 
-void		ft_calc_final_col(t_env *e, t_color *final_col, t_color *col,
-		t_obj *cur_obj, t_color_res *col_res, double refl)
+void		ft_calc_final_col(t_env *e, t_shadow *s, t_obj *cur_obj)
 {
-	final_col->r = COLOR_CLIP(e->amb * col->r + col->r * col_res->diffuse.r
-			* cur_obj->mat.opac + col_res->specular.r + cur_obj->mat.refr
-			* (col_res->refr ? col_res->refr->r : 0) + (cur_obj->mat.refl + refl)
-			* (col_res->refl ? col_res->refl->r : 0));
-	final_col->g = COLOR_CLIP(e->amb * col->g + col->g * col_res->diffuse.g
-			* cur_obj->mat.opac + col_res->specular.g + cur_obj->mat.refr
-			* (col_res->refr ? col_res->refr->g : 0) + (cur_obj->mat.refl + refl)
-			* (col_res->refl ? col_res->refl->g : 0));
-	final_col->b = COLOR_CLIP(e->amb * col->b + col->b * col_res->diffuse.b
-			* cur_obj->mat.opac + col_res->specular.b + cur_obj->mat.refr
-			* (col_res->refr ? col_res->refr->b : 0) + (cur_obj->mat.refl + refl)
-			* (col_res->refl ? col_res->refl->b : 0));
+	s->final_col->r = COLOR_CLIP(e->amb * s->col.r + s->col.r * s->col_res.diffuse.r
+			* cur_obj->mat.opac + s->col_res.specular.r + cur_obj->mat.refr
+			* (s->col_res.refr ? s->col_res.refr->r : 0) + (cur_obj->mat.refl + s->refl)
+			* (s->col_res.refl ? s->col_res.refl->r : 0));
+	s->final_col->g = COLOR_CLIP(e->amb * s->col.g + s->col.g * s->col_res.diffuse.g
+			* cur_obj->mat.opac + s->col_res.specular.g + cur_obj->mat.refr
+			* (s->col_res.refr ? s->col_res.refr->g : 0) + (cur_obj->mat.refl + s->refl)
+			* (s->col_res.refl ? s->col_res.refl->g : 0));
+	s->final_col->b = COLOR_CLIP(e->amb * s->col.b + s->col.b * s->col_res.diffuse.b
+			* cur_obj->mat.opac + s->col_res.specular.b + cur_obj->mat.refr
+			* (s->col_res.refr ? s->col_res.refr->b : 0) + (cur_obj->mat.refl + s->refl)
+			* (s->col_res.refl ? s->col_res.refl->b : 0));
 }
 
 void		ft_refl_refr_calc(t_obj *cur_obj, t_shadow *s, t_ray *ray, t_env *e)
@@ -118,7 +117,7 @@ t_color		*ft_ishadow(t_env *e, t_ray *ray, double t,
 		s.lst = s.lst->next;
 	}
 	ft_bri_max(&s.col_res);
-	ft_calc_final_col(e, s.final_col, &s.col, cur_obj, &s.col_res, s.refl);
+	ft_calc_final_col(e, &s, cur_obj);
 	ft_color_mode(s.final_col, e);
 	free(s.work.normal);
 	free(s.work.ray);

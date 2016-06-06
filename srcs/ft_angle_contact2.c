@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 09:45:01 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/01 17:19:49 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/06 11:24:24 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ t_vec3		*normal_pobj(t_ray *ray, t_obj *obj)
 	if ((res = (t_vec3 *)malloc(sizeof(t_vec3))) == NULL)
 		exit(-1);
 	*res = (t_vec3){obj->norm.x, obj->norm.y, obj->norm.z};
-	if (kk)
-		printf("norm = (%f, %f, %f)\n", res->x, res->y, res->z);
 	return (scal(*res, ray->dir) < 0 ? res : pro(-1, res));
 }
 
