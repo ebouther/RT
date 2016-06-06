@@ -92,6 +92,8 @@ PARSER_FILES = parsing.c \
 			   obj_composed_2.c\
 			   obj_composed_3.c\
 			   predefine_obj.c \
+			   predefine2_obj.c \
+			   predefine3_obj.c \
 			   scene_parsing.c \
 			   parsing_utils.c
 

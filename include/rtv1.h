@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/03 15:03:35 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/06/06 18:41:50 by pboutin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ typedef struct	s_c_helice
 	t_vec3		pos;
 	t_vec3		dir;
 	double		rayon;
+	double		rayon2;
 	double		iter;
 	double		height;
 }				t_c_helice;
@@ -430,6 +431,15 @@ typedef struct	s_tree_vec3
 ** |							**  PROTOTYPES **						|
 ** |____________________________________________________________________|
 */
+void			ft_init_nod(t_nod *sphere_obj, t_nod *sphere2_obj, t_nod *cyl_obj);
+void        	ft_pos_sphere(t_nod *sphere_obj, t_nod *sphere2_obj,
+			t_c_helice helice, float t);
+void			ft_set_cyl_obj(t_nod *cyl_obj, t_c_helice helice, float t);
+void       		 ft_init_sphereh(t_nod *sphere, t_c_helice helice);
+void        	ft_dir_cyl(t_nod *cyl, t_nod *cube, t_c_helice helice, int t);
+void        	ft_init_cyl(t_nod *cyl, t_nod *cube, t_c_helice helice);
+void 			ft_init_sphere(t_nod *sphere, t_c_tore tore2);
+void       		ft_dir3(t_vec3 dir, t_vec3 dir2, t_vec3 *dir3);
 void			ft_put_pixelle(int x, int y, unsigned int c, t_env *e);
 void			ft_pixmalloc(t_pix *pix);
 void			ft_print_img(t_env *e);
