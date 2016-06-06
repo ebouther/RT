@@ -6,7 +6,7 @@
 /*   By: pboutin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/27 15:38:57 by pboutin           #+#    #+#             */
-/*   Updated: 2016/06/01 16:53:57 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/06 12:00:36 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,19 @@ void						ft_calc_filtre(t_color *filtre, t_obj *obj)
 	filtre->r *= obj->mat.col.r * (1 - obj->mat.opac);
 	filtre->g *= obj->mat.col.g * (1 - obj->mat.opac);
 	filtre->b *= obj->mat.col.b * (1 - obj->mat.opac);
+}
+
+int							ft_checkerboard(t_ray *ray, double t)
+{
+	t_vec3	pos;
+
+	pos = (t_vec3){ray->dir.x * t + ray->pos.x, ray->dir.y * t + ray->pos.y,
+		ray->dir.z * t + ray->pos.z};
+	if ((int)pos.y <= 0)
+		pos.y--;
+	if ((int)pos.x <= 0)
+		pos.x--;
+	if ((((int)pos.x + (int)pos.y) / 2) % 2 == 0)
+		return (1);
+	return (0);
 }

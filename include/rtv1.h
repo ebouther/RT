@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 13:49:49 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/06 11:45:37 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/06 11:58:48 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -577,19 +577,12 @@ t_color			get_pixel_color(char *data, int x, int y);
 void			put_pixel(char **data, int x, int y, int color);
 
 /*
-**  ____________________________________________________________________
-** |																	|
-** |					    /\			/\								|
-** |						|| UP THERE ||								|
-** |____________________________________________________________________|
-*/
-
-/*
 ** Shadow
 */
 void			ft_calc_filtre(t_color *filtre, t_obj *obj);
 t_color			*ft_ishadow(t_env *e, t_ray *ray, double t, t_obj *cur_obj);
 void			ft_in_light(t_work *work, t_env *e, t_color_res *col_res);
+void			ft_smooth_shadows(t_shadow *s, t_env *e);
 
 int				ft_checkerboard(t_ray *ray, double t);
 void			ft_color_mode(t_color *c, t_env *e);
