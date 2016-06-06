@@ -6,12 +6,11 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:31:25 by jbelless          #+#    #+#             */
-/*   Updated: 2016/05/31 09:40:57 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/06/06 11:11:32 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-#include <stdio.h>
 
 double			*inters_sphere(t_ray *ray, t_obj *obj)
 {
@@ -50,8 +49,6 @@ double			*inters_plan(t_ray *ray, t_obj *obj)
 	t[1] = FAR;
 	if (t[0] < 0)
 		t[0] = FAR;
-	if (kk)
-		printf("t[0] = %f, t[1]  =%f\n",t[0],t[1]);
 	return (t);
 }
 

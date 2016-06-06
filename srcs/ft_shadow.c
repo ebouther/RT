@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:09:10 by jbelless          #+#    #+#             */
-/*   Updated: 2016/06/02 16:48:43 by ebouther         ###   ########.fr       */
+/*   Updated: 2016/06/06 11:13:41 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		ft_refl_refr_calc(t_obj *cur_obj, t_shadow *s, t_ray *ray, t_env *e)
 	}
 }
 
-void						ft_smooth_shadows(t_shadow *s, t_env *e)
+void		ft_smooth_shadows(t_shadow *s, t_env *e)
 {
 	int			i[3];
 
@@ -95,7 +95,7 @@ void						ft_smooth_shadows(t_shadow *s, t_env *e)
 	}
 }
 
-t_color						*ft_ishadow(t_env *e, t_ray *ray, double t,
+t_color		*ft_ishadow(t_env *e, t_ray *ray, double t,
 		t_obj *cur_obj)
 {
 	t_shadow	s;
