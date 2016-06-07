@@ -1,0 +1,65 @@
+<scene>
+
+	<config>
+		<ambient> 0.2 </ambient>
+		<filter>  </filter>
+	</config>
+
+	<camera>
+		<position>
+			<x> 0.0 </x>
+			<y> 0.0 </y>
+			<z> -400.0 </z>
+		</position>
+
+		<angle>
+			<x> 0.0 </x>
+			<y> 0.0 </y>
+			<z> 0.0 </z>
+		</angle>
+
+		<fov> 10.0 </fov>
+	</camera>
+
+	<lights>
+		<light>
+			<intensity> 0.2 </intensity>
+			<position>
+				<x> 0.0 </x>
+				<y> 0.0 </y>
+				<z> -100.0 </z>
+			</position>
+			<nb_light> 0 </nb_light>
+			<dist_light> 0 </dist_light>
+
+			<color>
+				<r> 1.0 </r>
+				<g> 1.0 </g>
+				<b> 1.0 </b>
+			</color>
+		</light>
+	</lights>
+	<objects>
+		<c_helice>
+			<position>
+				<x> 0.0 </x>
+				<y> 50.0 </y>
+				<z> 0.0 </z>
+			</position>
+			<direction>
+				<x> 0 </x>
+				<y> 0 </y>
+				<z> 0 </z>
+			</direction>
+			<radius> 0.8 </radius>
+			<radius2> 10.0 </radius2>
+			<iteration> 200 </iteration>
+			<color>
+				<r> 1.0 </r>
+				<g> 0.0 </g>
+				<b> 0.0 </b>
+			</color>
+		</c_helice>
+	</objects>
+
+</scene>
