@@ -27,7 +27,7 @@
 			<position>
 				<x> 0.0 </x>
 				<y> 0.0 </y>
-				<z> -100.0 </z>
+				<z> -200.0 </z>
 			</position>
 			<nb_light> 0 </nb_light>
 			<dist_light> 0 </dist_light>
@@ -44,7 +44,7 @@
 			<position>
 				<x> 0.0 </x>
 				<y> 50.0 </y>
-				<z> 0.0 </z>
+				<z> 150.0 </z>
 			</position>
 			<direction>
 				<x> 0 </x>
@@ -53,7 +53,7 @@
 			</direction>
 			<radius> 0.8 </radius>
 			<radius2> 10.0 </radius2>
-			<iteration> 200 </iteration>
+			<iteration> 220 </iteration>
 			<color>
 				<r> 1.0 </r>
 				<g> 0.0 </g>
